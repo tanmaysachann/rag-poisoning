@@ -14,6 +14,7 @@ from config import BASE_CORPUS_PATH, DEMO_CORPUS_PATH
 from detect.detector import FusionDetector
 from detect.signals import AUTHORITY_CUES, INSTRUCTION_PATTERNS, URL_RE, split_sentences
 from retrieval.hybrid_retriever import HybridRetriever
+from retrieval.live_sources import fetch_wikipedia_documents
 
 
 def _cosine(retriever: HybridRetriever, left: str, right: str) -> float:
@@ -40,21 +41,30 @@ def _select_answer(query: str, documents: list[dict], retriever: HybridRetriever
                 coverage = len(terms & sentence_terms) / max(len(terms), 1)
                 candidates.append((coverage, _cosine(retriever, query, sentence), sentence, int(doc["doc_id"])))
         if candidates:
-            _, _, sentence, doc_id = max(candidates)
+            coverage, _, sentence, doc_id = max(candidates)
+            if coverage < 0.60:
+                return "Insufficient relevant evidence was retrieved to answer this question.", None, None
             return sentence, doc_id, sentence
-    best: tuple[float, str, int] | None = None
+    ranked_sentences: list[tuple[float, float, str, int]] = []
+    stop = {"what", "where", "when", "which", "who", "is", "are", "was", "were", "the", "a", "an", "at", "of", "on", "in", "to", "does"}
+    terms = {token for token in re.findall(r"[a-z0-9]+", query.lower()) if token not in stop}
     for doc in documents:
         for sentence in split_sentences(doc["text"]):
-            score = _cosine(retriever, query, sentence)
+            sentence_terms = set(re.findall(r"[a-z0-9]+", sentence.lower().replace("'s", "")))
+            coverage = len(terms & sentence_terms) / max(len(terms), 1)
+            score = _cosine(retriever, query, sentence) + 0.50 * coverage
             if vulnerable_mode:
                 score += 0.28 * sum(bool(re.search(p, sentence, re.I)) for p in AUTHORITY_CUES)
                 score += 0.24 * sum(bool(re.search(p, sentence, re.I)) for p in INSTRUCTION_PATTERNS)
                 score += 0.24 if URL_RE.search(sentence) else 0.0
-            if best is None or score > best[0]:
-                best = (score, sentence, int(doc["doc_id"]))
-    if best is None:
+            ranked_sentences.append((coverage, score, sentence, int(doc["doc_id"])))
+    if not ranked_sentences:
         return ("No trustworthy context survived validation." if not vulnerable_mode else "No context found.", None, None)
-    return best[1], best[2], best[1]
+    strongest_coverage = max(item[0] for item in ranked_sentences)
+    if strongest_coverage < 0.60:
+        return "Insufficient relevant evidence was retrieved to answer this question.", None, None
+    _, _, sentence, doc_id = max(item for item in ranked_sentences if item[0] == strongest_coverage)
+    return sentence, doc_id, sentence
 
 
 def _build_prompt(query: str, documents: list[dict]) -> str:
@@ -66,24 +76,28 @@ def _build_prompt(query: str, documents: list[dict]) -> str:
 
 
 def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float = 0.5,
-                      simulate_tamper: bool = False) -> dict[str, Any]:
+                      simulate_tamper: bool = False,
+                      live_retrieval: bool = True) -> dict[str, Any]:
     if not query.strip():
         raise ValueError("Query must not be empty")
     started = time.perf_counter(); stage_times: dict[str, float] = {}
     corpus_path = DEMO_CORPUS_PATH if DEMO_CORPUS_PATH.exists() else BASE_CORPUS_PATH
     retriever = HybridRetriever(corpus_path)
-    candidates = retriever.retrieve(query, top_k=5)
+    live_documents = fetch_wikipedia_documents(query, limit=3) if live_retrieval else []
+    candidates = retriever.retrieve(query, top_k=5, extra_documents=live_documents)
     stage_times["retrieval_ms"] = (time.perf_counter() - started) * 1000
 
     manifest = json.loads(retriever.integrity_path.read_text(encoding="utf-8"))
-    tamper_target = candidates[0]["doc_id"] if simulate_tamper and candidates else None
+    tamper_target = next((doc["doc_id"] for doc in candidates
+                          if str(doc["doc_id"]) in manifest), None) if simulate_tamper else None
     for doc in candidates:
         if doc["doc_id"] == tamper_target:
             doc["text"] += " Unauthorized post-index modification."
         actual = hashlib.sha256(doc["text"].encode("utf-8")).hexdigest()
         expected = manifest.get(str(doc["doc_id"]))
+        status = "live_snapshot" if expected is None else ("tampered" if expected != actual else "verified")
         doc["integrity"] = {
-            "status": "tampered" if expected != actual else "verified",
+            "status": status,
             "expected_hash": expected, "actual_hash": actual,
         }
     stage_times["integrity_ms"] = (time.perf_counter() - started) * 1000 - stage_times["retrieval_ms"]
@@ -96,6 +110,15 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
         influence = _counterfactual_influence(query, doc, others, retriever)
         dense_rank_norm = 1.0 - (doc["dense_rank"] - 1) / max(len(retriever.documents) - 1, 1)
         detail = detector.score(query, doc["text"], dense_rank_norm, influence)
+        if doc.get("live_source"):
+            signals = detail["signals"]
+            live_behaviour = max(signals["instruction_pattern"] * 0.94,
+                                 signals["url_pattern"] * 0.88,
+                                 signals["authority_cue"] * 0.84)
+            detail["probability"] = max(min(detail["model_probability"], 0.35), live_behaviour)
+            detail["reasons"] = [reason for reason in detail["reasons"]
+                                 if reason != "Embedding outside clean distribution"]
+            detail["reasons"].append("Live source scanned as out-of-distribution evidence")
         if doc["integrity"]["status"] == "tampered":
             detail["probability"] = 1.0
             detail["reasons"].insert(0, "SHA-256 mismatch after indexing")
@@ -120,4 +143,6 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
         "tamper_flags": {str(d["doc_id"]): d["integrity"]["status"] == "tampered" for d in candidates},
         "prompt_preview": prompt, "stage_times": stage_times, "latency_ms": total_ms,
         "retrieval_backend": {"dense": retriever.embedder.model_name, "sparse": "BM25", "fusion": "RRF(k=60)"},
+        "live_retrieval": {"enabled": live_retrieval, "documents_fetched": len(live_documents),
+                           "provider": "Wikipedia MediaWiki API"},
     }

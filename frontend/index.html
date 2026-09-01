@@ -12,7 +12,7 @@
   <main id="view-analysis" class="view active">
     <section class="intro">
       <div><p class="eyebrow">ZERO-TRUST RETRIEVAL</p><h1>Trace every document.<br><em>Trust only the evidence.</em></h1><p class="lede">A controlled poisoning lab that combines hybrid retrieval, cryptographic integrity, multi-signal detection, and isolated answer generation.</p></div>
-      <div class="scope"><span>REVIEW-1 IMPLEMENTATION</span><b>30 indexed reports</b><b>7 security signals</b><b>5 reproducible attacks</b></div>
+      <div class="scope"><span>REVIEW-1 IMPLEMENTATION</span><b>30 indexed reports</b><b>Live Wikipedia retrieval</b><b>5 reproducible attacks</b></div>
     </section>
 
     <section class="workspace">
@@ -23,6 +23,7 @@
         <label for="query">USER QUERY</label><textarea id="query" rows="3" maxlength="500"></textarea>
         <label for="threshold">QUARANTINE THRESHOLD <strong id="threshold-label">0.50</strong></label><input id="threshold" type="range" min="0.20" max="0.90" value="0.50" step="0.05">
         <div class="switch-row"><div><span class="micro">DEFENSE GATE</span><strong id="gate-label">ENABLED</strong></div><button id="toggle" class="toggle on" aria-label="Toggle defense"><span></span></button></div>
+        <label class="check"><input id="live" type="checkbox" checked><span>Fetch live Wikipedia evidence for free-text queries</span></label>
         <label class="check"><input id="tamper" type="checkbox"><span>Simulate post-index corpus tampering</span></label>
         <button id="run" class="run">RUN SECURE ANALYSIS <span>&rarr;</span></button>
         <p class="hint">The same query is executed through defended and undefended paths for a controlled counterfactual comparison.</p>

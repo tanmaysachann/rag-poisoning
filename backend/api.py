@@ -27,6 +27,7 @@ class QueryRequest(BaseModel):
     defense_enabled: bool = True
     threshold: float = Field(default=0.5, ge=0.05, le=0.95)
     simulate_tamper: bool = False
+    live_retrieval: bool = True
 
 
 @app.get("/api/health")
@@ -58,7 +59,7 @@ def evaluation() -> dict:
 def analyze(body: QueryRequest) -> dict:
     try:
         result = secure_rag_answer(body.query, body.defense_enabled, body.threshold,
-                                   body.simulate_tamper)
+                                   body.simulate_tamper, body.live_retrieval)
     except (ValueError, FileNotFoundError) as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     for doc in result["kept_docs"] + result["filtered_docs"]:
@@ -70,7 +71,9 @@ def analyze(body: QueryRequest) -> dict:
             "stats": {"retrieved": len(result["kept_docs"]) + len(result["filtered_docs"]),
                       "kept": len(result["kept_docs"]), "filtered": len(result["filtered_docs"]),
                       "threats": sum(value >= body.threshold for value in result["scores"].values()),
-                      "tampered": tampered, "integrity_percent": 100 - tampered * 20}}
+                      "tampered": tampered, "integrity_percent": 100 - tampered * 20,
+                      "live_sources": sum(bool(doc.get("live_source")) for doc in
+                                          result["kept_docs"] + result["filtered_docs"])}}
 
 
 @app.get("/", include_in_schema=False)

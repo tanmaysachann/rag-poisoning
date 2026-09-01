@@ -20,8 +20,17 @@ function scenarioChanged() {
   const item = scenarios.find(value => String(value.id) === $('scenario').value);
   if (!item) return;
   $('query').value = item.query;
+  $('live').checked = false;
   $('attack-meta').innerHTML = `${esc(item.attack_type.toUpperCase())}<br>${esc(item.operations.join(' + '))}`;
 }
+$('query').addEventListener('input', () => {
+  const selected = scenarios.find(value => String(value.id) === $('scenario').value);
+  if (selected) {
+    const custom = $('query').value.trim() !== selected.query;
+    $('live').checked = custom;
+    $('attack-meta').innerHTML = custom ? 'FREE-TEXT QUERY<br>LIVE WIKIPEDIA ENRICHMENT' : `${esc(selected.attack_type.toUpperCase())}<br>${esc(selected.operations.join(' + '))}`;
+  }
+});
 
 function bar(label, value) {
   const percent = Math.round(Math.max(0, Math.min(1, value || 0)) * 100);
@@ -34,13 +43,14 @@ function documentCard(doc, data, kept) {
   const signals = detail.signals;
   const integrity = doc.integrity || {};
   const badHash = integrity.status === 'tampered';
+  const liveSource = integrity.status === 'live_snapshot';
   const behaviour = Math.max(signals.instruction_pattern, signals.url_pattern, signals.authority_cue);
   return `<article class="doc ${kept ? '' : 'flagged'} ${badHash ? 'tampered' : ''}">
     <div class="doc-top"><div class="doc-id">DOC<br>${String(doc.doc_id).padStart(4,'0')}</div><div><h3 class="doc-title">${esc(doc.title)}</h3><div class="doc-type">${esc(doc.source_type)} / BM25 ${doc.bm25_rank} / DENSE ${doc.dense_rank}</div></div><div class="risk"><strong>${probability}%</strong><span>${kept ? 'ACCEPTED' : 'QUARANTINED'}</span></div></div>
     <div class="doc-text"><details><summary>${esc(doc.text.slice(0, 190))}${doc.text.length > 190 ? '...' : ''}</summary><p>${esc(doc.text)}</p></details></div>
     <div class="signal-bars">${bar('ANOMALY', signals.mahalanobis)}${bar('BEHAVIOUR', behaviour)}${bar('REL. SPIKE', signals.relevance_spike)}${bar('LOO INFLUENCE', signals.counterfactual_influence)}</div>
     <div class="reasons">${detail.reasons.map(reason => `<span class="reason ${kept ? '' : 'alert'}">${esc(reason)}</span>`).join('')}</div>
-    <div class="doc-foot"><span class="${badHash ? 'hash-bad' : 'hash-ok'}">SHA-256 ${badHash ? 'MISMATCH' : 'VERIFIED'} / ${esc((integrity.actual_hash || '').slice(0,12))}</span>${doc.report_url ? `<a href="${esc(doc.report_url)}" target="_blank">OPEN PDF REPORT &nearr;</a>` : '<span>CLEAN REFERENCE</span>'}</div>
+    <div class="doc-foot"><span class="${badHash ? 'hash-bad' : 'hash-ok'}">${liveSource ? 'LIVE SNAPSHOT' : `SHA-256 ${badHash ? 'MISMATCH' : 'VERIFIED'}`} / ${esc((integrity.actual_hash || '').slice(0,12))}</span>${doc.source_url ? `<a href="${esc(doc.source_url)}" target="_blank">OPEN LIVE SOURCE &nearr;</a>` : doc.report_url ? `<a href="${esc(doc.report_url)}" target="_blank">OPEN PDF REPORT &nearr;</a>` : '<span>LOCAL REFERENCE</span>'}</div>
   </article>`;
 }
 
@@ -63,7 +73,7 @@ function render(data) {
 async function run() {
   const query = $('query').value.trim(); if (!query) return;
   const button = $('run'); button.disabled = true; button.innerHTML = 'RUNNING 4-STAGE PIPELINE <span>...</span>';
-  const common = {query, threshold:Number($('threshold').value), simulate_tamper:$('tamper').checked};
+  const common = {query, threshold:Number($('threshold').value), simulate_tamper:$('tamper').checked, live_retrieval:$('live').checked};
   try {
     const request = enabled => fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...common,defense_enabled:enabled})}).then(async response => {const text=await response.text();let payload;try{payload=JSON.parse(text)}catch{if(!response.ok)throw new Error(text||'Analysis failed');throw new Error('Server returned an invalid response')}if(!response.ok)throw new Error(payload.detail||'Analysis failed');return payload;});
     [lastOn,lastOff] = await Promise.all([request(true),request(false)]); render(defense ? lastOn : lastOff);

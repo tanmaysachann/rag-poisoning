@@ -233,30 +233,48 @@ class HybridRetriever:
         order = np.argsort(-scores, kind="stable")
         return order, scores[order]
 
-    def retrieve(self, query: str, top_k: int = 5) -> list[dict]:
+    def retrieve(self, query: str, top_k: int = 5,
+                 extra_documents: Sequence[dict] | None = None) -> list[dict]:
         if not query.strip():
             raise ValueError("query must not be empty")
         if top_k <= 0:
             return []
 
-        bm25_scores = np.asarray(self.bm25.get_scores(tokenize(query)), dtype=np.float32)
+        documents = self.documents + list(extra_documents or [])
+        embeddings = self.embeddings
+        bm25 = self.bm25
+        if extra_documents:
+            embeddings = np.vstack((self.embeddings, self.encode(
+                [doc["text"] for doc in extra_documents]))).astype(np.float32)
+            tokenized = [tokenize(doc["text"]) for doc in documents]
+            try:
+                from rank_bm25 import BM25Okapi
+                bm25 = BM25Okapi(tokenized)
+            except ImportError:
+                bm25 = _SimpleBM25(tokenized)
+
+        bm25_scores = np.asarray(bm25.get_scores(tokenize(query)), dtype=np.float32)
         bm25_order = np.argsort(-bm25_scores, kind="stable")
-        dense_order, _ = self.dense_search(query)
-        bm25_ranks = np.empty(len(self.documents), dtype=np.int32)
-        dense_ranks = np.empty(len(self.documents), dtype=np.int32)
-        bm25_ranks[bm25_order] = np.arange(1, len(self.documents) + 1)
-        dense_ranks[dense_order] = np.arange(1, len(self.documents) + 1)
+        query_embedding = self.encode(query)[0]
+        dense_scores = embeddings @ query_embedding
+        dense_order = np.argsort(-dense_scores, kind="stable")
+        bm25_ranks = np.empty(len(documents), dtype=np.int32)
+        dense_ranks = np.empty(len(documents), dtype=np.int32)
+        bm25_ranks[bm25_order] = np.arange(1, len(documents) + 1)
+        dense_ranks[dense_order] = np.arange(1, len(documents) + 1)
         fused_scores = 1.0 / (RRF_K + bm25_ranks) + 1.0 / (RRF_K + dense_ranks)
-        fused_order = np.argsort(-fused_scores, kind="stable")[: min(top_k, len(self.documents))]
+        fused_order = np.argsort(-fused_scores, kind="stable")[: min(top_k, len(documents))]
 
         results: list[dict] = []
         for index in fused_order:
-            doc = self.documents[int(index)]
+            doc = documents[int(index)]
             results.append(
                 {
                     "doc_id": doc["doc_id"],
                     "title": doc.get("title", f"Document {doc['doc_id']}"),
                     "source_type": doc.get("source_type", "controlled corpus"),
+                    "source_url": doc.get("source_url"),
+                    "live_source": bool(doc.get("live_source", False)),
                     "text": doc["text"],
                     "score": float(fused_scores[index]),
                     "bm25_rank": int(bm25_ranks[index]),

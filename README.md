@@ -12,6 +12,7 @@ Sentinel RAG is a controlled, CPU-first demonstration of poisoning detection and
 - Leave-one-out cross-validation with saved ROC and confusion-matrix figures
 - Zero-trust prompt isolation and deterministic extractive answer backend
 - FastAPI security console with defended/undefended comparison
+- Dynamic Wikipedia retrieval for free-text questions, with source links and evidence-based abstention
 
 ## Setup
 
@@ -58,6 +59,8 @@ vercel.cmd --prod
 4. Enable post-index tampering to demonstrate SHA-256 mismatch detection.
 5. Open Evaluation to show LOOCV metrics and saved plots.
 6. Open Architecture to explain the implemented zero-trust stages.
+
+For controlled attack scenarios, live retrieval is disabled automatically so the experiment remains reproducible. Editing the query enables live Wikipedia retrieval; unsupported questions return an insufficient-evidence response instead of an unrelated corpus answer.
 
 ## Offline use
 
