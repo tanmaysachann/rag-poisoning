@@ -167,19 +167,25 @@ class HybridRetriever:
             self.embeddings = _normalize_rows(
                 self.embedder.encode([doc["text"] for doc in self.documents])
             )
-            np.save(self.embeddings_path, self.embeddings)
-            self.embedding_meta_path.write_text(
-                json.dumps(
-                    {
-                        "backend": self.embedder.backend,
-                        "model": self.embedder.model_name,
-                        "corpus_sha256": self.corpus_digest,
-                        "shape": list(self.embeddings.shape),
-                    },
-                    indent=2,
-                ),
-                encoding="utf-8",
-            )
+            try:
+                np.save(self.embeddings_path, self.embeddings)
+                self.embedding_meta_path.write_text(
+                    json.dumps(
+                        {
+                            "backend": self.embedder.backend,
+                            "model": self.embedder.model_name,
+                            "corpus_sha256": self.corpus_digest,
+                            "shape": list(self.embeddings.shape),
+                        },
+                        indent=2,
+                    ),
+                    encoding="utf-8",
+                )
+            except OSError:
+                # Serverless deployments expose the application bundle as
+                # read-only. Rebuilt embeddings remain valid in memory for the
+                # current invocation even when the cache cannot be persisted.
+                pass
 
         if write_integrity_manifest or not self.integrity_path.exists():
             self.write_integrity_manifest()

@@ -65,7 +65,7 @@ async function run() {
   const button = $('run'); button.disabled = true; button.innerHTML = 'RUNNING 4-STAGE PIPELINE <span>...</span>';
   const common = {query, threshold:Number($('threshold').value), simulate_tamper:$('tamper').checked};
   try {
-    const request = enabled => fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...common,defense_enabled:enabled})}).then(async response => {if(!response.ok) throw new Error((await response.json()).detail || 'Analysis failed'); return response.json();});
+    const request = enabled => fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...common,defense_enabled:enabled})}).then(async response => {const text=await response.text();let payload;try{payload=JSON.parse(text)}catch{if(!response.ok)throw new Error(text||'Analysis failed');throw new Error('Server returned an invalid response')}if(!response.ok)throw new Error(payload.detail||'Analysis failed');return payload;});
     [lastOn,lastOff] = await Promise.all([request(true),request(false)]); render(defense ? lastOn : lastOff);
     $('on-answer').textContent = lastOn.answer; $('off-answer').textContent = lastOff.answer;
     $('on-source').textContent = `Trusted source: DOC ${lastOn.source_doc_id ?? '--'} / ${lastOn.stats.filtered} document(s) quarantined.`;
