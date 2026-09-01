@@ -12,7 +12,7 @@ import numpy as np
 
 from config import BASE_CORPUS_PATH, DEMO_CORPUS_PATH
 from detect.detector import FusionDetector
-from detect.signals import AUTHORITY_CUES, INSTRUCTION_PATTERNS, URL_RE, split_sentences
+from detect.signals import split_sentences
 from retrieval.hybrid_retriever import HybridRetriever
 from retrieval.live_sources import fetch_wikipedia_documents
 
@@ -29,22 +29,9 @@ def _counterfactual_influence(query: str, candidate: dict, others: list[dict],
     return float(np.clip(max(0.0, own - alternate) * 3.0, 0.0, 1.0))
 
 
-def _select_answer(query: str, documents: list[dict], retriever: HybridRetriever,
-                   vulnerable_mode: bool) -> tuple[str, int | None, str | None]:
-    if documents and not vulnerable_mode:
-        stop = {"what", "where", "when", "which", "who", "is", "are", "was", "were", "the", "a", "an", "at", "of", "on", "in", "to", "does"}
-        terms = {token for token in re.findall(r"[a-z0-9]+", query.lower()) if token not in stop}
-        candidates = []
-        for doc in documents:
-            for sentence in split_sentences(doc["text"]):
-                sentence_terms = set(re.findall(r"[a-z0-9]+", sentence.lower().replace("'s", "")))
-                coverage = len(terms & sentence_terms) / max(len(terms), 1)
-                candidates.append((coverage, _cosine(retriever, query, sentence), sentence, int(doc["doc_id"])))
-        if candidates:
-            coverage, _, sentence, doc_id = max(candidates)
-            if coverage < 0.60:
-                return "Insufficient relevant evidence was retrieved to answer this question.", None, None
-            return sentence, doc_id, sentence
+def _select_answer(query: str, documents: list[dict],
+                   retriever: HybridRetriever) -> tuple[str, int | None, str | None]:
+    """Select evidence identically for defended and undefended paths."""
     ranked_sentences: list[tuple[float, float, str, int]] = []
     stop = {"what", "where", "when", "which", "who", "is", "are", "was", "were", "the", "a", "an", "at", "of", "on", "in", "to", "does"}
     terms = {token for token in re.findall(r"[a-z0-9]+", query.lower()) if token not in stop}
@@ -52,14 +39,10 @@ def _select_answer(query: str, documents: list[dict], retriever: HybridRetriever
         for sentence in split_sentences(doc["text"]):
             sentence_terms = set(re.findall(r"[a-z0-9]+", sentence.lower().replace("'s", "")))
             coverage = len(terms & sentence_terms) / max(len(terms), 1)
-            score = _cosine(retriever, query, sentence) + 0.50 * coverage
-            if vulnerable_mode:
-                score += 0.28 * sum(bool(re.search(p, sentence, re.I)) for p in AUTHORITY_CUES)
-                score += 0.24 * sum(bool(re.search(p, sentence, re.I)) for p in INSTRUCTION_PATTERNS)
-                score += 0.24 if URL_RE.search(sentence) else 0.0
+            score = _cosine(retriever, query, sentence)
             ranked_sentences.append((coverage, score, sentence, int(doc["doc_id"])))
     if not ranked_sentences:
-        return ("No trustworthy context survived validation." if not vulnerable_mode else "No context found.", None, None)
+        return "No context was available for answer extraction.", None, None
     strongest_coverage = max(item[0] for item in ranked_sentences)
     if strongest_coverage < 0.60:
         return "Insufficient relevant evidence was retrieved to answer this question.", None, None
@@ -133,7 +116,7 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
     answer_docs = kept if defense_enabled else candidates
     prompt = _build_prompt(query, answer_docs)
     answer, source_doc_id, evidence_sentence = _select_answer(
-        query, answer_docs, retriever, vulnerable_mode=not defense_enabled)
+        query, answer_docs, retriever)
     stage_times["generation_ms"] = max(0.0, (time.perf_counter() - started) * 1000 - sum(stage_times.values()))
     total_ms = (time.perf_counter() - started) * 1000
     return {

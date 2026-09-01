@@ -40,6 +40,12 @@ python scripts/build_pdf_reports.py
 python backend/api.py
 ```
 
+Run the dynamic-pipeline regression suite with:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
 Open `http://127.0.0.1:8000`. If that port is already in use, stop the older process with `Ctrl+C` before restarting.
 
 ## Vercel deployment
@@ -55,16 +61,30 @@ vercel.cmd --prod
 
 1. Select one of the five attack scenarios.
 2. Run the pipeline with Defense ON and inspect the quarantined document, signal bars, reason codes, integrity hash, and trusted evidence sentence.
-3. Compare the result against Defense OFF in the counterfactual panel.
+3. Compare the result against Defense OFF in the counterfactual panel. Both runs use the same retrieval and sentence-extraction algorithms; Defense ON only removes documents whose detector probability crosses the selected threshold.
 4. Enable post-index tampering to demonstrate SHA-256 mismatch detection.
 5. Open Evaluation to show LOOCV metrics and saved plots.
 6. Open Architecture to explain the implemented zero-trust stages.
 
-For controlled attack scenarios, live retrieval is disabled automatically so the experiment remains reproducible. Editing the query enables live Wikipedia retrieval; unsupported questions return an insufficient-evidence response instead of an unrelated corpus answer.
+The five scenarios are query shortcuts, not answer templates. The live-retrieval checkbox is an explicit user control and is never changed automatically. With it enabled, the query is sent to the Wikipedia MediaWiki API and up to three current article extracts are ranked together with the local corpus. With it disabled, only the 30 indexed local reports are searched. Unsupported questions return an insufficient-evidence response instead of an unrelated corpus answer.
 
 ## Offline use
 
-The default embedding backend is deterministic hashing, so the prepared demo does not need a model download. Set `RAG_USE_MINILM=1` only when `sentence-transformers/all-MiniLM-L6-v2` is already cached or internet access is available, then rebuild the indexes and retrain the classifier with that same backend.
+The hosted Vercel build uses deterministic 384-dimensional hashing embeddings because the complete PyTorch/MiniLM runtime is too large for a small serverless function. The local review build supports the real `sentence-transformers/all-MiniLM-L6-v2` encoder and reports the active backend directly under the **RETRIEVED** metric.
+
+After installing `requirements-dev.txt`, build and run the MiniLM version with:
+
+```powershell
+$env:RAG_USE_MINILM="1"
+python scripts/build_index.py --reuse-data
+python scripts/inject_poison.py
+python -m detect.train_fusion_classifier
+python backend/api.py
+```
+
+The first command that loads MiniLM may download the model once. After it is cached, add `$env:HF_HUB_OFFLINE="1"` and `$env:TRANSFORMERS_OFFLINE="1"` for a fully offline demonstration. Keep `RAG_USE_MINILM=1` set in the terminal used to start the API so the index, detector, and query vectors all use the same embedding space.
+
+For the zero-download fallback, remove that environment variable and rerun the three artifact-building commands. Separate backend-specific classifier artifacts prevent a hashing classifier from being mixed with MiniLM features.
 
 ## Honest limitation
 

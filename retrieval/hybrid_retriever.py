@@ -153,7 +153,8 @@ class HybridRetriever:
         self.corpus_digest = hashlib.sha256(self.corpus_path.read_bytes()).hexdigest()
 
         cached_meta = self._read_json(self.embedding_meta_path)
-        preferred_backend = cached_meta.get("backend") if os.getenv("RAG_USE_MINILM") and cached_meta else "hashing"
+        use_minilm = os.getenv("RAG_USE_MINILM", "0").strip().lower() in {"1", "true", "yes", "on"}
+        preferred_backend = None if use_minilm else "hashing"
         self.embedder = TextEmbedder(preferred_backend=preferred_backend)
         cache_valid = (
             not force_rebuild

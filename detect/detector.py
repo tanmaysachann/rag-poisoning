@@ -10,15 +10,15 @@ import numpy as np
 from config import ARTIFACTS_DIR
 from detect.signals import behavioural_signal_components, isolation_forest_score, mahalanobis_score
 
-MODEL_PATH = ARTIFACTS_DIR / "fusion_classifier.joblib"
-
-
 class FusionDetector:
     """Score retrieved documents and expose the evidence behind each decision."""
 
-    def __init__(self, embedder: Any, model_path: str | Path = MODEL_PATH) -> None:
+    def __init__(self, embedder: Any, model_path: str | Path | None = None) -> None:
         self.embedder = embedder
-        path = Path(model_path)
+        backend = getattr(getattr(embedder, "embedder", embedder), "backend", "hashing")
+        path = Path(model_path) if model_path else ARTIFACTS_DIR / f"fusion_classifier_{backend}.joblib"
+        if not path.exists():
+            path = ARTIFACTS_DIR / "fusion_classifier.joblib"
         if not path.exists():
             raise FileNotFoundError("Fusion model is missing. Run: python -m detect.train_fusion_classifier")
         self.bundle = joblib.load(path)

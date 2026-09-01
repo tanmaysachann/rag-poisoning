@@ -79,6 +79,7 @@ def main() -> None:
         "f1": float(f1_score(labels, predictions, zero_division=0)),
         "roc_auc": float(roc_auc_score(labels, probabilities)),
         "clean_samples": len(clean), "poisoned_samples": len(poisoned),
+        "embedding_backend": retriever.embedder.model_name,
         "evaluation": "Leave-one-out cross-validation",
         "note": "Controlled small-sample Review-1 result; re-evaluate with RL-generated attacks in Phase 2.",
     }
@@ -90,6 +91,8 @@ def main() -> None:
               "mahal_p95": float(np.percentile(clean_distances, 95)),
               "feature_names": FEATURE_NAMES, "metrics": metrics,
               "embedding_backend": retriever.embedder.model_name}
+    backend_path = ARTIFACTS_DIR / f"fusion_classifier_{retriever.embedder.backend}.joblib"
+    joblib.dump(bundle, backend_path)
     joblib.dump(bundle, ARTIFACTS_DIR / "fusion_classifier.joblib")
     (RESULTS_DIR / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
 

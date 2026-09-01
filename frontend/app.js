@@ -1,5 +1,6 @@
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+const denseLabel = name => String(name || 'dense').includes('MiniLM') ? 'MiniLM-L6-v2' : String(name || '').includes('hashing') ? 'Hashing-384' : String(name || 'dense');
 let defense = true, scenarios = [], lastOn = null, lastOff = null;
 
 document.querySelectorAll('.nav-btn').forEach(button => button.addEventListener('click', () => {
@@ -20,14 +21,12 @@ function scenarioChanged() {
   const item = scenarios.find(value => String(value.id) === $('scenario').value);
   if (!item) return;
   $('query').value = item.query;
-  $('live').checked = false;
   $('attack-meta').innerHTML = `${esc(item.attack_type.toUpperCase())}<br>${esc(item.operations.join(' + '))}`;
 }
 $('query').addEventListener('input', () => {
   const selected = scenarios.find(value => String(value.id) === $('scenario').value);
   if (selected) {
     const custom = $('query').value.trim() !== selected.query;
-    $('live').checked = custom;
     $('attack-meta').innerHTML = custom ? 'FREE-TEXT QUERY<br>LIVE WIKIPEDIA ENRICHMENT' : `${esc(selected.attack_type.toUpperCase())}<br>${esc(selected.operations.join(' + '))}`;
   }
 });
@@ -56,6 +55,8 @@ function documentCard(doc, data, kept) {
 
 function render(data) {
   $('m-retrieved').textContent = data.stats.retrieved; $('m-filtered').textContent = data.stats.filtered; $('m-kept').textContent = data.stats.kept;
+  const backend = data.retrieval_backend || {};
+  $('retrieval-backend').textContent = `${backend.sparse || 'BM25'} + ${denseLabel(backend.dense)} / ${backend.fusion || 'RRF'}`;
   $('m-integrity').textContent = `${data.stats.integrity_percent}%`; $('m-integrity').className = data.stats.tampered ? 'red' : 'green';
   $('m-latency').textContent = `${Math.round(data.latency_ms)}ms`; $('answer').textContent = data.answer;
   $('doc-count').textContent = `${data.stats.retrieved} DOCUMENTS / ${data.stats.threats} FLAGGED`;
@@ -91,6 +92,7 @@ async function initialize() {
     $('scenario').addEventListener('change', scenarioChanged); scenarioChanged();
     const evaluation = await fetch('/api/evaluation').then(response => response.json()); const metrics = evaluation.metrics || {};
     $('e-clean').textContent=evaluation.corpus.clean; $('e-poison').textContent=evaluation.corpus.poisoned; $('e-total').textContent=evaluation.corpus.clean+evaluation.corpus.poisoned;
+    $('eval-backend').textContent=`${denseLabel(metrics.embedding_backend).toUpperCase()} / LOOCV`;
     $('eval-note').textContent=metrics.note || 'Run the classifier training script to generate evaluation metrics.';
     $('score-grid').innerHTML=['accuracy','precision','recall','f1','roc_auc'].map(key=>`<div class="score"><strong>${metrics[key] === undefined ? '--' : (metrics[key]*100).toFixed(0)+'%'}</strong><span>${key.replace('_',' ').toUpperCase()}</span></div>`).join('');
     await run();
