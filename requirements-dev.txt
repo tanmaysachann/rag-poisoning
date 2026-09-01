@@ -1,0 +1,7 @@
+-r requirements.txt
+datasets==3.6.0
+sentence-transformers==4.1.0
+transformers==4.51.3
+matplotlib==3.10.3
+reportlab==4.4.10
+pypdf==6.11.0

@@ -19,7 +19,7 @@ Sentinel RAG is a controlled, CPU-first demonstration of poisoning detection and
 cd "C:\Users\tanma\OneDrive\Desktop\Major Project\rag-poisoning"
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 ```
 
 ## Build all Review-1 artifacts
@@ -40,6 +40,15 @@ python backend/api.py
 ```
 
 Open `http://127.0.0.1:8000`. If that port is already in use, stop the older process with `Ctrl+C` before restarting.
+
+## Vercel deployment
+
+The repository includes `api/index.py` and `vercel.json` for Vercel's Python serverless runtime. `requirements.txt` contains only runtime dependencies; corpus-building and PDF-generation packages live in `requirements-dev.txt`.
+
+```powershell
+vercel.cmd
+vercel.cmd --prod
+```
 
 ## Presentation flow
 
