@@ -88,11 +88,6 @@ async function initialize() {
     scenarios = await fetch('/api/scenarios').then(response => response.json());
     $('scenario').innerHTML = scenarios.map(item => `<option value="${item.id}">${esc(item.query)} / ${esc(item.attack_type)}</option>`).join('');
     $('scenario').addEventListener('change', scenarioChanged); scenarioChanged();
-    const evaluation = await fetch('/api/evaluation').then(response => response.json()); const metrics = evaluation.metrics || {};
-    $('e-clean').textContent=evaluation.corpus.clean; $('e-poison').textContent=evaluation.corpus.poisoned; $('e-total').textContent=evaluation.corpus.clean+evaluation.corpus.poisoned;
-    $('eval-backend').textContent=`${denseLabel(metrics.embedding_backend).toUpperCase()} / LOOCV`;
-    $('eval-note').textContent=metrics.note || 'Run the classifier training script to generate evaluation metrics.';
-    $('score-grid').innerHTML=['accuracy','precision','recall','f1','roc_auc'].map(key=>`<div class="score"><strong>${metrics[key] === undefined ? '--' : (metrics[key]*100).toFixed(0)+'%'}</strong><span>${key.replace('_',' ').toUpperCase()}</span></div>`).join('');
     await run();
   } catch(error) { $('answer').textContent = `Initialization failed: ${error.message}`; }
 }

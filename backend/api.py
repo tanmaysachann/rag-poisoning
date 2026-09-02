@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from config import BASE_CORPUS_PATH, POISONED_DOCS_PATH, RESULTS_DIR
+from config import POISONED_DOCS_PATH
 from pipeline.secure_rag import secure_rag_answer
 
 app = FastAPI(title="Sentinel RAG", version="0.5.0")
@@ -44,17 +44,6 @@ def scenarios() -> list[dict]:
             for doc in _jsonl(POISONED_DOCS_PATH)]
 
 
-@app.get("/api/evaluation")
-def evaluation() -> dict:
-    metrics_path = RESULTS_DIR / "metrics.json"
-    metrics = json.loads(metrics_path.read_text(encoding="utf-8")) if metrics_path.exists() else {}
-    return {"metrics": metrics, "corpus": {"clean": len(_jsonl(BASE_CORPUS_PATH)),
-            "poisoned": len(_jsonl(POISONED_DOCS_PATH))},
-            "artifacts": {"roc_curve": "/results/roc_curve.png",
-                          "confusion_matrix": "/results/confusion_matrix.png",
-                          "dossier": "/reports/sentinel_rag_poisoned_corpus_dossier.pdf"}}
-
-
 @app.post("/api/analyze")
 def analyze(body: QueryRequest) -> dict:
     try:
@@ -84,9 +73,6 @@ def assets(asset: str) -> FileResponse:
     if asset.startswith("reports/"):
         path = ROOT / "output" / "pdf" / asset.removeprefix("reports/")
         if path.exists() and path.is_file(): return FileResponse(path, media_type="application/pdf")
-    if asset.startswith("results/"):
-        path = RESULTS_DIR / asset.removeprefix("results/")
-        if path.exists() and path.is_file(): return FileResponse(path)
     path = ROOT / "frontend" / asset
     return FileResponse(path) if path.exists() and path.is_file() else FileResponse(ROOT / "frontend" / "index.html")
 
