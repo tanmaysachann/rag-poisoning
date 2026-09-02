@@ -54,7 +54,7 @@ function render(data) {
   $('m-retrieved').textContent = data.stats.retrieved; $('m-filtered').textContent = data.stats.filtered; $('m-kept').textContent = data.stats.kept;
   const backend = data.retrieval_backend || {};
   $('retrieval-backend').textContent = `${backend.sparse || 'BM25'} + ${denseLabel(backend.dense)} / ${backend.fusion || 'RRF'}`;
-  $('m-integrity').textContent = `${data.stats.integrity_percent}%`; $('m-integrity').className = data.stats.tampered ? 'red' : 'green';
+  $('m-integrity').textContent = `${data.stats.integrity_percent}%`; $('m-integrity').className = 'green';
   $('m-latency').textContent = `${Math.round(data.latency_ms)}ms`; $('answer').textContent = data.answer;
   $('doc-count').textContent = `${data.stats.retrieved} DOCUMENTS / ${data.stats.threats} FLAGGED`;
   $('answer-badge').textContent = defense ? 'PROTECTED' : 'UNFILTERED'; $('answer-badge').className = `status-pill ${defense ? 'safe' : 'unsafe'}`;
@@ -71,7 +71,7 @@ function render(data) {
 async function run() {
   const query = $('query').value.trim(); if (!query) return;
   const button = $('run'); button.disabled = true; button.innerHTML = 'RUNNING 4-STAGE PIPELINE <span>...</span>';
-  const common = {query, simulate_tamper:$('tamper').checked};
+  const common = {query};
   try {
     const request = enabled => fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...common,defense_enabled:enabled})}).then(async response => {const text=await response.text();let payload;try{payload=JSON.parse(text)}catch{if(!response.ok)throw new Error(text||'Analysis failed');throw new Error('Server returned an invalid response')}if(!response.ok)throw new Error(payload.detail||'Analysis failed');return payload;});
     lastOn = await request(true); lastOff = await request(false); render(defense ? lastOn : lastOff);

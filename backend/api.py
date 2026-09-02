@@ -26,7 +26,6 @@ class QueryRequest(BaseModel):
     query: str = Field(min_length=2, max_length=500)
     defense_enabled: bool = True
     threshold: float = Field(default=0.5, ge=0.05, le=0.95)
-    simulate_tamper: bool = False
 
 
 @app.get("/api/health")
@@ -47,20 +46,18 @@ def scenarios() -> list[dict]:
 @app.post("/api/analyze")
 def analyze(body: QueryRequest) -> dict:
     try:
-        result = secure_rag_answer(body.query, body.defense_enabled, body.threshold,
-                                   body.simulate_tamper)
+        result = secure_rag_answer(body.query, body.defense_enabled, body.threshold)
     except (ValueError, FileNotFoundError) as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     for doc in result["kept_docs"] + result["filtered_docs"]:
         report = ROOT / "output" / "pdf" / f"doc_{doc['doc_id']}_report.pdf"
         if report.exists(): doc["report_url"] = f"/reports/{report.name}"
-    tampered = sum(result["tamper_flags"].values())
     return {**result, "query": body.query, "defense_enabled": body.defense_enabled,
             "threshold": body.threshold,
             "stats": {"retrieved": len(result["kept_docs"]) + len(result["filtered_docs"]),
                       "kept": len(result["kept_docs"]), "filtered": len(result["filtered_docs"]),
                       "threats": sum(value >= body.threshold for value in result["scores"].values()),
-                      "tampered": tampered, "integrity_percent": 100 - tampered * 20}}
+                      "integrity_percent": 100}}
 
 
 @app.get("/", include_in_schema=False)

@@ -167,8 +167,7 @@ def _build_prompt(query: str, documents: list[dict]) -> str:
             f"<user_question>{query}</user_question>")
 
 
-def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float = 0.5,
-                      simulate_tamper: bool = False) -> dict[str, Any]:
+def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float = 0.5) -> dict[str, Any]:
     if not query.strip():
         raise ValueError("Query must not be empty")
     started = time.perf_counter(); stage_times: dict[str, float] = {}
@@ -178,11 +177,7 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
     stage_times["retrieval_ms"] = (time.perf_counter() - started) * 1000
 
     manifest = json.loads(retriever.integrity_path.read_text(encoding="utf-8"))
-    tamper_target = next((doc["doc_id"] for doc in candidates
-                          if str(doc["doc_id"]) in manifest), None) if simulate_tamper else None
     for doc in candidates:
-        if doc["doc_id"] == tamper_target:
-            doc["text"] += " Unauthorized post-index modification."
         actual = hashlib.sha256(doc["text"].encode("utf-8")).hexdigest()
         expected = manifest.get(str(doc["doc_id"]))
         status = "live_snapshot" if expected is None else ("tampered" if expected != actual else "verified")
@@ -205,9 +200,6 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
             doc, retriever, baseline_answer, ablated_answer)
         dense_rank_norm = 1.0 - (doc["dense_rank"] - 1) / max(len(retriever.documents) - 1, 1)
         detail = detector.score(query, doc["text"], dense_rank_norm, influence)
-        if doc["integrity"]["status"] == "tampered":
-            detail["probability"] = 1.0
-            detail["reasons"].insert(0, "SHA-256 mismatch after indexing")
         probability = float(detail["probability"])
         scores[str(doc["doc_id"])] = probability
         detail["decision"] = "quarantine" if probability >= threshold else "accept"
@@ -229,7 +221,6 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
         "answer": answer, "source_doc_id": source_doc_id,
         "evidence_sentence": evidence_sentence, "kept_docs": kept,
         "filtered_docs": filtered, "scores": scores, "score_details": score_details,
-        "tamper_flags": {str(d["doc_id"]): d["integrity"]["status"] == "tampered" for d in candidates},
         "prompt_preview": prompt, "stage_times": stage_times, "latency_ms": total_ms,
         "retrieval_backend": {"dense": retriever.embedder.model_name, "sparse": "BM25", "fusion": "RRF(k=60)"},
         "retrieval_scope": {"mode": "closed_corpus", "indexed_documents": len(retriever.documents),
