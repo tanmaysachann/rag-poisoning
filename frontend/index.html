@@ -21,7 +21,6 @@
         <label for="scenario">DEMO ATTACK QUERY</label><select id="scenario"></select>
         <div id="attack-meta" class="attack-meta"></div>
         <label for="query">USER QUERY</label><textarea id="query" rows="3" maxlength="500"></textarea>
-        <label for="threshold">QUARANTINE THRESHOLD <strong id="threshold-label">0.50</strong></label><input id="threshold" type="range" min="0.20" max="0.90" value="0.50" step="0.05">
         <div class="switch-row"><div><span class="micro">DEFENSE GATE</span><strong id="gate-label">ENABLED</strong></div><button id="toggle" class="toggle on" aria-label="Toggle defense"><span></span></button></div>
         <label class="check"><input id="tamper" type="checkbox"><span>Simulate post-index corpus tampering</span></label>
         <button id="run" class="run">RUN SECURE ANALYSIS <span>&rarr;</span></button>
@@ -31,7 +30,7 @@
       <section class="results">
         <div class="metrics">
           <div class="metric panel"><span>RETRIEVED</span><strong id="m-retrieved">--</strong><small id="retrieval-backend">BM25 + dense RRF</small></div>
-          <div class="metric panel"><span>QUARANTINED</span><strong id="m-filtered" class="amber">--</strong><small>above threshold</small></div>
+          <div class="metric panel"><span>QUARANTINED</span><strong id="m-filtered" class="amber">--</strong><small>blocked by S1/S4 guard</small></div>
           <div class="metric panel"><span>TRUSTED</span><strong id="m-kept" class="green">--</strong><small>generation context</small></div>
           <div class="metric panel"><span>INTEGRITY</span><strong id="m-integrity" class="green">--</strong><small>SHA-256 parity</small></div>
           <div class="metric panel"><span>LATENCY</span><strong id="m-latency">--</strong><small>end-to-end CPU</small></div>
@@ -51,7 +50,7 @@
 
   <main id="view-evaluation" class="view">
     <section class="page-title"><p class="eyebrow">MEASURED REVIEW-1 RESULT</p><h2>Detector evaluation</h2><p>Leave-one-out validation on a controlled corpus. These figures demonstrate implementation completeness, not production-scale generalization.</p></section>
-    <section class="eval-grid"><article class="panel eval-summary"><div class="panel-head"><span>DATASET PROFILE</span><span id="eval-backend">CONTROLLED / OFFLINE</span></div><div class="big-stats"><div><strong id="e-clean">--</strong><span>CLEAN</span></div><div><strong id="e-poison">--</strong><span>POISONED</span></div><div><strong id="e-total">--</strong><span>TOTAL</span></div></div><p id="eval-note"></p><a class="text-link" href="/reports/sentinel_rag_poisoned_corpus_dossier.pdf" target="_blank">Inspect corpus dossier &nearr;</a></article><article class="panel scorecard"><div class="panel-head"><span>LOOCV SCORECARD</span><span>THRESHOLD 0.50</span></div><div id="score-grid" class="score-grid"></div></article></section>
+    <section class="eval-grid"><article class="panel eval-summary"><div class="panel-head"><span>DATASET PROFILE</span><span id="eval-backend">CONTROLLED / OFFLINE</span></div><div class="big-stats"><div><strong id="e-clean">--</strong><span>CLEAN</span></div><div><strong id="e-poison">--</strong><span>POISONED</span></div><div><strong id="e-total">--</strong><span>TOTAL</span></div></div><p id="eval-note"></p><a class="text-link" href="/reports/sentinel_rag_poisoned_corpus_dossier.pdf" target="_blank">Inspect corpus dossier &nearr;</a></article><article class="panel scorecard"><div class="panel-head"><span>LOOCV SCORECARD</span><span>FIXED GUARD POLICY</span></div><div id="score-grid" class="score-grid"></div></article></section>
     <section class="plot-grid"><article class="panel plot"><div class="panel-head"><span>ROC CURVE</span><span>LOOCV PROBABILITIES</span></div><img src="/results/roc_curve.png" alt="ROC curve"></article><article class="panel plot"><div class="panel-head"><span>CONFUSION MATRIX</span><span>CLEAN VS POISONED</span></div><img src="/results/confusion_matrix.png" alt="Confusion matrix"></article></section>
     <article class="panel limitation"><b>REVIEW BOUNDARY</b><p>Objective 1 is represented by five manually authored attacks using INSERT and SYNONYM_CAMOUFLAGE operations. PPO training and RL-generated samples are intentionally deferred to Phase 2, where this detector will be re-evaluated at scale.</p></article>
   </main>

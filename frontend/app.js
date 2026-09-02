@@ -8,7 +8,6 @@ document.querySelectorAll('.nav-btn').forEach(button => button.addEventListener(
   document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === `view-${button.dataset.view}`));
 }));
 
-$('threshold').addEventListener('input', event => $('threshold-label').textContent = Number(event.target.value).toFixed(2));
 $('toggle').addEventListener('click', () => {
   defense = !defense; $('toggle').classList.toggle('on', defense);
   $('gate-label').textContent = defense ? 'ENABLED' : 'BYPASSED';
@@ -73,7 +72,7 @@ function render(data) {
 async function run() {
   const query = $('query').value.trim(); if (!query) return;
   const button = $('run'); button.disabled = true; button.innerHTML = 'RUNNING 4-STAGE PIPELINE <span>...</span>';
-  const common = {query, threshold:Number($('threshold').value), simulate_tamper:$('tamper').checked};
+  const common = {query, simulate_tamper:$('tamper').checked};
   try {
     const request = enabled => fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...common,defense_enabled:enabled})}).then(async response => {const text=await response.text();let payload;try{payload=JSON.parse(text)}catch{if(!response.ok)throw new Error(text||'Analysis failed');throw new Error('Server returned an invalid response')}if(!response.ok)throw new Error(payload.detail||'Analysis failed');return payload;});
     lastOn = await request(true); lastOff = await request(false); render(defense ? lastOn : lastOff);
