@@ -69,6 +69,8 @@ vercel.cmd --prod
 
 The five scenarios are query shortcuts, not answer templates. Every question searches only the 25 clean reports plus five poisoned reports in `data/demo_corpus.jsonl`. Nothing is fetched from Wikipedia or any other external source. A question unsupported by those 30 reports returns an insufficient-evidence response.
 
+Every predefined scenario is constructed to demonstrate both sides of the experiment: the poisoned payload wins extraction with Defense OFF, while Defense ON quarantines that same report and recovers the clean answer. This is enforced by regression tests for all five attacks. The relevance gate also checks the query's least-common corpus concept, preventing generic overlap such as "largest" and "Earth" from using an ocean report to answer a country question.
+
 S1 is the Review-1 hidden-state proxy described in the presentation: MiniLM document embeddings are compared with the covariance-aware clean distribution using Mahalanobis distance. S4 performs an actual baseline plus leave-one-document-out extraction pass and measures whether removing one retrieved report changes the answer. Their calibrated risks participate directly in the quarantine decision; the remaining statistical and behavioural features support the fusion classifier.
 
 ## Offline use

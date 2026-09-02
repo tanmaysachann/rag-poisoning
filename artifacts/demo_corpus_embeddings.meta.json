@@ -1,7 +1,7 @@
 {
   "backend": "sentence-transformers",
   "model": "sentence-transformers/all-MiniLM-L6-v2",
-  "corpus_sha256": "01dd9c58fddac4238cd10bf940c7f53d062b2844c098d1107e3916cf192396dd",
+  "corpus_sha256": "798a01a51c87c2daa46dbe4c32a95b4732305dea3946c3cc0d7cc7e37a18b0ac",
   "shape": [
     30,
     384

@@ -15,8 +15,8 @@ def styles():
   'title':ParagraphStyle('title',parent=s['Title'],fontName='Helvetica-Bold',fontSize=25,leading=30,textColor=colors.HexColor('#12333a'),spaceAfter=10),
   'sub':ParagraphStyle('sub',parent=s['Normal'],fontSize=10,leading=14,textColor=colors.HexColor('#4e6870')),
   'h':ParagraphStyle('h',parent=s['Heading2'],fontName='Helvetica-Bold',fontSize=13,leading=17,textColor=colors.HexColor('#0c6973'),spaceBefore=14,spaceAfter=6),
-  'body':ParagraphStyle('body',parent=s['BodyText'],fontSize=10.5,leading=16,textColor=colors.HexColor('#26343a'),spaceAfter=8),
-  'callout':ParagraphStyle('callout',parent=s['BodyText'],fontSize=10,leading=15,textColor=colors.HexColor('#6b3d19'),backColor=colors.HexColor('#fff4e5'),borderPadding=9),
+  'body':ParagraphStyle('body',parent=s['BodyText'],fontSize=10.2,leading=15,textColor=colors.HexColor('#26343a'),spaceAfter=7),
+  'callout':ParagraphStyle('callout',parent=s['BodyText'],fontSize=9.8,leading=14,textColor=colors.HexColor('#6b3d19'),backColor=colors.HexColor('#fff4e5'),borderPadding=8),
   'small':ParagraphStyle('small',parent=s['BodyText'],fontSize=8,leading=11,textColor=colors.HexColor('#61747a')),
  }
 def footer(canvas,doc):
@@ -32,7 +32,7 @@ def story(doc, poisoned=False):
   out += [Spacer(1,5),Paragraph('Security annotation: injected payload',st['h']),Paragraph('This adversarial variant preserves substantial topical context to satisfy the retrievability condition, then inserts a confident false claim or instruction. The inserted sentence is the generation-influence payload that the detector is expected to quarantine.',st['callout']),Paragraph('<b>Injected claim:</b> '+doc['injected_claim'],st['body']),Paragraph('<b>Operations represented:</b> '+', '.join(doc['operations_applied']),st['body'])]
  digest=hashlib.sha256(text.encode()).hexdigest(); out += [Spacer(1,10),Paragraph('Provenance and integrity',st['h']),Paragraph('Document SHA-256: '+digest,st['small']),Paragraph('This file is part of a controlled academic corpus. It is not a live external source and should be treated as untrusted context by the secure RAG pipeline.',st['small'])]
  return out
-def make(path,doc,poisoned): SimpleDocTemplate(str(path),pagesize=A4,rightMargin=18*mm,leftMargin=18*mm,topMargin=16*mm,bottomMargin=21*mm,title=doc['target_query']).build(story(doc,poisoned),onFirstPage=footer,onLaterPages=footer)
+def make(path,doc,poisoned): SimpleDocTemplate(str(path),pagesize=A4,rightMargin=18*mm,leftMargin=18*mm,topMargin=14*mm,bottomMargin=18*mm,title=doc['target_query']).build(story(doc,poisoned),onFirstPage=footer,onLaterPages=footer)
 def main():
  docs=[json.loads(x) for x in POISON.read_text(encoding='utf8').splitlines() if x.strip()]
  for d in docs: make(OUT/f"doc_{d['doc_id']}_report.pdf",d,True)
@@ -40,6 +40,6 @@ def main():
  for i,d in enumerate(docs):
   combined += story(d,True)
   if i<len(docs)-1: combined.append(PageBreak())
- SimpleDocTemplate(str(OUT/'sentinel_rag_poisoned_corpus_dossier.pdf'),pagesize=A4,rightMargin=18*mm,leftMargin=18*mm,topMargin=16*mm,bottomMargin=21*mm,title='Sentinel RAG Poisoned Corpus Dossier').build(combined,onFirstPage=footer,onLaterPages=footer)
+ SimpleDocTemplate(str(OUT/'sentinel_rag_poisoned_corpus_dossier.pdf'),pagesize=A4,rightMargin=18*mm,leftMargin=18*mm,topMargin=14*mm,bottomMargin=18*mm,title='Sentinel RAG Poisoned Corpus Dossier').build(combined,onFirstPage=footer,onLaterPages=footer)
  print(f'Created {len(docs)+1} detailed PDF reports in {OUT}')
 if __name__=='__main__': main()

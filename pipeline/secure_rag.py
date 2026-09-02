@@ -16,6 +16,44 @@ from detect.detector import FusionDetector
 from detect.signals import split_sentences
 from retrieval.hybrid_retriever import HybridRetriever
 
+QUERY_STOPWORDS = {
+    "what", "where", "when", "which", "who", "is", "are", "was", "were",
+    "the", "a", "an", "at", "of", "on", "in", "to", "does",
+}
+
+
+def _stem_token(token: str) -> str:
+    """Tiny deterministic stemmer for query/corpus relevance matching."""
+    value = token.lower()
+    if value.endswith("ies") and len(value) > 4:
+        return value[:-3] + "y"
+    if value.endswith("s") and len(value) > 3:
+        return value[:-1]
+    return value
+
+
+def _content_terms(text: str) -> set[str]:
+    return {
+        _stem_token(token) for token in re.findall(r"[a-z0-9]+", text.lower())
+        if token not in QUERY_STOPWORDS
+    }
+
+
+def _query_focus_terms(query: str, retriever: HybridRetriever) -> set[str]:
+    """Return the least-common query concept in the indexed corpus.
+
+    The focus check prevents generic overlap such as ``largest`` and ``Earth``
+    from letting an ocean passage answer a question whose distinguishing concept
+    is ``country``.
+    """
+    terms = _content_terms(query)
+    if not terms:
+        return set()
+    document_terms = [_content_terms(doc["text"]) for doc in retriever.documents]
+    frequencies = {term: sum(term in words for words in document_terms) for term in terms}
+    minimum = min(frequencies.values())
+    return {term for term, frequency in frequencies.items() if frequency == minimum}
+
 
 @lru_cache(maxsize=2)
 def _load_retriever(corpus_path: str) -> HybridRetriever:
@@ -63,11 +101,13 @@ def _rank_sentences(query: str, documents: list[dict],
                     retriever: HybridRetriever) -> list[tuple[float, float, str, int]]:
     """Embed and rank all candidate sentences once for baseline and S4 ablations."""
     sentence_rows: list[tuple[float, str, int]] = []
-    stop = {"what", "where", "when", "which", "who", "is", "are", "was", "were", "the", "a", "an", "at", "of", "on", "in", "to", "does"}
-    terms = {token for token in re.findall(r"[a-z0-9]+", query.lower()) if token not in stop}
+    terms = _content_terms(query)
+    focus_terms = _query_focus_terms(query, retriever)
     for doc in documents:
         for sentence in split_sentences(doc["text"]):
-            sentence_terms = set(re.findall(r"[a-z0-9]+", sentence.lower().replace("'s", "")))
+            sentence_terms = _content_terms(sentence)
+            if focus_terms and not focus_terms.intersection(sentence_terms):
+                continue
             coverage = len(terms & sentence_terms) / max(len(terms), 1)
             sentence_rows.append((coverage, sentence, int(doc["doc_id"])))
     if not sentence_rows:
@@ -84,7 +124,7 @@ def _rank_sentences(query: str, documents: list[dict],
 def _select_ranked_answer(
         ranked_sentences: list[tuple[float, float, str, int]]) -> tuple[str, int | None, str | None]:
     if not ranked_sentences:
-        return "No context was available for answer extraction.", None, None
+        return "Insufficient relevant evidence was retrieved to answer this question.", None, None
     strongest_coverage = max(item[0] for item in ranked_sentences)
     if strongest_coverage < 0.60:
         return "Insufficient relevant evidence was retrieved to answer this question.", None, None

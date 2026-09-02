@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 from config import BASE_CORPUS_PATH, POISONED_DOCS_PATH, RESULTS_DIR
 from pipeline.secure_rag import secure_rag_answer
 
-app = FastAPI(title="Sentinel RAG", version="0.4.0")
+app = FastAPI(title="Sentinel RAG", version="0.5.0")
 
 
 def _jsonl(path: Path) -> list[dict]:
@@ -31,7 +31,7 @@ class QueryRequest(BaseModel):
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"status": "operational", "mode": "review-1-mvp", "version": "0.4.0",
+    return {"status": "operational", "mode": "review-1-mvp", "version": "0.5.0",
             "retrieval_scope": "closed-corpus-only"}
 
 

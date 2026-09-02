@@ -1,0 +1,4 @@
+*.pdf binary
+*.npy binary
+*.joblib binary
+*.png binary
