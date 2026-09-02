@@ -41,27 +41,36 @@ class FusionDetector:
             behaviour["url"] * 0.88,
             behaviour["authority"] * 0.84,
         )
-        probability = float(np.clip(max(model_probability, behavioural_floor), 0.0, 1.0))
-        normalized_mahal = float(np.clip(mahal / max(self.bundle["mahal_p95"], 1e-6), 0.0, 1.0))
+        mahal_ratio = mahal / max(self.bundle["mahal_p95"], 1e-6)
+        # S1 is risk above the clean 95th-percentile boundary, not the raw
+        # distance divided by that boundary (which made normal documents look
+        # almost 100% anomalous in the UI).
+        s1_geometry = float(np.clip((mahal_ratio - 1.0) / 0.18, 0.0, 1.0))
+        s4_stability = float(np.clip(counterfactual_influence, 0.0, 1.0))
+        s1_floor = s1_geometry * 0.90
+        s4_floor = s4_stability * 0.92
+        probability = float(np.clip(max(
+            model_probability, behavioural_floor, s1_floor, s4_floor), 0.0, 1.0))
         reasons: list[str] = []
         if behaviour["instruction"] >= 0.5: reasons.append("Embedded instruction language")
         if behaviour["url"] > 0: reasons.append("External URL inside retrieved context")
         if behaviour["authority"] >= 0.5: reasons.append("Manufactured authority or correction cue")
-        if normalized_mahal >= 0.8: reasons.append("Embedding outside clean distribution")
+        if s1_geometry >= 0.5: reasons.append("S1 geometry probe: outside clean embedding boundary")
         if behaviour["relevance_spike"] >= 0.35: reasons.append("Single-sentence relevance spike")
-        if counterfactual_influence >= 0.35: reasons.append("High leave-one-out answer influence")
+        if s4_stability >= 0.35: reasons.append("S4 counterfactual probe: answer changes under ablation")
         if not reasons: reasons.append("No high-confidence attack indicators")
         return {
             "probability": probability,
             "model_probability": model_probability,
             "signals": {
-                "mahalanobis": normalized_mahal,
+                "mahalanobis": s1_geometry,
+                "mahalanobis_raw": float(mahal),
                 "isolation_forest": isolation,
                 "relevance_spike": behaviour["relevance_spike"],
                 "instruction_pattern": behaviour["instruction"],
                 "url_pattern": behaviour["url"],
                 "authority_cue": behaviour["authority"],
-                "counterfactual_influence": float(np.clip(counterfactual_influence, 0.0, 1.0)),
+                "counterfactual_influence": s4_stability,
             },
             "reasons": reasons,
         }

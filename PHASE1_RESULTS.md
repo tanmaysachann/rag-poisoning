@@ -2,7 +2,7 @@
 
 ## Implemented system
 
-The Review-1 MVP implements a complete controlled secure-RAG path without RL training. The corpus contains 25 clean reference documents and five adversarial reports. Retrieval combines BM25 and dense similarity using Reciprocal Rank Fusion. Every retrieved document passes through SHA-256 integrity verification and a seven-signal fusion detector before accepted content is placed inside an isolated untrusted-context prompt.
+The Review-1 MVP implements a complete controlled secure-RAG path without RL training. The closed corpus contains 25 clean reference documents and five adversarial reports; it never calls a web search or external knowledge source. Retrieval combines BM25 and dense similarity using Reciprocal Rank Fusion. Every retrieved document passes through SHA-256 integrity verification, the S1 Mahalanobis geometry probe, the S4 leave-one-out stability probe, and the supporting fusion features before accepted content is placed inside an isolated untrusted-context prompt.
 
 ## Poison retrieval results
 
@@ -34,7 +34,7 @@ The comparison does not force a poisoned answer when defense is disabled. Both p
 
 These differing outcomes are expected: retrieval poisoning raises the attacker's chance of influencing generation, but retrieval alone does not guarantee that every attack changes an answer.
 
-The dashboard exposes retrieval ranks, poison probabilities, individual signal strengths, quarantine reasons, selected evidence, per-stage latency, integrity hashes, and PDF evidence reports. A tamper-control option modifies one document after indexing and produces a visible SHA-256 mismatch and quarantine decision.
+The dashboard exposes retrieval ranks, S1 geometry risk, S4 counterfactual instability, fused poison probability, quarantine reasons, selected evidence, per-stage latency, integrity hashes, and PDF evidence reports. A tamper-control option modifies one document after indexing and produces a visible SHA-256 mismatch and quarantine decision. An unsupported query such as "Where is Delhi located?" abstains because Delhi evidence is absent from the 30-report corpus.
 
 ## Review boundary and Phase-2 direction
 

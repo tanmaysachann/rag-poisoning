@@ -1,62 +1,45 @@
-"""Regression tests for query-dependent retrieval and defense-only filtering."""
+"""Regression tests for the closed-corpus S1/S4 poisoning experiment."""
 from __future__ import annotations
 
 import unittest
-from unittest.mock import patch
 
 from pipeline.secure_rag import secure_rag_answer
 
 
-def _synthetic_live_documents(query: str, limit: int = 3) -> list[dict]:
-    """Return deterministic live-source stand-ins without making a network call."""
+class ClosedCorpusPipelineTests(unittest.TestCase):
+    def test_out_of_domain_query_abstains_without_external_retrieval(self) -> None:
+        result = secure_rag_answer("Where is Delhi located?", defense_enabled=True)
 
-    facts = {
-        "india": (710001, "India", "New Delhi is the capital of India and the seat of its central government."),
-        "japan": (710002, "Japan", "Tokyo is the capital of Japan and its most populous city."),
-    }
-    key = next((name for name in facts if name in query.lower()), None)
-    if key is None:
-        return []
-    doc_id, title, text = facts[key]
-    return [{
-        "doc_id": doc_id,
-        "title": title,
-        "source_type": "test live source",
-        "source_url": f"https://example.test/{key}",
-        "text": text,
-        "live_source": True,
-    }][:limit]
+        self.assertIn("Insufficient relevant evidence", result["answer"])
+        self.assertIsNone(result["source_doc_id"])
+        self.assertEqual(result["retrieval_scope"]["mode"], "closed_corpus")
+        self.assertEqual(result["retrieval_scope"]["indexed_documents"], 30)
+        self.assertFalse(result["retrieval_scope"]["external_sources"])
 
-
-class DynamicPipelineTests(unittest.TestCase):
-    @patch("pipeline.secure_rag.fetch_wikipedia_documents", side_effect=_synthetic_live_documents)
-    def test_unseen_queries_produce_different_retrieved_answers(self, _fetch: object) -> None:
-        india = secure_rag_answer("What is the capital of India?", live_retrieval=True)
-        japan = secure_rag_answer("What is the capital of Japan?", live_retrieval=True)
-
-        self.assertIn("New Delhi", india["answer"])
-        self.assertIn("Tokyo", japan["answer"])
-        self.assertNotEqual(india["answer"], japan["answer"])
-        self.assertEqual(india["source_doc_id"], 710001)
-        self.assertEqual(japan["source_doc_id"], 710002)
-
-    @patch("pipeline.secure_rag.fetch_wikipedia_documents", side_effect=_synthetic_live_documents)
-    def test_defense_does_not_switch_answer_algorithm(self, _fetch: object) -> None:
-        query = "What is the capital of India?"
-        defended = secure_rag_answer(query, defense_enabled=True, live_retrieval=True)
-        unfiltered = secure_rag_answer(query, defense_enabled=False, live_retrieval=True)
-
-        self.assertEqual(defended["answer"], unfiltered["answer"])
-        self.assertEqual(defended["source_doc_id"], unfiltered["source_doc_id"])
-
-    def test_poisoning_can_change_answer_without_forced_attack_logic(self) -> None:
+    def test_defense_uses_same_retrieval_but_filters_poison(self) -> None:
         query = "Where is the Eiffel Tower located?"
-        defended = secure_rag_answer(query, defense_enabled=True, live_retrieval=False)
-        unfiltered = secure_rag_answer(query, defense_enabled=False, live_retrieval=False)
+        defended = secure_rag_answer(query, defense_enabled=True)
+        unfiltered = secure_rag_answer(query, defense_enabled=False)
 
+        defended_ids = sorted(doc["doc_id"] for doc in
+                              defended["kept_docs"] + defended["filtered_docs"])
+        unfiltered_ids = sorted(doc["doc_id"] for doc in unfiltered["kept_docs"])
+        self.assertEqual(defended_ids, unfiltered_ids)
         self.assertIn("Paris", defended["answer"])
         self.assertIn("London", unfiltered["answer"])
         self.assertIn(1001, [doc["doc_id"] for doc in defended["filtered_docs"]])
+
+    def test_s1_and_s4_probes_flag_the_eiffel_poison(self) -> None:
+        result = secure_rag_answer(
+            "Where is the Eiffel Tower located?", defense_enabled=True)
+        detail = result["score_details"]["1001"]
+
+        self.assertGreaterEqual(detail["signals"]["mahalanobis"], 0.5)
+        self.assertGreaterEqual(detail["signals"]["counterfactual_influence"], 0.5)
+        self.assertTrue(any(reason.startswith("S1 geometry probe")
+                            for reason in detail["reasons"]))
+        self.assertTrue(any(reason.startswith("S4 counterfactual probe")
+                            for reason in detail["reasons"]))
 
 
 if __name__ == "__main__":

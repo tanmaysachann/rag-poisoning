@@ -12,7 +12,8 @@ Sentinel RAG is a controlled, CPU-first demonstration of poisoning detection and
 - Leave-one-out cross-validation with saved ROC and confusion-matrix figures
 - Zero-trust prompt isolation and deterministic extractive answer backend
 - FastAPI security console with defended/undefended comparison
-- Dynamic Wikipedia retrieval for free-text questions, with source links and evidence-based abstention
+- Strict closed-corpus retrieval: no web search, external API, or fallback knowledge source
+- Explicit S1 Mahalanobis geometry probe and S4 leave-one-out stability probe
 
 ## Setup
 
@@ -61,12 +62,14 @@ vercel.cmd --prod
 
 1. Select one of the five attack scenarios.
 2. Run the pipeline with Defense ON and inspect the quarantined document, signal bars, reason codes, integrity hash, and trusted evidence sentence.
-3. Compare the result against Defense OFF in the counterfactual panel. Both runs use the same retrieval and sentence-extraction algorithms; Defense ON only removes documents whose detector probability crosses the selected threshold.
+3. Compare the result against Defense OFF in the counterfactual panel. Both runs retrieve the same five candidates from the same 30-document corpus and use the same sentence extractor. Defense ON applies the S1/S4 probe gate and removes documents whose fused risk crosses the threshold.
 4. Enable post-index tampering to demonstrate SHA-256 mismatch detection.
 5. Open Evaluation to show LOOCV metrics and saved plots.
 6. Open Architecture to explain the implemented zero-trust stages.
 
-The five scenarios are query shortcuts, not answer templates. The live-retrieval checkbox is an explicit user control and is never changed automatically. With it enabled, the query is sent to the Wikipedia MediaWiki API and up to three current article extracts are ranked together with the local corpus. With it disabled, only the 30 indexed local reports are searched. Unsupported questions return an insufficient-evidence response instead of an unrelated corpus answer.
+The five scenarios are query shortcuts, not answer templates. Every question searches only the 25 clean reports plus five poisoned reports in `data/demo_corpus.jsonl`. Nothing is fetched from Wikipedia or any other external source. A question unsupported by those 30 reports returns an insufficient-evidence response.
+
+S1 is the Review-1 hidden-state proxy described in the presentation: MiniLM document embeddings are compared with the covariance-aware clean distribution using Mahalanobis distance. S4 performs an actual baseline plus leave-one-document-out extraction pass and measures whether removing one retrieved report changes the answer. Their calibrated risks participate directly in the quarantine decision; the remaining statistical and behavioural features support the fusion classifier.
 
 ## Offline use
 

@@ -234,25 +234,15 @@ class HybridRetriever:
         order = np.argsort(-scores, kind="stable")
         return order, scores[order]
 
-    def retrieve(self, query: str, top_k: int = 5,
-                 extra_documents: Sequence[dict] | None = None) -> list[dict]:
+    def retrieve(self, query: str, top_k: int = 5) -> list[dict]:
         if not query.strip():
             raise ValueError("query must not be empty")
         if top_k <= 0:
             return []
 
-        documents = self.documents + list(extra_documents or [])
+        documents = self.documents
         embeddings = self.embeddings
         bm25 = self.bm25
-        if extra_documents:
-            embeddings = np.vstack((self.embeddings, self.encode(
-                [doc["text"] for doc in extra_documents]))).astype(np.float32)
-            tokenized = [tokenize(doc["text"]) for doc in documents]
-            try:
-                from rank_bm25 import BM25Okapi
-                bm25 = BM25Okapi(tokenized)
-            except ImportError:
-                bm25 = _SimpleBM25(tokenized)
 
         bm25_scores = np.asarray(bm25.get_scores(tokenize(query)), dtype=np.float32)
         bm25_order = np.argsort(-bm25_scores, kind="stable")
@@ -274,8 +264,6 @@ class HybridRetriever:
                     "doc_id": doc["doc_id"],
                     "title": doc.get("title", f"Document {doc['doc_id']}"),
                     "source_type": doc.get("source_type", "controlled corpus"),
-                    "source_url": doc.get("source_url"),
-                    "live_source": bool(doc.get("live_source", False)),
                     "text": doc["text"],
                     "score": float(fused_scores[index]),
                     "bm25_rank": int(bm25_ranks[index]),
