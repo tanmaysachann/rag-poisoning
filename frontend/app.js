@@ -26,7 +26,7 @@ $('query').addEventListener('input', () => {
   const selected = scenarios.find(value => String(value.id) === $('scenario').value);
   if (selected) {
     const custom = $('query').value.trim() !== selected.query;
-    $('attack-meta').innerHTML = custom ? 'CLOSED-CORPUS QUERY<br>NO EXTERNAL FETCH' : `${esc(selected.attack_type.toUpperCase())}<br>${esc(selected.operations.join(' + '))}`;
+    $('attack-meta').innerHTML = custom ? 'CUSTOM QUERY<br>ATTACK CONTRAST NOT GUARANTEED' : `${esc(selected.attack_type.toUpperCase())}<br>${esc(selected.operations.join(' + '))}`;
   }
 });
 
