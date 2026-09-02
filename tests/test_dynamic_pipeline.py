@@ -53,6 +53,12 @@ class ClosedCorpusPipelineTests(unittest.TestCase):
                 self.assertTrue(any(reason.startswith("S4 counterfactual probe")
                                     for reason in detail["reasons"]))
 
+    def test_concise_boiling_point_query_returns_explicit_temperature(self) -> None:
+        for guard in (False, True):
+            with self.subTest(defense_enabled=guard):
+                result = secure_rag_answer("boiling point of water?", defense_enabled=guard)
+                self.assertIn("100 degrees Celsius", result["answer"])
+
 
 if __name__ == "__main__":
     unittest.main()

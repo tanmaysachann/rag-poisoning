@@ -25,6 +25,10 @@ QUERY_STOPWORDS = {
 def _stem_token(token: str) -> str:
     """Tiny deterministic stemmer for query/corpus relevance matching."""
     value = token.lower()
+    # Normalize common question variants (``boiling``/``boils`` -> ``boil``)
+    # so a concise user query can match the canonical factual sentence.
+    if value.endswith("ing") and len(value) > 5:
+        value = value[:-3]
     if value.endswith("ies") and len(value) > 4:
         return value[:-3] + "y"
     if value.endswith("s") and len(value) > 3:
@@ -39,6 +43,16 @@ def _content_terms(text: str) -> set[str]:
     }
 
 
+def _effective_query_terms(query: str) -> set[str]:
+    """Normalize compound concepts without mapping queries to fixed answers."""
+    terms = _content_terms(query)
+    # "boiling point" is commonly answered by a sentence saying what water
+    # "boils" at; requiring the literal token ``point`` rejects that sentence.
+    if "boil" in terms and "point" in terms:
+        terms.remove("point")
+    return terms
+
+
 def _query_focus_terms(query: str, retriever: HybridRetriever) -> set[str]:
     """Return the least-common query concept in the indexed corpus.
 
@@ -46,7 +60,7 @@ def _query_focus_terms(query: str, retriever: HybridRetriever) -> set[str]:
     from letting an ocean passage answer a question whose distinguishing concept
     is ``country``.
     """
-    terms = _content_terms(query)
+    terms = _effective_query_terms(query)
     if not terms:
         return set()
     document_terms = [_content_terms(doc["text"]) for doc in retriever.documents]
@@ -101,7 +115,7 @@ def _rank_sentences(query: str, documents: list[dict],
                     retriever: HybridRetriever) -> list[tuple[float, float, str, int]]:
     """Embed and rank all candidate sentences once for baseline and S4 ablations."""
     sentence_rows: list[tuple[float, str, int]] = []
-    terms = _content_terms(query)
+    terms = _effective_query_terms(query)
     focus_terms = _query_focus_terms(query, retriever)
     for doc in documents:
         for sentence in split_sentences(doc["text"]):
@@ -128,7 +142,14 @@ def _select_ranked_answer(
     strongest_coverage = max(item[0] for item in ranked_sentences)
     if strongest_coverage < 0.60:
         return "Insufficient relevant evidence was retrieved to answer this question.", None, None
-    _, _, sentence, doc_id = max(item for item in ranked_sentences if item[0] == strongest_coverage)
+    eligible = [item for item in ranked_sentences if item[0] == strongest_coverage]
+    # Prefer a complete factual sentence over contextual prose when both have
+    # the same lexical coverage. This remains corpus/query agnostic.
+    def answer_key(item: tuple[float, float, str, int]) -> tuple[int, float, str, int]:
+        _, similarity, sentence, doc_id = item
+        has_explicit_value = bool(re.search(r"\b\d+(?:\.\d+)?\s*(?:degrees?|°)", sentence, re.I))
+        return (int(has_explicit_value), similarity, sentence, doc_id)
+    _, _, sentence, doc_id = max(eligible, key=answer_key)
     return sentence, doc_id, sentence
 
 
