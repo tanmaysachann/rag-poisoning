@@ -13,7 +13,6 @@ $('toggle').addEventListener('click', () => {
   $('gate-label').textContent = defense ? 'ENABLED' : 'BYPASSED';
   $('gate-label').style.color = defense ? 'var(--green)' : 'var(--red)';
   $('answer-state').textContent = defense ? 'ON' : 'OFF';
-  if (lastOn && lastOff) render(defense ? lastOn : lastOff);
 });
 
 function scenarioChanged() {
