@@ -45,11 +45,21 @@ These are small development samples, and v1 versus v2 attack rates are not a
 controlled comparison: their corpora, retrieval competition, and attack
 conditions differ. Sentence cosine does not prove factual agreement.
 
+A second diagnostic trained a seven-feature lexical/MiniLM pair classifier on
+100 clean and 100 substituted v2 training pairs, then calibrated risk on 40
+separate clean training pairs. On v2 validation it flagged 3/30 altered pairs
+and 1/30 clean pairs (ROC-AUC 0.793). It flagged neither of the two pairs that
+actually changed the selected answer. This evaluator was given the labeled
+passage pair and could not identify which passage was false; its reported
+recall is an optimistic diagnostic, not an end-to-end defense. See
+`results/pairwise_detector_v2_validation.json` and raw case records. The
+classifier was **not** added to the live gate.
+
 ## Next decision
 
 Before v2 test evaluation, define a better answer-level agreement or trusted
 source policy on train/validation and freeze its threshold and success/utility
-metrics. If that rule does not beat the no-gate baseline on validation, retain
-the baseline and leave v2 test untouched. A broader final test requires
-genuinely distinct source provenance, more attack families, and a larger query
-sample.
+metrics. The two tested pairwise signals did not beat the no-gate baseline.
+Until a better rule does, retain that baseline and leave v2 test untouched. A
+broader final test requires genuinely distinct source provenance, more attack
+families, and a larger query sample.

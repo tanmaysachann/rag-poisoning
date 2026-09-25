@@ -1,0 +1,24 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "validation",
+  "cases": 30,
+  "feature_names": [
+    "minilm_document_cosine",
+    "content_jaccard",
+    "content_overlap_coefficient",
+    "content_bigram_jaccard",
+    "longest_common_content_run_fraction",
+    "content_length_ratio",
+    "document_length_ratio"
+  ],
+  "fit_train_pairs": 100,
+  "calibration_train_pairs": 40,
+  "train_calibrated_threshold": 0.7869325822283401,
+  "calibration_clean_flags": 2,
+  "validation_clean_flags": 1,
+  "validation_attack_flags": 3,
+  "validation_auc": 0.7933333333333333,
+  "baseline_attack_successes": 2,
+  "baseline_successes_with_flagged_pair_and_retrieved_peer": 0,
+  "note": "Oracle labeled pairs and same-family substitution; flags cannot identify which passage is false."
+}

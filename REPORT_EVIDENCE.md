@@ -140,5 +140,9 @@ reduced clean alias matches to 13/30. Full-context calibration could not meet
 the intended 5% clean-rejection target because 18/140 train cases lacked a
 usable paired score. Its best attainable threshold left 2/30 attacks
 successful and still reduced clean alias matches to 13/30. The gate is not a
-serving defense. The v2 test split remains unevaluated. See
+serving defense. A seven-feature pairwise classifier, trained on 100 clean and
+100 attacked pairs and calibrated on 40 other clean pairs, flagged 3/30
+altered validation pairs and 1/30 clean pairs, but neither of the two cases
+where the attacker changed the selected answer. It also remains diagnostic.
+The v2 test split remains unevaluated. See
 `V2_BENCHMARK_PROTOCOL.md` for construction, raw files, and limits.

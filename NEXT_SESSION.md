@@ -11,6 +11,10 @@ an unsuccessful paired-cosine gate. The v2 test split is still unevaluated.
 Do not promote the cosine gate: its full-path training calibration missed the
 5% clean-rejection target, and validation showed no attack reduction with
 lower clean answer utility.
+The later seven-feature pairwise classifier also failed to flag either
+answer-changing validation attack. Both diagnostics remain outside the live
+defense. The next implementation should address answer-level agreement or
+trusted origin rather than add more pair-level similarity thresholds.
 
 ## Start here
 
