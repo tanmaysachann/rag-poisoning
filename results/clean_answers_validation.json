@@ -1,0 +1,10 @@
+{
+  "split": "validation",
+  "answer_backend": "extractive",
+  "cases": 75,
+  "support_recall_at_5": 0.8666666666666667,
+  "selected_support_rate": 0.5066666666666667,
+  "alias_match_accuracy": 0.22666666666666666,
+  "abstention_rate": 0.48,
+  "alias_match_given_selected_support": 0.4473684210526316
+}

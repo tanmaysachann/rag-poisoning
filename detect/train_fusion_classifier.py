@@ -43,6 +43,7 @@ def _dense_rank(retriever: HybridRetriever, query: str, doc_id: int) -> float:
 
 def main() -> None:
     ensure_project_dirs()
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     clean = _read_jsonl(BASE_CORPUS_PATH)
     poisoned = _read_jsonl(POISONED_DOCS_PATH)
     retriever = HybridRetriever(DEMO_CORPUS_PATH if DEMO_CORPUS_PATH.exists() else BASE_CORPUS_PATH)

@@ -1,6 +1,6 @@
 {
-  "backend": "sentence-transformers",
-  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "backend": "hashing",
+  "model": "sklearn-hashing-384",
   "corpus_sha256": "798a01a51c87c2daa46dbe4c32a95b4732305dea3946c3cc0d7cc7e37a18b0ac",
   "shape": [
     30,

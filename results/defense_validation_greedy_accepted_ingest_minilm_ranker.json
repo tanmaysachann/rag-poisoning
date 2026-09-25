@@ -1,0 +1,20 @@
+{
+  "split": "validation",
+  "strategy": "greedy",
+  "surface": "accepted_ingest",
+  "answer_backend": "learned_sentence_ranker",
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "detector_threshold": 0.6902175816532523,
+  "cases": 75,
+  "undefended_attack_success_rate": 0.41333333333333333,
+  "defended_attack_success_rate": 0.0,
+  "attack_quarantine_rate": 1.0,
+  "clean_answer_recovery_rate": 0.52,
+  "abstention_rate": 0.06666666666666667,
+  "selective_loo_rate": 0.02666666666666667,
+  "selective_loo_changed_answer_rate": 0.02666666666666667,
+  "mean_loo_ms": 2.024245333353368,
+  "defense_success_given_prior_attack_success": 1.0,
+  "median_latency_ms": 1032.0871000003535,
+  "p95_latency_ms": 1181.29890000273
+}

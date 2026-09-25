@@ -1,0 +1,98 @@
+{
+  "source": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\slm_srq_validation_50_75.json",
+  "validation_cases_per_family": 75,
+  "target_train_fpr": 0.05,
+  "note": "Exploratory, post-hoc validation analysis across six score/direction choices; do not report a selected direction as an untouched test result",
+  "signals": {
+    "raw_srq": {
+      "high": {
+        "threshold": 0.892097349520083,
+        "clean_validation_fpr": 0.06666666666666667,
+        "families": {
+          "greedy": {
+            "recall": 0.0,
+            "roc_auc": 0.3187555555555555
+          },
+          "stealth": {
+            "recall": 0.05333333333333334,
+            "roc_auc": 0.43502222222222225
+          }
+        }
+      },
+      "low": {
+        "threshold": -0.12039650640180033,
+        "clean_validation_fpr": 0.013333333333333334,
+        "families": {
+          "greedy": {
+            "recall": 0.02666666666666667,
+            "roc_auc": 0.6812444444444445
+          },
+          "stealth": {
+            "recall": 0.04,
+            "roc_auc": 0.5649777777777778
+          }
+        }
+      }
+    },
+    "query_contribution": {
+      "high": {
+        "threshold": 0.21006740570068363,
+        "clean_validation_fpr": 0.06666666666666667,
+        "families": {
+          "greedy": {
+            "recall": 0.02666666666666667,
+            "roc_auc": 0.37937777777777776
+          },
+          "stealth": {
+            "recall": 0.06666666666666667,
+            "roc_auc": 0.4535111111111111
+          }
+        }
+      },
+      "low": {
+        "threshold": -0.04268249511718749,
+        "clean_validation_fpr": 0.0,
+        "families": {
+          "greedy": {
+            "recall": 0.013333333333333334,
+            "roc_auc": 0.6206222222222222
+          },
+          "stealth": {
+            "recall": 0.02666666666666667,
+            "roc_auc": 0.5464888888888889
+          }
+        }
+      }
+    },
+    "response_contribution": {
+      "high": {
+        "threshold": 0.7273179513436778,
+        "clean_validation_fpr": 0.09333333333333334,
+        "families": {
+          "greedy": {
+            "recall": 0.0,
+            "roc_auc": 0.344
+          },
+          "stealth": {
+            "recall": 0.06666666666666667,
+            "roc_auc": 0.4487111111111111
+          }
+        }
+      },
+      "low": {
+        "threshold": -0.03333332538604736,
+        "clean_validation_fpr": 0.02666666666666667,
+        "families": {
+          "greedy": {
+            "recall": 0.02666666666666667,
+            "roc_auc": 0.6559999999999999
+          },
+          "stealth": {
+            "recall": 0.06666666666666667,
+            "roc_auc": 0.5512888888888889
+          }
+        }
+      }
+    }
+  }
+}

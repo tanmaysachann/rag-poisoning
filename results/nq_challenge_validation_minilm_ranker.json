@@ -1,0 +1,10 @@
+{
+  "corpus_split": "validation",
+  "questions": 50,
+  "source_dataset": "NQ-Open challenge",
+  "alias_absent_from_corpus": 44,
+  "abstention_all": 0.42,
+  "abstention_when_alias_absent": 0.45454545454545453,
+  "alias_match_all": 0.04,
+  "note": "Alias absence is a lexical stress test, not proof that no passage entails the answer; not an accuracy claim"
+}

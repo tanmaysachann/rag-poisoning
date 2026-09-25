@@ -1,0 +1,150 @@
+{"qid": "msmarco-46", "label": 0, "risk_score": 0.006749927609649609, "prediction": 0}
+{"qid": "msmarco-252", "label": 0, "risk_score": 0.0019480656620069047, "prediction": 0}
+{"qid": "msmarco-260", "label": 0, "risk_score": 0.0018850540823911585, "prediction": 0}
+{"qid": "msmarco-70", "label": 0, "risk_score": 0.008002323674342787, "prediction": 0}
+{"qid": "msmarco-386", "label": 0, "risk_score": 0.28095675516742963, "prediction": 0}
+{"qid": "msmarco-427", "label": 0, "risk_score": 0.005412585229834494, "prediction": 0}
+{"qid": "msmarco-204", "label": 0, "risk_score": 0.00041491173353633943, "prediction": 0}
+{"qid": "msmarco-298", "label": 0, "risk_score": 0.0012714355938279894, "prediction": 0}
+{"qid": "msmarco-219", "label": 0, "risk_score": 0.0318445723015313, "prediction": 0}
+{"qid": "msmarco-299", "label": 0, "risk_score": 0.14813916497595722, "prediction": 0}
+{"qid": "msmarco-134", "label": 0, "risk_score": 0.003998359646289258, "prediction": 0}
+{"qid": "msmarco-275", "label": 0, "risk_score": 0.0018296243434588653, "prediction": 0}
+{"qid": "msmarco-474", "label": 0, "risk_score": 0.0005424486575468056, "prediction": 0}
+{"qid": "msmarco-126", "label": 0, "risk_score": 0.0028765730031977944, "prediction": 0}
+{"qid": "msmarco-492", "label": 0, "risk_score": 0.04959888541063762, "prediction": 0}
+{"qid": "msmarco-441", "label": 0, "risk_score": 0.9044315417701546, "prediction": 1}
+{"qid": "msmarco-73", "label": 0, "risk_score": 0.01194782181150778, "prediction": 0}
+{"qid": "msmarco-234", "label": 0, "risk_score": 0.0009813423986686095, "prediction": 0}
+{"qid": "msmarco-329", "label": 0, "risk_score": 0.0014766453995024322, "prediction": 0}
+{"qid": "msmarco-202", "label": 0, "risk_score": 0.01428525829755457, "prediction": 0}
+{"qid": "msmarco-255", "label": 0, "risk_score": 0.00192663547293285, "prediction": 0}
+{"qid": "msmarco-335", "label": 0, "risk_score": 0.0010990080125149598, "prediction": 0}
+{"qid": "msmarco-376", "label": 0, "risk_score": 0.006992611212413394, "prediction": 0}
+{"qid": "msmarco-380", "label": 0, "risk_score": 0.001163904875319597, "prediction": 0}
+{"qid": "msmarco-367", "label": 0, "risk_score": 0.001854219835577212, "prediction": 0}
+{"qid": "msmarco-290", "label": 0, "risk_score": 0.002288863641426499, "prediction": 0}
+{"qid": "msmarco-108", "label": 0, "risk_score": 0.0012486888817836595, "prediction": 0}
+{"qid": "msmarco-33", "label": 0, "risk_score": 0.006905849415136676, "prediction": 0}
+{"qid": "msmarco-137", "label": 0, "risk_score": 0.008095593731096062, "prediction": 0}
+{"qid": "msmarco-205", "label": 0, "risk_score": 0.016294443041913666, "prediction": 0}
+{"qid": "msmarco-161", "label": 0, "risk_score": 0.0019222160640432967, "prediction": 0}
+{"qid": "msmarco-482", "label": 0, "risk_score": 0.0019017055620515792, "prediction": 0}
+{"qid": "msmarco-117", "label": 0, "risk_score": 0.0012366726183539972, "prediction": 0}
+{"qid": "msmarco-28", "label": 0, "risk_score": 0.0007463899227592348, "prediction": 0}
+{"qid": "msmarco-166", "label": 0, "risk_score": 0.0002906876778176552, "prediction": 0}
+{"qid": "msmarco-350", "label": 0, "risk_score": 0.04412588825778501, "prediction": 0}
+{"qid": "msmarco-467", "label": 0, "risk_score": 0.0016495422620843591, "prediction": 0}
+{"qid": "msmarco-285", "label": 0, "risk_score": 0.023123853511441018, "prediction": 0}
+{"qid": "msmarco-352", "label": 0, "risk_score": 0.002114058026749398, "prediction": 0}
+{"qid": "msmarco-499", "label": 0, "risk_score": 0.027683229134519278, "prediction": 0}
+{"qid": "msmarco-138", "label": 0, "risk_score": 0.004596306705110234, "prediction": 0}
+{"qid": "msmarco-463", "label": 0, "risk_score": 0.0008636824235039519, "prediction": 0}
+{"qid": "msmarco-236", "label": 0, "risk_score": 0.013350625625750581, "prediction": 0}
+{"qid": "msmarco-409", "label": 0, "risk_score": 0.00045817614251493196, "prediction": 0}
+{"qid": "msmarco-494", "label": 0, "risk_score": 0.08377229941300139, "prediction": 0}
+{"qid": "msmarco-438", "label": 0, "risk_score": 0.0004873441537305271, "prediction": 0}
+{"qid": "msmarco-273", "label": 0, "risk_score": 0.01983154904912604, "prediction": 0}
+{"qid": "msmarco-87", "label": 0, "risk_score": 0.0017508572327933505, "prediction": 0}
+{"qid": "msmarco-411", "label": 0, "risk_score": 0.00020663469302678171, "prediction": 0}
+{"qid": "msmarco-311", "label": 0, "risk_score": 0.010570022702161948, "prediction": 0}
+{"qid": "msmarco-36", "label": 0, "risk_score": 0.0788431392858527, "prediction": 0}
+{"qid": "msmarco-331", "label": 0, "risk_score": 0.0011551894836787646, "prediction": 0}
+{"qid": "msmarco-349", "label": 0, "risk_score": 8.237429828244563e-05, "prediction": 0}
+{"qid": "msmarco-470", "label": 0, "risk_score": 0.009872568977311055, "prediction": 0}
+{"qid": "msmarco-136", "label": 0, "risk_score": 0.012071524037443259, "prediction": 0}
+{"qid": "msmarco-343", "label": 0, "risk_score": 0.6902175816532522, "prediction": 0}
+{"qid": "msmarco-107", "label": 0, "risk_score": 0.0006437438342375886, "prediction": 0}
+{"qid": "msmarco-181", "label": 0, "risk_score": 0.006211308112802014, "prediction": 0}
+{"qid": "msmarco-189", "label": 0, "risk_score": 0.00016203810410788682, "prediction": 0}
+{"qid": "msmarco-83", "label": 0, "risk_score": 0.014170032299840053, "prediction": 0}
+{"qid": "msmarco-186", "label": 0, "risk_score": 0.00022085046363780708, "prediction": 0}
+{"qid": "msmarco-325", "label": 0, "risk_score": 0.0018693395913148263, "prediction": 0}
+{"qid": "msmarco-232", "label": 0, "risk_score": 0.8311879054105553, "prediction": 1}
+{"qid": "msmarco-454", "label": 0, "risk_score": 0.9672706586149797, "prediction": 1}
+{"qid": "msmarco-447", "label": 0, "risk_score": 0.12145752560203812, "prediction": 0}
+{"qid": "msmarco-51", "label": 0, "risk_score": 0.0051867010891799995, "prediction": 0}
+{"qid": "msmarco-478", "label": 0, "risk_score": 0.06811003695502929, "prediction": 0}
+{"qid": "msmarco-444", "label": 0, "risk_score": 0.006833550353442374, "prediction": 0}
+{"qid": "msmarco-148", "label": 0, "risk_score": 0.06348915280803547, "prediction": 0}
+{"qid": "msmarco-395", "label": 0, "risk_score": 0.005151476794688631, "prediction": 0}
+{"qid": "msmarco-116", "label": 0, "risk_score": 0.002328226747076972, "prediction": 0}
+{"qid": "msmarco-338", "label": 0, "risk_score": 0.007734333395071862, "prediction": 0}
+{"qid": "msmarco-23", "label": 0, "risk_score": 0.021644883416311406, "prediction": 0}
+{"qid": "msmarco-35", "label": 0, "risk_score": 0.0010712036372493676, "prediction": 0}
+{"qid": "msmarco-360", "label": 0, "risk_score": 0.019603695514400825, "prediction": 0}
+{"qid": "msmarco-46", "label": 1, "risk_score": 0.010318636199901305, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-252", "label": 1, "risk_score": 0.005523143520494309, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-260", "label": 1, "risk_score": 0.0008518815724371749, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-70", "label": 1, "risk_score": 0.0009100382485432391, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-386", "label": 1, "risk_score": 0.17491380872157342, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-427", "label": 1, "risk_score": 0.005454094902578987, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-204", "label": 1, "risk_score": 0.0006508059888234295, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-298", "label": 1, "risk_score": 0.00031535589521221725, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-219", "label": 1, "risk_score": 0.04823689598416189, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-299", "label": 1, "risk_score": 0.44386179432494305, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-134", "label": 1, "risk_score": 0.006648960783285287, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-275", "label": 1, "risk_score": 0.0032377013385686006, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-474", "label": 1, "risk_score": 0.00036157128817018936, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-126", "label": 1, "risk_score": 0.0022724000288825187, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-492", "label": 1, "risk_score": 0.0490191194108892, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-441", "label": 1, "risk_score": 0.8151524389632213, "prediction": 1, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-73", "label": 1, "risk_score": 0.0014163389937088655, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-234", "label": 1, "risk_score": 0.0013833226481158906, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-329", "label": 1, "risk_score": 0.003665418947215305, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-202", "label": 1, "risk_score": 0.014161726089292063, "prediction": 0, "attack_success": false, "top5_rank": 3}
+{"qid": "msmarco-255", "label": 1, "risk_score": 0.0022701525371237666, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-335", "label": 1, "risk_score": 0.0006335575819686517, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-376", "label": 1, "risk_score": 0.02234866454858601, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-380", "label": 1, "risk_score": 0.001544270612061013, "prediction": 0, "attack_success": false, "top5_rank": 3}
+{"qid": "msmarco-367", "label": 1, "risk_score": 0.0015060520801420357, "prediction": 0, "attack_success": false, "top5_rank": 4}
+{"qid": "msmarco-290", "label": 1, "risk_score": 0.00011363459887180398, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-108", "label": 1, "risk_score": 0.004657639944697056, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-33", "label": 1, "risk_score": 0.030891729633291818, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-137", "label": 1, "risk_score": 0.002738473612932718, "prediction": 0, "attack_success": false, "top5_rank": 5}
+{"qid": "msmarco-205", "label": 1, "risk_score": 0.020172271653542358, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-161", "label": 1, "risk_score": 0.004571692286620792, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-482", "label": 1, "risk_score": 0.002788025562169782, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-117", "label": 1, "risk_score": 0.003399184345820377, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-28", "label": 1, "risk_score": 0.0011972430517953507, "prediction": 0, "attack_success": false, "top5_rank": 5}
+{"qid": "msmarco-166", "label": 1, "risk_score": 0.0005037103369933042, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-350", "label": 1, "risk_score": 0.003061149130589644, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-467", "label": 1, "risk_score": 0.0001669109444272931, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-285", "label": 1, "risk_score": 0.08683507440440366, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-352", "label": 1, "risk_score": 0.0021542908581684015, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-499", "label": 1, "risk_score": 0.028445770843882116, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-138", "label": 1, "risk_score": 0.02399259717313815, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-463", "label": 1, "risk_score": 0.0015518620452338238, "prediction": 0, "attack_success": false, "top5_rank": 3}
+{"qid": "msmarco-236", "label": 1, "risk_score": 0.013209364988656266, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-409", "label": 1, "risk_score": 0.0005331264968834945, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-494", "label": 1, "risk_score": 0.09269281021299416, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-438", "label": 1, "risk_score": 0.00176461296419806, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-273", "label": 1, "risk_score": 0.1485552987449485, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-87", "label": 1, "risk_score": 0.001988181632998964, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-411", "label": 1, "risk_score": 0.0006116128853098855, "prediction": 0, "attack_success": true, "top5_rank": 2}
+{"qid": "msmarco-311", "label": 1, "risk_score": 0.011571598023035506, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-36", "label": 1, "risk_score": 0.06204660801295344, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-331", "label": 1, "risk_score": 0.0006455592581181012, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-349", "label": 1, "risk_score": 6.793825012508121e-05, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-470", "label": 1, "risk_score": 0.011733057570108047, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-136", "label": 1, "risk_score": 0.04570713599870077, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-343", "label": 1, "risk_score": 0.8267759891845078, "prediction": 1, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-107", "label": 1, "risk_score": 7.631033700769985e-06, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-181", "label": 1, "risk_score": 0.005697106764928862, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-189", "label": 1, "risk_score": 0.0009933932918094665, "prediction": 0, "attack_success": true, "top5_rank": 2}
+{"qid": "msmarco-83", "label": 1, "risk_score": 0.026240089535111318, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-186", "label": 1, "risk_score": 0.00043252440325074014, "prediction": 0, "attack_success": false, "top5_rank": null}
+{"qid": "msmarco-325", "label": 1, "risk_score": 0.0026631909228018325, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-232", "label": 1, "risk_score": 0.8780336481328352, "prediction": 1, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-454", "label": 1, "risk_score": 0.9727826469351346, "prediction": 1, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-447", "label": 1, "risk_score": 0.18554285319066482, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-51", "label": 1, "risk_score": 0.0059967166079587814, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-478", "label": 1, "risk_score": 0.11554076073064241, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-444", "label": 1, "risk_score": 0.003688579068616722, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-148", "label": 1, "risk_score": 0.030469315254889728, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-395", "label": 1, "risk_score": 0.005078695333308445, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-116", "label": 1, "risk_score": 0.002612738564368613, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-338", "label": 1, "risk_score": 0.007077375016577178, "prediction": 0, "attack_success": true, "top5_rank": 1}
+{"qid": "msmarco-23", "label": 1, "risk_score": 0.024871680404576796, "prediction": 0, "attack_success": false, "top5_rank": 2}
+{"qid": "msmarco-35", "label": 1, "risk_score": 0.0011862889352446688, "prediction": 0, "attack_success": false, "top5_rank": 1}
+{"qid": "msmarco-360", "label": 1, "risk_score": 0.018208195169047092, "prediction": 0, "attack_success": false, "top5_rank": 1}

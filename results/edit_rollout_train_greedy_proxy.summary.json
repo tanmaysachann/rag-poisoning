@@ -1,0 +1,10 @@
+{
+  "split": "train",
+  "strategy": "greedy_proxy",
+  "cases": 10,
+  "retrieval_rate": 1.0,
+  "attack_success_rate": 1.0,
+  "mean_reward": 5.87710657119751,
+  "cached_transitions": 20,
+  "output": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\edit_rollout_train_greedy_proxy.jsonl"
+}

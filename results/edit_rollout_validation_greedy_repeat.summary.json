@@ -1,0 +1,10 @@
+{
+  "split": "validation",
+  "strategy": "greedy_repeat",
+  "cases": 75,
+  "retrieval_rate": 1.0,
+  "attack_success_rate": 0.8933333333333333,
+  "mean_reward": 5.211098359897726,
+  "cached_transitions": 225,
+  "output": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\edit_rollout_validation_greedy_repeat.jsonl"
+}

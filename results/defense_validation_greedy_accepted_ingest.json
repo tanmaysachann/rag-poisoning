@@ -1,0 +1,19 @@
+{
+  "split": "validation",
+  "strategy": "greedy",
+  "surface": "accepted_ingest",
+  "answer_backend": "extractive",
+  "detector_threshold": 0.6902175816532523,
+  "cases": 75,
+  "undefended_attack_success_rate": 0.8666666666666667,
+  "defended_attack_success_rate": 0.0,
+  "attack_quarantine_rate": 1.0,
+  "clean_answer_recovery_rate": 0.2,
+  "abstention_rate": 0.5333333333333333,
+  "selective_loo_rate": 0.02666666666666667,
+  "selective_loo_changed_answer_rate": 0.02666666666666667,
+  "mean_loo_ms": 0.07319866660206269,
+  "defense_success_given_prior_attack_success": 1.0,
+  "median_latency_ms": 63.282999995863065,
+  "p95_latency_ms": 81.8247000061092
+}

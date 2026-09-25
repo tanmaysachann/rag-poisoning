@@ -1,0 +1,16 @@
+{
+  "split": "validation",
+  "strategy": "stealth",
+  "threshold_source": "validation greedy clean cases; frozen from training run",
+  "threshold": 0.7660537384924605,
+  "clean_cases": 75,
+  "attack_cases": 75,
+  "successful_undefended_attacks": 12,
+  "false_positive_rate": 0.04,
+  "attack_recall": 0.04,
+  "successful_attack_recall": 0.08333333333333333,
+  "precision": 0.5,
+  "f1": 0.07407407407407407,
+  "roc_auc": 0.5491555555555556,
+  "pr_auc": 0.5523784254184891
+}

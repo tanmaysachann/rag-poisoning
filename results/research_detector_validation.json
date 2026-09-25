@@ -1,0 +1,28 @@
+{
+  "evaluation": "validation only; test split untouched",
+  "embedding_backend": "sklearn-hashing-384",
+  "reference_clean": 200,
+  "classifier_clean": 150,
+  "classifier_attack": 150,
+  "validation_clean": 75,
+  "validation_attack": 75,
+  "target_fpr": 0.05,
+  "threshold": 0.6902175816532523,
+  "observed_validation_fpr": 0.04,
+  "validation_recall": 1.0,
+  "validation_precision": 0.9615384615384616,
+  "validation_f1": 0.9803921568627451,
+  "validation_roc_auc": 0.9953777777777778,
+  "validation_pr_auc": 0.9945531136658612,
+  "feature_names": [
+    "mahalanobis",
+    "isolation_forest",
+    "relevance_spike",
+    "instruction_pattern",
+    "url_pattern",
+    "authority_cue",
+    "query_doc_cosine",
+    "query_copy_ratio"
+  ],
+  "note": "Same-template local attack baseline; evaluate unseen attack families before claiming generalization."
+}

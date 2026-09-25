@@ -29,6 +29,29 @@ def split_sentences(text: str) -> list[str]:
     return [part.strip() for part in SENTENCE_RE.split(text.strip()) if part.strip()]
 
 
+def query_copy_ratio(query: str, doc_text: str) -> float:
+    """Fraction of query tokens in the longest contiguous document copy.
+
+    A query-targeted poison often repeats the exact question in a passage to
+    improve retrieval. This measures that behavior without relying on one
+    payload template or an attack label.
+    """
+    query_tokens = re.findall(r"\w+", query.casefold())
+    doc_tokens = re.findall(r"\w+", doc_text.casefold())
+    if not query_tokens or not doc_tokens:
+        return 0.0
+    previous = [0] * (len(query_tokens) + 1)
+    longest = 0
+    for token in doc_tokens:
+        current = [0] * (len(query_tokens) + 1)
+        for index, query_token in enumerate(query_tokens, 1):
+            if token == query_token:
+                current[index] = previous[index - 1] + 1
+                longest = max(longest, current[index])
+        previous = current
+    return longest / len(query_tokens)
+
+
 def mahalanobis_score(doc_embedding: np.ndarray, clean_mean: np.ndarray,
                       clean_cov_inv: np.ndarray) -> float:
     """Return ridge-regularized distance from the clean embedding distribution."""

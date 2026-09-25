@@ -1,0 +1,35 @@
+{
+  "benchmark": "data/benchmark",
+  "splits": {
+    "train": {
+      "documents": 350,
+      "queries": 350,
+      "embedding_backend": "sklearn-hashing-384",
+      "recall_at_1": 0.5942857142857143,
+      "recall_at_5": 0.76,
+      "mean_query_ms": 0.7731817144251961,
+      "corpus_sha256": "d08b73c62955c9624fff4d83f1172487ae57e4d299c2acd66427f155d77a2106",
+      "integrity_manifest": "artifacts/indexes/6c439acd86ddaf66/corpus_hashes.json"
+    },
+    "validation": {
+      "documents": 75,
+      "queries": 75,
+      "embedding_backend": "sklearn-hashing-384",
+      "recall_at_1": 0.6666666666666666,
+      "recall_at_5": 0.8666666666666667,
+      "mean_query_ms": 0.47313999976419535,
+      "corpus_sha256": "dade088b95c8e83238b5442a8c6bff89c2ece8ef5045fdfc147b69ef8c5bdd0d",
+      "integrity_manifest": "artifacts/indexes/a54694f0dd94daa2/corpus_hashes.json"
+    },
+    "test": {
+      "documents": 75,
+      "queries": 75,
+      "embedding_backend": "sklearn-hashing-384",
+      "recall_at_1": 0.7733333333333333,
+      "recall_at_5": 0.9066666666666666,
+      "mean_query_ms": 0.4602053330745548,
+      "corpus_sha256": "9b158876935933da286457192819866cc169e812ba353fc7d5db4e9abd5664ce",
+      "integrity_manifest": "artifacts/indexes/e88e992ab4ba4428/corpus_hashes.json"
+    }
+  }
+}

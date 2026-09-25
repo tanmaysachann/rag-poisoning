@@ -1,0 +1,15 @@
+{
+  "benchmark": "data/benchmark",
+  "splits": {
+    "validation": {
+      "documents": 75,
+      "queries": 75,
+      "embedding_backend": "sentence-transformers/all-MiniLM-L6-v2",
+      "recall_at_1": 0.9733333333333334,
+      "recall_at_5": 0.9866666666666667,
+      "mean_query_ms": 11.279832000727765,
+      "corpus_sha256": "dade088b95c8e83238b5442a8c6bff89c2ece8ef5045fdfc147b69ef8c5bdd0d",
+      "integrity_manifest": null
+    }
+  }
+}

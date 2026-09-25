@@ -8,6 +8,7 @@ import math
 import re
 import os
 from collections import Counter
+from functools import lru_cache
 from pathlib import Path
 from typing import Sequence
 
@@ -19,11 +20,20 @@ from config import (
     DEMO_CORPUS_PATH,
     EMBEDDING_MODEL,
     RRF_K,
+    ROOT_DIR,
     ensure_project_dirs,
 )
+from security.integrity import write_manifest
 
 
 TOKEN_RE = re.compile(r"[A-Za-z0-9]+")
+
+
+@lru_cache(maxsize=2)
+def _cached_sentence_transformer(model_name: str):
+    from sentence_transformers import SentenceTransformer
+
+    return SentenceTransformer(model_name)
 
 
 def tokenize(text: str) -> list[str]:
@@ -83,9 +93,7 @@ class TextEmbedder:
 
         if preferred_backend != "hashing":
             try:
-                from sentence_transformers import SentenceTransformer
-
-                self._model = SentenceTransformer(EMBEDDING_MODEL)
+                self._model = _cached_sentence_transformer(EMBEDDING_MODEL)
                 self.backend = "sentence-transformers"
                 self.model_name = EMBEDDING_MODEL
             except Exception as error:
@@ -107,7 +115,7 @@ class TextEmbedder:
             encoded = self._model.encode(
                 values,
                 batch_size=32,
-                show_progress_bar=len(values) > 64,
+                show_progress_bar=len(values) > 512,
                 convert_to_numpy=True,
                 normalize_embeddings=True,
             )
@@ -125,6 +133,8 @@ class HybridRetriever:
         *,
         force_rebuild: bool = False,
         write_integrity_manifest: bool = False,
+        artifact_dir: str | Path | None = None,
+        integrity_path: str | Path | None = None,
     ) -> None:
         ensure_project_dirs()
         if corpus_path is None:
@@ -146,10 +156,26 @@ class HybridRetriever:
         except ImportError:
             self.bm25 = _SimpleBM25(tokenized)
 
-        artifact_prefix = "demo_corpus" if self.corpus_path.resolve() == DEMO_CORPUS_PATH.resolve() else "corpus"
-        self.embeddings_path = ARTIFACTS_DIR / f"{artifact_prefix}_embeddings.npy"
-        self.embedding_meta_path = ARTIFACTS_DIR / f"{artifact_prefix}_embeddings.meta.json"
-        self.integrity_path = ARTIFACTS_DIR / f"{artifact_prefix}_hashes.json"
+        if self.corpus_path.resolve() == DEMO_CORPUS_PATH.resolve():
+            artifact_prefix = "demo_corpus"
+            cache_dir = ARTIFACTS_DIR
+        elif self.corpus_path.resolve() == BASE_CORPUS_PATH.resolve():
+            artifact_prefix = "corpus"
+            cache_dir = ARTIFACTS_DIR
+        else:
+            artifact_prefix = "corpus"
+            try:
+                corpus_key = self.corpus_path.resolve().relative_to(ROOT_DIR).as_posix()
+            except ValueError:
+                corpus_key = str(self.corpus_path.resolve())
+            path_key = hashlib.sha256(corpus_key.encode("utf-8")).hexdigest()[:16]
+            cache_dir = ARTIFACTS_DIR / "indexes" / path_key
+        if artifact_dir is not None:
+            cache_dir = Path(artifact_dir)
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        self.embeddings_path = cache_dir / f"{artifact_prefix}_embeddings.npy"
+        self.embedding_meta_path = cache_dir / f"{artifact_prefix}_embeddings.meta.json"
+        self.integrity_path = Path(integrity_path) if integrity_path else cache_dir / f"{artifact_prefix}_hashes.json"
         self.corpus_digest = hashlib.sha256(self.corpus_path.read_bytes()).hexdigest()
 
         cached_meta = self._read_json(self.embedding_meta_path)
@@ -161,6 +187,7 @@ class HybridRetriever:
             and self.embeddings_path.exists()
             and cached_meta.get("corpus_sha256") == self.corpus_digest
             and cached_meta.get("backend") == self.embedder.backend
+            and cached_meta.get("model") == self.embedder.model_name
         )
         if cache_valid:
             self.embeddings = np.load(self.embeddings_path).astype(np.float32)
@@ -188,7 +215,7 @@ class HybridRetriever:
                 # current invocation even when the cache cannot be persisted.
                 pass
 
-        if write_integrity_manifest or not self.integrity_path.exists():
+        if write_integrity_manifest:
             self.write_integrity_manifest()
 
     @staticmethod
@@ -211,11 +238,13 @@ class HybridRetriever:
             return {}
 
     def write_integrity_manifest(self) -> None:
-        hashes = {
-            str(doc["doc_id"]): hashlib.sha256(doc["text"].encode("utf-8")).hexdigest()
-            for doc in self.documents
-        }
-        self.integrity_path.write_text(json.dumps(hashes, indent=2), encoding="utf-8")
+        raw_key = os.getenv("RAG_MANIFEST_KEY")
+        write_manifest(
+            self.integrity_path,
+            self.documents,
+            self.corpus_digest,
+            signing_key=raw_key.encode("utf-8") if raw_key else None,
+        )
 
     def encode(self, texts: Sequence[str] | str) -> np.ndarray:
         """Encode text with the same normalized backend used for this index."""

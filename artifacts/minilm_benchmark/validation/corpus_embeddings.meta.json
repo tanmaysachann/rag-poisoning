@@ -1,0 +1,9 @@
+{
+  "backend": "sentence-transformers",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "corpus_sha256": "dade088b95c8e83238b5442a8c6bff89c2ece8ef5045fdfc147b69ef8c5bdd0d",
+  "shape": [
+    75,
+    384
+  ]
+}

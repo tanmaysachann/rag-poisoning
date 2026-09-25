@@ -1,0 +1,27 @@
+{
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "feature_names": [
+    "query_term_coverage",
+    "query_sentence_cosine",
+    "retrieval_rank_reciprocal",
+    "rrf_score",
+    "bm25_rank_reciprocal",
+    "dense_rank_reciprocal",
+    "sentence_position",
+    "sentence_words",
+    "has_digit",
+    "starts_with_yes_no",
+    "question_who",
+    "question_when",
+    "question_where",
+    "question_how"
+  ],
+  "train_queries": 280,
+  "calibration_queries": 70,
+  "positive_sentences": 262,
+  "negative_sentences": 6550,
+  "threshold": 0.4010093013624744,
+  "calibration": "support_removed_5_percent_admission",
+  "calibration_alias_hits": 40,
+  "calibration_abstentions": 3
+}

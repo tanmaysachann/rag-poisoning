@@ -1,0 +1,26 @@
+{
+  "embedding_model": "sklearn-hashing-384",
+  "feature_names": [
+    "query_term_coverage",
+    "query_sentence_cosine",
+    "retrieval_rank_reciprocal",
+    "rrf_score",
+    "bm25_rank_reciprocal",
+    "dense_rank_reciprocal",
+    "sentence_position",
+    "sentence_words",
+    "has_digit",
+    "starts_with_yes_no",
+    "question_who",
+    "question_when",
+    "question_where",
+    "question_how"
+  ],
+  "train_queries": 280,
+  "calibration_queries": 70,
+  "positive_sentences": 203,
+  "negative_sentences": 7112,
+  "threshold": 0.05,
+  "calibration_alias_hits": 29,
+  "calibration_abstentions": 1
+}

@@ -1,0 +1,11 @@
+{
+  "split": "validation",
+  "answer_backend": "extractive",
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "cases": 75,
+  "support_recall_at_5": 0.9866666666666667,
+  "selected_support_rate": 0.5733333333333334,
+  "alias_match_accuracy": 0.28,
+  "abstention_rate": 0.41333333333333333,
+  "alias_match_given_selected_support": 0.4883720930232558
+}

@@ -1,0 +1,10 @@
+{
+  "split": "train",
+  "answer_backend": "extractive",
+  "cases": 350,
+  "support_recall_at_5": 0.76,
+  "selected_support_rate": 0.4657142857142857,
+  "alias_match_accuracy": 0.2,
+  "abstention_rate": 0.5228571428571429,
+  "alias_match_given_selected_support": 0.4294478527607362
+}

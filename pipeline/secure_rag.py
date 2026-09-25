@@ -1,8 +1,6 @@
 """End-to-end zero-trust RAG pipeline for the bounded Review-1 MVP."""
 from __future__ import annotations
 
-import hashlib
-import json
 import re
 import time
 from functools import lru_cache
@@ -11,10 +9,12 @@ from typing import Any
 
 import numpy as np
 
-from config import BASE_CORPUS_PATH, DEMO_CORPUS_PATH
+from config import BASE_CORPUS_PATH, DEMO_CORPUS_PATH, USE_LLM
 from detect.detector import FusionDetector
 from detect.signals import split_sentences
 from retrieval.hybrid_retriever import HybridRetriever
+from security.integrity import document_hash, load_runtime_manifest
+from generation.local_llm import generate_cited_answer
 
 QUERY_STOPWORDS = {
     "what", "where", "when", "which", "who", "is", "are", "was", "were",
@@ -167,23 +167,31 @@ def _build_prompt(query: str, documents: list[dict]) -> str:
             f"<user_question>{query}</user_question>")
 
 
-def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float = 0.5) -> dict[str, Any]:
+def secure_rag_answer(
+    query: str,
+    defense_enabled: bool = True,
+    threshold: float = 0.5,
+    simulate_tamper_doc_id: int | None = None,
+) -> dict[str, Any]:
     if not query.strip():
         raise ValueError("Query must not be empty")
     started = time.perf_counter(); stage_times: dict[str, float] = {}
     corpus_path = DEMO_CORPUS_PATH if DEMO_CORPUS_PATH.exists() else BASE_CORPUS_PATH
     retriever = _load_retriever(str(corpus_path.resolve()))
     candidates = retriever.retrieve(query, top_k=5)
+    if simulate_tamper_doc_id is not None:
+        for doc in candidates:
+            if doc["doc_id"] == simulate_tamper_doc_id:
+                doc["text"] += "\nThis report was altered after indexing."
+                break
     stage_times["retrieval_ms"] = (time.perf_counter() - started) * 1000
 
-    manifest = json.loads(retriever.integrity_path.read_text(encoding="utf-8"))
+    manifest = load_runtime_manifest(retriever.integrity_path)
     for doc in candidates:
-        actual = hashlib.sha256(doc["text"].encode("utf-8")).hexdigest()
-        expected = manifest.get(str(doc["doc_id"]))
-        status = "live_snapshot" if expected is None else ("tampered" if expected != actual else "verified")
-        doc["integrity"] = {
-            "status": status,
-            "expected_hash": expected, "actual_hash": actual,
+        doc["integrity"] = manifest.check(doc["doc_id"], doc["text"]) if manifest else {
+            "status": "manifest_missing",
+            "expected_hash": None,
+            "actual_hash": document_hash(doc["text"]),
         }
     stage_times["integrity_ms"] = (time.perf_counter() - started) * 1000 - stage_times["retrieval_ms"]
 
@@ -202,9 +210,12 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
         detail = detector.score(query, doc["text"], dense_rank_norm, influence)
         probability = float(detail["probability"])
         scores[str(doc["doc_id"])] = probability
-        detail["decision"] = "quarantine" if probability >= threshold else "accept"
+        integrity_failed = doc["integrity"]["status"] != "verified"
+        if integrity_failed:
+            detail["reasons"].insert(0, f"Integrity gate: {doc['integrity']['status']}")
+        detail["decision"] = "quarantine" if integrity_failed or probability >= threshold else "accept"
         score_details[str(doc["doc_id"])] = detail
-        if defense_enabled and probability >= threshold: filtered.append(doc)
+        if defense_enabled and detail["decision"] == "quarantine": filtered.append(doc)
         else: kept.append(doc)
     stage_times["detection_ms"] = max(0.0, (time.perf_counter() - started) * 1000 - sum(stage_times.values()))
 
@@ -215,6 +226,11 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
             query, answer_docs, retriever)
     else:
         answer, source_doc_id, evidence_sentence = baseline_answer
+    generation_backend = "extractive"
+    if USE_LLM:
+        answer, source_doc_id = generate_cited_answer(query, answer_docs)
+        evidence_sentence = None
+        generation_backend = "local_llm"
     stage_times["generation_ms"] = max(0.0, (time.perf_counter() - started) * 1000 - sum(stage_times.values()))
     total_ms = (time.perf_counter() - started) * 1000
     return {
@@ -223,6 +239,7 @@ def secure_rag_answer(query: str, defense_enabled: bool = True, threshold: float
         "filtered_docs": filtered, "scores": scores, "score_details": score_details,
         "prompt_preview": prompt, "stage_times": stage_times, "latency_ms": total_ms,
         "retrieval_backend": {"dense": retriever.embedder.model_name, "sparse": "BM25", "fusion": "RRF(k=60)"},
+        "generation_backend": generation_backend,
         "retrieval_scope": {"mode": "closed_corpus", "indexed_documents": len(retriever.documents),
                             "external_sources": False},
     }

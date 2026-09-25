@@ -1,0 +1,33 @@
+{
+  "evaluation": "validation only; test split untouched",
+  "embedding_backend": "sklearn-hashing-384",
+  "reference_clean": 200,
+  "classifier_clean": 150,
+  "classifier_attack": 300,
+  "train_attack_files": [
+    "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\attack_baseline_train_random.jsonl",
+    "results\\attack_baseline_train_stealth.jsonl"
+  ],
+  "validation_attack_file": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\attack_baseline_validation_greedy.jsonl",
+  "validation_clean": 75,
+  "validation_attack": 75,
+  "target_fpr": 0.05,
+  "threshold": 0.7660537384924605,
+  "observed_validation_fpr": 0.04,
+  "validation_recall": 0.9866666666666667,
+  "validation_precision": 0.961038961038961,
+  "validation_f1": 0.9736842105263158,
+  "validation_roc_auc": 0.992,
+  "validation_pr_auc": 0.9896576746003355,
+  "feature_names": [
+    "mahalanobis",
+    "isolation_forest",
+    "relevance_spike",
+    "instruction_pattern",
+    "url_pattern",
+    "authority_cue",
+    "query_doc_cosine",
+    "query_copy_ratio"
+  ],
+  "note": "Validation-only local attack families; evaluate unseen attack families before claiming generalization."
+}

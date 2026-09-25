@@ -1,0 +1,20 @@
+{
+  "split": "test",
+  "strategy": "stealth",
+  "surface": "accepted_ingest",
+  "answer_backend": "learned_sentence_ranker",
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "detector_threshold": 0.6902175816532523,
+  "cases": 75,
+  "undefended_attack_success_rate": 0.30666666666666664,
+  "defended_attack_success_rate": 0.29333333333333333,
+  "attack_quarantine_rate": 0.04,
+  "clean_answer_recovery_rate": 0.013333333333333334,
+  "abstention_rate": 0.06666666666666667,
+  "selective_loo_rate": 0.04,
+  "selective_loo_changed_answer_rate": 0.04,
+  "mean_loo_ms": 3.0205120000755414,
+  "defense_success_given_prior_attack_success": 0.043478260869565216,
+  "median_latency_ms": 905.0328000012087,
+  "p95_latency_ms": 1028.2221000088612
+}

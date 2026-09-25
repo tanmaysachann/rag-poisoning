@@ -13,5 +13,7 @@ Thumbs.db
 *.log
 tmp/
 .vercel/
+artifacts/models/
+artifacts/vendor/
 
 .vercel

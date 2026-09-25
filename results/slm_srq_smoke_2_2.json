@@ -1,0 +1,28 @@
+{
+  "model": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\artifacts\\models\\qwen2_5_0_5b",
+  "model_weight_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "seed": 42,
+  "max_new_tokens": 24,
+  "calibration_clean": 2,
+  "validation_clean": 2,
+  "threshold": 0.27303025216767285,
+  "clean_validation_fpr": 1.0,
+  "families": {
+    "greedy": {
+      "cases": 2,
+      "recall": 0.5,
+      "roc_auc": 0.25,
+      "mean_clean_srq": 0.3132446687098983,
+      "mean_attack_srq": 0.261419639945057
+    },
+    "stealth": {
+      "cases": 2,
+      "recall": 1.0,
+      "roc_auc": 0.75,
+      "mean_clean_srq": 0.3132446687098983,
+      "mean_attack_srq": 0.3862919513815142
+    }
+  },
+  "note": "Train-clean threshold; small validation subset, real local SLM, not wired into quarantine"
+}

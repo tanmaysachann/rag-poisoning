@@ -1,0 +1,10 @@
+{
+  "split": "train",
+  "strategy": "random",
+  "cases": 10,
+  "retrieval_rate": 0.9,
+  "attack_success_rate": 0.7,
+  "mean_reward": 4.166593894064427,
+  "cached_transitions": 28,
+  "output": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\edit_rollout_train_random.jsonl"
+}

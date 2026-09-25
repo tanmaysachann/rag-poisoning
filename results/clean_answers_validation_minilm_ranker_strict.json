@@ -1,0 +1,12 @@
+{
+  "split": "validation",
+  "answer_backend": "learned_sentence_ranker",
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "selection": "all_top5",
+  "cases": 75,
+  "support_recall_at_5": 0.9866666666666667,
+  "selected_support_rate": 0.9866666666666667,
+  "alias_match_accuracy": 0.5466666666666666,
+  "abstention_rate": 0.013333333333333334,
+  "alias_match_given_selected_support": 0.5540540540540541
+}

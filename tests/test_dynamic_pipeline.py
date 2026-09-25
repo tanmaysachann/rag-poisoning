@@ -59,6 +59,16 @@ class ClosedCorpusPipelineTests(unittest.TestCase):
                 result = secure_rag_answer("boiling point of water?", defense_enabled=guard)
                 self.assertIn("100 degrees Celsius", result["answer"])
 
+    def test_post_index_tamper_is_quarantined_by_integrity_gate(self) -> None:
+        result = secure_rag_answer(
+            "Where is the Eiffel Tower located?", defense_enabled=True,
+            threshold=0.95, simulate_tamper_doc_id=0,
+        )
+        altered = [doc for doc in result["filtered_docs"] if doc["doc_id"] == 0]
+        self.assertEqual(len(altered), 1)
+        self.assertEqual(altered[0]["integrity"]["status"], "tampered")
+        self.assertEqual(result["score_details"]["0"]["decision"], "quarantine")
+
 
 if __name__ == "__main__":
     unittest.main()

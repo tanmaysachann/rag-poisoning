@@ -1,0 +1,15 @@
+{
+  "benchmark": "data/benchmark",
+  "splits": {
+    "test": {
+      "documents": 75,
+      "queries": 75,
+      "embedding_backend": "sklearn-hashing-384",
+      "recall_at_1": 0.7733333333333333,
+      "recall_at_5": 0.9066666666666666,
+      "mean_query_ms": 0.5550186675585186,
+      "corpus_sha256": "9b158876935933da286457192819866cc169e812ba353fc7d5db4e9abd5664ce",
+      "integrity_manifest": "artifacts/indexes/e88e992ab4ba4428/corpus_hashes.json"
+    }
+  }
+}

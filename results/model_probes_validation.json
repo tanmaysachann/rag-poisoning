@@ -1,0 +1,40 @@
+{
+  "probe_version": "minilm-encoder-layer3-attn6-v1",
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "encoder_internal_not_generator": true,
+  "reference_train_cases": 100,
+  "calibration_train_cases": 50,
+  "validation_cases_per_family": 75,
+  "target_train_fpr": 0.05,
+  "families": {
+    "greedy": {
+      "layer3_mahalanobis": {
+        "train_calibrated_threshold": 26.891323408572152,
+        "validation_clean_fpr": 0.09333333333333334,
+        "validation_attack_recall": 0.0,
+        "validation_roc_auc": 0.2928
+      },
+      "attention_deviation": {
+        "train_calibrated_threshold": 2.2932523954899824,
+        "validation_clean_fpr": 0.0,
+        "validation_attack_recall": 0.0,
+        "validation_roc_auc": 0.5856
+      }
+    },
+    "stealth": {
+      "layer3_mahalanobis": {
+        "train_calibrated_threshold": 26.891323408572152,
+        "validation_clean_fpr": 0.09333333333333334,
+        "validation_attack_recall": 0.06666666666666667,
+        "validation_roc_auc": 0.3765333333333334
+      },
+      "attention_deviation": {
+        "train_calibrated_threshold": 2.2932523954899824,
+        "validation_clean_fpr": 0.0,
+        "validation_attack_recall": 0.04,
+        "validation_roc_auc": 0.5105777777777778
+      }
+    }
+  }
+}

@@ -22,10 +22,12 @@ RRF_K = 60
 # Set RAG_USE_LLM=1 to opt into generation. The extractive backend is the
 # reliable default for a CPU-only, potentially offline live demonstration.
 USE_LLM = os.getenv("RAG_USE_LLM", "0").strip().lower() in {"1", "true", "yes", "on"}
+LLM_MODEL = os.getenv("RAG_LLM_MODEL", "Qwen/Qwen2.5-0.5B-Instruct")
+LLM_NF4 = os.getenv("RAG_LLM_NF4", "0").strip().lower() in {"1", "true", "yes", "on"}
 
 
 def ensure_project_dirs() -> None:
     """Create directories used for generated data and artifacts."""
 
-    for path in (DATA_DIR, ARTIFACTS_DIR, RESULTS_DIR):
+    for path in (DATA_DIR, ARTIFACTS_DIR):
         path.mkdir(parents=True, exist_ok=True)

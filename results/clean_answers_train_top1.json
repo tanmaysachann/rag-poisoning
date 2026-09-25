@@ -1,0 +1,12 @@
+{
+  "split": "train",
+  "answer_backend": "extractive",
+  "retrieval_backend": "sklearn-hashing-384",
+  "selection": "rank1_only",
+  "cases": 350,
+  "support_recall_at_5": 0.76,
+  "selected_support_rate": 0.39714285714285713,
+  "alias_match_accuracy": 0.16285714285714287,
+  "abstention_rate": 0.6028571428571429,
+  "alias_match_given_selected_support": 0.41007194244604317
+}

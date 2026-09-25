@@ -1,0 +1,112 @@
+{
+  "split": "test",
+  "cases_per_profile": 75,
+  "confidence_level": 0.95,
+  "note": "Frozen v1 test protocol; intervals describe sampling uncertainty for this 75-query corpus, not all RAG settings",
+  "profiles": {
+    "greedy_minilm_ranker": {
+      "undefended_attack_success": {
+        "count": 37,
+        "total": 75,
+        "rate": 0.49333333333333335,
+        "wilson_95": [
+          0.38330010247790747,
+          0.6040162154218635
+        ]
+      },
+      "defended_attack_success": {
+        "count": 0,
+        "total": 75,
+        "rate": 0.0,
+        "wilson_95": [
+          0.0,
+          0.04872384248280587
+        ]
+      },
+      "absolute_attack_success_reduction": 0.49333333333333335,
+      "paired_bootstrap_reduction_95": [
+        0.38666666666666666,
+        0.6133333333333333
+      ],
+      "clean_alias_recovery": {
+        "count": 34,
+        "total": 75,
+        "rate": 0.4533333333333333,
+        "wilson_95": [
+          0.3456979638413221,
+          0.5655162614570731
+        ]
+      },
+      "attack_quarantine": {
+        "count": 75,
+        "total": 75,
+        "rate": 1.0,
+        "wilson_95": [
+          0.9512761575171942,
+          1.0
+        ]
+      },
+      "abstention": {
+        "count": 6,
+        "total": 75,
+        "rate": 0.08,
+        "wilson_95": [
+          0.03718012435033387,
+          0.16374790333522304
+        ]
+      }
+    },
+    "stealth_minilm_ranker": {
+      "undefended_attack_success": {
+        "count": 23,
+        "total": 75,
+        "rate": 0.30666666666666664,
+        "wilson_95": [
+          0.21386867086778077,
+          0.4183045482255708
+        ]
+      },
+      "defended_attack_success": {
+        "count": 22,
+        "total": 75,
+        "rate": 0.29333333333333333,
+        "wilson_95": [
+          0.20240140321903244,
+          0.40440445167386063
+        ]
+      },
+      "absolute_attack_success_reduction": 0.013333333333333334,
+      "paired_bootstrap_reduction_95": [
+        0.0,
+        0.04
+      ],
+      "clean_alias_recovery": {
+        "count": 1,
+        "total": 75,
+        "rate": 0.013333333333333334,
+        "wilson_95": [
+          0.002357551139048661,
+          0.07173365554421572
+        ]
+      },
+      "attack_quarantine": {
+        "count": 3,
+        "total": 75,
+        "rate": 0.04,
+        "wilson_95": [
+          0.013696064260143935,
+          0.11112987082403747
+        ]
+      },
+      "abstention": {
+        "count": 5,
+        "total": 75,
+        "rate": 0.06666666666666667,
+        "wilson_95": [
+          0.02881006289949372,
+          0.14675060058560468
+        ]
+      }
+    }
+  }
+}

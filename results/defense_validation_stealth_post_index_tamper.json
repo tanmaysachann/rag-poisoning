@@ -1,0 +1,16 @@
+{
+  "split": "validation",
+  "strategy": "stealth",
+  "surface": "post_index_tamper",
+  "answer_backend": "extractive",
+  "detector_threshold": 0.6902175816532523,
+  "cases": 75,
+  "undefended_attack_success_rate": 0.16,
+  "defended_attack_success_rate": 0.0,
+  "attack_quarantine_rate": 0.8,
+  "clean_answer_recovery_rate": 0.0,
+  "abstention_rate": 0.9866666666666667,
+  "defense_success_given_prior_attack_success": 1.0,
+  "median_latency_ms": 60.72909999784315,
+  "p95_latency_ms": 69.16059999639401
+}

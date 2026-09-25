@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "nq_alias_present": 5,
+    "nq_challenge": 50,
+    "test": 75,
+    "train": 350,
+    "validation": 75
+  },
+  "file_sha256": {
+    "nq_challenge.jsonl": "5b66e4b48896cf66ababbd4cbd9e977c2a8c3323c691b95120c87057ff16e4b5",
+    "test/corpus.jsonl": "9b158876935933da286457192819866cc169e812ba353fc7d5db4e9abd5664ce",
+    "test/queries.jsonl": "0a80f2e8aba87e93752d3bf6d254283d066c6ec9c5c4b6c7574609b16660fdae",
+    "train/corpus.jsonl": "d08b73c62955c9624fff4d83f1172487ae57e4d299c2acd66427f155d77a2106",
+    "train/queries.jsonl": "154492563bd4d65d28ba8eea7f0a21d76b2348ee4640144e44f4951177683873",
+    "validation/corpus.jsonl": "dade088b95c8e83238b5442a8c6bff89c2ece8ef5045fdfc147b69ef8c5bdd0d",
+    "validation/queries.jsonl": "e8d25009d29aa7c7ecf82bc5f41e827344c6b46c55215028ebcb27844a3a8ab5"
+  },
+  "msmarco_rows_scanned": 700,
+  "schema_version": 1,
+  "seed": 42,
+  "selection": "selected MS MARCO passage with exact normalized answer-token span; one passage per unique query",
+  "sources": {
+    "ms_marco": {
+      "config": "v1.1",
+      "dataset": "microsoft/ms_marco",
+      "revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a",
+      "split": "train"
+    },
+    "nq_open": {
+      "dataset": "google-research-datasets/nq_open",
+      "revision": "5dd9790a83002ad084ddeb7c420dc716852c6f28",
+      "split": "train"
+    }
+  }
+}
