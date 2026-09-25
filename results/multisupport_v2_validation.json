@@ -1,0 +1,12 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "validation",
+  "cases": 30,
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "one_or_more_support_at_5": 1.0,
+  "both_supports_at_5": 0.9666666666666667,
+  "answer_alias_match": 0.5333333333333333,
+  "answer_source_is_support": 1.0,
+  "abstention_rate": 0.0,
+  "note": "Development split only. Two passages share an MS MARCO query and are not proven independent sources."
+}

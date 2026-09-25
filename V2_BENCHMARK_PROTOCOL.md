@@ -1,0 +1,55 @@
+# Two-passage benchmark v2: development protocol
+
+Created 2026-09-26 from the revision-pinned MS MARCO v1.1 source recorded in
+`data/benchmark/manifest.json`. The generated file hashes and selection rules
+are in `data/benchmark_v2/manifest.json`.
+
+## Construction and separation
+
+- Scanned 4,042 source rows to select 200 query groups with two distinct
+  *selected* passages that each contain an exact normalized answer alias.
+- Excluded all 500 source query IDs, passage texts, and exact question strings
+  from the original v1 benchmark. Query groups were split with seed 59 into
+  140 train, 30 validation, and 30 test questions; each has two passages.
+- `python -m data.validate_multisupport_benchmark` checks file hashes, group
+  and passage separation, two support labels, and alias presence. Validation
+  reads test files only for structural and hash checks. No model selection or
+  attack result has been computed on v2 test.
+- Both passages come from the same MS MARCO query row. Their independent
+  publication origin and factual truth are **not established**. This benchmark
+  measures resilience when one of two answer-bearing passages is altered; it
+  does not prove a general provenance solution.
+
+## Development experiments completed
+
+On the 30-question v2 validation split, cached MiniLM retrieved at least one
+support in 30/30 cases and both supports in 29/30. The frozen v1 sentence
+ranker matched an answer alias in 16/30 clean cases. See
+`results/multisupport_v2_validation.json` and its case records.
+
+The one-passage replacement experiment changes the first support document's
+answer span to a wrong answer drawn from v2 training queries. The second
+support document remains clean. The frozen sentence ranker was attacked in
+2/30 validation cases before an extra paired-passage gate. The initial gate,
+calibrated on doc-only training sentences, lowered success to 1/30 but also
+lowered clean alias matches from 16/30 to 13/30. Recalibration on full-context
+training decisions found that 18/140 clean training cases lacked a usable
+paired score, so a 5% clean rejection target was unattainable. The best
+attainable threshold kept attack success at 2/30 and still lowered clean alias
+matches to 13/30. The gate has **not** been added to the live defense. See
+`results/paired_gate_v2_validation.json` (the initial doc-only run),
+`results/paired_gate_v2_train_calibration.json`, and
+`results/paired_gate_v2_validation_full_context.json`.
+
+These are small development samples, and v1 versus v2 attack rates are not a
+controlled comparison: their corpora, retrieval competition, and attack
+conditions differ. Sentence cosine does not prove factual agreement.
+
+## Next decision
+
+Before v2 test evaluation, define a better answer-level agreement or trusted
+source policy on train/validation and freeze its threshold and success/utility
+metrics. If that rule does not beat the no-gate baseline on validation, retain
+the baseline and leave v2 test untouched. A broader final test requires
+genuinely distinct source provenance, more attack families, and a larger query
+sample.

@@ -120,3 +120,25 @@ the original demo detector. The learned ranker is experimental because it
 answers more often when labeled support is removed and does not stop stealth
 accepted-ingest poisoning. Hash verification remains a hard gate for unknown
 or changed documents relative to a protected manifest.
+
+## Two-passage development study (2026-09-26)
+
+`results/stealth_failure_analysis_validation.json` shows that all 21 successful
+stealth validation cases in the v1 MiniLM/ranker profile answered from the
+altered document, and all 21 altered documents passed integrity after accepted
+ingest. Exact whole-answer text from none of the 74 nonabstaining clean
+answers appeared in another document in the entire 75-passage validation
+corpus. An exact second-passage gate was therefore unsuitable for v1.
+
+A separate, disjoint v2 benchmark has 140/30/30 train/validation/test query
+groups with two labeled answer-bearing passages each. On v2 validation,
+MiniLM retrieved both supports for 29/30 questions, while the frozen sentence
+ranker matched an alias in 16/30 clean cases. Replacing the answer span in one
+passage produced 2/30 attacker successes before an extra consistency gate.
+A doc-only calibrated sentence-cosine gate reduced that to 1/30 but also
+reduced clean alias matches to 13/30. Full-context calibration could not meet
+the intended 5% clean-rejection target because 18/140 train cases lacked a
+usable paired score. Its best attainable threshold left 2/30 attacks
+successful and still reduced clean alias matches to 13/30. The gate is not a
+serving defense. The v2 test split remains unevaluated. See
+`V2_BENCHMARK_PROTOCOL.md` for construction, raw files, and limits.

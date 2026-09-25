@@ -1,0 +1,14 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "validation",
+  "cases": 30,
+  "train_calibrated_cosine_threshold": 0.4872553750872612,
+  "clean_answer_alias_before_gate": 16,
+  "clean_answer_alias_after_gate": 13,
+  "clean_answer_kept": 24,
+  "attack_retrieved": 28,
+  "attack_success_before_gate": 2,
+  "attack_success_after_gate": 1,
+  "attacked_answer_kept": 17,
+  "note": "One of two selected passages replaced; similarity is not entailment, and the two passages may share source origin."
+}

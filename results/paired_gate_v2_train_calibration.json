@@ -1,0 +1,13 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "train",
+  "cases": 140,
+  "target_clean_rejection": 0.05,
+  "calibrated_threshold": 0.3499615788459778,
+  "train_clean_rejected": 18,
+  "target_feasible": false,
+  "train_clean_alias_match": 67,
+  "missing_peer_document": 2,
+  "missing_usable_pair_score": 18,
+  "note": "Threshold calibrated on full retrieval and selected-answer path, not doc-only support pairs."
+}

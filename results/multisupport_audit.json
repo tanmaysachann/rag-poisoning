@@ -1,0 +1,146 @@
+{
+  "dataset": "microsoft/ms_marco",
+  "config": "v1.1",
+  "counts": {
+    "rows_scanned": 2000,
+    "answerable_rows": 1468,
+    "one_answer_passage": 1032,
+    "two_or_more_answer_passages": 436,
+    "two_or_more_selected_answer_passages": 102
+  },
+  "examples": [
+    {
+      "source_query_id": 19701,
+      "question": "how long do you need for sydney and surrounding areas",
+      "answer_passage_indices": [
+        4,
+        7,
+        9
+      ],
+      "selected_answer_passage_indices": [
+        4
+      ]
+    },
+    {
+      "source_query_id": 19702,
+      "question": "price to install tile in shower",
+      "answer_passage_indices": [
+        1,
+        2,
+        8
+      ],
+      "selected_answer_passage_indices": [
+        8
+      ]
+    },
+    {
+      "source_query_id": 19710,
+      "question": "remembering the name of the author who wrote the cat in the hat",
+      "answer_passage_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "selected_answer_passage_indices": [
+        9
+      ]
+    },
+    {
+      "source_query_id": 19711,
+      "question": "how long cooking chicken legs in the big easy",
+      "answer_passage_indices": [
+        2,
+        4
+      ],
+      "selected_answer_passage_indices": [
+        4
+      ]
+    },
+    {
+      "source_query_id": 19712,
+      "question": "average cost of heating per square foot",
+      "answer_passage_indices": [
+        2,
+        3
+      ],
+      "selected_answer_passage_indices": [
+        2
+      ]
+    },
+    {
+      "source_query_id": 19713,
+      "question": "is mount pinatubo made of granite or basalt",
+      "answer_passage_indices": [
+        1,
+        3,
+        4
+      ],
+      "selected_answer_passage_indices": [
+        4
+      ]
+    },
+    {
+      "source_query_id": 19715,
+      "question": "what kind of organism is a black damsel",
+      "answer_passage_indices": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "selected_answer_passage_indices": [
+        0
+      ]
+    },
+    {
+      "source_query_id": 19718,
+      "question": "how long is german measles contagious",
+      "answer_passage_indices": [
+        2,
+        3
+      ],
+      "selected_answer_passage_indices": [
+        2
+      ]
+    },
+    {
+      "source_query_id": 19726,
+      "question": "The smallest blood vessels in your body,where gas exchange occurs are called",
+      "answer_passage_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "selected_answer_passage_indices": [
+        0
+      ]
+    },
+    {
+      "source_query_id": 19727,
+      "question": "what is rappelling",
+      "answer_passage_indices": [
+        0,
+        1
+      ],
+      "selected_answer_passage_indices": [
+        1
+      ]
+    }
+  ],
+  "note": "Lexical answer presence is not factual agreement or independent source provenance.",
+  "revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a"
+}

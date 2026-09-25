@@ -1,0 +1,11 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "train",
+  "cases": 140,
+  "both_passages_answered": 140,
+  "both_passages_exact_alias_match": 47,
+  "cosine_median_when_both_answered": 0.7439283132553101,
+  "cosine_p05_when_both_answered": 0.4872553750872612,
+  "cosine_p25_when_both_answered": 0.6357118040323257,
+  "note": "Two answer-bearing passages share an MS MARCO query; sentence cosine is not factual entailment."
+}

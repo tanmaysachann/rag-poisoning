@@ -1,0 +1,36 @@
+{
+  "config": "v1.1",
+  "counts": {
+    "test": {
+      "passages": 60,
+      "queries": 30
+    },
+    "train": {
+      "passages": 280,
+      "queries": 140
+    },
+    "validation": {
+      "passages": 60,
+      "queries": 30
+    }
+  },
+  "dataset": "microsoft/ms_marco",
+  "file_sha256": {
+    "test/corpus.jsonl": "0c5de9ac62b0063037e450100accc6a2f99f1b54f2850da2869644f417ae5825",
+    "test/queries.jsonl": "16e46970219ddce170bb9e39349779710087c23a1f9d7a711d2c10cf021224da",
+    "train/corpus.jsonl": "14c1830c861ea7c6ba02b11ef441772c119ea413723867f7a3755667f82b40c5",
+    "train/queries.jsonl": "52db857078d4b7f88e490b709eb00dfb2b70d6fea78602de2245ce8d2fef22bd",
+    "validation/corpus.jsonl": "b583895b14558f2ac75e826edcdb702fec737211db2f47bc5c79c2c8bd195cc9",
+    "validation/queries.jsonl": "213c4ce73f4543c30e487c6b97ab116dc7e620db09b2aa6e592e932f19cba21b"
+  },
+  "passages_per_question": 2,
+  "provenance_limit": "Two MS MARCO passages may share origin; lexical alias presence is not independent factual verification.",
+  "revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a",
+  "schema_version": 2,
+  "seed": 59,
+  "selection": "two distinct selected passages per question, each containing an exact normalized answer alias",
+  "source_rows_scanned": 4042,
+  "source_split": "train",
+  "test_state": "frozen_unopened_for_model_development",
+  "v1_source_ids_excluded": 500
+}

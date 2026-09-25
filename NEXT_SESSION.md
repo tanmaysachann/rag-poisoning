@@ -5,6 +5,13 @@ documented in `PROJECT_MEMORY.md` and `REPORT_EVIDENCE.md`. The v1 test set has
 already been evaluated and must not be reused as an untouched test for new
 defenses.
 
+2026-09-26 checkpoint: steps 2 and the first part of step 4 are complete.
+`V2_BENCHMARK_PROTOCOL.md` records the new disjoint two-passage benchmark and
+an unsuccessful paired-cosine gate. The v2 test split is still unevaluated.
+Do not promote the cosine gate: its full-path training calibration missed the
+5% clean-rejection target, and validation showed no attack reduction with
+lower clean answer utility.
+
 ## Start here
 
 1. Run `python scripts/doctor.py`, `python -m unittest discover -s tests -v`,
@@ -14,10 +21,11 @@ defenses.
    Group failures by whether the altered source was retrieved, selected for
    the answer, quarantined, or replaced by a clean source. Record examples
    without changing the sealed v1 test outputs.
-3. Design and implement a provenance/corroboration defense for accepted-ingest
-   factual replacements. Train and calibrate only on training data; use the
-   existing validation set for development. Treat unsupported single-source
-   answers as a reason to abstain, and measure the clean-answer cost.
+3. Design an answer-level agreement or trusted provenance rule for
+   accepted-ingest factual replacements. Use v2 train/validation for
+   development, and measure the clean-answer cost against the no-gate
+   baseline. The first sentence-cosine gate failed this standard. Two MS
+   MARCO passages from one query do not prove independent origin or truth.
 4. Build a new, disjoint held-out source/query set and freeze its protocol,
    model artifacts, code hashes, and intended metrics before evaluating any
    new defense. Include unseen attack templates and source families. The
