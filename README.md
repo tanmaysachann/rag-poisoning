@@ -74,7 +74,9 @@ Open `http://127.0.0.1:8000`. If that port is already in use, stop the older pro
 
 ## Vercel deployment
 
-The repository includes `api/index.py` and `vercel.json` for Vercel's Python serverless runtime. `requirements.txt` contains only runtime dependencies; corpus-building and PDF-generation packages live in `requirements-dev.txt`.
+The repository uses root `app.py` and `vercel.json` for Vercel's Python serverless runtime. `requirements.txt` contains only runtime dependencies; corpus-building and PDF-generation packages live in `requirements-dev.txt`. The production URL is https://rag-poisoning.vercel.app/.
+
+The deployed Analysis tab runs the five-case Review-1 demo. Research shows saved validation and sealed v1 test evidence, including the two-passage v2 validation diagnostics. PPO training, Qwen generation, and MiniLM research experiments are offline results rather than web request handlers; the v2 test split remains unevaluated.
 
 ```powershell
 vercel.cmd

@@ -124,6 +124,13 @@ async function loadResearch() {
     $('r-srq-fpr').textContent = pct(s.slm_srq?.clean_validation_fpr);
     $('r-decoder-probe').textContent = pct(s.decoder_probes?.families?.stealth?.decoder_layer_mahalanobis?.validation_attack_recall);
     $('r-decoder-attention').textContent = pct(s.decoder_probes?.families?.stealth?.decoder_attention_deviation?.validation_attack_recall);
+    $('r-v2-clean').textContent = pct(s.v2_clean?.answer_alias_match);
+    $('r-v2-support').textContent = pct(s.v2_clean?.both_supports_at_5);
+    const v2Gate = s.v2_paired_gate;
+    $('r-v2-attack').textContent = v2Gate ? `${v2Gate.attack_success_before_gate}/${v2Gate.cases} → ${v2Gate.attack_success_after_gate}/${v2Gate.cases}` : '--';
+    $('r-v2-clean-before').textContent = v2Gate ? `${v2Gate.clean_answer_alias_before_gate}/${v2Gate.cases}` : '--';
+    $('r-v2-clean-after').textContent = v2Gate ? `${v2Gate.clean_answer_alias_after_gate}/${v2Gate.cases}` : '--';
+    $('r-v2-flags').textContent = s.v2_pair_classifier ? `${s.v2_pair_classifier.validation_attack_flags}/${s.v2_pair_classifier.cases}` : '--';
     $('research-status').textContent = 'Saved validation metrics loaded. Values describe this local research run.';
   } catch (error) { $('research-status').textContent = error.message; }
 }

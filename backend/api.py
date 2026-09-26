@@ -68,6 +68,9 @@ def research_summary() -> dict:
         "ppo": "ppo_validation_evaluation.json",
         "ppo_defender": "ppo_validation_defender_evaluation.json",
         "fixed_baseline": "edit_rollout_validation_greedy_proxy.summary.json",
+        "v2_clean": "multisupport_v2_validation.json",
+        "v2_paired_gate": "paired_gate_v2_validation_full_context.json",
+        "v2_pair_classifier": "pairwise_detector_v2_validation.json",
     }
     summaries = {}
     for key, filename in names.items():

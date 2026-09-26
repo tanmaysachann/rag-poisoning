@@ -1,8 +1,12 @@
 import unittest
+import hashlib
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from fastapi import HTTPException
 
 from backend.api import assets, research_cases, research_summary, test_summary
+from evaluation.verify_test_v1 import _matches_saved_hash
 
 
 class ResearchApiTests(unittest.TestCase):
@@ -32,6 +36,17 @@ class ResearchApiTests(unittest.TestCase):
         if payload["available"]:
             self.assertEqual(payload["summaries"]["clean"]["cases"], 75)
             self.assertNotIn("cases", payload)
+
+    def test_sealed_json_hash_accepts_only_checkout_line_ending_change(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "summary.json"
+            windows_bytes = b'{\r\n  "count": 75\r\n}\r\n'
+            expected = hashlib.sha256(windows_bytes).hexdigest()
+            path.write_bytes(windows_bytes.replace(b"\r\n", b"\n"))
+            self.assertTrue(_matches_saved_hash(path, expected, portable_json=True))
+            self.assertFalse(_matches_saved_hash(path, expected, portable_json=False))
+            path.write_bytes(b'{\n  "count": 76\n}\n')
+            self.assertFalse(_matches_saved_hash(path, expected, portable_json=True))
 
 
 if __name__ == "__main__":

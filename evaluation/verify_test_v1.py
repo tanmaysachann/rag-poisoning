@@ -19,6 +19,17 @@ def _digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _matches_saved_hash(path: Path, expected: str, *, portable_json: bool = False) -> bool:
+    data = path.read_bytes()
+    if hashlib.sha256(data).hexdigest() == expected:
+        return True
+    # Six result summaries were sealed with Windows CRLF bytes. Git checks out
+    # those text files with LF on Linux (including Vercel). Permit only that
+    # exact line-ending conversion; all other content must still match.
+    return (portable_json and path.suffix == ".json" and b"\r" not in data
+            and hashlib.sha256(data.replace(b"\n", b"\r\n")).hexdigest() == expected)
+
+
 def _check_queries(rows: list[dict], expected: set[str], label: str) -> None:
     qids = [row["qid"] for row in rows]
     if len(qids) != len(expected) or set(qids) != expected:
@@ -32,7 +43,9 @@ def verify(root: Path = ROOT, *, check_output_hashes: bool = True) -> dict:
             continue
         for relative_path, expected in manifest[kind].items():
             path = root / relative_path
-            if not path.is_file() or _digest(path) != expected:
+            if not path.is_file() or not _matches_saved_hash(
+                path, expected, portable_json=kind == "outputs_sha256"
+            ):
                 raise ValueError(f"Missing or changed {kind}: {relative_path}")
 
     queries = _read_jsonl(root / "data/benchmark/test/queries.jsonl")
