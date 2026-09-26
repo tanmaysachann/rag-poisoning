@@ -1,0 +1,19 @@
+{
+  "split": "validation",
+  "cases": 20,
+  "seed": 43,
+  "generator": "Qwen/Qwen2.5-0.5B-Instruct",
+  "model_weight_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+  "max_new_tokens": 96,
+  "retrieval_backend": "sentence-transformers/all-MiniLM-L6-v2",
+  "support_recall_at_5": 1.0,
+  "valid_citation_rate": 0.25,
+  "model_verified_citations": 0,
+  "exact_span_repairs": 5,
+  "cited_support_rate": 0.25,
+  "alias_match_rate": 0.05,
+  "abstention_rate": 0.75,
+  "median_generation_ms": 2268.3642000047257,
+  "median_retrieval_ms": 22.82829998875968,
+  "note": "Clean validation subset; every accepted answer is a contiguous token span in its cited source. This is extractive grounding, not factual entailment."
+}

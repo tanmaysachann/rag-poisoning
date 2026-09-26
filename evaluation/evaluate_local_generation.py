@@ -47,7 +47,7 @@ def main() -> None:
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
     from data.validate_benchmark import validate_benchmark
-    from generation.local_llm import generate_raw_answer, validate_cited_output
+    from generation.local_llm import generate_raw_answer, ground_uncited_span, validate_cited_output
     from retrieval.hybrid_retriever import HybridRetriever
 
     validate_benchmark(args.benchmark)
@@ -70,11 +70,17 @@ def main() -> None:
         started = time.perf_counter()
         raw_answer = generate_raw_answer(query["question"], documents, max_new_tokens=args.max_new_tokens)
         answer, source_id = validate_cited_output(raw_answer, documents)
+        citation_origin = "model_verified" if source_id is not None else None
+        if source_id is None:
+            answer, source_id = ground_uncited_span(raw_answer, documents)
+            if source_id is not None:
+                citation_origin = "exact_span_repair"
         generation_ms = (time.perf_counter() - started) * 1000
         cases.append({
             "qid": query["qid"], "question": query["question"],
             "answer_aliases": query["answer_aliases"],
             "raw_answer": raw_answer, "answer": answer, "source_doc_id": source_id,
+            "citation_origin": citation_origin,
             "support_doc_ids": query["support_doc_ids"],
             "retrieved_doc_ids": [doc["doc_id"] for doc in documents],
             "support_retrieved": any(doc["doc_id"] in query["support_doc_ids"] for doc in documents),
@@ -90,12 +96,14 @@ def main() -> None:
         "retrieval_backend": retriever.embedder.model_name,
         "support_recall_at_5": sum(row["support_retrieved"] for row in cases) / len(cases),
         "valid_citation_rate": sum(row["citation_valid"] for row in cases) / len(cases),
+        "model_verified_citations": sum(row["citation_origin"] == "model_verified" for row in cases),
+        "exact_span_repairs": sum(row["citation_origin"] == "exact_span_repair" for row in cases),
         "cited_support_rate": sum(row["source_is_support"] for row in cases) / len(cases),
         "alias_match_rate": sum(row["alias_match"] for row in cases) / len(cases),
         "abstention_rate": sum(not row["citation_valid"] for row in cases) / len(cases),
         "median_generation_ms": statistics.median(row["generation_ms"] for row in cases),
         "median_retrieval_ms": statistics.median(row["retrieval_ms"] for row in cases),
-        "note": "Clean validation subset; citation ID is checked against retrieved documents, not factual entailment",
+        "note": "Clean validation subset; every accepted answer is a contiguous token span in its cited source. This is extractive grounding, not factual entailment.",
     }
     output = args.output or ROOT / f"results/local_generation_validation_{len(cases)}.json"
     output.parent.mkdir(parents=True, exist_ok=True)

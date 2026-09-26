@@ -42,6 +42,14 @@ flat-color, restrained research application. Use consistent type, form controls,
 spacing, and accessible contrast across Research Lab, Five-Case Demo,
 Architecture, and the saved-metrics archive.
 
+2026-09-26 cited-generation checkpoint: exact source-span validation and
+deterministic citation repair are implemented. A pinned 20-question Qwen
+validation diagnostic produced 5/20 span-grounded citations but only 1/20
+benchmark alias matches; keep this generator offline. Next, improve answer
+selection and evidence-span citations on development data, then compare clean
+utility and attack success before any serving promotion. The v2 test remains
+untouched and the failed paired defense gates remain outside serving.
+
 ## 1. Definition of done
 
 The project is complete when a reproducible run can: (1) build a licensed and traceable clean corpus and question set; (2) create hand-authored, random-edit, and PPO-generated poisoning attempts in an isolated local corpus; (3) show whether each attempt was retrieved and changed the answer; (4) detect and quarantine suspect documents using integrity, statistical, semantic, and counterfactual signals; (5) produce a cited answer or abstention using only accepted evidence; (6) report security, answer utility, and latency on held-out cases; and (7) reproduce the main results, figures, and live demo from documented commands.

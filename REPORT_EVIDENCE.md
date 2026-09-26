@@ -146,3 +146,25 @@ altered validation pairs and 1/30 clean pairs, but neither of the two cases
 where the attacker changed the selected answer. It also remains diagnostic.
 The v2 test split remains unevaluated. See
 `V2_BENCHMARK_PROTOCOL.md` for construction, raw files, and limits.
+
+## Exact-span citation study (2026-09-26)
+
+The earlier local Qwen diagnostic accepted a document ID as a citation without
+checking that the answer occurred in that document. The generator contract now
+asks Qwen to copy an exact source phrase or sentence. A cited answer is accepted
+only when its full token sequence occurs contiguously in every cited retrieved
+document. If Qwen omits the ID, a deterministic resolver may attach one only
+when the full uncited answer is an exact source span. Invalid citations and
+unsupported paraphrases abstain. This verifies span provenance; it does not
+establish factual truth or protect against an already accepted false source.
+
+With pinned Qwen2.5-0.5B-Instruct weights and MiniLM retrieval, a 20-question
+clean validation diagnostic retrieved labeled support in 20/20 cases. Five
+outputs became span-grounded cited answers, all via exact-span citation repair;
+the model itself produced zero valid `[DOC id]` citations. Only one of the 20
+accepted answers contained a benchmark answer alias, and 15/20 abstained.
+Some short grounded outputs repeated a query term instead of answering it.
+The local generator therefore remains outside live serving; improving answer
+relevance and citation formatting is still open. The summary and raw outputs
+are in `results/local_generation_grounded_validation_20.json` and its paired
+case file. These validation examples are development data, not a test claim.

@@ -208,9 +208,12 @@ With a threshold calibrated on 50 train-clean pairs, SRQ detected 0/75 greedy
 and 4/75 stealth validation attacks while flagging 5/75 clean passages. A
 separate decoder prefill probe detected at most 7/75 stealth attacks, with
 6/75 clean passages flagged by that attention score. Neither signal is used
-by the live gate. The local Qwen answer generator produced no valid cited
-answer in a ten-question clean diagnostic. See `REPORT_EVIDENCE.md` for the
-complete methods, limitations, and raw result paths.
+by the live gate. The original local Qwen answer prompt produced no valid
+citation in a ten-question clean diagnostic. A revised 20-question validation
+study required each answer to be an exact span of its cited document and
+repaired missing IDs only for such spans: 5/20 outputs were cited, all through
+repair, and only 1/20 matched a benchmark answer alias. This remains an
+offline experiment. See `REPORT_EVIDENCE.md` for methods and raw results.
 
 The sealed v1 test matrix used MiniLM retrieval and the experimental sentence
 ranker on 75 queries. Greedy attack success changed from 37/75 before defense

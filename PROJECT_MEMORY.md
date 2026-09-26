@@ -2,6 +2,16 @@
 
 Last reviewed: 2026-09-26. Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
 
+2026-09-26 next checkpoint: local Qwen answer validation now requires a
+contiguous answer span in each cited retrieved document. Uncited exact spans
+can receive a verified document ID; unsupported text abstains. A pinned
+20-question clean validation run produced 5/20 span-grounded citations (all
+repaired after generation), 1/20 benchmark alias matches, and 15/20
+abstentions. Qwen remains offline and the deployed extractor stays the live
+answerer. See `results/local_generation_grounded_validation_20.json` and
+`REPORT_EVIDENCE.md`. Simple answer-token overlap on v2 validation did not
+justify promoting a corroboration gate; v2 test is still untouched.
+
 2026-09-26 web checkpoint: the Vercel home page now opens a live Research Lab. It accepts edits to one staged validation attack passage, rebuilds an isolated temporary hashing/BM25/RRF index, checks accepted-ingest versus post-index integrity, scores the trained eight-feature research detector, and compares defended/undefended extractive answers with per-document traces. The UI also shows sealed v1 test metrics, PPO training curves and selected validation edit traces, plus v2 validation limitations. The five-case demo remains a separate tab. The research workbench is deliberately restricted to the 75-question validation split; MiniLM, Qwen and PPO training do not execute in Vercel requests.
 The first Vercel workbench request exposed a WindowsPath inside the frozen training detector's embedded retriever. A separate 984 KB portable export now stores the same trained statistics and classifier with a path-free hashing encoder. The sealed source artifact still matches `TEST_EVIDENCE_V1.json`. On all 75 greedy plus 75 stealth validation cases, the portable web path reproduced the saved hashing attack-success and quarantine outcomes exactly.
 
