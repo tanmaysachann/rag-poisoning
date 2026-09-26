@@ -11,22 +11,22 @@ document.querySelectorAll('.nav-btn').forEach(button => button.addEventListener(
 
 $('toggle').addEventListener('click', () => {
   defense = !defense; $('toggle').classList.toggle('on', defense);
-  $('gate-label').textContent = defense ? 'ENABLED' : 'BYPASSED';
+  $('gate-label').textContent = defense ? 'Enabled' : 'Bypassed';
   $('gate-label').style.color = defense ? 'var(--green)' : 'var(--red)';
-  $('answer-state').textContent = defense ? 'ON' : 'OFF';
+  $('answer-state').textContent = defense ? 'on' : 'off';
 });
 
 function scenarioChanged() {
   const item = scenarios.find(value => String(value.id) === $('scenario').value);
   if (!item) return;
   $('query').value = item.query;
-  $('attack-meta').innerHTML = `${esc(item.attack_type.toUpperCase())}<br>${esc(item.operations.join(' + '))}`;
+  $('attack-meta').innerHTML = `${esc(item.attack_type)}<br>${esc(item.operations.join(' + '))}`;
 }
 $('query').addEventListener('input', () => {
   const selected = scenarios.find(value => String(value.id) === $('scenario').value);
   if (selected) {
     const custom = $('query').value.trim() !== selected.query;
-    $('attack-meta').innerHTML = custom ? 'CUSTOM QUERY<br>ATTACK CONTRAST NOT GUARANTEED' : `${esc(selected.attack_type.toUpperCase())}<br>${esc(selected.operations.join(' + '))}`;
+    $('attack-meta').innerHTML = custom ? 'Custom query<br>Attack contrast is not guaranteed' : `${esc(selected.attack_type)}<br>${esc(selected.operations.join(' + '))}`;
   }
 });
 
@@ -41,14 +41,14 @@ function documentCard(doc, data, kept) {
   const signals = detail.signals;
   const integrity = doc.integrity || {};
   const badHash = integrity.status !== 'verified';
-  const integrityLabel = ({verified:'VERIFIED',tampered:'MISMATCH',unknown_document:'UNKNOWN DOC',manifest_missing:'NO MANIFEST'})[integrity.status] || 'UNVERIFIED';
+  const integrityLabel = ({verified:'Verified',tampered:'Mismatch',unknown_document:'Unknown document',manifest_missing:'No manifest'})[integrity.status] || 'Unverified';
   const behaviour = Math.max(signals.instruction_pattern, signals.url_pattern, signals.authority_cue);
   return `<article class="doc ${kept ? '' : 'flagged'} ${badHash ? 'tampered' : ''}">
-    <div class="doc-top"><div class="doc-id">DOC<br>${String(doc.doc_id).padStart(4,'0')}</div><div><h3 class="doc-title">${esc(doc.title)}</h3><div class="doc-type">${esc(doc.source_type)} / BM25 ${doc.bm25_rank} / DENSE ${doc.dense_rank}</div></div><div class="risk"><strong>${probability}%</strong><span>${kept ? (data.defense_enabled ? 'ACCEPTED' : 'GATE BYPASSED') : 'QUARANTINED'}</span></div></div>
+    <div class="doc-top"><div class="doc-id">Doc<br>${String(doc.doc_id).padStart(4,'0')}</div><div><h3 class="doc-title">${esc(doc.title)}</h3><div class="doc-type">${esc(doc.source_type)} / BM25 ${doc.bm25_rank} / dense ${doc.dense_rank}</div></div><div class="risk"><strong>${probability}%</strong><span>${kept ? (data.defense_enabled ? 'Accepted' : 'Gate bypassed') : 'Quarantined'}</span></div></div>
     <div class="doc-text"><details><summary>${esc(doc.text.slice(0, 190))}${doc.text.length > 190 ? '...' : ''}</summary><p>${esc(doc.text)}</p></details></div>
-    <div class="signal-bars">${bar('S1 GEOMETRY', signals.mahalanobis)}${bar('S4 STABILITY', signals.counterfactual_influence)}${bar('BEHAVIOUR', behaviour)}${bar('FUSION RISK', detail.probability)}</div>
+    <div class="signal-bars">${bar('S1 geometry', signals.mahalanobis)}${bar('S4 stability', signals.counterfactual_influence)}${bar('Behaviour', behaviour)}${bar('Fusion risk', detail.probability)}</div>
     <div class="reasons">${detail.reasons.map(reason => `<span class="reason ${kept ? '' : 'alert'}">${esc(reason)}</span>`).join('')}</div>
-    <div class="doc-foot"><span class="${badHash ? 'hash-bad' : 'hash-ok'}">SHA-256 ${integrityLabel} / ${esc((integrity.actual_hash || '').slice(0,12))}</span>${doc.report_url ? `<a href="${esc(doc.report_url)}" target="_blank">OPEN PDF REPORT &nearr;</a>` : '<span>LOCAL CORPUS REFERENCE</span>'}</div>
+    <div class="doc-foot"><span class="${badHash ? 'hash-bad' : 'hash-ok'}">SHA-256 ${integrityLabel} / ${esc((integrity.actual_hash || '').slice(0,12))}</span>${doc.report_url ? `<a href="${esc(doc.report_url)}" target="_blank">Open PDF report</a>` : '<span>Local corpus reference</span>'}</div>
   </article>`;
 }
 
@@ -58,10 +58,10 @@ function render(data) {
   $('retrieval-backend').textContent = `${backend.sparse || 'BM25'} + ${denseLabel(backend.dense)} / ${backend.fusion || 'RRF'}`;
   $('m-integrity').textContent = `${data.stats.integrity_percent}%`; $('m-integrity').className = data.stats.integrity_percent === 100 ? 'green' : 'red';
   $('m-latency').textContent = `${Math.round(data.latency_ms)}ms`; $('answer').textContent = data.answer;
-  $('doc-count').textContent = `${data.stats.retrieved} DOCUMENTS / ${data.stats.threats} FLAGGED`;
-  $('answer-badge').textContent = defense ? 'PROTECTED' : 'UNFILTERED'; $('answer-badge').className = `status-pill ${defense ? 'safe' : 'unsafe'}`;
+  $('doc-count').textContent = `${data.stats.retrieved} documents / ${data.stats.threats} flagged`;
+  $('answer-badge').textContent = defense ? 'Defended' : 'Unfiltered'; $('answer-badge').className = `status-pill ${defense ? 'safe' : 'unsafe'}`;
   const allDocs = [...data.kept_docs, ...data.filtered_docs]; const source = allDocs.find(doc => doc.doc_id === data.source_doc_id);
-  $('source-line').textContent = source ? `SOURCE DOC ${source.doc_id} / ${source.title}` : 'NO SOURCE SELECTED';
+  $('source-line').textContent = source ? `Source document ${source.doc_id} / ${source.title}` : 'No source selected';
   $('trace-time').textContent = `${Math.round(data.latency_ms)} ms total`;
   $('t-retrieval').textContent = `${Math.round(data.stage_times.retrieval_ms)} ms`;
   $('t-integrity').textContent = `${Math.round(data.stage_times.integrity_ms)} ms`;
@@ -72,7 +72,7 @@ function render(data) {
 
 async function run() {
   const query = $('query').value.trim(); if (!query) return;
-  const button = $('run'); button.disabled = true; button.innerHTML = 'RUNNING 4-STAGE PIPELINE <span>...</span>';
+  const button = $('run'); button.disabled = true; button.innerHTML = 'Running analysis <span>...</span>';
   const common = {query, simulate_tamper_doc_id: $('simulate-tamper').checked ? Number($('scenario').value) : null};
   try {
     const request = enabled => fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...common,defense_enabled:enabled})}).then(async response => {const text=await response.text();let payload;try{payload=JSON.parse(text)}catch{if(!response.ok)throw new Error(text||'Analysis failed');throw new Error('Server returned an invalid response')}if(!response.ok)throw new Error(payload.detail||'Analysis failed');return payload;});
@@ -81,7 +81,7 @@ async function run() {
     $('on-source').textContent = `Trusted source: DOC ${lastOn.source_doc_id ?? '--'} / ${lastOn.stats.filtered} document(s) quarantined.`;
     $('off-source').textContent = `Unfiltered source: DOC ${lastOff.source_doc_id ?? '--'} / all retrieved context admitted.`;
   } catch(error) { $('answer').textContent = error.message; }
-  finally { button.disabled=false; button.innerHTML='RUN SECURE ANALYSIS <span>&rarr;</span>'; }
+  finally { button.disabled=false; button.innerHTML='Run analysis <span>&rarr;</span>'; }
 }
 
 async function initialize() {

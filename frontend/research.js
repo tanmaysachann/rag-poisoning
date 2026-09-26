@@ -133,10 +133,10 @@
     const x = index => 47 + index * 69;
     const y = value => 192 - Math.max(0, Math.min(1, Number(value || 0))) * 159;
     const path = (rows, key) => rows.map((row, index) => `${index ? 'L' : 'M'} ${x(index)} ${y(row[key])}`).join(' ');
-    const grid = [0, .5, 1].map(v => `<line x1="47" y1="${y(v)}" x2="690" y2="${y(v)}" stroke="#d8ded6" stroke-dasharray="${v ? '3 4' : '0'}"/><text x="5" y="${y(v) + 4}" fill="#718077" font-size="10">${Math.round(v * 100)}%</text>`).join('');
-    const ticks = plain.map((_, index) => `<text x="${x(index)}" y="218" text-anchor="middle" fill="#718077" font-size="10">${(index + 1) * 20}</text>`).join('');
+    const grid = [0, .5, 1].map(v => `<line x1="47" y1="${y(v)}" x2="690" y2="${y(v)}" stroke="#d5dce2" stroke-dasharray="${v ? '3 4' : '0'}"/><text x="5" y="${y(v) + 4}" fill="#5d6b76" font-size="10">${Math.round(v * 100)}%</text>`).join('');
+    const ticks = plain.map((_, index) => `<text x="${x(index)}" y="218" text-anchor="middle" fill="#5d6b76" font-size="10">${(index + 1) * 20}</text>`).join('');
     const points = (rows, key, color) => rows.map((row, index) => `<circle cx="${x(index)}" cy="${y(row[key])}" r="4" fill="${color}"><title>Batch ${index + 1}: ${Math.round(row[key] * 100)}%</title></circle>`).join('');
-    el('lab-ppo-chart').innerHTML = `${grid}<path d="${path(plain, 'attack_success_rate')}" fill="none" stroke="#087969" stroke-width="3"/>${points(plain, 'attack_success_rate', '#087969')}<path d="${path(defended, 'defended_attack_success_rate')}" fill="none" stroke="#d9644c" stroke-width="3"/>${points(defended, 'defended_attack_success_rate', '#d9644c')}${ticks}<text x="688" y="238" text-anchor="end" fill="#718077" font-size="10">EPISODES</text>`;
+    el('lab-ppo-chart').innerHTML = `${grid}<path d="${path(plain, 'attack_success_rate')}" fill="none" stroke="#155a8a" stroke-width="3"/>${points(plain, 'attack_success_rate', '#155a8a')}<path d="${path(defended, 'defended_attack_success_rate')}" fill="none" stroke="#a63732" stroke-width="3"/>${points(defended, 'defended_attack_success_rate', '#a63732')}${ticks}<text x="688" y="238" text-anchor="end" fill="#5d6b76" font-size="10">EPISODES</text>`;
   }
 
   async function loadPpo() {

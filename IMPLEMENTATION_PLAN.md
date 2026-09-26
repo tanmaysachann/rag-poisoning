@@ -13,6 +13,35 @@ two-passage benchmark v2 is frozen for development and a later test.
 The first paired sentence-cosine gate failed its utility/security criterion
 on validation and remains experimental. See `V2_BENCHMARK_PROTOCOL.md`.
 
+## Remaining product work (2026-09-26 decision)
+
+The benchmark, attack harness, integrity workflow, detector, PPO prototype,
+sealed v1 evidence, and live validation workbench exist. These priorities are
+the remaining path to the complete system described by the presentation:
+
+| Priority | Work and acceptance condition |
+|---|---|
+| 1. Subtle poisoning defense | Build answer-level corroboration or trusted-source provenance for accepted-ingest factual replacements. Select on v2 train/validation only. Advance only if attack success falls without unacceptable clean-answer loss; the tried pair-similarity gates failed this condition. |
+| 2. Cited answer generation | Improve local generator answer quality, source-span citations, and abstention. Validate on clean and attacked development cases before enabling model generation in serving. Keep the extractive backend as the stable fallback. |
+| 3. Integrated research serving | Connect versioned retrieval, integrity/provenance, calibrated signals, selective checks, generation, citation validation, and audit events. Expose the genuine model/backend and timing for every candidate. The deployed lab currently runs the hashing/extractive validation profile; MiniLM, Qwen, and PPO results are offline artifacts. |
+| 4. PPO evidence | Run multiple seeds against matched fixed/random attacks and ablate reward terms, edit cache, and action heads. Report no advantage if the policy continues to tie simple baselines. |
+| 5. Retrieval and robustness | Finish Contriever/FAISS comparisons where scale warrants them. Evaluate unseen attack templates, poison budgets, alternate retrievers/generators, and genuinely distinct source origins. Freeze a new held-out protocol before testing an improved defense; v1 test is spent and v2 test is untouched. |
+| 6. Reproducible release | Package CPU and GPU reproduction commands, raw examples, confidence intervals, resource costs, bibliography corrections, and a corrected presentation export. Every final claim must point to a measured artifact. |
+
+Presentation-specific choices require explicit resolution: the implemented PPO
+state is 774-dimensional rather than the unexplained 1,556-dimensional slide
+target, and the measured local generator is Qwen 0.5B rather than a validated
+Llama-3-8B NF4 run. Implement and evaluate those exact choices if required, or
+correct the final slides. Model-backed SRQ and hidden-state/attention probes
+were measured but performed poorly; their negative results are evidence, not
+unimplemented live gates.
+
+Frontend decision for the current pass: retain all research and demo behavior
+while replacing the entire dark, ornamental interface with a plain-white,
+flat-color, restrained research application. Use consistent type, form controls,
+spacing, and accessible contrast across Research Lab, Five-Case Demo,
+Architecture, and the saved-metrics archive.
+
 ## 1. Definition of done
 
 The project is complete when a reproducible run can: (1) build a licensed and traceable clean corpus and question set; (2) create hand-authored, random-edit, and PPO-generated poisoning attempts in an isolated local corpus; (3) show whether each attempt was retrieved and changed the answer; (4) detect and quarantine suspect documents using integrity, statistical, semantic, and counterfactual signals; (5) produce a cited answer or abstention using only accepted evidence; (6) report security, answer utility, and latency on held-out cases; and (7) reproduce the main results, figures, and live demo from documented commands.

@@ -4,98 +4,98 @@
 <body>
 <div class="shell">
   <header class="topbar">
-    <div class="brand"><span class="mark">R</span><div><strong>SENTINEL RAG</strong><small>POISONING RESEARCH LAB</small></div></div>
-    <nav aria-label="Console views"><button class="nav-btn active" data-view="research">RESEARCH LAB</button><button class="nav-btn" data-view="analysis">FIVE-CASE DEMO</button><button class="nav-btn" data-view="architecture">ARCHITECTURE</button></nav>
-    <div class="system"><i></i> VALIDATION LAB <span>V1 / V2</span></div>
+    <div class="brand"><span class="mark">S</span><div><strong>Sentinel RAG</strong><small>Research project</small></div></div>
+    <nav aria-label="Console views"><button class="nav-btn active" data-view="research">Research lab</button><button class="nav-btn" data-view="analysis">Five-case demo</button><button class="nav-btn" data-view="architecture">Architecture</button></nav>
+    <div class="system"><i></i> Validation corpus <span>v1 / v2</span></div>
   </header>
 
   <main id="view-analysis" class="view">
     <section class="intro">
-      <div><p class="eyebrow">ZERO-TRUST RETRIEVAL</p><h1>Trace every document.<br><em>Trust only the evidence.</em></h1><p class="lede">A closed-corpus poisoning lab: retrieve from the indexed reports, probe every candidate, and quarantine unstable evidence before answering.</p></div>
-      <div class="scope"><span>CONTROLLED SECURITY DEMO</span><b>Closed corpus only</b><b>No web or external retrieval</b><b>5 reproducible attacks</b></div>
+      <div><p class="eyebrow">Five-case demonstration</p><h1>Document poisoning analysis</h1><p class="lede">Run the original closed-corpus demonstration. Compare retrieval, integrity checks, document signals, and answers with the defense on and off.</p></div>
+      <div class="scope"><span>Demo scope</span><b>30 local documents</b><b>5 reproducible attacks</b><b>No external retrieval</b></div>
     </section>
 
     <section class="workspace">
       <aside class="controls panel">
-        <div class="panel-head"><span>01 / CONFIGURE RUN</span><span class="live-dot">● READY</span></div>
-        <label for="scenario">DEMO ATTACK QUERY</label><select id="scenario"></select>
+        <div class="panel-head"><span>Run settings</span><span class="live-dot">Ready</span></div>
+        <label for="scenario">Demo question</label><select id="scenario"></select>
         <div id="attack-meta" class="attack-meta"></div>
-        <label for="query">USER QUERY</label><textarea id="query" rows="3" maxlength="500"></textarea>
-        <div class="switch-row"><div><span class="micro">DEFENSE GATE</span><strong id="gate-label">ENABLED</strong></div><button id="toggle" class="toggle on" aria-label="Toggle defense"><span></span></button></div>
+        <label for="query">Question</label><textarea id="query" rows="3" maxlength="500"></textarea>
+        <div class="switch-row"><div><span class="micro">Defense</span><strong id="gate-label">Enabled</strong></div><button id="toggle" class="toggle on" aria-label="Toggle defense"><span></span></button></div>
         <label class="sim-row" for="simulate-tamper"><input id="simulate-tamper" type="checkbox"> Simulate a post-index edit to the selected attack report</label>
-        <button id="run" class="run">RUN SECURE ANALYSIS <span>&rarr;</span></button>
+        <button id="run" class="run">Run analysis <span>&rarr;</span></button>
         <p class="hint">Both paths search the same closed corpus. Defense ON verifies document integrity and applies the signal gate. Unsupported questions abstain.</p>
       </aside>
 
       <section class="results">
         <div class="metrics">
-          <div class="metric panel"><span>RETRIEVED</span><strong id="m-retrieved">--</strong><small id="retrieval-backend">BM25 + dense RRF</small></div>
-          <div class="metric panel"><span>QUARANTINED</span><strong id="m-filtered" class="amber">--</strong><small>blocked by S1/S4 guard</small></div>
-          <div class="metric panel"><span>TRUSTED</span><strong id="m-kept" class="green">--</strong><small>generation context</small></div>
-          <div class="metric panel"><span>INTEGRITY</span><strong id="m-integrity" class="green">--</strong><small>SHA-256 parity</small></div>
-          <div class="metric panel"><span>LATENCY</span><strong id="m-latency">--</strong><small>end-to-end CPU</small></div>
+          <div class="metric panel"><span>Retrieved</span><strong id="m-retrieved">--</strong><small id="retrieval-backend">BM25 + dense RRF</small></div>
+          <div class="metric panel"><span>Quarantined</span><strong id="m-filtered" class="amber">--</strong><small>Blocked by S1/S4 gate</small></div>
+          <div class="metric panel"><span>Trusted</span><strong id="m-kept" class="green">--</strong><small>Answer context</small></div>
+          <div class="metric panel"><span>Integrity</span><strong id="m-integrity" class="green">--</strong><small>SHA-256 parity</small></div>
+          <div class="metric panel"><span>Latency</span><strong id="m-latency">--</strong><small>End-to-end CPU</small></div>
         </div>
 
         <div class="answer-grid">
-          <article class="answer-card panel"><div class="panel-head"><span>FINAL ANSWER / DEFENSE <b id="answer-state">ON</b></span><span id="answer-badge" class="status-pill safe">PROTECTED</span></div><p id="answer">Waiting for analysis.</p><div id="source-line" class="source-line">No evidence selected</div></article>
-          <article class="trace panel"><div class="panel-head"><span>PIPELINE TRACE</span><span id="trace-time">--</span></div><div class="steps"><div class="step"><b>01</b><span>Closed-corpus retrieval</span><i id="t-retrieval">--</i></div><div class="step"><b>02</b><span>SHA-256 verification</span><i id="t-integrity">--</i></div><div class="step"><b>03</b><span>S1 + S4 probe gate</span><i id="t-detection">--</i></div><div class="step"><b>04</b><span>Isolated extraction</span><i id="t-generation">--</i></div></div></article>
+          <article class="answer-card panel"><div class="panel-head"><span>Final answer / defense <b id="answer-state">on</b></span><span id="answer-badge" class="status-pill safe">Defended</span></div><p id="answer">Waiting for analysis.</p><div id="source-line" class="source-line">No evidence selected</div></article>
+          <article class="trace panel"><div class="panel-head"><span>Pipeline trace</span><span id="trace-time">--</span></div><div class="steps"><div class="step"><b>01</b><span>Closed-corpus retrieval</span><i id="t-retrieval">--</i></div><div class="step"><b>02</b><span>SHA-256 verification</span><i id="t-integrity">--</i></div><div class="step"><b>03</b><span>S1 + S4 probe gate</span><i id="t-detection">--</i></div><div class="step"><b>04</b><span>Isolated extraction</span><i id="t-generation">--</i></div></div></article>
         </div>
 
-        <article class="docs panel"><div class="panel-head"><span>02 / RETRIEVED EVIDENCE</span><span id="doc-count">WAITING FOR QUERY</span></div><div id="doc-list" class="doc-list"><div class="empty">Select an attack scenario and run the pipeline.</div></div><div class="artifact-strip"><span>CONTROLLED CORPUS ARTIFACT</span><a href="/reports/sentinel_rag_poisoned_corpus_dossier.pdf" target="_blank">OPEN FULL PDF DOSSIER &nearr;</a></div></article>
+        <article class="docs panel"><div class="panel-head"><span>Retrieved evidence</span><span id="doc-count">Waiting for query</span></div><div id="doc-list" class="doc-list"><div class="empty">Select an attack scenario and run the pipeline.</div></div><div class="artifact-strip"><span>Controlled corpus artifact</span><a href="/reports/sentinel_rag_poisoned_corpus_dossier.pdf" target="_blank">Open PDF dossier</a></div></article>
       </section>
     </section>
 
-    <section class="comparison panel"><div class="panel-head"><span>03 / COUNTERFACTUAL COMPARISON</span><span>SAME RETRIEVAL AND ANSWER LOGIC / FILTERING ONLY</span></div><div class="compare-grid"><div><span class="compare-label danger">DEFENSE OFF / UNFILTERED</span><p id="off-answer">--</p><small id="off-source">All retrieved context reaches extraction.</small></div><div><span class="compare-label safe-text">DEFENSE ON / FILTERED</span><p id="on-answer">--</p><small id="on-source">High-risk passages are quarantined first.</small></div></div></section>
+    <section class="comparison panel"><div class="panel-head"><span>Counterfactual comparison</span><span>Same retrieval and answer logic; filtering changes</span></div><div class="compare-grid"><div><span class="compare-label danger">Defense off / unfiltered</span><p id="off-answer">--</p><small id="off-source">All retrieved context reaches extraction.</small></div><div><span class="compare-label safe-text">Defense on / filtered</span><p id="on-answer">--</p><small id="on-source">High-risk passages are quarantined first.</small></div></div></section>
   </main>
 
   <main id="view-research" class="view active research-view">
     <section class="lab-hero">
-      <div><p class="lab-kicker">SENTINEL RAG / RESEARCH WORKSPACE</p><h1>Poison a passage.<br><em>Watch the decision.</em></h1><p class="lab-lede">Run a real document-poisoning case from the 75-question MS MARCO validation split. Edit one attack document, rebuild an isolated retrieval index, and inspect every detector and integrity decision.</p><div class="lab-chips"><span>LIVE HASHING + BM25 + RRF</span><span>8 DETECTOR FEATURES</span><span>CLOSED RESEARCH CORPUS</span></div></div>
-      <aside class="lab-hero-aside"><span>THE ACTUAL QUESTION</span><strong>Does the defense stop the wrong answer?</strong><p>Overt insertion is caught. Accepted-ingest answer substitution is the measured failure mode. The console exposes both outcomes.</p><a href="https://github.com/tanmaysachann/rag-poisoning" target="_blank" rel="noopener noreferrer">VIEW SOURCE CODE ↗</a></aside>
+      <div><p class="lab-kicker">Validation experiment</p><h1>RAG poisoning research lab</h1><p class="lab-lede">Select a question from the 75-case MS MARCO validation split, edit one attack passage, and run retrieval and detection. Inspect the document-level decisions and compare the resulting answers.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Eight detector features</span><span>Closed corpus</span></div></div>
+      <aside class="lab-hero-aside"><span>Current finding</span><strong>Accepted false facts remain the main weakness.</strong><p>The detector blocks the overt insertion template but misses many accepted-ingest answer substitutions. The workbench shows both cases.</p><a href="https://github.com/tanmaysachann/rag-poisoning" target="_blank" rel="noopener noreferrer">View source code</a></aside>
     </section>
 
     <section class="lab-section" aria-labelledby="lab-workbench-title">
-      <div class="lab-section-heading"><div><span>01 / LIVE EXPERIMENT</span><h2 id="lab-workbench-title">Attack workbench</h2></div><p>Validation data only. Each run stages one document in temporary storage; the checked-in corpus and sealed test evidence stay fixed.</p></div>
+      <div class="lab-section-heading"><div><span>Live experiment</span><h2 id="lab-workbench-title">Attack workbench</h2></div><p>Each run stages one validation document in temporary storage. The checked-in corpus and sealed test evidence stay fixed.</p></div>
       <div class="lab-workbench">
         <div class="lab-controls">
-          <div class="lab-control-top"><span>EXPERIMENT INPUT</span><span class="lab-live"><i></i> SERVER EXECUTION</span></div>
+          <div class="lab-control-top"><span>Experiment input</span><span class="lab-live"><i></i> Runs on server</span></div>
           <label for="lab-case">Validation question</label><select id="lab-case"></select>
           <div class="lab-control-grid"><div><label for="lab-strategy">Attack family</label><select id="lab-strategy"><option value="stealth">Answer substitution</option><option value="greedy">Query-matched insertion</option></select></div><div><label for="lab-surface">Trust surface</label><select id="lab-surface"><option value="accepted_ingest">Accepted at ingest</option><option value="post_index_tamper">Edited after indexing</option></select></div></div>
           <p class="lab-input-note" id="lab-case-note">Loading validation corpus…</p>
           <label for="lab-original">Original trusted passage</label><div id="lab-original" class="lab-original"></div>
-          <div class="lab-label-row"><label for="lab-payload">Attacker-controlled passage</label><button id="lab-reset" type="button">RESET TO SAVED ATTACK</button></div><textarea id="lab-payload" rows="8" maxlength="4000" spellcheck="false"></textarea>
-          <button id="lab-run" class="lab-run" type="button">RUN ATTACK THROUGH PIPELINE <span>↗</span></button>
+          <div class="lab-label-row"><label for="lab-payload">Attacker-controlled passage</label><button id="lab-reset" type="button">Reset text</button></div><textarea id="lab-payload" rows="8" maxlength="4000" spellcheck="false"></textarea>
+          <button id="lab-run" class="lab-run" type="button">Run validation experiment <span>&rarr;</span></button>
           <p class="lab-small">This web experiment uses the trained hashing detector and extractive answerer. MiniLM, Qwen and PPO results below are measured offline runs.</p>
         </div>
         <div class="lab-output">
-          <div class="lab-output-top"><span>LIVE PIPELINE TRACE</span><span id="lab-time">—</span></div>
+          <div class="lab-output-top"><span>Pipeline results</span><span id="lab-time">—</span></div>
           <div id="lab-status" class="lab-status">Preparing experiment…</div>
-          <div class="lab-outcome-grid"><div><span>WITHOUT DEFENSE</span><p id="lab-off-answer">—</p><small id="lab-off-source">No source selected</small></div><div><span>WITH DEFENSE</span><p id="lab-on-answer">—</p><small id="lab-on-source">No source selected</small></div></div>
-          <div class="lab-clean-reference"><span>CLEAN CORPUS REFERENCE / SAME QUESTION</span><p id="lab-clean-answer">—</p><small id="lab-clean-source">No source selected</small></div>
+          <div class="lab-outcome-grid"><div><span>Without defense</span><p id="lab-off-answer">—</p><small id="lab-off-source">No source selected</small></div><div><span>With defense</span><p id="lab-on-answer">—</p><small id="lab-on-source">No source selected</small></div></div>
+          <div class="lab-clean-reference"><span>Clean corpus answer for this question</span><p id="lab-clean-answer">—</p><small id="lab-clean-source">No source selected</small></div>
           <div id="lab-verdict" class="lab-verdict">Run a case to see whether the altered document survives.</div>
-          <div class="lab-trace-head"><div><span>RETRIEVAL → INTEGRITY → DETECTOR</span><h3>Top five candidate passages</h3></div><span id="lab-candidate-count">—</span></div>
+          <div class="lab-trace-head"><div><span>Retrieval / integrity / detector</span><h3>Top five candidate passages</h3></div><span id="lab-candidate-count">—</span></div>
           <div id="lab-documents" class="lab-documents"></div>
         </div>
       </div>
     </section>
 
     <section class="lab-section" aria-labelledby="lab-evidence-title">
-      <div class="lab-section-heading"><div><span>02 / MEASURED EVIDENCE</span><h2 id="lab-evidence-title">Results, including the failure</h2></div><p>The live workbench uses hashing. These measurements were saved from separate MiniLM and PPO experiments; they are not rerun in the browser.</p></div>
+      <div class="lab-section-heading"><div><span>Measured evidence</span><h2 id="lab-evidence-title">Results, including the failure</h2></div><p>The live workbench uses hashing. These measurements were saved from separate MiniLM and PPO experiments; they are not rerun in the browser.</p></div>
       <div class="lab-evidence-grid">
-        <article class="lab-evidence-card"><span>SEALED TEST V1 / 75 QUESTIONS</span><h3>Greedy insertion</h3><div class="lab-big-number" id="lab-greedy-result">—</div><p>Attack success before → after defense. The overt template was quarantined in all 75 cases.</p><div class="lab-paired-bars" id="lab-greedy-bars"></div></article>
-        <article class="lab-evidence-card lab-evidence-warn"><span>SEALED TEST V1 / 75 QUESTIONS</span><h3>Stealth substitution</h3><div class="lab-big-number" id="lab-stealth-result">—</div><p>Attack success before → after defense. Only three altered documents were quarantined.</p><div class="lab-paired-bars" id="lab-stealth-bars"></div></article>
-        <article class="lab-evidence-card"><span>CLEAN TEST V1 / 75 QUESTIONS</span><h3>Answer utility</h3><div class="lab-big-number" id="lab-clean-result">—</div><p>Exact answer alias match with MiniLM retrieval and the learned sentence ranker. This is not the web answer backend.</p><div class="lab-paired-bars" id="lab-clean-bars"></div></article>
+        <article class="lab-evidence-card"><span>Sealed test v1 / 75 questions</span><h3>Greedy insertion</h3><div class="lab-big-number" id="lab-greedy-result">—</div><p>Attack success before → after defense. The overt template was quarantined in all 75 cases.</p><div class="lab-paired-bars" id="lab-greedy-bars"></div></article>
+        <article class="lab-evidence-card lab-evidence-warn"><span>Sealed test v1 / 75 questions</span><h3>Stealth substitution</h3><div class="lab-big-number" id="lab-stealth-result">—</div><p>Attack success before → after defense. Only three altered documents were quarantined.</p><div class="lab-paired-bars" id="lab-stealth-bars"></div></article>
+        <article class="lab-evidence-card"><span>Clean test v1 / 75 questions</span><h3>Answer utility</h3><div class="lab-big-number" id="lab-clean-result">—</div><p>Exact answer alias match with MiniLM retrieval and the learned sentence ranker. This is not the web answer backend.</p><div class="lab-paired-bars" id="lab-clean-bars"></div></article>
       </div>
       <p id="lab-test-status" class="lab-evidence-caption">Verifying the sealed test snapshot…</p>
     </section>
 
     <section class="lab-section lab-ppo-section" aria-labelledby="lab-ppo-title">
-      <div class="lab-section-heading"><div><span>03 / RL ATTACK POLICY</span><h2 id="lab-ppo-title">PPO is implemented. It has not beaten the baselines.</h2></div><p>Masked operation, position and payload heads; 774-value state; two value heads. Two 200-episode CPU training runs.</p></div>
-      <div class="lab-ppo-layout"><div class="lab-ppo-figure"><div class="lab-figure-header"><span>TRAINING / ATTACK SUCCESS PER 20-EPISODE BATCH</span><div><i class="lab-line-ink"></i> undefended <i class="lab-line-coral"></i> defender-aware</div></div><svg id="lab-ppo-chart" viewBox="0 0 720 245" role="img" aria-label="PPO training attack success by batch"></svg><p>Training batches are noisy. Validation comparison below is the decision point.</p></div><div class="lab-ppo-outcomes"><div><span>UNDEFENDED VALIDATION</span><strong id="lab-ppo-plain">—</strong><p>Fixed insertion baseline: <b id="lab-ppo-fixed">—</b></p></div><div><span>DEFENDER-AWARE VALIDATION</span><strong id="lab-ppo-defender">—</strong><p>Fixed answer substitution: <b id="lab-ppo-stealth-fixed">—</b></p></div><p class="lab-ppo-takeaway">Current PPO policies tie their matched fixed attacks. The implementation is a research prototype, with no measured RL advantage yet.</p></div></div>
-      <div class="lab-traces"><div class="lab-trace-header"><span>SELECTED QUESTION / SAVED PPO EDIT TRACES</span><p id="lab-ppo-case-label">Choose a workbench case above.</p></div><div id="lab-ppo-traces" class="lab-trace-grid"></div></div>
+      <div class="lab-section-heading"><div><span>RL attack policy</span><h2 id="lab-ppo-title">PPO has not beaten the baselines</h2></div><p>Masked operation, position and payload heads; 774-value state; two value heads. Two 200-episode CPU training runs.</p></div>
+      <div class="lab-ppo-layout"><div class="lab-ppo-figure"><div class="lab-figure-header"><span>Training / attack success per 20-episode batch</span><div><i class="lab-line-ink"></i> undefended <i class="lab-line-coral"></i> defender-aware</div></div><svg id="lab-ppo-chart" viewBox="0 0 720 245" role="img" aria-label="PPO training attack success by batch"></svg><p>Training batches are noisy. Validation comparison below is the decision point.</p></div><div class="lab-ppo-outcomes"><div><span>Undefended validation</span><strong id="lab-ppo-plain">—</strong><p>Fixed insertion baseline: <b id="lab-ppo-fixed">—</b></p></div><div><span>Defender-aware validation</span><strong id="lab-ppo-defender">—</strong><p>Fixed answer substitution: <b id="lab-ppo-stealth-fixed">—</b></p></div><p class="lab-ppo-takeaway">Current PPO policies tie their matched fixed attacks. The implementation is a research prototype, with no measured RL advantage yet.</p></div></div>
+      <div class="lab-traces"><div class="lab-trace-header"><span>Selected question / saved PPO edit traces</span><p id="lab-ppo-case-label">Choose a workbench case above.</p></div><div id="lab-ppo-traces" class="lab-trace-grid"></div></div>
     </section>
 
-    <section class="lab-section lab-limits"><div class="lab-section-heading"><div><span>04 / DEVELOPMENT STATUS</span><h2>What is still unsolved</h2></div></div><div class="lab-limits-grid"><article><b>ACCEPTED FALSE FACTS</b><p>A valid SHA-256 digest confirms a snapshot, not factual truth. The v1 stealth attack remained successful in 22/75 defended test cases.</p></article><article><b>TWO-PASSAGE GATE</b><p id="lab-v2-summary">Loading v2 validation…</p></article><article><b>LOCAL GENERATOR</b><p>The Qwen 0.5B diagnostic did not produce valid citations on its ten clean validation samples, so it is not used for live answers.</p></article></div><div class="lab-code-links"><span>IMPLEMENTATION</span><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/backend/research_lab.py" target="_blank" rel="noopener noreferrer">Live research path ↗</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/poison/train.py" target="_blank" rel="noopener noreferrer">PPO training ↗</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/detect/research_detector.py" target="_blank" rel="noopener noreferrer">Detector ↗</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/REPORT_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence ↗</a></div></section>
+    <section class="lab-section lab-limits"><div class="lab-section-heading"><div><span>Development status</span><h2>What is still unsolved</h2></div></div><div class="lab-limits-grid"><article><b>Accepted false facts</b><p>A valid SHA-256 digest confirms a snapshot, not factual truth. The v1 stealth attack remained successful in 22/75 defended test cases.</p></article><article><b>Two-passage gate</b><p id="lab-v2-summary">Loading v2 validation…</p></article><article><b>Local generator</b><p>The Qwen 0.5B diagnostic did not produce valid citations on its ten clean validation samples, so it is not used for live answers.</p></article></div><div class="lab-code-links"><span>Implementation</span><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/backend/research_lab.py" target="_blank" rel="noopener noreferrer">Live research path</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/poison/train.py" target="_blank" rel="noopener noreferrer">PPO training</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/detect/research_detector.py" target="_blank" rel="noopener noreferrer">Detector</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/REPORT_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence</a></div></section>
 
     <details class="lab-archive"><summary>Open the full saved-metrics archive and validation case explorer <span>+</span></summary>
     <div id="research-status" class="research-status">Loading saved validation results...</div>
@@ -130,6 +130,6 @@
 &lt;user_question&gt;...query...&lt;/user_question&gt;</pre></article>
   </main>
 
-  <footer><span>SENTINEL RAG / CONTROLLED ACADEMIC RESEARCH</span><span>LIVE VALIDATION LAB / SAVED PPO AND MODEL EXPERIMENTS</span></footer>
+  <footer><span>Sentinel RAG · Academic research prototype</span><span>Live validation lab · Saved PPO and model experiments</span></footer>
 </div><script src="/app.js"></script><script src="/research.js"></script>
 </body></html>
