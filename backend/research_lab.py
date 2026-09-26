@@ -52,7 +52,7 @@ def _inputs() -> tuple[dict, dict, dict, dict]:
 
 @lru_cache(maxsize=1)
 def _detector() -> ResearchDetector:
-    detector = joblib.load(ROOT / "artifacts" / "research_detector_hashing.joblib")
+    detector = joblib.load(ROOT / "artifacts" / "research_detector_hashing_web.joblib")
     if not isinstance(detector, ResearchDetector) or detector.embedding_model != "sklearn-hashing-384":
         raise ValueError("The packaged research detector has the wrong type or backend")
     return detector

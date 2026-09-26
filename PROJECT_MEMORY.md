@@ -3,6 +3,7 @@
 Last reviewed: 2026-09-26. Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
 
 2026-09-26 web checkpoint: the Vercel home page now opens a live Research Lab. It accepts edits to one staged validation attack passage, rebuilds an isolated temporary hashing/BM25/RRF index, checks accepted-ingest versus post-index integrity, scores the trained eight-feature research detector, and compares defended/undefended extractive answers with per-document traces. The UI also shows sealed v1 test metrics, PPO training curves and selected validation edit traces, plus v2 validation limitations. The five-case demo remains a separate tab. The research workbench is deliberately restricted to the 75-question validation split; MiniLM, Qwen and PPO training do not execute in Vercel requests.
+The first Vercel workbench request exposed a WindowsPath inside the frozen training detector's embedded retriever. A separate 984 KB portable export now stores the same trained statistics and classifier with a path-free hashing encoder. The sealed source artifact still matches `TEST_EVIDENCE_V1.json`. On all 75 greedy plus 75 stealth validation cases, the portable web path reproduced the saved hashing attack-success and quarantine outcomes exactly.
 
 ## Goal
 

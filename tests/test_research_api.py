@@ -7,7 +7,9 @@ from tempfile import TemporaryDirectory
 from fastapi import HTTPException
 
 from backend.api import ResearchRunRequest, assets, lab_cases, lab_ppo, lab_ppo_case, lab_run, research_cases, research_summary, test_summary
+from backend.research_lab import _detector
 from evaluation.verify_test_v1 import _matches_saved_hash
+from retrieval.hybrid_retriever import TextEmbedder
 
 
 class ResearchApiTests(unittest.TestCase):
@@ -50,6 +52,7 @@ class ResearchApiTests(unittest.TestCase):
             self.assertFalse(_matches_saved_hash(path, expected, portable_json=True))
 
     def test_live_research_lab_runs_isolated_validation_attack(self):
+        self.assertIsInstance(_detector().embedder, TextEmbedder)
         catalog = lab_cases()
         self.assertEqual(catalog["split"], "validation")
         self.assertEqual(len(catalog["cases"]), 75)

@@ -78,6 +78,8 @@ The repository uses root `app.py` and `vercel.json` for Vercel's Python serverle
 
 The deployed Research Lab is the default view. Its workbench runs a real, bounded validation experiment: choose one of 75 MS MARCO questions, edit a greedy or stealth poison passage, select accepted-ingest or post-index tampering, and inspect a newly built BM25 + hashing + RRF index, integrity status, eight detector features, quarantine decision, and defended/undefended extractive answers. Each run uses temporary storage and does not change the trusted corpus. The page also shows hash-verified sealed v1 test evidence, training curves and selected edit traces from both PPO runs, and the unsuccessful v2 consistency study. The Five-Case Demo tab preserves the original Review-1 demonstration. MiniLM, Qwen generation, and PPO training remain offline research experiments; the v2 test split remains unevaluated.
 
+The web lab loads `artifacts/research_detector_hashing_web.joblib`, a portable export of the frozen detector made with `python scripts/build_web_detector.py`. The original sealed detector artifact remains untouched; the export removes the Windows-specific retriever paths bundled into the training artifact. All 150 saved hashing validation decisions were reproduced by the web path after export.
+
 ```powershell
 vercel.cmd
 vercel.cmd --prod
