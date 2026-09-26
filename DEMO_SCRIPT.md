@@ -1,7 +1,8 @@
 # Seven-minute Sentinel RAG demonstration
 
-This script uses only the local, authored five-question demo. Keep the research
-validation and sealed test results on the Research tab as separate evidence.
+The deployed home page is now the Research Lab. It runs the bounded hashing
+validation experiment live; the MiniLM, PPO and Qwen measurements are saved
+offline evidence. The authored five-question demo remains in its own tab.
 
 ## Before the presentation
 
@@ -14,38 +15,33 @@ build commands in `README.md` before starting the server.
 
 ## 0:00–1:00 — Define the threat
 
-Show the five-question console. Explain that retrieved documents are data,
-even when they contain text that looks like an instruction or a credible
-report. The attacker controls a document inside a closed research corpus.
-No public site or third-party system is targeted.
+Show the Research Lab workbench. Explain that it stages one edited passage
+against a fixed 75-question validation corpus and builds a temporary index.
+The attacker controls a document inside a closed research corpus. No public
+site or third-party system is targeted.
 
 ## 1:00–2:30 — Compare defense off and on
 
-Choose **Where is the Eiffel Tower located?** and run the pipeline. Point to
-the poisoned document's rank and the two answers under Counterfactual
-Comparison. The defense-off run admits every retrieved passage; the defense-on
-run applies the same answer selection after filtering. Show the flagged
-document's S1 geometry, S4 stability, behavior, and fusion risk bars. Repeat
-with **At what temperature does water boil at sea level?** to show a second
-answer type. If the answer does not change in a locally rebuilt corpus, use
-the saved validation case explorer instead of claiming a live success.
+Use the default Princeton-tuition stealth case and run the live workbench.
+Point to the edited answer span, retrieval rank, verified digest, eight detector
+features, and unchanged defended wrong answer. Then switch to greedy insertion
+to show the research detector's different behavior. The source data and
+detector are fixed validation artifacts; the attack passage can be edited.
 
 ## 2:30–3:30 — Explain integrity
 
-Enable **Simulate a post-index modification** and rerun one scenario. Show
-the mismatch status and quarantine decision. Explain that SHA-256 compares
-retrieved text against a trusted snapshot. It detects a later edit; it cannot
-prove a document was true when the snapshot was created. The reviewed-digest
-workflow in `scripts/trusted_ingest.py` handles deliberate re-sealing.
+Change the workbench trust surface from **Accepted at ingest** to **Edited after
+indexing**, then rerun the same passage. Show the SHA-256 mismatch and
+quarantine. Explain that the digest checks a trusted snapshot but cannot
+establish whether an accepted document is factually true.
 
 ## 3:30–5:00 — Show measured research outcomes
 
-Open **Research**. The validation cards and case explorer use saved 75-query
-development runs; they do not train or reindex when the page opens. Switch
-between greedy insertion and stealth answer substitution. State the central
-finding: the frozen detector catches overt insertion but misses most subtle
-answer replacement. The SLM SRQ and Qwen decoder probes were genuinely run
-on the local model, but their measured recall did not justify a live gate.
+Move to the sealed-test evidence and PPO sections. State the central finding:
+the frozen detector catches overt insertion but misses most accepted-ingest
+answer substitutions. Show one saved PPO edit trace and the matched fixed
+baseline. The SLM SRQ and Qwen decoder probes were run offline but did not
+justify a live gate. The full saved-metrics archive is collapsible at the end.
 
 ## 5:00–6:00 — Show the sealed test result
 

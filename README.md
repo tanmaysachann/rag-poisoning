@@ -76,7 +76,7 @@ Open `http://127.0.0.1:8000`. If that port is already in use, stop the older pro
 
 The repository uses root `app.py` and `vercel.json` for Vercel's Python serverless runtime. `requirements.txt` contains only runtime dependencies; corpus-building and PDF-generation packages live in `requirements-dev.txt`. The production URL is https://rag-poisoning.vercel.app/.
 
-The deployed Analysis tab runs the five-case Review-1 demo. Research shows saved validation and sealed v1 test evidence, including the two-passage v2 validation diagnostics. PPO training, Qwen generation, and MiniLM research experiments are offline results rather than web request handlers; the v2 test split remains unevaluated.
+The deployed Research Lab is the default view. Its workbench runs a real, bounded validation experiment: choose one of 75 MS MARCO questions, edit a greedy or stealth poison passage, select accepted-ingest or post-index tampering, and inspect a newly built BM25 + hashing + RRF index, integrity status, eight detector features, quarantine decision, and defended/undefended extractive answers. Each run uses temporary storage and does not change the trusted corpus. The page also shows hash-verified sealed v1 test evidence, training curves and selected edit traces from both PPO runs, and the unsuccessful v2 consistency study. The Five-Case Demo tab preserves the original Review-1 demonstration. MiniLM, Qwen generation, and PPO training remain offline research experiments; the v2 test split remains unevaluated.
 
 ```powershell
 vercel.cmd

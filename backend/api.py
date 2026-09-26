@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from config import POISONED_DOCS_PATH
+from backend.research_lab import case_catalog, ppo_case, ppo_history, run_case
 from pipeline.secure_rag import secure_rag_answer
 
 app = FastAPI(title="Sentinel RAG", version="0.5.0")
@@ -27,6 +28,13 @@ class QueryRequest(BaseModel):
     defense_enabled: bool = True
     threshold: float = Field(default=0.5, ge=0.05, le=0.95)
     simulate_tamper_doc_id: int | None = None
+
+
+class ResearchRunRequest(BaseModel):
+    qid: str = Field(min_length=1, max_length=60)
+    strategy: str = Field(pattern="^(greedy|stealth)$")
+    surface: str = Field(pattern="^(accepted_ingest|post_index_tamper)$")
+    attack_text: str | None = Field(default=None, max_length=4000)
 
 
 @app.get("/api/health")
@@ -128,6 +136,32 @@ def research_cases(strategy: str = "greedy", profile: str = "hashing") -> dict:
              "question": questions.get(row["qid"], "Unknown question")}
             for row in _jsonl(cases_path)]
     return {"split": "validation", "strategy": strategy, "profile": profile, "cases": rows}
+
+
+@app.get("/api/lab/cases")
+def lab_cases() -> dict:
+    return case_catalog()
+
+
+@app.post("/api/lab/run")
+def lab_run(body: ResearchRunRequest) -> dict:
+    try:
+        return run_case(body.qid, body.strategy, body.surface, body.attack_text)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+
+
+@app.get("/api/lab/ppo")
+def lab_ppo() -> dict:
+    return ppo_history()
+
+
+@app.get("/api/lab/ppo-case")
+def lab_ppo_case(qid: str) -> dict:
+    try:
+        return ppo_case(qid)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
 
 
 @app.post("/api/analyze")

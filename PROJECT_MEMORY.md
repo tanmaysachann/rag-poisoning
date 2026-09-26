@@ -2,6 +2,8 @@
 
 Last reviewed: 2026-09-26. Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
 
+2026-09-26 web checkpoint: the Vercel home page now opens a live Research Lab. It accepts edits to one staged validation attack passage, rebuilds an isolated temporary hashing/BM25/RRF index, checks accepted-ingest versus post-index integrity, scores the trained eight-feature research detector, and compares defended/undefended extractive answers with per-document traces. The UI also shows sealed v1 test metrics, PPO training curves and selected validation edit traces, plus v2 validation limitations. The five-case demo remains a separate tab. The research workbench is deliberately restricted to the 75-question validation split; MiniLM, Qwen and PPO training do not execute in Vercel requests.
+
 ## Goal
 
 Build the major project titled **Implementation of an LLM-Based RL Policy-Driven Secure RAG Framework for Dynamic Context Sanitization and Poisoning Attack Mitigation**. The finished project must include an offline document-poisoning research environment, a trained PPO edit policy, a multi-signal detector, integrity-aware secure RAG inference, evaluation against attack and utility baselines, and a demonstrable web console. The attack work stays in a self-contained research corpus.
