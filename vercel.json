@@ -3,6 +3,7 @@
   "functions": {
     "app.py": {
       "includeFiles": "{frontend,data,artifacts,output}/**",
+      "excludeFiles": "{artifacts/models/**,artifacts/vendor/**,tests/**,tmp/**}",
       "maxDuration": 60
     }
   }
