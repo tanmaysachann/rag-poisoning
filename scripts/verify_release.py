@@ -20,6 +20,7 @@ from evaluation.summarize_ppo_head_ablation import summarize as summarize_head_a
 from evaluation.verify_v2_development import verify as verify_v2_development
 from evaluation.verify_contriever_result import verify as verify_contriever_result
 from evaluation.verify_unseen_templates import verify as verify_unseen_templates
+from evaluation.probe_v2_peer_failover import summarize as summarize_v2_peer_failover
 
 
 def run(*command: str) -> None:
@@ -39,6 +40,10 @@ def main() -> int:
     print(json.dumps(verify_v2_development(), indent=2), flush=True)
     print(json.dumps(verify_contriever_result(), indent=2), flush=True)
     print(json.dumps(verify_unseen_templates(), indent=2), flush=True)
+    peer_probe_path = ROOT / "results/v2_peer_failover_validation_probe.json"
+    if json.loads(peer_probe_path.read_text(encoding="utf-8")) != summarize_v2_peer_failover():
+        raise ValueError(f"Saved v2 peer-failover probe is stale: {peer_probe_path}")
+    print("V2 peer-failover diagnostic: verified against corrected validation cases", flush=True)
 
     saved_path = ROOT / "results/ppo_multiseed_validation.json"
     saved = json.loads(saved_path.read_text(encoding="utf-8"))

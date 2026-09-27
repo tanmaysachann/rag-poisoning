@@ -31,6 +31,10 @@ validation outcomes across those 225 seed-question pairs. An optional
 nearest-neighbor edit-effect cache was integrated as a training reward signal
 and tested on the same three seeds; it also changed zero deterministic
 validation outcomes. Neither component showed an advantage in this setup.
+An exploratory v2 peer-answer failover also failed to establish a safe
+subtle-poison defense: a 0.60 post-hoc threshold removed two original wrong
+answers but created two new ones by choosing poisoned peers. It stays out of
+serving; genuinely independent source attestation remains necessary.
 Removing chosen-action inputs to the position and payload heads also changed
 zero deterministic outcomes in the same three-seed comparison; the legal
 action masks remained active.

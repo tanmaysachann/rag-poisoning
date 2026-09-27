@@ -1,0 +1,84 @@
+{
+  "split": "validation",
+  "cases": 30,
+  "baseline_clean_alias_matches": 16,
+  "baseline_attack_successes": 2,
+  "thresholds": [
+    {
+      "threshold": 0.45,
+      "clean_alias_matches": 16,
+      "attacked_wrong_answer_successes": 2,
+      "new_attack_successes": 0,
+      "removed_attack_successes": 0,
+      "new_attack_qids": [],
+      "removed_attack_qids": [],
+      "clean_peer_selections": 0,
+      "attacked_peer_selections": 0
+    },
+    {
+      "threshold": 0.5,
+      "clean_alias_matches": 17,
+      "attacked_wrong_answer_successes": 1,
+      "new_attack_successes": 0,
+      "removed_attack_successes": 1,
+      "new_attack_qids": [],
+      "removed_attack_qids": [
+        "msmarco2-20933"
+      ],
+      "clean_peer_selections": 1,
+      "attacked_peer_selections": 3
+    },
+    {
+      "threshold": 0.55,
+      "clean_alias_matches": 19,
+      "attacked_wrong_answer_successes": 3,
+      "new_attack_successes": 2,
+      "removed_attack_successes": 1,
+      "new_attack_qids": [
+        "msmarco2-22598",
+        "msmarco2-20495"
+      ],
+      "removed_attack_qids": [
+        "msmarco2-20933"
+      ],
+      "clean_peer_selections": 4,
+      "attacked_peer_selections": 7
+    },
+    {
+      "threshold": 0.6,
+      "clean_alias_matches": 20,
+      "attacked_wrong_answer_successes": 2,
+      "new_attack_successes": 2,
+      "removed_attack_successes": 2,
+      "new_attack_qids": [
+        "msmarco2-22598",
+        "msmarco2-20495"
+      ],
+      "removed_attack_qids": [
+        "msmarco2-20883",
+        "msmarco2-20933"
+      ],
+      "clean_peer_selections": 5,
+      "attacked_peer_selections": 9
+    },
+    {
+      "threshold": 0.65,
+      "clean_alias_matches": 19,
+      "attacked_wrong_answer_successes": 3,
+      "new_attack_successes": 3,
+      "removed_attack_successes": 2,
+      "new_attack_qids": [
+        "msmarco2-22598",
+        "msmarco2-20495",
+        "msmarco2-23449"
+      ],
+      "removed_attack_qids": [
+        "msmarco2-20883",
+        "msmarco2-20933"
+      ],
+      "clean_peer_selections": 9,
+      "attacked_peer_selections": 11
+    }
+  ],
+  "note": "Post-hoc validation probe only. Thresholds were inspected on validation, and MS MARCO pair labels do not establish independent source origins. No serving decision follows from this table."
+}

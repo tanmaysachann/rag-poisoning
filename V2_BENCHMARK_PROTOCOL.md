@@ -65,6 +65,17 @@ recall is an optimistic diagnostic, not an end-to-end defense. See
 `results/pairwise_detector_v2_validation.json` and raw case records. The
 classifier was **not** added to the live gate.
 
+A post-hoc peer-answer failover probe used the corrected validation traces to
+choose the other passage's answer when the pair cosine fell below a candidate
+threshold. At 0.60, clean alias matches rose from 16/30 to 20/30 and the two
+original attack successes disappeared, but two new successes appeared when
+the poisoned passage was the peer. At 0.50, the probe had 17/30 clean aliases
+and 1/30 attack success, but that threshold was inspected on validation. The
+saved table and affected query IDs are in
+`results/v2_peer_failover_validation_probe.json`. This shows that failover
+cannot assume the peer is clean; it is not a serving defense. The v2 test
+split remains untouched.
+
 ## Next decision
 
 Before v2 test evaluation, define a better answer-level agreement or trusted
