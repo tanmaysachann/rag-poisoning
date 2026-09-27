@@ -142,7 +142,13 @@ The optional Vercel deployment commands are:
 ```powershell
 vercel.cmd
 vercel.cmd --prod
+python scripts/verify_live_deployment.py
 ```
+
+The live check verifies the public page, health endpoint, saved validation
+summary, 75-case catalog, frozen v1 aggregate, and one five-document inference
+trace. The Vercel function excludes PPO training checkpoints, which are not
+needed by the read-only research API.
 
 ## Presentation flow
 
