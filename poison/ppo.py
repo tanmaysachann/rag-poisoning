@@ -23,18 +23,30 @@ class Transition:
     done: bool
 
 
-def collect_episode(env, policy, seed: int) -> tuple[list[Transition], dict]:
+def collect_episode(env, policy, seed: int, *, edit_cache=None,
+                    cache_weight: float = 0.0) -> tuple[list[Transition], dict]:
+    if cache_weight < 0:
+        raise ValueError("Cache weight must be nonnegative")
+    if cache_weight and edit_cache is None:
+        raise ValueError("A positive cache weight requires an edit-effect cache")
     state, info = env.reset(seed=seed)
     transitions = []
     while True:
         mask = info["action_mask"]
         action, log_probability, value, proxy_value = policy.act(state, mask)
+        cached = (edit_cache.predict(state, action) if edit_cache is not None
+                  and action.operation != "STOP" else None)
         next_state, reward, terminated, truncated, info = env.step(action)
+        proxy_reward = float(info["reward_components"]["total"])
+        cache_bonus = (cache_weight * float(np.clip(cached["expected_reward"], -1.0, 1.0))
+                       if cached is not None else 0.0)
+        if edit_cache is not None and action.operation != "STOP" and info["valid"]:
+            edit_cache.add(state, action, next_state, proxy_reward)
         transitions.append(Transition(
             state.copy(), mask.copy(),
             (OPERATIONS.index(action.operation), action.position, action.payload),
-            log_probability, value, proxy_value, float(reward),
-            float(info["reward_components"]["total"]), terminated or truncated,
+            log_probability, value, proxy_value, float(reward) + cache_bonus,
+            proxy_reward + cache_bonus, terminated or truncated,
         ))
         state = next_state
         if terminated or truncated:

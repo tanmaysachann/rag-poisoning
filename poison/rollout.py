@@ -17,7 +17,7 @@ def valid_actions(mask: np.ndarray) -> list[EditAction]:
 
 
 def run_episode(env, *, seed: int, strategy: str = "random", cache=None) -> dict:
-    if strategy not in {"random", "greedy_proxy", "greedy_repeat"}:
+    if strategy not in {"random", "greedy_proxy", "greedy_repeat", "fixed_substitution"}:
         raise ValueError("Unknown rollout strategy")
     rng = random.Random(seed)
     state, info = env.reset(seed=seed)
@@ -26,7 +26,12 @@ def run_episode(env, *, seed: int, strategy: str = "random", cache=None) -> dict
         actions = valid_actions(info["action_mask"])
         if not actions:
             raise RuntimeError("No valid action is available")
-        if strategy == "random":
+        if strategy == "fixed_substitution":
+            # A single answer-span replacement with the same wrong-answer
+            # schedule and accepted-ingest surface as defender-aware PPO.
+            # An invalid edit is counted as failure, never silently replaced.
+            action = EditAction("PARAPHRASE" if env.steps == 0 else "STOP")
+        elif strategy == "random":
             action = rng.choice(actions)
         else:
             non_stop = [action for action in actions if action.operation != "STOP"]

@@ -1,6 +1,6 @@
 # Sentinel RAG
 
-Sentinel RAG is a controlled, CPU-first research project on poisoned retrieval context. The original five-case Review-1 demo remains available; a separate benchmark and document-edit PPO experiment are under development. See `PROJECT_MEMORY.md` for the current implementation status and `IMPLEMENTATION_PLAN.md` for the full plan.
+Sentinel RAG is a controlled, CPU-first research product for studying poisoned retrieval context. It includes a five-case demo, a live validation attack workbench, frozen benchmark evidence, and an offline PPO attack harness. See `PROJECT_MEMORY.md` for implementation status and `IMPLEMENTATION_PLAN.md` for the original build plan and remaining research goals.
 The ordered work for the next session is saved in `NEXT_SESSION.md`.
 `V2_BENCHMARK_PROTOCOL.md` documents the disjoint two-passage development
 benchmark and why its first consistency gate was not adopted.
@@ -66,9 +66,16 @@ python scripts/doctor.py
 python -m unittest discover -s tests -v
 ```
 
-To verify that the offline demo can rebuild from its checked-in data without
-overwriting the current artifacts, run `python scripts/smoke_rebuild.py`. It builds
-and tests a temporary project copy, then removes that copy.
+To verify that the offline five-case demo can rebuild from checked-in data
+without overwriting current artifacts, run `python scripts/smoke_rebuild.py`.
+It runs the demo and grounding-contract tests in a temporary project copy.
+Run `python -m unittest discover -s tests -q` in the main checkout for the
+full research suite, which also needs the frozen research artifacts and results.
+Run `python scripts/verify_release.py` for one local release check: readiness,
+the full suite, frozen v1 evidence, v2 benchmark structure and hashes, the
+three-seed PPO comparison against its raw runs and checkpoints, JavaScript
+syntax when Node.js is installed, and an isolated offline demo rebuild.
+Use `--skip-smoke` only when the demo rebuild was already run separately.
 
 Open `http://127.0.0.1:8000`. If that port is already in use, stop the older process with `Ctrl+C` before restarting.
 
@@ -76,9 +83,61 @@ Open `http://127.0.0.1:8000`. If that port is already in use, stop the older pro
 
 The repository uses root `app.py` and `vercel.json` for Vercel's Python serverless runtime. `requirements.txt` contains only runtime dependencies; corpus-building and PDF-generation packages live in `requirements-dev.txt`. The production URL is https://rag-poisoning.vercel.app/.
 
-The deployed Research Lab is the default view. Its workbench runs a real, bounded validation experiment: choose one of 75 MS MARCO questions, edit a greedy or stealth poison passage, select accepted-ingest or post-index tampering, and inspect a newly built BM25 + hashing + RRF index, integrity status, eight detector features, quarantine decision, and defended/undefended extractive answers. Each run uses temporary storage and does not change the trusted corpus. The page also shows hash-verified sealed v1 test evidence, training curves and selected edit traces from both PPO runs, and the unsuccessful v2 consistency study. The Five-Case Demo tab preserves the original Review-1 demonstration. MiniLM, Qwen generation, and PPO training remain offline research experiments; the v2 test split remains unevaluated.
+The Research Lab is the default view. Its workbench runs a bounded validation experiment: choose one of 75 MS MARCO questions, edit a greedy or stealth poison passage, select accepted-ingest or post-index tampering, and inspect a newly built BM25 + hashing + RRF index, integrity status, eight detector features, quarantine decision, and defended/undefended extractive answers. Each run uses temporary storage and does not change the trusted corpus. The live trace now includes exact source-span citations, per-stage timing, audit decisions, and leave-one-out answer changes for accepted passages. The page also shows hash-verified sealed v1 test evidence, PPO curves, a three-seed matched defender-aware comparison, and the unsuccessful v2 consistency study. The Five-Case Demo tab preserves the original Review-1 demonstration. MiniLM and Qwen generation remain offline research experiments; the v2 test split remains unevaluated.
+
+`pipeline/research_inference.py` is the shared inference path for the live lab. It consumes a retriever, an existing integrity manifest, and the frozen detector; it does not train or seal during inference. `generation/grounded_answer.py` provides an optional model path that accepts only a verified exact source span and otherwise falls back to the accepted-document extractor. The web lab runs the extractor only. Exact-span grounding does not establish factual truth when an altered document was accepted at ingest.
+
+`generation/answer_repair.py` is an offline Qwen development experiment. On 20
+saved clean outputs it raised known alias matches from 1 to 3 while the
+MiniLM sentence ranker matched 9 on the same questions. The repair is not
+enabled in serving; see `results/local_generation_answer_repair_validation_20.json`.
+
+An optional strict policy in `security/provenance.py` requires the exact cited answer span in two accepted documents with different operator-reviewed source origins. The source map is separate from document text, hash-bound, and HMAC-signed. The live lab leaves this policy off because its MS MARCO passages have no verified independent origins.
+
+Three defender-aware 200-episode PPO runs (seeds 42, 43, 44) were paired with fixed answer substitution and random edits on the same 75 validation questions and wrong-answer schedule. PPO caused 31/225 defended successes across the seed-question pairs; fixed substitution caused 34/225 and random edits 6/225. PPO minus fixed was -1.3 percentage points (query-cluster bootstrap 95% interval -3.1 to 0.0 points); PPO minus random was +11.1 points (5.3 to 17.3). These are development results. PPO beat random edits but did not beat the simple fixed substitution. See `results/ppo_multiseed_validation.json` and `python -m evaluation.summarize_ppo_seeds`.
+
+A matched reward ablation kept the terminal defended-success reward but removed
+the detector-risk step penalty. Defended successes fell from 31/225 to 11/225
+across the same three seeds and questions. See
+`results/ppo_detection_reward_ablation_validation.json` and
+`python -m evaluation.summarize_ppo_detection_ablation`.
+
+A matched auxiliary critic ablation set the proxy-value loss weight to zero
+while retaining all rewards. Both versions achieved 31/225 defended successes,
+with the same deterministic case outcomes; see
+`results/ppo_proxy_value_ablation_validation.json`. An optional edit-effect
+cache training signal was then added and compared on the same seeds and
+questions. It also produced 31/225 defended successes with no changed
+deterministic case outcomes. See `results/ppo_cache_ablation_validation.json`;
+the default PPO run still uses no cache shaping.
+Removing chosen-action conditioning from the position and payload heads also
+changed zero deterministic validation outcomes across 225 seed-question pairs;
+see `results/ppo_head_conditioning_ablation_validation.json`.
 
 The web lab loads `artifacts/research_detector_hashing_web.joblib`, a portable export of the frozen detector made with `python scripts/build_web_detector.py`. The original sealed detector artifact remains untouched; the export removes the Windows-specific retriever paths bundled into the training artifact. All 150 saved hashing validation decisions were reproduced by the web path after export.
+
+The optional CPU retrieval scale check is `python -m evaluation.benchmark_faiss_exact`
+(requires the separately installed `faiss-cpu==1.8.0.post1`). It compares
+current NumPy dense search with exact FAISS FlatIP on v1 train+validation
+passages and deterministic perturbed replicas; it does not open v2 test or
+measure end-to-end answer quality. See `results/faiss_exact_scale_validation.json`.
+
+The pinned [Meta Contriever-msmarco model](https://huggingface.co/facebook/contriever-msmarco)
+can be downloaded with `python scripts/download_contriever_weight.py` and
+compared offline with `python -m evaluation.evaluate_contriever`. The 75-question
+validation RRF support recall matched MiniLM at 73/75 rank one and 74/75 rank
+five; its observed CPU query time was higher. The 438 MB weight stays under
+ignored `artifacts/models/`. See
+`results/benchmark_retrieval_contriever_validation.json`.
+
+Three further answer-layout probes on the same 75 validation questions are in
+`results/unseen_templates_validation.json`. All 225 overt altered documents
+were quarantined by the hashing research detector, but the subtler answer
+substitution family remains a known failure. Run
+`python -m evaluation.verify_unseen_templates` to check every saved case and
+aggregate. These development probes do not establish unseen-source robustness.
+
+The optional Vercel deployment commands are:
 
 ```powershell
 vercel.cmd
@@ -113,6 +172,23 @@ repository to HMAC-sign it, and `RAG_REQUIRE_SIGNED_MANIFEST=1` in serving
 when signed manifests are required. The attack staging harness never seals a
 manifest. Sealing attests to a reviewed snapshot; it does not prove factual
 truth or make accepted-ingest poisoning impossible.
+
+For a corpus with independently reviewed origins, create a separate JSON map
+such as `{"1":"publisher-a","2":"publisher-b"}` and preview both file
+digests with:
+
+```powershell
+python scripts/trusted_sources.py path/to/corpus.jsonl path/to/origins.json path/to/signed_origins.json
+```
+
+After reviewing both files, set `RAG_MANIFEST_KEY` in the operator environment
+and rerun with both `--seal-reviewed-corpus-sha256 <digest>` and
+`--seal-reviewed-origins-sha256 <digest>`. Replacing an existing attestation
+also requires `--replace-existing-manifest`. Load it with
+`security.provenance.load_source_attestations` and pass it to
+`pipeline.research_inference.infer_research` with
+`require_independent_origins=True`. This policy abstains when an exact claim
+cannot be corroborated. It is not calibrated on the current benchmark.
 
 Every predefined scenario is constructed to demonstrate both sides of the experiment: the poisoned payload wins extraction with Defense OFF, while Defense ON quarantines that same report and recovers the clean answer. This is enforced by regression tests for all five attacks. The relevance gate also checks the query's least-common corpus concept, preventing generic overlap such as "largest" and "Earth" from using an ocean report to answer a country question.
 
@@ -242,4 +318,4 @@ For the zero-download fallback, remove that environment variable and rerun the t
 
 ## Honest limitation
 
-The demo detector metrics come from a small controlled dataset and are not production generalization results. Both PPO implementations are CPU prototypes with one seed and tie their matched fixed-edit baselines. Real local-SLM SRQ, MiniLM encoder, and Qwen decoder prefill probes were measured but did not detect these attacks reliably. Validated local-LLM answer quality, multiple-model leave-one-out, broad attack-family coverage, and multi-seed policy comparisons remain outstanding.
+The demo detector metrics come from a small controlled dataset and are not production generalization results. Undefended PPO still has a single-seed fixed-edit comparison; defender-aware PPO has three seeds and did not beat fixed answer substitution. Real local-SLM SRQ, MiniLM encoder, and Qwen decoder prefill probes were measured but did not detect these attacks reliably. Validated local-LLM answer quality, model-based leave-one-out, broad attack-family coverage, and policy ablations remain outstanding.

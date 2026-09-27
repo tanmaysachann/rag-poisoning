@@ -16,7 +16,7 @@ from config import POISONED_DOCS_PATH
 from backend.research_lab import case_catalog, ppo_case, ppo_history, run_case
 from pipeline.secure_rag import secure_rag_answer
 
-app = FastAPI(title="Sentinel RAG", version="0.5.0")
+app = FastAPI(title="Sentinel RAG", version="0.6.0")
 
 
 def _jsonl(path: Path) -> list[dict]:
@@ -39,7 +39,7 @@ class ResearchRunRequest(BaseModel):
 
 @app.get("/api/health")
 def health() -> dict:
-    return {"status": "operational", "mode": "review-1-mvp", "version": "0.5.0",
+    return {"status": "operational", "mode": "research-prototype", "version": "0.6.0",
             "retrieval_scope": "closed-corpus-only"}
 
 
@@ -62,6 +62,7 @@ def research_summary() -> dict:
         "clean_ranker_support_removed": "clean_answers_validation_minilm_ranker_strict_no_support.json",
         "retrieval_hashing": "benchmark_retrieval.json",
         "retrieval_minilm": "benchmark_retrieval_minilm_validation.json",
+        "retrieval_contriever": "benchmark_retrieval_contriever_validation.json",
         "detector_greedy": "research_detector_validation.json",
         "detector_stealth": "research_detector_validation_stealth.json",
         "encoder_probes": "model_probes_validation.json",
@@ -75,6 +76,14 @@ def research_summary() -> dict:
         "defense_stealth_minilm": "defense_validation_stealth_accepted_ingest_minilm_ranker.json",
         "ppo": "ppo_validation_evaluation.json",
         "ppo_defender": "ppo_validation_defender_evaluation.json",
+        "ppo_multiseed": "ppo_multiseed_validation.json",
+        "ppo_detection_ablation": "ppo_detection_reward_ablation_validation.json",
+        "ppo_proxy_ablation": "ppo_proxy_value_ablation_validation.json",
+        "ppo_cache_ablation": "ppo_cache_ablation_validation.json",
+        "ppo_head_ablation": "ppo_head_conditioning_ablation_validation.json",
+        "qwen_span_repair": "local_generation_answer_repair_validation_20.json",
+        "faiss_scale": "faiss_exact_scale_validation.json",
+        "unseen_templates": "unseen_templates_validation.json",
         "fixed_baseline": "edit_rollout_validation_greedy_proxy.summary.json",
         "v2_clean": "multisupport_v2_validation.json",
         "v2_paired_gate": "paired_gate_v2_validation_full_context.json",

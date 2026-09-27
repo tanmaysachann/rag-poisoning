@@ -10,8 +10,10 @@ from poison.actions import EditAction, OPERATIONS, PAYLOADS, POSITIONS
 
 
 class FactoredActorCritic(nn.Module):
-    def __init__(self, state_dim: int = 774, hidden_dim: int = 128):
+    def __init__(self, state_dim: int = 774, hidden_dim: int = 128,
+                 conditional_heads: bool = True):
         super().__init__()
+        self.conditional_heads = conditional_heads
         self.trunk = nn.Sequential(nn.Linear(state_dim, hidden_dim), nn.Tanh(), nn.Linear(hidden_dim, hidden_dim), nn.Tanh())
         self.operation_head = nn.Linear(hidden_dim, len(OPERATIONS))
         self.position_head = nn.Linear(hidden_dim + len(OPERATIONS), len(POSITIONS))
@@ -25,12 +27,16 @@ class FactoredActorCritic(nn.Module):
         operation_distribution = Categorical(logits=self.operation_head(features).masked_fill(~operation_mask, -1e9))
         operation = (operation_distribution.logits.argmax(dim=1) if deterministic else operation_distribution.sample()) if actions is None else actions[:, 0]
         op_hot = nn.functional.one_hot(operation, len(OPERATIONS)).float()
+        if not self.conditional_heads:
+            op_hot = torch.zeros_like(op_hot)
         batch = torch.arange(len(states), device=states.device)
         position_mask = masks[batch, operation].any(dim=2)
         position_features = torch.cat([features, op_hot], dim=1)
         position_distribution = Categorical(logits=self.position_head(position_features).masked_fill(~position_mask, -1e9))
         position = (position_distribution.logits.argmax(dim=1) if deterministic else position_distribution.sample()) if actions is None else actions[:, 1]
         pos_hot = nn.functional.one_hot(position, len(POSITIONS)).float()
+        if not self.conditional_heads:
+            pos_hot = torch.zeros_like(pos_hot)
         payload_mask = masks[batch, operation, position]
         payload_features = torch.cat([features, op_hot, pos_hot], dim=1)
         payload_distribution = Categorical(logits=self.payload_head(payload_features).masked_fill(~payload_mask, -1e9))

@@ -1,0 +1,95 @@
+{
+  "split": "validation",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "episodes_per_seed": 200,
+  "ablation": "detector-risk step reward weight 0.5 to 0; terminal defended-success reward retained",
+  "runs": [
+    {
+      "seed": 42,
+      "cases": 75,
+      "original_successes": 11,
+      "no_detection_reward_successes": 11,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "no_detection_reward_operation_counts": {
+        "INSERT": 2,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 0,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "c7032ffe54f31e70c7e186074b1f3ddb2a0af4734720063fa605c6f31726f1dc",
+      "ablated_checkpoint_sha256": "5b96a7911c6ab013c959964b37cdc35147d657097604ef170e0dc3e184ace1fc",
+      "original_result_sha256": "f1753fa702926e65c697e7c1ac8142ae7b50f6d90129aeb60fe1ba2c6acea220",
+      "ablated_result_sha256": "24187eff426f81ec0cda9fb8ee213dd88abf468d883e167b7c3184acd02e450d"
+    },
+    {
+      "seed": 43,
+      "cases": 75,
+      "original_successes": 8,
+      "no_detection_reward_successes": 0,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 49,
+        "SYNONYM": 24,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "no_detection_reward_operation_counts": {
+        "INSERT": 149,
+        "PARAPHRASE": 0,
+        "SYNONYM": 0,
+        "DELETE": 0,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "e6c38b7621b57ee71b814e6e1647014c8e659cd68e005643d46d13a79fdfa881",
+      "ablated_checkpoint_sha256": "e70806979ec7c2251659d7fa25740ebdaf6399fbe4ea3b08ba83ac0e61ac8156",
+      "original_result_sha256": "e15d75846a6e8cdbc0c047f222214920250093a758ffba8d00ebbec37b53c85f",
+      "ablated_result_sha256": "44d52cdf88f426b67793e4ca1cbc9dcc47b464bdaa072197a71fe3a6503669c0"
+    },
+    {
+      "seed": 44,
+      "cases": 75,
+      "original_successes": 12,
+      "no_detection_reward_successes": 0,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "no_detection_reward_operation_counts": {
+        "INSERT": 75,
+        "PARAPHRASE": 0,
+        "SYNONYM": 0,
+        "DELETE": 0,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "da5d0e5e2c084163990fbb7623db18d05a59498819978db141a9f9ec8f9e51a7",
+      "ablated_checkpoint_sha256": "39866820a65a353fd4902297db04e6e34d77fdef1ca160548d1dedd1666d822f",
+      "original_result_sha256": "4fd70a89bf07006a4f73d275e6d72c0e8240f76bff4c97d7b6d67bf08e45352d",
+      "ablated_result_sha256": "b5e8418901be0612e779ca394f73db66a3c984c87913f6aa1e5c1b43d97a5754"
+    }
+  ],
+  "total_paired_cases": 225,
+  "original_successes": 31,
+  "no_detection_reward_successes": 11,
+  "paired_original_minus_ablation_rate": 0.08888888888888889,
+  "query_cluster_bootstrap_95pct_difference": [
+    0.044444444444444446,
+    0.13777777777777778
+  ],
+  "bootstrap_seed": 20260929,
+  "bootstrap_samples": 10000,
+  "note": "Development validation on the same 75 questions per seed. This tests one reward component, not general PPO superiority."
+}

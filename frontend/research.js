@@ -69,6 +69,13 @@
       verdict.className = 'lab-verdict';
       verdict.textContent = data.attack_retrieved ? 'The altered document was retrieved but did not supply the defended answer.' : 'The altered document did not reach the top five retrieved passages.';
     }
+    const citation = data.defended.citations?.[0];
+    const timing = data.stage_times || {};
+    const changed = (data.counterfactuals || []).filter(row => row.answer_changed);
+    el('lab-inference-details').innerHTML = `<p><b>Selected evidence:</b> ${citation ? `DOC ${escapeHtml(citation.doc_id)} / ${escapeHtml(citation.span)}` : 'Abstained - no accepted source span.'}</p>
+      <p><b>Backend:</b> ${escapeHtml(data.defended.backend)} · <b>Stage time:</b> setup + indexing ${Number(timing.setup_and_index_ms || 0).toFixed(1)} ms, retrieval ${Number(timing.retrieval_ms || 0).toFixed(1)} ms, integrity ${Number(timing.integrity_ms || 0).toFixed(1)} ms, detector ${Number(timing.detection_ms || 0).toFixed(1)} ms, answer + leave-one-out ${Number(timing.answer_and_loo_ms || 0).toFixed(1)} ms.</p>
+      <p><b>Independent-origin check:</b> ${data.provenance?.enforced ? escapeHtml(data.provenance.reason) : 'Not applied; this benchmark has no reviewed independent source origins.'}</p>
+      <details><summary>${changed.length} of ${(data.counterfactuals || []).length} accepted passages changed the answer when removed</summary><ul>${(data.counterfactuals || []).map(row => `<li>Remove DOC ${escapeHtml(row.removed_doc_id)}: ${row.answer_changed ? 'answer changed to' : 'answer unchanged'} ${escapeHtml(row.answer_after_removal)}</li>`).join('')}</ul></details>`;
     el('lab-candidate-count').textContent = `${data.documents.length} CANDIDATES`;
     el('lab-documents').innerHTML = data.documents.map(documentCard).join('');
   }
@@ -149,8 +156,20 @@
       // The matched fixed substitution is the frozen hashing defense baseline.
       const summary = await jsonRequest('/api/research-summary');
       el('lab-ppo-stealth-fixed').textContent = count(summary.summaries.defense_stealth?.defended_attack_success_rate);
+      const multi = summary.summaries.ppo_multiseed;
+      if (multi) el('lab-ppo-multiseed').textContent = `Three matched validation seeds, 75 questions each: PPO ${multi.ppo_successes}/${multi.total_paired_cases} defended successes; fixed answer substitution ${multi.fixed_substitution_successes}/${multi.total_paired_cases}; random edits ${multi.random_edit_successes}/${multi.total_paired_cases}. PPO minus fixed: ${Math.round(multi.paired_difference_rate * 1000) / 10} percentage points (query-cluster bootstrap 95% interval ${multi.query_cluster_bootstrap_95pct_difference.map(value => `${Math.round(value * 1000) / 10}`).join(' to ')}). PPO beat random edits but did not beat fixed substitution.`;
+      const ablation = summary.summaries.ppo_detection_ablation;
+      if (ablation) el('lab-ppo-ablation').textContent = `Reward ablation, same three seeds and questions: with detector-risk step shaping ${ablation.original_successes}/${ablation.total_paired_cases} defended successes; without it ${ablation.no_detection_reward_successes}/${ablation.total_paired_cases}. The terminal defended-success reward remained in both runs. This development result supports the shaping term for this PPO setup, not a general policy advantage.`;
+      const proxyAblation = summary.summaries.ppo_proxy_ablation;
+      if (proxyAblation) el('lab-ppo-proxy-ablation').textContent = `Auxiliary critic ablation, same seeds and questions: ${proxyAblation.original_successes}/${proxyAblation.total_paired_cases} defended successes with its training loss, ${proxyAblation.no_proxy_value_successes}/${proxyAblation.total_paired_cases} without. No deterministic validation case outcome changed.`;
+      const cacheAblation = summary.summaries.ppo_cache_ablation;
+      if (cacheAblation) el('lab-ppo-cache-ablation').textContent = `Edit-effect cache ablation, same seeds and questions: ${cacheAblation.original_successes}/${cacheAblation.total_paired_cases} defended successes without cache shaping, ${cacheAblation.cache_successes}/${cacheAblation.total_paired_cases} with it. No deterministic validation case outcome changed. The cache predicted step reward, not final attack success.`;
+      const headAblation = summary.summaries.ppo_head_ablation;
+      if (headAblation) el('lab-ppo-head-ablation').textContent = `Action-head conditioning ablation, same seeds and questions: ${headAblation.original_successes}/${headAblation.total_paired_cases} defended successes with chosen-action inputs, ${headAblation.no_head_conditioning_successes}/${headAblation.total_paired_cases} without. No deterministic validation case outcome changed; action masks remained active.`;
       const v2 = summary.summaries.v2_paired_gate;
       if (v2) el('lab-v2-summary').textContent = `On 30 validation questions, the full-context cosine gate left attack success at ${v2.attack_success_before_gate}/${v2.cases} → ${v2.attack_success_after_gate}/${v2.cases} while clean alias matches fell ${v2.clean_answer_alias_before_gate}/${v2.cases} → ${v2.clean_answer_alias_after_gate}/${v2.cases}. It was not deployed.`;
+      const layouts = summary.summaries.unseen_templates?.styles;
+      if (layouts) el('lab-unseen-summary').textContent = `Three overt answer layouts were tested on the same 75 development questions. All ${Object.values(layouts).reduce((total, row) => total + row.cases, 0)} altered documents were quarantined; defended attack success was ${Object.values(layouts).reduce((total, row) => total + row.defended_attack_successes, 0)}. These probes do not establish unseen-source robustness.`;
     } catch (error) { el('lab-ppo-chart').outerHTML = `<p class="lab-evidence-caption">${escapeHtml(error.message)}</p>`; }
   }
 

@@ -1,0 +1,75 @@
+{
+  "split": "validation",
+  "defender": "frozen hashing research detector",
+  "attack_surface": "accepted_ingest_replacement",
+  "cases_per_seed": 75,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "runs": [
+    {
+      "seed": 42,
+      "cases": 75,
+      "ppo_successes": 11,
+      "fixed_substitution_successes": 11,
+      "random_edit_successes": 2,
+      "ppo_only_successes": 0,
+      "fixed_only_successes": 0,
+      "paired_difference_count": 0,
+      "checkpoint_sha256": "c7032ffe54f31e70c7e186074b1f3ddb2a0af4734720063fa605c6f31726f1dc",
+      "policy_result_sha256": "f1753fa702926e65c697e7c1ac8142ae7b50f6d90129aeb60fe1ba2c6acea220",
+      "baseline_result_sha256": "c0470cb468e261118e2ab18b5186e52f89ba9e139b67e28649d7f236b2d19808",
+      "random_result_sha256": "c8f5e85f1b461faab7c01d0fc9c84fff5decc78a763708c927a09f0ff5eb4b06"
+    },
+    {
+      "seed": 43,
+      "cases": 75,
+      "ppo_successes": 8,
+      "fixed_substitution_successes": 11,
+      "random_edit_successes": 1,
+      "ppo_only_successes": 0,
+      "fixed_only_successes": 3,
+      "paired_difference_count": -3,
+      "checkpoint_sha256": "e6c38b7621b57ee71b814e6e1647014c8e659cd68e005643d46d13a79fdfa881",
+      "policy_result_sha256": "e15d75846a6e8cdbc0c047f222214920250093a758ffba8d00ebbec37b53c85f",
+      "baseline_result_sha256": "8bd7cd2b57b55b436378d0934efa919ea5ba384818f790cd4454d1dbbec0b148",
+      "random_result_sha256": "2f2a25c2c31f69ee9f22a7af5290a427d788dd3c5e1b6a2453101b74c14af316"
+    },
+    {
+      "seed": 44,
+      "cases": 75,
+      "ppo_successes": 12,
+      "fixed_substitution_successes": 12,
+      "random_edit_successes": 3,
+      "ppo_only_successes": 0,
+      "fixed_only_successes": 0,
+      "paired_difference_count": 0,
+      "checkpoint_sha256": "da5d0e5e2c084163990fbb7623db18d05a59498819978db141a9f9ec8f9e51a7",
+      "policy_result_sha256": "4fd70a89bf07006a4f73d275e6d72c0e8240f76bff4c97d7b6d67bf08e45352d",
+      "baseline_result_sha256": "826dc373b502ffda8c16363274024e42c797603dce8ebc4bb2db579624fd78c4",
+      "random_result_sha256": "0de0a678a4f473d84d2fc957d885894ac0952ede34735fe8d21ec097db828e5c"
+    }
+  ],
+  "ppo_successes": 31,
+  "fixed_substitution_successes": 34,
+  "random_edit_successes": 6,
+  "total_paired_cases": 225,
+  "ppo_success_rate": 0.13777777777777778,
+  "fixed_substitution_success_rate": 0.1511111111111111,
+  "random_edit_success_rate": 0.02666666666666667,
+  "paired_difference_rate": -0.013333333333333334,
+  "ppo_minus_random_difference_rate": 0.1111111111111111,
+  "query_cluster_bootstrap_95pct_difference": [
+    -0.03111111111111111,
+    0.0
+  ],
+  "query_cluster_bootstrap_95pct_ppo_minus_random": [
+    0.05333333333333334,
+    0.17333333333333334
+  ],
+  "bootstrap_seed": 20260927,
+  "bootstrap_samples": 10000,
+  "note": "Development validation; the three seeds reuse the same 75 questions. The interval resamples questions as clusters and describes this comparison, not unseen-corpus generalization."
+}

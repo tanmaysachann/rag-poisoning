@@ -1,0 +1,14 @@
+{
+  "split": "validation",
+  "strategy": "fixed_substitution",
+  "cases": 75,
+  "retrieval_rate": 0.8133333333333334,
+  "attack_success_rate": 0.16,
+  "defended_attack_success_rate": 0.14666666666666667,
+  "defender_aware": true,
+  "replace_existing": true,
+  "seed": 42,
+  "mean_reward": 0.5304418042682709,
+  "cached_transitions": 153,
+  "output": "results\\fixed_substitution_validation_seed42.jsonl"
+}

@@ -13,7 +13,39 @@ two-passage benchmark v2 is frozen for development and a later test.
 The first paired sentence-cosine gate failed its utility/security criterion
 on validation and remains experimental. See `V2_BENCHMARK_PROTOCOL.md`.
 
-## Remaining product work (2026-09-26 decision)
+## Remaining product work (2026-09-27 decision)
+
+The live validation workbench now exposes a unified audit trace, exact source
+spans, leave-one-out answer changes, and stage timing. A verified local-model
+router with an extractive fallback exists but has not passed answer-quality
+evaluation. An offline source-phrase repair replay improved Qwen alias matches
+from 1/20 to 3/20, still below the MiniLM sentence ranker's 9/20 on the same
+clean questions; it remains outside serving. Defender-aware PPO has three
+seed-matched validation runs and does not beat fixed substitution (31/225
+versus 34/225); further reward and architecture ablations are still open.
+Matched random
+edits scored 6/225 defended successes. Removing detector-risk step shaping
+lowered PPO defended successes from 31/225 to 11/225 across the three seeds.
+Removing the auxiliary proxy-value critic loss changed no deterministic
+validation outcomes across those 225 seed-question pairs. An optional
+nearest-neighbor edit-effect cache was integrated as a training reward signal
+and tested on the same three seeds; it also changed zero deterministic
+validation outcomes. Neither component showed an advantage in this setup.
+Removing chosen-action inputs to the position and payload heads also changed
+zero deterministic outcomes in the same three-seed comparison; the legal
+action masks remained active.
+Three overt answer-layout development probes were also run on the same 75
+validation questions: 225/225 altered documents were quarantined, with zero
+defended wrong-answer successes. This does not establish robustness to novel
+source families or subtle accepted-ingest replacements.
+A signed, operator-reviewed source-origin map and
+optional exact-span two-origin abstention policy now provide a high-assurance
+contract for future corpora with genuinely independent sources. The current
+benchmark cannot evaluate that policy, so it is not a measured or deployed
+stealth defense. These additions do not justify promoting the failed v2 pair
+gates. The sealed v1 test remains historical and the v2 test remains untouched.
+`python scripts/verify_release.py` now verifies the current research artifacts,
+tests, saved PPO comparison, and an isolated demo rebuild in one command.
 
 The benchmark, attack harness, integrity workflow, detector, PPO prototype,
 sealed v1 evidence, and live validation workbench exist. These priorities are
@@ -24,8 +56,8 @@ the remaining path to the complete system described by the presentation:
 | 1. Subtle poisoning defense | Build answer-level corroboration or trusted-source provenance for accepted-ingest factual replacements. Select on v2 train/validation only. Advance only if attack success falls without unacceptable clean-answer loss; the tried pair-similarity gates failed this condition. |
 | 2. Cited answer generation | Improve local generator answer quality, source-span citations, and abstention. Validate on clean and attacked development cases before enabling model generation in serving. Keep the extractive backend as the stable fallback. |
 | 3. Integrated research serving | Connect versioned retrieval, integrity/provenance, calibrated signals, selective checks, generation, citation validation, and audit events. Expose the genuine model/backend and timing for every candidate. The deployed lab currently runs the hashing/extractive validation profile; MiniLM, Qwen, and PPO results are offline artifacts. |
-| 4. PPO evidence | Run multiple seeds against matched fixed/random attacks and ablate reward terms, edit cache, and action heads. Report no advantage if the policy continues to tie simple baselines. |
-| 5. Retrieval and robustness | Finish Contriever/FAISS comparisons where scale warrants them. Evaluate unseen attack templates, poison budgets, alternate retrievers/generators, and genuinely distinct source origins. Freeze a new held-out protocol before testing an improved defense; v1 test is spent and v2 test is untouched. |
+| 4. PPO evidence | Three defender-aware seeds now have matched fixed substitutions and random edits. PPO beats random edits but not fixed substitution. Detector-risk, auxiliary critic, optional edit-effect cache, and action-head conditioning ablations are measured. Add undefended multi-seed runs and remaining reward/architecture ablations. |
+| 5. Retrieval and robustness | FAISS FlatIP versus NumPy is measured on 425 development vectors and 10,200 synthetic perturbed replicas. Pinned Contriever-msmarco matches MiniLM's 73/75 and 74/75 RRF support recall on 75 validation passages, with higher observed CPU query latency, so the small serving profile remains MiniLM/NumPy where available. Three overt answer-layout probes were caught on development validation. Evaluate subtle new attack families, poison budgets, alternate generators, and genuinely distinct source origins. Freeze a new held-out protocol before testing an improved defense; v1 test is spent and v2 test is untouched. |
 | 6. Reproducible release | Package CPU and GPU reproduction commands, raw examples, confidence intervals, resource costs, bibliography corrections, and a corrected presentation export. Every final claim must point to a measured artifact. |
 
 Presentation-specific choices require explicit resolution: the implemented PPO

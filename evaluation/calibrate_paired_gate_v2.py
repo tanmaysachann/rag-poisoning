@@ -50,6 +50,7 @@ def main() -> None:
         docs = retriever.retrieve(row["question"], top_k=5)
         result = paired_decision(row["question"], docs, retriever, ranker, -1.0)
         cases.append({"qid": row["qid"], "answer_cosine": result["answer_cosine"],
+                      "source_doc_id": result["source_doc_id"],
                       "peer_doc_id": result["peer_doc_id"],
                       "answer_alias_match": _contains_alias(result["answer"], row["answer_aliases"])})
     threshold, rejected = threshold_for_clean_rejection(
@@ -63,6 +64,7 @@ def main() -> None:
         "train_clean_alias_match": sum(row["answer_alias_match"] for row in cases),
         "missing_peer_document": sum(row["peer_doc_id"] is None for row in cases),
         "missing_usable_pair_score": sum(row["answer_cosine"] is None for row in cases),
+        "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
         "note": "Threshold calibrated on full retrieval and selected-answer path, not doc-only support pairs.",
     }
     output = ROOT_DIR / "results/paired_gate_v2_train_calibration.json"

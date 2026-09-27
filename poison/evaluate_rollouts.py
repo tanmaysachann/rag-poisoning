@@ -6,12 +6,15 @@ import argparse
 import json
 from pathlib import Path
 
+import joblib
+
 from attack.baselines import choose_wrong_answer
 from config import RESULTS_DIR, ROOT_DIR
 from data.validate_benchmark import validate_benchmark
 from poison.edit_cache import EditEffectCache
 from poison.env import DocumentEditEnv
 from poison.rollout import run_episode
+from detect.research_detector import ResearchDetector
 
 
 def _read_jsonl(path: Path) -> list[dict]:
@@ -22,23 +25,31 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--benchmark", type=Path, default=ROOT_DIR / "data" / "benchmark")
     parser.add_argument("--split", choices=("train", "validation"), default="train")
-    parser.add_argument("--strategy", choices=("random", "greedy_proxy", "greedy_repeat"), default="random")
+    parser.add_argument("--strategy", choices=("random", "greedy_proxy", "greedy_repeat", "fixed_substitution"), default="random")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--defender-aware", action="store_true")
+    parser.add_argument("--replace-existing", action="store_true")
+    parser.add_argument("--detector", type=Path, default=ROOT_DIR / "artifacts/research_detector_hashing.joblib")
     args = parser.parse_args()
     if args.limit < 1:
         raise ValueError("--limit must be positive")
     validate_benchmark(args.benchmark)
     queries = _read_jsonl(args.benchmark / args.split / "queries.jsonl")[:args.limit]
     answer_pool = [row["answer_aliases"][0] for row in _read_jsonl(args.benchmark / "train" / "queries.jsonl")]
+    detector = joblib.load(args.detector) if args.defender_aware else None
+    if detector is not None and not isinstance(detector, ResearchDetector):
+        raise ValueError("Wrong detector artifact type")
+    if args.strategy == "fixed_substitution" and not args.replace_existing:
+        raise ValueError("fixed_substitution requires --replace-existing")
     cache = EditEffectCache(774)
     records = []
     for index, query in enumerate(queries):
         wrong = choose_wrong_answer(query["answer_aliases"], answer_pool, args.seed + index)
         env = DocumentEditEnv(
             args.benchmark / args.split / "corpus.jsonl", query, wrong,
-            max_steps=3, replace_existing=False,
+            max_steps=3, replace_existing=args.replace_existing, detector=detector,
         )
         result = run_episode(env, seed=args.seed + index, strategy=args.strategy, cache=cache)
         records.append({
@@ -55,6 +66,13 @@ def main() -> None:
         "split": args.split, "strategy": args.strategy, "cases": len(records),
         "retrieval_rate": sum(row["terminal"]["retrieved"] for row in records) / len(records),
         "attack_success_rate": sum(row["terminal"]["attack_success"] for row in records) / len(records),
+        "defended_attack_success_rate": (
+            sum(row["terminal"]["defended_attack_success"] for row in records) / len(records)
+            if detector is not None else None
+        ),
+        "defender_aware": args.defender_aware,
+        "replace_existing": args.replace_existing,
+        "seed": args.seed,
         "mean_reward": sum(row["total_reward"] for row in records) / len(records),
         "cached_transitions": len(cache.rows), "output": str(output),
     }

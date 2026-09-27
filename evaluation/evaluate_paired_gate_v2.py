@@ -26,9 +26,13 @@ def paired_decision(query: str, retrieved: list[dict], retriever, ranker: Senten
     answer, source, _ = ranker.select(query, retrieved, retriever)
     by_id = {doc["doc_id"]: doc for doc in retrieved}
     selected = by_id.get(source)
-    peer = next((doc for doc in retrieved if selected is not None
+    # HybridRetriever returns a compact rank row; the corpus keeps the grouping
+    # metadata. A source query ID is a pair label, not a publication origin.
+    corpus_groups = {doc["doc_id"]: doc.get("source_query_id") for doc in retriever.documents}
+    group = corpus_groups.get(source) if selected is not None else None
+    peer = next((doc for doc in retrieved if group is not None
                  and doc["doc_id"] != source
-                 and doc.get("source_query_id") == selected.get("source_query_id")), None)
+                 and corpus_groups.get(doc["doc_id"]) == group), None)
     peer_answer = None
     cosine = None
     if peer is not None:
@@ -103,6 +107,8 @@ def main() -> None:
                 "attack_success_before_gate": before_success,
                 "attack_success_after_gate": before_success and attack_result["gate_keeps_answer"],
                 "attack_retrieved": attack_id in [doc["doc_id"] for doc in attack_retrieved],
+                "clean_peer_is_labeled_support": clean_result["peer_doc_id"] in query["support_doc_ids"],
+                "attacked_peer_is_labeled_support": attack_result["peer_doc_id"] in query["support_doc_ids"],
             })
             if (index + 1) % 10 == 0:
                 print(f"validation: {index + 1}/{len(queries)}", flush=True)
@@ -117,6 +123,9 @@ def main() -> None:
         "attack_success_before_gate": sum(row["attack_success_before_gate"] for row in cases),
         "attack_success_after_gate": sum(row["attack_success_after_gate"] for row in cases),
         "attacked_answer_kept": sum(row["attacked"]["gate_keeps_answer"] for row in cases),
+        "clean_labeled_support_peer": sum(row["clean_peer_is_labeled_support"] for row in cases),
+        "attacked_labeled_support_peer": sum(row["attacked_peer_is_labeled_support"] for row in cases),
+        "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
         "note": "One of two selected passages replaced; similarity is not entailment, and the two passages may share source origin.",
     }
     output = ROOT_DIR / f"results/paired_gate_v2_validation_{args.calibration}.json"

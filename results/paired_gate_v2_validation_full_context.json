@@ -5,11 +5,14 @@
   "calibration": "full_context",
   "train_calibrated_cosine_threshold": 0.3499615788459778,
   "clean_answer_alias_before_gate": 16,
-  "clean_answer_alias_after_gate": 13,
-  "clean_answer_kept": 25,
+  "clean_answer_alias_after_gate": 14,
+  "clean_answer_kept": 26,
   "attack_retrieved": 28,
   "attack_success_before_gate": 2,
   "attack_success_after_gate": 2,
-  "attacked_answer_kept": 20,
+  "attacked_answer_kept": 22,
+  "clean_labeled_support_peer": 29,
+  "attacked_labeled_support_peer": 28,
+  "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
   "note": "One of two selected passages replaced; similarity is not entailment, and the two passages may share source origin."
 }

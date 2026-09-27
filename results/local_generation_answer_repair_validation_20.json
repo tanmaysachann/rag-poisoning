@@ -1,0 +1,13 @@
+{
+  "split": "validation",
+  "cases": 20,
+  "input": "results/local_generation_grounded_validation_20.cases.jsonl",
+  "baseline_cited_support": 5,
+  "baseline_alias_match": 1,
+  "same_questions_minilm_ranker_alias_match": 9,
+  "repaired_cited_support": 7,
+  "repaired_alias_match": 3,
+  "repaired_abstentions": 13,
+  "aligned_phrase_citations": 4,
+  "note": "Saved 20 clean development outputs only. Exact source-token alignment is not factual entailment or attack robustness."
+}

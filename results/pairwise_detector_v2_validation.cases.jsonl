@@ -1,7 +1,7 @@
 {"qid": "msmarco2-20765", "clean_risk": 0.5209922953499275, "attack_risk": 0.780445194236574, "clean_flagged": false, "attack_flagged": false, "baseline_attack_success": false, "retrieved_peer": true}
 {"qid": "msmarco2-21038", "clean_risk": 0.3497327077586404, "attack_risk": 0.8552796117170578, "clean_flagged": false, "attack_flagged": true, "baseline_attack_success": false, "retrieved_peer": false}
 {"qid": "msmarco2-23227", "clean_risk": 0.7125295992812978, "attack_risk": 0.7686942564391703, "clean_flagged": false, "attack_flagged": false, "baseline_attack_success": false, "retrieved_peer": true}
-{"qid": "msmarco2-22133", "clean_risk": 0.3009238198531099, "attack_risk": 0.9124181683314647, "clean_flagged": false, "attack_flagged": true, "baseline_attack_success": false, "retrieved_peer": true}
+{"qid": "msmarco2-22133", "clean_risk": 0.3009238198531099, "attack_risk": 0.9124181683314647, "clean_flagged": false, "attack_flagged": true, "baseline_attack_success": false, "retrieved_peer": false}
 {"qid": "msmarco2-22640", "clean_risk": 0.418026438552393, "attack_risk": 0.5516502767834502, "clean_flagged": false, "attack_flagged": false, "baseline_attack_success": false, "retrieved_peer": true}
 {"qid": "msmarco2-21890", "clean_risk": 0.44692214989270945, "attack_risk": 0.6494668937389264, "clean_flagged": false, "attack_flagged": false, "baseline_attack_success": false, "retrieved_peer": true}
 {"qid": "msmarco2-23740", "clean_risk": 0.25400856105594816, "attack_risk": 0.27980001812302707, "clean_flagged": false, "attack_flagged": false, "baseline_attack_success": false, "retrieved_peer": true}

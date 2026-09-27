@@ -1,6 +1,24 @@
 # Sentinel RAG project memory
 
-Last reviewed: 2026-09-26. Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
+Last reviewed: 2026-09-27. Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
+
+2026-09-27 checkpoint: the live validation lab now uses `pipeline/research_inference.py`
+for retrieval, integrity verification, eight-feature detector filtering,
+extractive source-span answers, leave-one-out counterfactuals, timings, and an
+auditable stage trace. The lab still reproduces the known accepted-ingest
+stealth failure. `generation/grounded_answer.py` adds a verified exact-span
+model option with extractive fallback; it is not enabled on the web. The sealed
+v1 source and result hashes still verify. Three defender-aware PPO seeds
+(42, 43, 44), each trained for 200 episodes, were paired against fixed answer
+substitution and random edits on the same 75 validation questions per seed. PPO
+succeeded in 31/225 seed-question cases, fixed substitution in 34/225, and
+random edits in 6/225. PPO beat random edits but not fixed substitution. See
+`results/ppo_multiseed_validation.json`. A separate signed
+source-origin attestation and strict exact-span two-origin abstention policy
+are implemented for future corpora. The current MS MARCO benchmark cannot
+activate it because independent source origins are unverified. The v2 test
+remains untouched. An in-app browser was unavailable for visual QA; API, JS
+syntax, HTML bindings, and local HTTP flow were checked.
 
 2026-09-26 next checkpoint: local Qwen answer validation now requires a
 contiguous answer span in each cited retrieved document. Uncited exact spans
@@ -72,9 +90,16 @@ Build the major project titled **Implementation of an LLM-Based RL Policy-Driven
 - Commit `1293a0f` pushed the 2026-09-25 checkpoint to `origin/main` with tanmaysachann as sole author and committer, without a co-author trailer.
 - The v1 MiniLM/ranker stealth validation failure audit found 21/75 defended successes; all 21 selected the altered source, whose accepted-ingest hash was verified. None of 74 nonabstaining clean selected answers appeared verbatim in another full-corpus validation document, so a strict exact-answer corroboration rule is infeasible on that corpus. `results/stealth_failure_analysis_validation.json` records counts and examples.
 - A new revision-pinned two-passage MS MARCO benchmark v2 excludes v1 source IDs, passage texts, and question strings. It has 140 train, 30 validation, and 30 untouched test query groups, each with two labeled answer-bearing passages. Its hash manifest passed `python -m data.validate_multisupport_benchmark`. Two passages from one query row are not proven independent sources.
-- On v2 validation, MiniLM retrieved both supports in 29/30 cases and the frozen ranker matched a clean answer alias in 16/30. A single-passage answer substitution succeeded in 2/30 cases before a paired sentence-cosine gate. The initial doc-only threshold cut this to 1/30 but reduced clean alias matches to 13/30. A full-path training calibration found 18/140 clean cases without a usable paired score, exceeding the 5% rejection target; its best possible threshold did not reduce the 2/30 attack successes and still yielded only 13/30 clean matches. The gate was not promoted. `V2_BENCHMARK_PROTOCOL.md` has details; v2 test remains unevaluated.
+- On v2 validation, MiniLM retrieved both supports in 29/30 cases and the frozen ranker matched a clean answer alias in 16/30. A single-passage answer substitution succeeded in 2/30 cases before a paired sentence-cosine gate. An evaluator metadata lookup bug originally let the gate select an unrelated peer; it was fixed and the train/validation pair study rerun. The corrected doc-only threshold cut attack success to 1/30 but reduced clean alias matches to 14/30. Full-path training calibration found 17/140 clean cases without a usable paired score, exceeding the 5% rejection target; its best threshold did not reduce the 2/30 attack successes and yielded 14/30 clean matches. The gate was not promoted. `V2_BENCHMARK_PROTOCOL.md` has details; v2 test remains unevaluated.
 - A seven-feature pairwise classifier trained on 100 clean and 100 attacked v2 training pairs, then calibrated on 40 separate clean training pairs, flagged 3/30 altered and 1/30 clean validation pairs. It flagged neither of the two actual answer-changing attacks. It is an oracle-pair diagnostic and was not promoted to a live gate. The new validation result is `results/pairwise_detector_v2_validation.json`.
-- Still outstanding: Contriever/FAISS comparisons; improved answer utility and trusted citation generation; broader unseen attack-family generalization; multi-seed PPO/ablation studies; final evidence package and corrected slides.
+- A local FAISS FlatIP versus NumPy exact dense-search comparison used 425 v1 train+validation passage vectors and 10,200 synthetic perturbed replicas, with 30 development queries. Top-five scores agreed throughout; single-thread median search at 10,200 vectors was 0.757 ms FAISS versus 1.287 ms NumPy. The current small serving path remains NumPy. See `results/faiss_exact_scale_validation.json`.
+- The official pinned Meta Contriever-msmarco weight (438 MB) was SHA-256 verified and evaluated offline with masked mean pooling on all 75 v1 validation questions. BM25+RRF support recall@1/@5 was 73/75 and 74/75, matching the saved MiniLM hybrid run; median CPU query plus search was 25.69 ms, while MiniLM's saved mean query time was 11.28 ms. The live lightweight profile was not changed. See `results/benchmark_retrieval_contriever_validation.json`.
+- Three matched defender-aware PPO seeds were retrained with detector-risk step shaping set to zero while keeping the terminal defended-success reward. Defended attack successes fell from 31/225 to 11/225 across seed-question pairs; the query-cluster bootstrap paired interval for the original minus ablation was +4.4 to +13.8 percentage points. The original still did not beat fixed substitution. See `results/ppo_detection_reward_ablation_validation.json`.
+- An auxiliary proxy-value loss ablation retrained the same three 200-episode seeds with loss weight zero and all rewards unchanged. Both versions had 31/225 defended successes and the same deterministic validation case outcomes. See `results/ppo_proxy_value_ablation_validation.json`.
+- An optional nearest-neighbor edit-effect cache was integrated as a PPO step-reward signal and compared with the original cache-free runs across the same seeds. Both conditions had 31/225 defended successes and identical deterministic case outcomes. Cache rows after 200 episodes were 333, 339, and 320; this proxy reward cache did not predict terminal success. See `results/ppo_cache_ablation_validation.json`.
+- Removing chosen-action inputs to the position and payload heads during matched retraining also left all 225 deterministic validation case outcomes unchanged: 31/225 defended successes in both conditions. Legal-action masks remained active. See `results/ppo_head_conditioning_ablation_validation.json`.
+- Three overt answer-layout probes reused the v1 validation questions and greedy wrong-answer schedule. Across 225 staged cases, every altered document was retrieved and quarantined; undefended attack successes were 65, 65, and 66 of 75 by layout, while defended successes were zero. `evaluation/verify_unseen_templates.py` checks raw rows against the saved aggregate. This does not resolve subtle answer substitution or independent-source generalization.
+- Still outstanding: improved answer utility and trusted citation generation; broader unseen attack-family generalization; remaining PPO reward/architecture ablations; final evidence package and corrected slides.
 - The working tree had user changes to `.gitattributes`, `config.py`, `requirements-dev.txt`, `vercel.json`, embedding cache files, and an untracked `Presentation.pdf` at review time. Preserve them.
 
 ## Execution principles

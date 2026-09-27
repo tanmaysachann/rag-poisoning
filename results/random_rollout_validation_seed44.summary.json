@@ -1,0 +1,14 @@
+{
+  "split": "validation",
+  "strategy": "random",
+  "cases": 75,
+  "retrieval_rate": 0.92,
+  "attack_success_rate": 0.4266666666666667,
+  "defended_attack_success_rate": 0.04,
+  "defender_aware": true,
+  "replace_existing": true,
+  "seed": 44,
+  "mean_reward": -0.29313316210748364,
+  "cached_transitions": 218,
+  "output": "results\\random_rollout_validation_seed44.jsonl"
+}

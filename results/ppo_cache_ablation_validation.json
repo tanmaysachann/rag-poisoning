@@ -1,0 +1,102 @@
+{
+  "split": "validation",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "episodes_per_seed": 200,
+  "ablation": "edit-effect cache reward weight 0 to 0.5; all other losses and rewards retained",
+  "runs": [
+    {
+      "seed": 42,
+      "cases": 75,
+      "original_successes": 11,
+      "cache_successes": 11,
+      "changed_case_outcomes": 0,
+      "final_cache_rows": 333,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "cache_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "c7032ffe54f31e70c7e186074b1f3ddb2a0af4734720063fa605c6f31726f1dc",
+      "cache_checkpoint_sha256": "a20062a2b549852b933f1a9011d093d0899b5102617c704fd6e0dcad4b10a95b",
+      "original_result_sha256": "f1753fa702926e65c697e7c1ac8142ae7b50f6d90129aeb60fe1ba2c6acea220",
+      "cache_result_sha256": "c3483d784d7af96027a39ca561682b0e3886960744082fc4d0189811d95bc62b"
+    },
+    {
+      "seed": 43,
+      "cases": 75,
+      "original_successes": 8,
+      "cache_successes": 8,
+      "changed_case_outcomes": 0,
+      "final_cache_rows": 339,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 49,
+        "SYNONYM": 24,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "cache_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 49,
+        "SYNONYM": 24,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "e6c38b7621b57ee71b814e6e1647014c8e659cd68e005643d46d13a79fdfa881",
+      "cache_checkpoint_sha256": "da2868eeb0599be71f8e99861fc8838eab9badfde31abfa2aafaec7740c1f10f",
+      "original_result_sha256": "e15d75846a6e8cdbc0c047f222214920250093a758ffba8d00ebbec37b53c85f",
+      "cache_result_sha256": "a4b0e68f4ca0a1a56a9b0f38b9ba89d4753de0e0d4733c51667d9d24f4a04e9b"
+    },
+    {
+      "seed": 44,
+      "cases": 75,
+      "original_successes": 12,
+      "cache_successes": 12,
+      "changed_case_outcomes": 0,
+      "final_cache_rows": 320,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "cache_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "da5d0e5e2c084163990fbb7623db18d05a59498819978db141a9f9ec8f9e51a7",
+      "cache_checkpoint_sha256": "726916fbc29f5bf5c638c582778f8de13bf6e8f8ef8fc353d73183c23756ce6b",
+      "original_result_sha256": "4fd70a89bf07006a4f73d275e6d72c0e8240f76bff4c97d7b6d67bf08e45352d",
+      "cache_result_sha256": "6930b0a7574af4d912b33040ebbb7ac61e82ac96d59a190ab85df6af7200686b"
+    }
+  ],
+  "total_paired_cases": 225,
+  "original_successes": 31,
+  "cache_successes": 31,
+  "changed_case_outcomes": 0,
+  "paired_cache_minus_original_rate": 0.0,
+  "query_cluster_bootstrap_95pct_difference": [
+    0.0,
+    0.0
+  ],
+  "bootstrap_seed": 20261001,
+  "bootstrap_samples": 10000,
+  "note": "Development validation. Cache predicts the proxy step reward of nearby state-action edits; it does not predict terminal attack success. Exact NumPy neighbor search was used during training only."
+}

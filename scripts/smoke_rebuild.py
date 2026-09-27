@@ -46,7 +46,15 @@ def main() -> int:
         _run(project, "-m", "detect.train_fusion_classifier", env=env)
         _run(project, "scripts/build_pdf_reports.py", env=env)
         _run(project, "scripts/doctor.py", env=env)
-        _run(project, "-m", "unittest", "discover", "-s", "tests", "-v", env=env)
+        # This copy rebuilds only the offline five-case demo. Research tests
+        # require separately frozen detector, PPO, and benchmark result files.
+        _run(
+            project, "-m", "unittest",
+            "tests.test_dynamic_pipeline", "tests.test_attack_harness",
+            "tests.test_integrity", "tests.test_trusted_ingest",
+            "tests.test_local_llm_contract", "tests.test_grounded_answer",
+            "-q", env=env,
+        )
 
         metrics_path = project / "results" / "metrics.json"
         metrics = json.loads(metrics_path.read_text(encoding="utf-8"))

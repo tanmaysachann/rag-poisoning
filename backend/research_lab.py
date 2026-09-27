@@ -19,6 +19,7 @@ import joblib
 
 from attack.harness import stage_document_attack
 from detect.research_detector import ResearchDetector
+from pipeline.research_inference import infer_research
 from pipeline.secure_rag import _select_answer
 from retrieval.hybrid_retriever import HybridRetriever
 from security.integrity import load_runtime_manifest, write_manifest
@@ -111,36 +112,19 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         )
         if retriever.embedder.backend != "hashing":
             raise RuntimeError("The web research lab requires deterministic hashing retrieval")
-        candidates = retriever.retrieve(query["question"], top_k=5)
         manifest = load_runtime_manifest(retriever.integrity_path)
         if manifest is None:
             raise RuntimeError("The isolated experiment has no integrity manifest")
-        off_answer, off_source, _ = _select_answer(query["question"], candidates, retriever)
         detector = _detector()
-        kept = []
-        rows = []
-        for rank, doc in enumerate(candidates, 1):
-            integrity = manifest.check(doc["doc_id"], doc["text"])
-            score = detector.score(query["question"], doc["text"])
-            quarantine = integrity["status"] != "verified" or score["decision"] == "quarantine"
-            if not quarantine:
-                kept.append(doc)
-            rows.append({
-                "rank": rank,
-                "doc_id": doc["doc_id"],
-                "text": doc["text"],
-                "is_attack": doc["doc_id"] == attack["attack_doc_id"],
-                "bm25_rank": doc["bm25_rank"],
-                "dense_rank": doc["dense_rank"],
-                "rrf_score": doc["score"],
-                "integrity": integrity["status"],
-                "sha256": integrity["actual_hash"],
-                "risk": score["risk_score"],
-                "threshold": score["threshold"],
-                "features": score["features"],
-                "decision": "quarantine" if quarantine else "accept",
-            })
-        on_answer, on_source, _ = _select_answer(query["question"], kept, retriever)
+        setup_ms = (time.perf_counter() - started) * 1000
+        inference = infer_research(query["question"], retriever, manifest, detector)
+        rows = inference["documents"]
+        for row in rows:
+            row["is_attack"] = row["doc_id"] == attack["attack_doc_id"]
+        off_answer = inference["undefended"]["answer"]
+        off_source = inference["undefended"]["source_doc_id"]
+        on_answer = inference["defended"]["answer"]
+        on_source = inference["defended"]["source_doc_id"]
     wrong = attack["wrong_answer"].casefold()
     attack_id = int(attack["attack_doc_id"])
     return {
@@ -158,10 +142,15 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "clean_alias_recovered": any(alias.casefold() in on_answer.casefold() for alias in query["answer_aliases"]),
         "undefended_attack_success": off_source == attack_id and wrong in off_answer.casefold(),
         "defended_attack_success": on_source == attack_id and wrong in on_answer.casefold(),
-        "undefended": {"answer": off_answer, "source_doc_id": off_source},
-        "defended": {"answer": on_answer, "source_doc_id": on_source},
+        "undefended": inference["undefended"],
+        "defended": inference["defended"],
         "clean": {"answer": clean_answer, "source_doc_id": clean_source},
         "documents": rows,
+        "counterfactuals": inference["counterfactuals"],
+        "provenance": inference["provenance"],
+        "audit": inference["audit"],
+        "stage_times": {"setup_and_index_ms": round(setup_ms, 2), **inference["timings"]},
+        "retrieval_backend": inference["retrieval_backend"],
         "detector_threshold": detector.threshold,
         "latency_ms": round((time.perf_counter() - started) * 1000, 1),
         "note": "This is a live validation run with the hashing extractor. MiniLM, PPO and Qwen results are saved offline experiments.",

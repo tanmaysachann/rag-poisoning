@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "app.py": {
-      "includeFiles": "{frontend,data,artifacts,output}/**",
+      "includeFiles": "{frontend,data,artifacts,output,results}/**",
       "excludeFiles": "{artifacts/models/**,artifacts/vendor/**,tests/**,tmp/**}",
       "maxDuration": 60
     }

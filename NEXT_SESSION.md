@@ -5,6 +5,31 @@ documented in `PROJECT_MEMORY.md` and `REPORT_EVIDENCE.md`. The v1 test set has
 already been evaluated and must not be reused as an untouched test for new
 defenses.
 
+2026-09-27 checkpoint: steps 2 and part of step 6 are complete. The live
+research lab has a unified inference and leave-one-out trace. Three
+defender-aware PPO seeds (42/43/44) were evaluated against matched fixed
+substitution and random edits: 31/225 versus 34/225 and 6/225 defended
+successes. PPO beat random edits but not fixed substitution. An optional signed
+origin map and exact-span two-origin abstention policy now exist, but the
+current benchmark cannot validate that policy as a
+stealth defense because source independence is unverified. The v2 test remains
+untouched. Next, obtain genuinely independent source origins and measure both
+clean utility and attack success; neither v2 pair gate should be promoted. An
+initial detector-risk reward ablation is measured (31/225 versus 11/225), while
+other architecture ablations and broader attack families still remain.
+The auxiliary proxy-value loss was also ablated across three matched seeds;
+all 225 deterministic validation outcomes stayed the same. An optional
+edit-effect cache training signal was integrated and separately compared on
+those seeds; it also changed zero deterministic validation outcomes. Neither
+component improved this setup.
+An action-head conditioning ablation on the same seeds likewise changed zero
+deterministic validation outcomes; legal-action masks stayed active.
+Three overt answer-layout development probes have since been measured on the
+same 75 validation questions. The detector quarantined all 225 altered
+documents, but this does not address subtle accepted-ingest substitutions or
+genuinely new source families. `python -m evaluation.verify_unseen_templates`
+checks the saved case files and aggregate.
+
 2026-09-26 checkpoint: steps 2 and the first part of step 4 are complete.
 `V2_BENCHMARK_PROTOCOL.md` records the new disjoint two-passage benchmark and
 an unsuccessful paired-cosine gate. The v2 test split is still unevaluated.
@@ -39,7 +64,7 @@ trusted origin rather than add more pair-level similarity thresholds.
    passes cited-answer and abstention checks.
 6. Run multiple PPO seeds and matched fixed/random baselines; add ablations
    only after the defense and evaluation contracts are stable.
-7. Complete retrieval/storage comparisons, package reproduction commands and
+7. Package reproduction commands and
    failure examples, and update the final slides using
    `PRESENTATION_REFERENCES_READY.md` and measured results only.
 

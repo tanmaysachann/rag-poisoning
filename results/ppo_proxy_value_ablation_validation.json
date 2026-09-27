@@ -1,0 +1,99 @@
+{
+  "split": "validation",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "episodes_per_seed": 200,
+  "ablation": "auxiliary proxy-value loss weight 0.1 to 0; all reward terms retained",
+  "runs": [
+    {
+      "seed": 42,
+      "cases": 75,
+      "original_successes": 11,
+      "no_proxy_value_successes": 11,
+      "changed_case_outcomes": 0,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "no_proxy_value_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "c7032ffe54f31e70c7e186074b1f3ddb2a0af4734720063fa605c6f31726f1dc",
+      "ablated_checkpoint_sha256": "798aacc36a113ce7ab0b73d6ca12220bcf9a7706f65a3d353bcb93ebaf530daf",
+      "original_result_sha256": "f1753fa702926e65c697e7c1ac8142ae7b50f6d90129aeb60fe1ba2c6acea220",
+      "ablated_result_sha256": "d9b8873f125354ce4406b736439ffdbdde0b60b754cbf4fef578c040687b4100"
+    },
+    {
+      "seed": 43,
+      "cases": 75,
+      "original_successes": 8,
+      "no_proxy_value_successes": 8,
+      "changed_case_outcomes": 0,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 49,
+        "SYNONYM": 24,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "no_proxy_value_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 49,
+        "SYNONYM": 24,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "e6c38b7621b57ee71b814e6e1647014c8e659cd68e005643d46d13a79fdfa881",
+      "ablated_checkpoint_sha256": "26398de89abb25580d9f8574bbbe4e529b62751f6192a9747e0414ed69b8d007",
+      "original_result_sha256": "e15d75846a6e8cdbc0c047f222214920250093a758ffba8d00ebbec37b53c85f",
+      "ablated_result_sha256": "ed2c0193a71b1b04cd5710adf1734f7889a9b68c5a7c26ee453fe5d61426bd18"
+    },
+    {
+      "seed": 44,
+      "cases": 75,
+      "original_successes": 12,
+      "no_proxy_value_successes": 12,
+      "changed_case_outcomes": 0,
+      "original_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "no_proxy_value_operation_counts": {
+        "INSERT": 0,
+        "PARAPHRASE": 72,
+        "SYNONYM": 1,
+        "DELETE": 2,
+        "STOP": 75
+      },
+      "original_checkpoint_sha256": "da5d0e5e2c084163990fbb7623db18d05a59498819978db141a9f9ec8f9e51a7",
+      "ablated_checkpoint_sha256": "9b0cb94b073794dc750a25ba43e17113826b86fa6f10ef3ff72820b8acad805d",
+      "original_result_sha256": "4fd70a89bf07006a4f73d275e6d72c0e8240f76bff4c97d7b6d67bf08e45352d",
+      "ablated_result_sha256": "6e26a37316d109a56d8d1c80a2d317160842ad160e27d29a1aa08d5321e8f10f"
+    }
+  ],
+  "total_paired_cases": 225,
+  "original_successes": 31,
+  "no_proxy_value_successes": 31,
+  "changed_case_outcomes": 0,
+  "paired_original_minus_ablation_rate": 0.0,
+  "query_cluster_bootstrap_95pct_difference": [
+    0.0,
+    0.0
+  ],
+  "bootstrap_seed": 20260930,
+  "bootstrap_samples": 10000,
+  "note": "Development validation on the same 75 questions per seed. This tests the auxiliary critic loss; the unused edit-effect cache is not part of this PPO loop."
+}

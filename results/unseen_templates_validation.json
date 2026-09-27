@@ -1,0 +1,33 @@
+{
+  "split": "validation",
+  "surface": "accepted_ingest",
+  "execution": "live_hashing_extractive",
+  "detector": "frozen hashing research detector",
+  "styles": {
+    "qa_header": {
+      "cases": 75,
+      "retrieved": 75,
+      "quarantined": 75,
+      "undefended_attack_successes": 65,
+      "defended_attack_successes": 0,
+      "clean_alias_recovered": 15
+    },
+    "answer_key": {
+      "cases": 75,
+      "retrieved": 75,
+      "quarantined": 75,
+      "undefended_attack_successes": 65,
+      "defended_attack_successes": 0,
+      "clean_alias_recovered": 15
+    },
+    "postscript": {
+      "cases": 75,
+      "retrieved": 75,
+      "quarantined": 75,
+      "undefended_attack_successes": 66,
+      "defended_attack_successes": 0,
+      "clean_alias_recovered": 15
+    }
+  },
+  "note": "Each style uses the same 75 questions and saved greedy wrong-answer schedule. These are development template probes, not a held-out generalization claim."
+}

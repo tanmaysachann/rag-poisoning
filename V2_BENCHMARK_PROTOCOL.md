@@ -32,14 +32,24 @@ answer span to a wrong answer drawn from v2 training queries. The second
 support document remains clean. The frozen sentence ranker was attacked in
 2/30 validation cases before an extra paired-passage gate. The initial gate,
 calibrated on doc-only training sentences, lowered success to 1/30 but also
-lowered clean alias matches from 16/30 to 13/30. Recalibration on full-context
-training decisions found that 18/140 clean training cases lacked a usable
+lowered clean alias matches from 16/30 to 14/30. Recalibration on full-context
+training decisions found that 17/140 clean training cases lacked a usable
 paired score, so a 5% clean rejection target was unattainable. The best
-attainable threshold kept attack success at 2/30 and still lowered clean alias
-matches to 13/30. The gate has **not** been added to the live defense. See
-`results/paired_gate_v2_validation.json` (the initial doc-only run),
+attainable threshold kept attack success at 2/30 and lowered clean alias
+matches to 14/30. The gate has **not** been added to the live defense. See
+`results/paired_gate_v2_validation_doc_only.json` (corrected doc-only run),
 `results/paired_gate_v2_train_calibration.json`, and
 `results/paired_gate_v2_validation_full_context.json`.
+
+The superseded `results/paired_gate_v2_validation.json` is an invalid early
+run and must not be used for claims. The original v2 pair evaluator expected
+`source_query_id` in compact retrieved rows and could choose an unrelated
+passage as the peer. The evaluator now resolves that field from the corpus
+metadata by retrieved document ID and requires a non-null matching
+group, and all train/validation pair results above were recomputed. The
+corrected validation traces select a labeled support peer in 29/30 clean and
+28/30 attacked cases. A query group still does not establish independent
+publication origin.
 
 These are small development samples, and v1 versus v2 attack rates are not a
 controlled comparison: their corpora, retrieval competition, and attack

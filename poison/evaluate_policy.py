@@ -31,6 +31,7 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--checkpoint", type=Path, default=ARTIFACTS_DIR / "poison_policy_ppo.pt")
     parser.add_argument("--detector", type=Path, default=ARTIFACTS_DIR / "research_detector_hashing.joblib")
+    parser.add_argument("--output", type=Path, help="Keep each seed's validation evidence separate")
     args = parser.parse_args()
     if args.limit < 1:
         raise ValueError("Limit must be positive")
@@ -38,7 +39,9 @@ def main() -> None:
     checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
     if checkpoint["state_version"] != STATE_VERSION:
         raise ValueError("Policy state schema does not match environment")
-    policy = FactoredActorCritic()
+    policy = FactoredActorCritic(
+        conditional_heads=checkpoint["config"].get("conditional_heads", True)
+    )
     policy.load_state_dict(checkpoint["state_dict"])
     policy.eval()
     defender_aware = checkpoint["config"].get("defender_aware", False)
@@ -71,7 +74,7 @@ def main() -> None:
                     "terminal": info["terminal"], "final_document": info["document"],
                 })
                 break
-    output = RESULTS_DIR / f"ppo_{args.split}{'_defender' if defender_aware else ''}_evaluation.json"
+    output = args.output or RESULTS_DIR / f"ppo_{args.split}{'_defender' if defender_aware else ''}_evaluation.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     summary = {
         "split": args.split, "cases": len(records), "policy_state_version": STATE_VERSION,

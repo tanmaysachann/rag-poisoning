@@ -24,3 +24,26 @@ The frozen first test run uses a cached
 train-only strict sentence ranker, and the hashing research detector. Exact
 artifact and code SHA-256 values are in `TEST_PROTOCOL_V1.md`, and result
 fingerprints are in `TEST_EVIDENCE_V1.json`.
+
+The 2026-09-27 defender-aware PPO comparison ran three 200-episode CPU
+training seeds (42, 43, 44) against the frozen hashing detector and the same
+75 validation questions per seed. Fixed substitution and random edits used
+the same wrong-answer schedule for each seed. The raw checkpoints and case
+files are hash-recorded in `results/ppo_multiseed_validation.json`.
+`python scripts/verify_release.py` checks the saved comparison, the frozen v1
+evidence, v2 structure and hashes, the full test suite, and an isolated demo
+rebuild. It does not evaluate the v2 test split.
+
+The detector-risk reward ablation reused the same CPU, frozen hashing detector,
+three 200-episode seeds, and 75 validation questions per seed. The only changed
+training reward weight was detection shaping, from 0.5 to zero; terminal
+defended-success reward remained active. Both raw result sets and checkpoint
+hashes are recorded in `results/ppo_detection_reward_ablation_validation.json`.
+
+The Contriever-msmarco CPU retrieval comparison used the official Meta model
+revision `abe8c1493371369031bcb1e02acb754cf4e162fa`, with a 438,007,537
+byte `pytorch_model.bin` whose SHA-256 is
+`08b88f3a3697877345669405c51a23f53ed90aa2bab441cd7b7b08659925eef8`.
+It used four PyTorch CPU threads, attention-mask mean pooling, L2 normalized
+768-dimensional vectors, and 256-token maximum inputs. Only v1 validation
+questions and passages were scored; v2 test stayed untouched.

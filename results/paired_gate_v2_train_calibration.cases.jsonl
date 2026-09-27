@@ -1,140 +1,140 @@
-{"qid": "msmarco2-22329", "answer_cosine": 0.6623998880386353, "peer_doc_id": 1, "answer_alias_match": false}
-{"qid": "msmarco2-22602", "answer_cosine": 1.0000001192092896, "peer_doc_id": 3, "answer_alias_match": true}
-{"qid": "msmarco2-20894", "answer_cosine": null, "peer_doc_id": 4, "answer_alias_match": false}
-{"qid": "msmarco2-20949", "answer_cosine": 1.0, "peer_doc_id": 7, "answer_alias_match": false}
-{"qid": "msmarco2-22251", "answer_cosine": 0.5607120990753174, "peer_doc_id": 8, "answer_alias_match": true}
-{"qid": "msmarco2-20802", "answer_cosine": 0.5706900358200073, "peer_doc_id": 10, "answer_alias_match": false}
-{"qid": "msmarco2-21969", "answer_cosine": 0.573538064956665, "peer_doc_id": 13, "answer_alias_match": true}
-{"qid": "msmarco2-23072", "answer_cosine": 0.6886166334152222, "peer_doc_id": 14, "answer_alias_match": false}
-{"qid": "msmarco2-22450", "answer_cosine": null, "peer_doc_id": 16, "answer_alias_match": true}
-{"qid": "msmarco2-22217", "answer_cosine": 0.6712193489074707, "peer_doc_id": 18, "answer_alias_match": false}
-{"qid": "msmarco2-23550", "answer_cosine": 0.476615846157074, "peer_doc_id": 20, "answer_alias_match": true}
-{"qid": "msmarco2-22453", "answer_cosine": 0.6143420338630676, "peer_doc_id": 22, "answer_alias_match": false}
-{"qid": "msmarco2-22085", "answer_cosine": 1.0000001192092896, "peer_doc_id": 25, "answer_alias_match": true}
-{"qid": "msmarco2-23358", "answer_cosine": 0.7949128746986389, "peer_doc_id": 26, "answer_alias_match": true}
-{"qid": "msmarco2-22588", "answer_cosine": null, "peer_doc_id": 29, "answer_alias_match": false}
-{"qid": "msmarco2-20605", "answer_cosine": 0.7520288825035095, "peer_doc_id": 30, "answer_alias_match": false}
-{"qid": "msmarco2-21460", "answer_cosine": 0.850953996181488, "peer_doc_id": 33, "answer_alias_match": false}
-{"qid": "msmarco2-21554", "answer_cosine": null, "peer_doc_id": 34, "answer_alias_match": false}
-{"qid": "msmarco2-21979", "answer_cosine": 0.7798065543174744, "peer_doc_id": 36, "answer_alias_match": true}
-{"qid": "msmarco2-23523", "answer_cosine": 0.9984326362609863, "peer_doc_id": 39, "answer_alias_match": false}
-{"qid": "msmarco2-21672", "answer_cosine": 0.6763665676116943, "peer_doc_id": 40, "answer_alias_match": false}
-{"qid": "msmarco2-21898", "answer_cosine": 0.7173932194709778, "peer_doc_id": 43, "answer_alias_match": false}
-{"qid": "msmarco2-21738", "answer_cosine": 0.5941988229751587, "peer_doc_id": 44, "answer_alias_match": false}
-{"qid": "msmarco2-22503", "answer_cosine": null, "peer_doc_id": 79, "answer_alias_match": true}
-{"qid": "msmarco2-22807", "answer_cosine": null, "peer_doc_id": 48, "answer_alias_match": true}
-{"qid": "msmarco2-22801", "answer_cosine": 0.41254323720932007, "peer_doc_id": 50, "answer_alias_match": false}
-{"qid": "msmarco2-22975", "answer_cosine": 0.7708601355552673, "peer_doc_id": 52, "answer_alias_match": true}
-{"qid": "msmarco2-22904", "answer_cosine": 0.8374499082565308, "peer_doc_id": 55, "answer_alias_match": true}
-{"qid": "msmarco2-22509", "answer_cosine": null, "peer_doc_id": 56, "answer_alias_match": false}
-{"qid": "msmarco2-21491", "answer_cosine": 1.0, "peer_doc_id": 58, "answer_alias_match": true}
-{"qid": "msmarco2-23055", "answer_cosine": 0.7368233799934387, "peer_doc_id": 60, "answer_alias_match": true}
-{"qid": "msmarco2-23318", "answer_cosine": 0.7956186532974243, "peer_doc_id": 62, "answer_alias_match": false}
-{"qid": "msmarco2-23177", "answer_cosine": 0.5287190675735474, "peer_doc_id": 65, "answer_alias_match": false}
-{"qid": "msmarco2-22271", "answer_cosine": 0.8713536262512207, "peer_doc_id": 66, "answer_alias_match": false}
-{"qid": "msmarco2-21986", "answer_cosine": null, "peer_doc_id": null, "answer_alias_match": false}
-{"qid": "msmarco2-21083", "answer_cosine": null, "peer_doc_id": 70, "answer_alias_match": true}
-{"qid": "msmarco2-23668", "answer_cosine": 0.8918188214302063, "peer_doc_id": 72, "answer_alias_match": false}
-{"qid": "msmarco2-23313", "answer_cosine": 0.7065765857696533, "peer_doc_id": 74, "answer_alias_match": true}
-{"qid": "msmarco2-22727", "answer_cosine": 0.734596848487854, "peer_doc_id": 76, "answer_alias_match": false}
-{"qid": "msmarco2-22778", "answer_cosine": null, "peer_doc_id": 47, "answer_alias_match": true}
-{"qid": "msmarco2-22119", "answer_cosine": 0.626514732837677, "peer_doc_id": 80, "answer_alias_match": true}
-{"qid": "msmarco2-21348", "answer_cosine": 0.6118389964103699, "peer_doc_id": 83, "answer_alias_match": false}
-{"qid": "msmarco2-21856", "answer_cosine": 1.0, "peer_doc_id": 85, "answer_alias_match": true}
-{"qid": "msmarco2-21151", "answer_cosine": 0.8826593160629272, "peer_doc_id": 87, "answer_alias_match": true}
-{"qid": "msmarco2-20799", "answer_cosine": 0.6222454309463501, "peer_doc_id": 88, "answer_alias_match": true}
-{"qid": "msmarco2-21867", "answer_cosine": 0.7578598260879517, "peer_doc_id": 90, "answer_alias_match": true}
-{"qid": "msmarco2-20833", "answer_cosine": 0.3499615788459778, "peer_doc_id": 93, "answer_alias_match": false}
-{"qid": "msmarco2-22323", "answer_cosine": 0.6915847063064575, "peer_doc_id": 94, "answer_alias_match": true}
-{"qid": "msmarco2-21754", "answer_cosine": 0.7139440774917603, "peer_doc_id": 97, "answer_alias_match": true}
-{"qid": "msmarco2-21642", "answer_cosine": 0.8257526159286499, "peer_doc_id": 99, "answer_alias_match": true}
-{"qid": "msmarco2-21688", "answer_cosine": 1.0, "peer_doc_id": 100, "answer_alias_match": true}
-{"qid": "msmarco2-22787", "answer_cosine": 0.7529364824295044, "peer_doc_id": 103, "answer_alias_match": true}
-{"qid": "msmarco2-21418", "answer_cosine": null, "peer_doc_id": 104, "answer_alias_match": true}
-{"qid": "msmarco2-22961", "answer_cosine": 1.000000238418579, "peer_doc_id": 107, "answer_alias_match": true}
-{"qid": "msmarco2-23536", "answer_cosine": 0.8328520655632019, "peer_doc_id": 109, "answer_alias_match": true}
-{"qid": "msmarco2-21292", "answer_cosine": 0.6822097301483154, "peer_doc_id": 110, "answer_alias_match": false}
-{"qid": "msmarco2-21907", "answer_cosine": 0.8744996786117554, "peer_doc_id": 112, "answer_alias_match": true}
-{"qid": "msmarco2-21093", "answer_cosine": 0.6974859237670898, "peer_doc_id": 115, "answer_alias_match": true}
-{"qid": "msmarco2-22364", "answer_cosine": 0.7852849960327148, "peer_doc_id": 116, "answer_alias_match": true}
-{"qid": "msmarco2-20409", "answer_cosine": 1.0, "peer_doc_id": 119, "answer_alias_match": true}
-{"qid": "msmarco2-21852", "answer_cosine": 0.7723487615585327, "peer_doc_id": 120, "answer_alias_match": false}
-{"qid": "msmarco2-23718", "answer_cosine": 0.5932880640029907, "peer_doc_id": 123, "answer_alias_match": false}
-{"qid": "msmarco2-20924", "answer_cosine": 0.5798580646514893, "peer_doc_id": 124, "answer_alias_match": false}
-{"qid": "msmarco2-22970", "answer_cosine": 1.0000001192092896, "peer_doc_id": 126, "answer_alias_match": true}
-{"qid": "msmarco2-23404", "answer_cosine": 1.0000001192092896, "peer_doc_id": 129, "answer_alias_match": true}
-{"qid": "msmarco2-20530", "answer_cosine": 0.7600409984588623, "peer_doc_id": 130, "answer_alias_match": false}
-{"qid": "msmarco2-20935", "answer_cosine": 0.7601710557937622, "peer_doc_id": 133, "answer_alias_match": false}
-{"qid": "msmarco2-22038", "answer_cosine": 0.5599470138549805, "peer_doc_id": 135, "answer_alias_match": true}
-{"qid": "msmarco2-21259", "answer_cosine": 1.0, "peer_doc_id": 136, "answer_alias_match": false}
-{"qid": "msmarco2-22557", "answer_cosine": 0.6204943060874939, "peer_doc_id": 138, "answer_alias_match": true}
-{"qid": "msmarco2-22806", "answer_cosine": 0.8461798429489136, "peer_doc_id": 141, "answer_alias_match": false}
-{"qid": "msmarco2-22194", "answer_cosine": 0.5150877833366394, "peer_doc_id": 142, "answer_alias_match": false}
-{"qid": "msmarco2-21276", "answer_cosine": 0.5753081440925598, "peer_doc_id": 145, "answer_alias_match": true}
-{"qid": "msmarco2-21379", "answer_cosine": 0.9389592409133911, "peer_doc_id": 146, "answer_alias_match": true}
-{"qid": "msmarco2-22261", "answer_cosine": 1.0000001192092896, "peer_doc_id": 149, "answer_alias_match": true}
-{"qid": "msmarco2-20755", "answer_cosine": 0.8305338621139526, "peer_doc_id": 150, "answer_alias_match": false}
-{"qid": "msmarco2-22199", "answer_cosine": null, "peer_doc_id": 175, "answer_alias_match": true}
-{"qid": "msmarco2-21447", "answer_cosine": 0.6777293682098389, "peer_doc_id": 155, "answer_alias_match": false}
-{"qid": "msmarco2-21794", "answer_cosine": 0.6867643594741821, "peer_doc_id": 156, "answer_alias_match": false}
-{"qid": "msmarco2-23556", "answer_cosine": 0.9778614044189453, "peer_doc_id": 159, "answer_alias_match": true}
-{"qid": "msmarco2-20847", "answer_cosine": 0.7871203422546387, "peer_doc_id": 161, "answer_alias_match": false}
-{"qid": "msmarco2-22877", "answer_cosine": 0.6421326398849487, "peer_doc_id": 162, "answer_alias_match": false}
-{"qid": "msmarco2-23184", "answer_cosine": 0.6669142246246338, "peer_doc_id": 165, "answer_alias_match": false}
-{"qid": "msmarco2-23564", "answer_cosine": 0.807473361492157, "peer_doc_id": 166, "answer_alias_match": true}
-{"qid": "msmarco2-21120", "answer_cosine": 0.6878844499588013, "peer_doc_id": 168, "answer_alias_match": false}
-{"qid": "msmarco2-20642", "answer_cosine": 0.638777494430542, "peer_doc_id": 171, "answer_alias_match": true}
-{"qid": "msmarco2-22732", "answer_cosine": 0.8354771137237549, "peer_doc_id": 172, "answer_alias_match": true}
-{"qid": "msmarco2-20706", "answer_cosine": 0.6907160878181458, "peer_doc_id": 174, "answer_alias_match": true}
-{"qid": "msmarco2-22258", "answer_cosine": 0.6159693002700806, "peer_doc_id": 177, "answer_alias_match": true}
-{"qid": "msmarco2-22252", "answer_cosine": 0.5385777950286865, "peer_doc_id": 179, "answer_alias_match": false}
-{"qid": "msmarco2-21220", "answer_cosine": 0.8023217916488647, "peer_doc_id": 180, "answer_alias_match": true}
-{"qid": "msmarco2-21590", "answer_cosine": 0.8053221702575684, "peer_doc_id": 182, "answer_alias_match": false}
-{"qid": "msmarco2-21199", "answer_cosine": 0.6901886463165283, "peer_doc_id": 185, "answer_alias_match": false}
-{"qid": "msmarco2-23148", "answer_cosine": 0.6939420700073242, "peer_doc_id": 187, "answer_alias_match": false}
-{"qid": "msmarco2-20839", "answer_cosine": 0.7510332465171814, "peer_doc_id": 189, "answer_alias_match": false}
-{"qid": "msmarco2-21483", "answer_cosine": 0.6433067321777344, "peer_doc_id": 190, "answer_alias_match": false}
-{"qid": "msmarco2-22785", "answer_cosine": 1.0, "peer_doc_id": 192, "answer_alias_match": true}
-{"qid": "msmarco2-23603", "answer_cosine": 0.7909519076347351, "peer_doc_id": 195, "answer_alias_match": true}
-{"qid": "msmarco2-21386", "answer_cosine": 0.7970569729804993, "peer_doc_id": 197, "answer_alias_match": false}
-{"qid": "msmarco2-23452", "answer_cosine": 0.8728344440460205, "peer_doc_id": 199, "answer_alias_match": true}
-{"qid": "msmarco2-21003", "answer_cosine": 1.0, "peer_doc_id": 201, "answer_alias_match": false}
-{"qid": "msmarco2-20652", "answer_cosine": 0.989444375038147, "peer_doc_id": 202, "answer_alias_match": false}
-{"qid": "msmarco2-21426", "answer_cosine": 0.8777729272842407, "peer_doc_id": 204, "answer_alias_match": false}
-{"qid": "msmarco2-21716", "answer_cosine": 0.7121174335479736, "peer_doc_id": 206, "answer_alias_match": true}
-{"qid": "msmarco2-20424", "answer_cosine": 0.9960092902183533, "peer_doc_id": 209, "answer_alias_match": false}
-{"qid": "msmarco2-20773", "answer_cosine": null, "peer_doc_id": null, "answer_alias_match": false}
-{"qid": "msmarco2-22823", "answer_cosine": null, "peer_doc_id": 41, "answer_alias_match": false}
-{"qid": "msmarco2-21327", "answer_cosine": 0.5205196142196655, "peer_doc_id": 215, "answer_alias_match": false}
-{"qid": "msmarco2-21744", "answer_cosine": 0.859593391418457, "peer_doc_id": 216, "answer_alias_match": false}
-{"qid": "msmarco2-23420", "answer_cosine": 0.7968795895576477, "peer_doc_id": 218, "answer_alias_match": false}
-{"qid": "msmarco2-21862", "answer_cosine": 0.7546839714050293, "peer_doc_id": 220, "answer_alias_match": false}
-{"qid": "msmarco2-23617", "answer_cosine": 0.611211359500885, "peer_doc_id": 222, "answer_alias_match": false}
-{"qid": "msmarco2-22905", "answer_cosine": null, "peer_doc_id": 88, "answer_alias_match": false}
-{"qid": "msmarco2-22238", "answer_cosine": 0.9023017883300781, "peer_doc_id": 227, "answer_alias_match": false}
-{"qid": "msmarco2-21278", "answer_cosine": null, "peer_doc_id": 228, "answer_alias_match": true}
-{"qid": "msmarco2-20536", "answer_cosine": 0.5657796859741211, "peer_doc_id": 231, "answer_alias_match": false}
-{"qid": "msmarco2-22065", "answer_cosine": 1.0, "peer_doc_id": 233, "answer_alias_match": false}
-{"qid": "msmarco2-23687", "answer_cosine": 0.6008468866348267, "peer_doc_id": 234, "answer_alias_match": false}
-{"qid": "msmarco2-22596", "answer_cosine": 0.5989308953285217, "peer_doc_id": 236, "answer_alias_match": false}
-{"qid": "msmarco2-21243", "answer_cosine": 0.5637861490249634, "peer_doc_id": 239, "answer_alias_match": true}
-{"qid": "msmarco2-22565", "answer_cosine": 0.5509406328201294, "peer_doc_id": 241, "answer_alias_match": true}
-{"qid": "msmarco2-21864", "answer_cosine": 1.0, "peer_doc_id": 242, "answer_alias_match": true}
-{"qid": "msmarco2-23433", "answer_cosine": 0.7752586603164673, "peer_doc_id": 244, "answer_alias_match": true}
-{"qid": "msmarco2-23398", "answer_cosine": null, "peer_doc_id": 184, "answer_alias_match": false}
-{"qid": "msmarco2-21405", "answer_cosine": 0.6793797016143799, "peer_doc_id": 249, "answer_alias_match": true}
-{"qid": "msmarco2-23058", "answer_cosine": 0.811718225479126, "peer_doc_id": 251, "answer_alias_match": false}
-{"qid": "msmarco2-21564", "answer_cosine": 0.7358589172363281, "peer_doc_id": 253, "answer_alias_match": true}
-{"qid": "msmarco2-22990", "answer_cosine": null, "peer_doc_id": 24, "answer_alias_match": true}
-{"qid": "msmarco2-22492", "answer_cosine": 0.6467868089675903, "peer_doc_id": 256, "answer_alias_match": false}
-{"qid": "msmarco2-21488", "answer_cosine": 0.9999999403953552, "peer_doc_id": 258, "answer_alias_match": true}
-{"qid": "msmarco2-21387", "answer_cosine": 0.7276658415794373, "peer_doc_id": 261, "answer_alias_match": true}
-{"qid": "msmarco2-22553", "answer_cosine": 0.9669272899627686, "peer_doc_id": 262, "answer_alias_match": false}
-{"qid": "msmarco2-22689", "answer_cosine": 0.8319282531738281, "peer_doc_id": 265, "answer_alias_match": false}
-{"qid": "msmarco2-21104", "answer_cosine": 0.8954187631607056, "peer_doc_id": 266, "answer_alias_match": true}
-{"qid": "msmarco2-21964", "answer_cosine": 0.6468989253044128, "peer_doc_id": 269, "answer_alias_match": false}
-{"qid": "msmarco2-21518", "answer_cosine": 0.6895791292190552, "peer_doc_id": 271, "answer_alias_match": false}
-{"qid": "msmarco2-21981", "answer_cosine": 0.7577894926071167, "peer_doc_id": 272, "answer_alias_match": true}
-{"qid": "msmarco2-22615", "answer_cosine": 0.8373323082923889, "peer_doc_id": 274, "answer_alias_match": false}
-{"qid": "msmarco2-22901", "answer_cosine": 0.39655187726020813, "peer_doc_id": 276, "answer_alias_match": true}
-{"qid": "msmarco2-22061", "answer_cosine": 0.6432949900627136, "peer_doc_id": 278, "answer_alias_match": true}
+{"qid": "msmarco2-22329", "answer_cosine": 0.6623998880386353, "source_doc_id": 0, "peer_doc_id": 1, "answer_alias_match": false}
+{"qid": "msmarco2-22602", "answer_cosine": 1.0000001192092896, "source_doc_id": 2, "peer_doc_id": 3, "answer_alias_match": true}
+{"qid": "msmarco2-20894", "answer_cosine": null, "source_doc_id": 5, "peer_doc_id": 4, "answer_alias_match": false}
+{"qid": "msmarco2-20949", "answer_cosine": 1.0, "source_doc_id": 6, "peer_doc_id": 7, "answer_alias_match": false}
+{"qid": "msmarco2-22251", "answer_cosine": 0.5607120990753174, "source_doc_id": 9, "peer_doc_id": 8, "answer_alias_match": true}
+{"qid": "msmarco2-20802", "answer_cosine": 0.5706900358200073, "source_doc_id": 11, "peer_doc_id": 10, "answer_alias_match": false}
+{"qid": "msmarco2-21969", "answer_cosine": 0.573538064956665, "source_doc_id": 12, "peer_doc_id": 13, "answer_alias_match": true}
+{"qid": "msmarco2-23072", "answer_cosine": 0.6886166334152222, "source_doc_id": 15, "peer_doc_id": 14, "answer_alias_match": false}
+{"qid": "msmarco2-22450", "answer_cosine": null, "source_doc_id": 17, "peer_doc_id": 16, "answer_alias_match": true}
+{"qid": "msmarco2-22217", "answer_cosine": 0.6712193489074707, "source_doc_id": 19, "peer_doc_id": 18, "answer_alias_match": false}
+{"qid": "msmarco2-23550", "answer_cosine": 0.476615846157074, "source_doc_id": 21, "peer_doc_id": 20, "answer_alias_match": true}
+{"qid": "msmarco2-22453", "answer_cosine": 0.6143420338630676, "source_doc_id": 23, "peer_doc_id": 22, "answer_alias_match": false}
+{"qid": "msmarco2-22085", "answer_cosine": 1.0000001192092896, "source_doc_id": 24, "peer_doc_id": 25, "answer_alias_match": true}
+{"qid": "msmarco2-23358", "answer_cosine": 0.7949128746986389, "source_doc_id": 27, "peer_doc_id": 26, "answer_alias_match": true}
+{"qid": "msmarco2-22588", "answer_cosine": null, "source_doc_id": 28, "peer_doc_id": 29, "answer_alias_match": false}
+{"qid": "msmarco2-20605", "answer_cosine": 0.7520288825035095, "source_doc_id": 31, "peer_doc_id": 30, "answer_alias_match": false}
+{"qid": "msmarco2-21460", "answer_cosine": 0.850953996181488, "source_doc_id": 32, "peer_doc_id": 33, "answer_alias_match": false}
+{"qid": "msmarco2-21554", "answer_cosine": null, "source_doc_id": 35, "peer_doc_id": 34, "answer_alias_match": false}
+{"qid": "msmarco2-21979", "answer_cosine": 0.7798065543174744, "source_doc_id": 37, "peer_doc_id": 36, "answer_alias_match": true}
+{"qid": "msmarco2-23523", "answer_cosine": 0.9984326362609863, "source_doc_id": 38, "peer_doc_id": 39, "answer_alias_match": false}
+{"qid": "msmarco2-21672", "answer_cosine": 0.6763665676116943, "source_doc_id": 41, "peer_doc_id": 40, "answer_alias_match": false}
+{"qid": "msmarco2-21898", "answer_cosine": 0.7173932194709778, "source_doc_id": 42, "peer_doc_id": 43, "answer_alias_match": false}
+{"qid": "msmarco2-21738", "answer_cosine": 0.5941988229751587, "source_doc_id": 45, "peer_doc_id": 44, "answer_alias_match": false}
+{"qid": "msmarco2-22503", "answer_cosine": 0.6858845949172974, "source_doc_id": 47, "peer_doc_id": 46, "answer_alias_match": true}
+{"qid": "msmarco2-22807", "answer_cosine": null, "source_doc_id": 49, "peer_doc_id": 48, "answer_alias_match": true}
+{"qid": "msmarco2-22801", "answer_cosine": 0.41254323720932007, "source_doc_id": 51, "peer_doc_id": 50, "answer_alias_match": false}
+{"qid": "msmarco2-22975", "answer_cosine": 0.7708601355552673, "source_doc_id": 53, "peer_doc_id": 52, "answer_alias_match": true}
+{"qid": "msmarco2-22904", "answer_cosine": 0.8374499082565308, "source_doc_id": 54, "peer_doc_id": 55, "answer_alias_match": true}
+{"qid": "msmarco2-22509", "answer_cosine": null, "source_doc_id": 57, "peer_doc_id": 56, "answer_alias_match": false}
+{"qid": "msmarco2-21491", "answer_cosine": 1.0, "source_doc_id": 59, "peer_doc_id": 58, "answer_alias_match": true}
+{"qid": "msmarco2-23055", "answer_cosine": 0.7368233799934387, "source_doc_id": 61, "peer_doc_id": 60, "answer_alias_match": true}
+{"qid": "msmarco2-23318", "answer_cosine": 0.7956186532974243, "source_doc_id": 63, "peer_doc_id": 62, "answer_alias_match": false}
+{"qid": "msmarco2-23177", "answer_cosine": 0.5287190675735474, "source_doc_id": 64, "peer_doc_id": 65, "answer_alias_match": false}
+{"qid": "msmarco2-22271", "answer_cosine": 0.8713536262512207, "source_doc_id": 67, "peer_doc_id": 66, "answer_alias_match": false}
+{"qid": "msmarco2-21986", "answer_cosine": null, "source_doc_id": null, "peer_doc_id": null, "answer_alias_match": false}
+{"qid": "msmarco2-21083", "answer_cosine": null, "source_doc_id": 71, "peer_doc_id": 70, "answer_alias_match": true}
+{"qid": "msmarco2-23668", "answer_cosine": 0.8918188214302063, "source_doc_id": 73, "peer_doc_id": 72, "answer_alias_match": false}
+{"qid": "msmarco2-23313", "answer_cosine": 0.7065765857696533, "source_doc_id": 75, "peer_doc_id": 74, "answer_alias_match": true}
+{"qid": "msmarco2-22727", "answer_cosine": 0.734596848487854, "source_doc_id": 77, "peer_doc_id": 76, "answer_alias_match": false}
+{"qid": "msmarco2-22778", "answer_cosine": null, "source_doc_id": 46, "peer_doc_id": 47, "answer_alias_match": true}
+{"qid": "msmarco2-22119", "answer_cosine": 0.626514732837677, "source_doc_id": 81, "peer_doc_id": 80, "answer_alias_match": true}
+{"qid": "msmarco2-21348", "answer_cosine": 0.6118389964103699, "source_doc_id": 82, "peer_doc_id": 83, "answer_alias_match": false}
+{"qid": "msmarco2-21856", "answer_cosine": 1.0, "source_doc_id": 84, "peer_doc_id": 85, "answer_alias_match": true}
+{"qid": "msmarco2-21151", "answer_cosine": 0.8826593160629272, "source_doc_id": 86, "peer_doc_id": 87, "answer_alias_match": true}
+{"qid": "msmarco2-20799", "answer_cosine": 0.6222454309463501, "source_doc_id": 89, "peer_doc_id": 88, "answer_alias_match": true}
+{"qid": "msmarco2-21867", "answer_cosine": 0.7578598260879517, "source_doc_id": 91, "peer_doc_id": 90, "answer_alias_match": true}
+{"qid": "msmarco2-20833", "answer_cosine": 0.3499615788459778, "source_doc_id": 92, "peer_doc_id": 93, "answer_alias_match": false}
+{"qid": "msmarco2-22323", "answer_cosine": 0.6915847063064575, "source_doc_id": 95, "peer_doc_id": 94, "answer_alias_match": true}
+{"qid": "msmarco2-21754", "answer_cosine": 0.7139440774917603, "source_doc_id": 96, "peer_doc_id": 97, "answer_alias_match": true}
+{"qid": "msmarco2-21642", "answer_cosine": 0.8257526159286499, "source_doc_id": 98, "peer_doc_id": 99, "answer_alias_match": true}
+{"qid": "msmarco2-21688", "answer_cosine": 1.0, "source_doc_id": 101, "peer_doc_id": 100, "answer_alias_match": true}
+{"qid": "msmarco2-22787", "answer_cosine": 0.7529364824295044, "source_doc_id": 102, "peer_doc_id": 103, "answer_alias_match": true}
+{"qid": "msmarco2-21418", "answer_cosine": null, "source_doc_id": 105, "peer_doc_id": 104, "answer_alias_match": true}
+{"qid": "msmarco2-22961", "answer_cosine": 1.000000238418579, "source_doc_id": 106, "peer_doc_id": 107, "answer_alias_match": true}
+{"qid": "msmarco2-23536", "answer_cosine": 0.8328520655632019, "source_doc_id": 108, "peer_doc_id": 109, "answer_alias_match": true}
+{"qid": "msmarco2-21292", "answer_cosine": 0.6822097301483154, "source_doc_id": 111, "peer_doc_id": 110, "answer_alias_match": false}
+{"qid": "msmarco2-21907", "answer_cosine": 0.8744996786117554, "source_doc_id": 113, "peer_doc_id": 112, "answer_alias_match": true}
+{"qid": "msmarco2-21093", "answer_cosine": 0.6974859237670898, "source_doc_id": 114, "peer_doc_id": 115, "answer_alias_match": true}
+{"qid": "msmarco2-22364", "answer_cosine": 0.7852849960327148, "source_doc_id": 117, "peer_doc_id": 116, "answer_alias_match": true}
+{"qid": "msmarco2-20409", "answer_cosine": 1.0, "source_doc_id": 118, "peer_doc_id": 119, "answer_alias_match": true}
+{"qid": "msmarco2-21852", "answer_cosine": 0.7723487615585327, "source_doc_id": 121, "peer_doc_id": 120, "answer_alias_match": false}
+{"qid": "msmarco2-23718", "answer_cosine": 0.5932880640029907, "source_doc_id": 122, "peer_doc_id": 123, "answer_alias_match": false}
+{"qid": "msmarco2-20924", "answer_cosine": 0.5798580646514893, "source_doc_id": 125, "peer_doc_id": 124, "answer_alias_match": false}
+{"qid": "msmarco2-22970", "answer_cosine": 1.0000001192092896, "source_doc_id": 127, "peer_doc_id": 126, "answer_alias_match": true}
+{"qid": "msmarco2-23404", "answer_cosine": 1.0000001192092896, "source_doc_id": 128, "peer_doc_id": 129, "answer_alias_match": true}
+{"qid": "msmarco2-20530", "answer_cosine": 0.7600409984588623, "source_doc_id": 131, "peer_doc_id": 130, "answer_alias_match": false}
+{"qid": "msmarco2-20935", "answer_cosine": 0.7601710557937622, "source_doc_id": 132, "peer_doc_id": 133, "answer_alias_match": false}
+{"qid": "msmarco2-22038", "answer_cosine": 0.5599470138549805, "source_doc_id": 134, "peer_doc_id": 135, "answer_alias_match": true}
+{"qid": "msmarco2-21259", "answer_cosine": 1.0, "source_doc_id": 137, "peer_doc_id": 136, "answer_alias_match": false}
+{"qid": "msmarco2-22557", "answer_cosine": 0.6204943060874939, "source_doc_id": 139, "peer_doc_id": 138, "answer_alias_match": true}
+{"qid": "msmarco2-22806", "answer_cosine": 0.8461798429489136, "source_doc_id": 140, "peer_doc_id": 141, "answer_alias_match": false}
+{"qid": "msmarco2-22194", "answer_cosine": 0.5150877833366394, "source_doc_id": 143, "peer_doc_id": 142, "answer_alias_match": false}
+{"qid": "msmarco2-21276", "answer_cosine": 0.5753081440925598, "source_doc_id": 144, "peer_doc_id": 145, "answer_alias_match": true}
+{"qid": "msmarco2-21379", "answer_cosine": 0.9389592409133911, "source_doc_id": 147, "peer_doc_id": 146, "answer_alias_match": true}
+{"qid": "msmarco2-22261", "answer_cosine": 1.0000001192092896, "source_doc_id": 148, "peer_doc_id": 149, "answer_alias_match": true}
+{"qid": "msmarco2-20755", "answer_cosine": 0.8305338621139526, "source_doc_id": 151, "peer_doc_id": 150, "answer_alias_match": false}
+{"qid": "msmarco2-22199", "answer_cosine": null, "source_doc_id": 153, "peer_doc_id": null, "answer_alias_match": true}
+{"qid": "msmarco2-21447", "answer_cosine": 0.6777293682098389, "source_doc_id": 154, "peer_doc_id": 155, "answer_alias_match": false}
+{"qid": "msmarco2-21794", "answer_cosine": 0.6867643594741821, "source_doc_id": 157, "peer_doc_id": 156, "answer_alias_match": false}
+{"qid": "msmarco2-23556", "answer_cosine": 0.9778614044189453, "source_doc_id": 158, "peer_doc_id": 159, "answer_alias_match": true}
+{"qid": "msmarco2-20847", "answer_cosine": 0.7871203422546387, "source_doc_id": 160, "peer_doc_id": 161, "answer_alias_match": false}
+{"qid": "msmarco2-22877", "answer_cosine": 0.6421326398849487, "source_doc_id": 163, "peer_doc_id": 162, "answer_alias_match": false}
+{"qid": "msmarco2-23184", "answer_cosine": 0.6669142246246338, "source_doc_id": 164, "peer_doc_id": 165, "answer_alias_match": false}
+{"qid": "msmarco2-23564", "answer_cosine": 0.807473361492157, "source_doc_id": 167, "peer_doc_id": 166, "answer_alias_match": true}
+{"qid": "msmarco2-21120", "answer_cosine": 0.6878844499588013, "source_doc_id": 169, "peer_doc_id": 168, "answer_alias_match": false}
+{"qid": "msmarco2-20642", "answer_cosine": 0.638777494430542, "source_doc_id": 170, "peer_doc_id": 171, "answer_alias_match": true}
+{"qid": "msmarco2-22732", "answer_cosine": 0.8354771137237549, "source_doc_id": 173, "peer_doc_id": 172, "answer_alias_match": true}
+{"qid": "msmarco2-20706", "answer_cosine": 0.6907160878181458, "source_doc_id": 175, "peer_doc_id": 174, "answer_alias_match": true}
+{"qid": "msmarco2-22258", "answer_cosine": 0.6159693002700806, "source_doc_id": 176, "peer_doc_id": 177, "answer_alias_match": true}
+{"qid": "msmarco2-22252", "answer_cosine": 0.5385777950286865, "source_doc_id": 178, "peer_doc_id": 179, "answer_alias_match": false}
+{"qid": "msmarco2-21220", "answer_cosine": 0.8023217916488647, "source_doc_id": 181, "peer_doc_id": 180, "answer_alias_match": true}
+{"qid": "msmarco2-21590", "answer_cosine": 0.8053221702575684, "source_doc_id": 183, "peer_doc_id": 182, "answer_alias_match": false}
+{"qid": "msmarco2-21199", "answer_cosine": 0.6901886463165283, "source_doc_id": 184, "peer_doc_id": 185, "answer_alias_match": false}
+{"qid": "msmarco2-23148", "answer_cosine": 0.6939420700073242, "source_doc_id": 186, "peer_doc_id": 187, "answer_alias_match": false}
+{"qid": "msmarco2-20839", "answer_cosine": 0.7510332465171814, "source_doc_id": 188, "peer_doc_id": 189, "answer_alias_match": false}
+{"qid": "msmarco2-21483", "answer_cosine": 0.6433067321777344, "source_doc_id": 191, "peer_doc_id": 190, "answer_alias_match": false}
+{"qid": "msmarco2-22785", "answer_cosine": 1.0, "source_doc_id": 193, "peer_doc_id": 192, "answer_alias_match": true}
+{"qid": "msmarco2-23603", "answer_cosine": 0.7909519076347351, "source_doc_id": 194, "peer_doc_id": 195, "answer_alias_match": true}
+{"qid": "msmarco2-21386", "answer_cosine": 0.7970569729804993, "source_doc_id": 196, "peer_doc_id": 197, "answer_alias_match": false}
+{"qid": "msmarco2-23452", "answer_cosine": 0.8728344440460205, "source_doc_id": 198, "peer_doc_id": 199, "answer_alias_match": true}
+{"qid": "msmarco2-21003", "answer_cosine": 1.0, "source_doc_id": 200, "peer_doc_id": 201, "answer_alias_match": false}
+{"qid": "msmarco2-20652", "answer_cosine": 0.989444375038147, "source_doc_id": 203, "peer_doc_id": 202, "answer_alias_match": false}
+{"qid": "msmarco2-21426", "answer_cosine": 0.8777729272842407, "source_doc_id": 205, "peer_doc_id": 204, "answer_alias_match": false}
+{"qid": "msmarco2-21716", "answer_cosine": 0.7121174335479736, "source_doc_id": 207, "peer_doc_id": 206, "answer_alias_match": true}
+{"qid": "msmarco2-20424", "answer_cosine": 0.9960092902183533, "source_doc_id": 208, "peer_doc_id": 209, "answer_alias_match": false}
+{"qid": "msmarco2-20773", "answer_cosine": null, "source_doc_id": null, "peer_doc_id": null, "answer_alias_match": false}
+{"qid": "msmarco2-22823", "answer_cosine": null, "source_doc_id": 212, "peer_doc_id": null, "answer_alias_match": false}
+{"qid": "msmarco2-21327", "answer_cosine": 0.5205196142196655, "source_doc_id": 214, "peer_doc_id": 215, "answer_alias_match": false}
+{"qid": "msmarco2-21744", "answer_cosine": 0.859593391418457, "source_doc_id": 217, "peer_doc_id": 216, "answer_alias_match": false}
+{"qid": "msmarco2-23420", "answer_cosine": 0.7968795895576477, "source_doc_id": 219, "peer_doc_id": 218, "answer_alias_match": false}
+{"qid": "msmarco2-21862", "answer_cosine": 0.7546839714050293, "source_doc_id": 221, "peer_doc_id": 220, "answer_alias_match": false}
+{"qid": "msmarco2-23617", "answer_cosine": 0.611211359500885, "source_doc_id": 223, "peer_doc_id": 222, "answer_alias_match": false}
+{"qid": "msmarco2-22905", "answer_cosine": null, "source_doc_id": 224, "peer_doc_id": null, "answer_alias_match": false}
+{"qid": "msmarco2-22238", "answer_cosine": 0.9023017883300781, "source_doc_id": 226, "peer_doc_id": 227, "answer_alias_match": false}
+{"qid": "msmarco2-21278", "answer_cosine": null, "source_doc_id": 229, "peer_doc_id": 228, "answer_alias_match": true}
+{"qid": "msmarco2-20536", "answer_cosine": 0.5657796859741211, "source_doc_id": 230, "peer_doc_id": 231, "answer_alias_match": false}
+{"qid": "msmarco2-22065", "answer_cosine": 1.0, "source_doc_id": 232, "peer_doc_id": 233, "answer_alias_match": false}
+{"qid": "msmarco2-23687", "answer_cosine": 0.6008468866348267, "source_doc_id": 235, "peer_doc_id": 234, "answer_alias_match": false}
+{"qid": "msmarco2-22596", "answer_cosine": 0.5989308953285217, "source_doc_id": 237, "peer_doc_id": 236, "answer_alias_match": false}
+{"qid": "msmarco2-21243", "answer_cosine": 0.5637861490249634, "source_doc_id": 238, "peer_doc_id": 239, "answer_alias_match": true}
+{"qid": "msmarco2-22565", "answer_cosine": 0.5509406328201294, "source_doc_id": 240, "peer_doc_id": 241, "answer_alias_match": true}
+{"qid": "msmarco2-21864", "answer_cosine": 1.0, "source_doc_id": 243, "peer_doc_id": 242, "answer_alias_match": true}
+{"qid": "msmarco2-23433", "answer_cosine": 0.7752586603164673, "source_doc_id": 245, "peer_doc_id": 244, "answer_alias_match": true}
+{"qid": "msmarco2-23398", "answer_cosine": null, "source_doc_id": 247, "peer_doc_id": 246, "answer_alias_match": false}
+{"qid": "msmarco2-21405", "answer_cosine": 0.6793797016143799, "source_doc_id": 248, "peer_doc_id": 249, "answer_alias_match": true}
+{"qid": "msmarco2-23058", "answer_cosine": 0.811718225479126, "source_doc_id": 250, "peer_doc_id": 251, "answer_alias_match": false}
+{"qid": "msmarco2-21564", "answer_cosine": 0.7358589172363281, "source_doc_id": 252, "peer_doc_id": 253, "answer_alias_match": true}
+{"qid": "msmarco2-22990", "answer_cosine": null, "source_doc_id": 254, "peer_doc_id": null, "answer_alias_match": true}
+{"qid": "msmarco2-22492", "answer_cosine": 0.6467868089675903, "source_doc_id": 257, "peer_doc_id": 256, "answer_alias_match": false}
+{"qid": "msmarco2-21488", "answer_cosine": 0.9999999403953552, "source_doc_id": 259, "peer_doc_id": 258, "answer_alias_match": true}
+{"qid": "msmarco2-21387", "answer_cosine": 0.7276658415794373, "source_doc_id": 260, "peer_doc_id": 261, "answer_alias_match": true}
+{"qid": "msmarco2-22553", "answer_cosine": 0.9669272899627686, "source_doc_id": 263, "peer_doc_id": 262, "answer_alias_match": false}
+{"qid": "msmarco2-22689", "answer_cosine": 0.8319282531738281, "source_doc_id": 264, "peer_doc_id": 265, "answer_alias_match": false}
+{"qid": "msmarco2-21104", "answer_cosine": 0.8954187631607056, "source_doc_id": 267, "peer_doc_id": 266, "answer_alias_match": true}
+{"qid": "msmarco2-21964", "answer_cosine": 0.6468989253044128, "source_doc_id": 268, "peer_doc_id": 269, "answer_alias_match": false}
+{"qid": "msmarco2-21518", "answer_cosine": 0.6895791292190552, "source_doc_id": 270, "peer_doc_id": 271, "answer_alias_match": false}
+{"qid": "msmarco2-21981", "answer_cosine": 0.7577894926071167, "source_doc_id": 273, "peer_doc_id": 272, "answer_alias_match": true}
+{"qid": "msmarco2-22615", "answer_cosine": 0.8373323082923889, "source_doc_id": 275, "peer_doc_id": 274, "answer_alias_match": false}
+{"qid": "msmarco2-22901", "answer_cosine": 0.39655187726020813, "source_doc_id": 277, "peer_doc_id": 276, "answer_alias_match": true}
+{"qid": "msmarco2-22061", "answer_cosine": 0.6432949900627136, "source_doc_id": 279, "peer_doc_id": 278, "answer_alias_match": true}

@@ -21,6 +21,20 @@ class ResearchApiTests(unittest.TestCase):
         if ppo is not None:
             self.assertNotIn("checkpoint", ppo)
             self.assertIsInstance(ppo.get("cases"), int)
+        multiseed = payload.get("summaries", {}).get("ppo_multiseed")
+        self.assertIsNotNone(multiseed)
+        self.assertEqual(multiseed["total_paired_cases"], 225)
+        self.assertEqual(multiseed["ppo_successes"], 31)
+        self.assertEqual(multiseed["fixed_substitution_successes"], 34)
+        self.assertEqual(multiseed["random_edit_successes"], 6)
+        ablation = payload["summaries"]["ppo_detection_ablation"]
+        self.assertEqual(ablation["original_successes"], 31)
+        self.assertEqual(ablation["no_detection_reward_successes"], 11)
+        self.assertEqual(payload["summaries"]["ppo_proxy_ablation"]["changed_case_outcomes"], 0)
+        self.assertEqual(payload["summaries"]["ppo_cache_ablation"]["changed_case_outcomes"], 0)
+        self.assertEqual(payload["summaries"]["ppo_head_ablation"]["changed_case_outcomes"], 0)
+        self.assertEqual(payload["summaries"]["retrieval_contriever"]["cases"], 75)
+        self.assertEqual(payload["summaries"]["unseen_templates"]["styles"]["qa_header"]["cases"], 75)
 
     def test_static_asset_route_rejects_path_escape(self):
         with self.assertRaises(HTTPException) as caught:
@@ -63,6 +77,17 @@ class ResearchApiTests(unittest.TestCase):
         self.assertEqual(altered["decision"], "accept")
         self.assertTrue(accepted["defended_attack_success"])
         self.assertEqual(len(altered["features"]), 8)
+        self.assertEqual([row["stage"] for row in accepted["audit"]], [
+            "retrieval", "integrity", "detection", "provenance", "answer",
+        ])
+        self.assertEqual(len(accepted["counterfactuals"]), sum(
+            row["decision"] == "accept" for row in accepted["documents"]
+        ))
+        self.assertIn("answer_and_loo_ms", accepted["stage_times"])
+        citation = accepted["defended"]["citations"][0]
+        cited_doc = next(row for row in accepted["documents"] if row["doc_id"] == citation["doc_id"])
+        self.assertEqual(cited_doc["decision"], "accept")
+        self.assertIn(citation["span"], cited_doc["text"])
 
         request.surface = "post_index_tamper"
         tampered = lab_run(request)
@@ -70,6 +95,7 @@ class ResearchApiTests(unittest.TestCase):
         self.assertEqual(altered["integrity"], "tampered")
         self.assertEqual(altered["decision"], "quarantine")
         self.assertFalse(tampered["defended_attack_success"])
+        self.assertNotEqual(tampered["defended"]["source_doc_id"], altered["doc_id"])
 
         request.surface = "accepted_ingest"
         request.attack_text = next(row["original_text"] for row in catalog["cases"] if row["qid"] == request.qid)

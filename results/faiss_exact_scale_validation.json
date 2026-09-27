@@ -1,0 +1,42 @@
+{
+  "input": "v1 train+validation passages and validation questions only",
+  "base_documents": 425,
+  "queries": 30,
+  "embedding": "sklearn HashingVectorizer 384 dimensions, normalized",
+  "large_corpus": "seed-42 perturbed replicas; latency only, not retrieval-quality evidence",
+  "numpy_version": "1.26.4",
+  "faiss_version": "1.8.0.post1",
+  "threads_per_search": 1,
+  "runs": [
+    {
+      "vectors": 425,
+      "dimensions": 384,
+      "float32_matrix_mb": 0.653,
+      "faiss_build_ms": 0.214,
+      "numpy_search_median_ms": 0.03,
+      "numpy_search_p95_ms": 0.068,
+      "faiss_search_median_ms": 0.015,
+      "faiss_search_p95_ms": 0.05,
+      "top5_id_order_disagreements": [
+        28
+      ],
+      "top5_score_disagreements": [],
+      "queries": 30,
+      "copies": 1
+    },
+    {
+      "vectors": 10200,
+      "dimensions": 384,
+      "float32_matrix_mb": 15.667,
+      "faiss_build_ms": 4.539,
+      "numpy_search_median_ms": 1.287,
+      "numpy_search_p95_ms": 1.518,
+      "faiss_search_median_ms": 0.757,
+      "faiss_search_p95_ms": 1.088,
+      "top5_id_order_disagreements": [],
+      "top5_score_disagreements": [],
+      "queries": 30,
+      "copies": 24
+    }
+  ]
+}
