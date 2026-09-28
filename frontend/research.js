@@ -48,7 +48,7 @@
   function renderRun(data) {
     el('lab-time').textContent = `${Math.round(data.latency_ms)} MS / ${data.execution.replaceAll('_', ' ').toUpperCase()}`;
     el('lab-status').dataset.state = 'ok';
-    el('lab-status').textContent = `${data.documents.length} passages retrieved · attack ${data.attack_retrieved ? 'entered top five' : 'missed top five'} · threshold ${Number(data.detector_threshold).toFixed(3)}`;
+    el('lab-status').textContent = `${data.documents.length} passages retrieved · attack ${data.attack_retrieved_count}/${data.attack_budget} in top five · ${data.attack_quarantined_count} quarantined · threshold ${Number(data.detector_threshold).toFixed(3)}`;
     el('lab-off-answer').textContent = data.undefended.answer;
     el('lab-on-answer').textContent = data.defended.answer;
     el('lab-clean-answer').textContent = data.clean.answer;
@@ -61,13 +61,13 @@
       verdict.textContent = 'Observed failure: the altered passage supplied the defended wrong answer. The integrity check and detector did not remove it.';
     } else if (data.attack_quarantined) {
       verdict.className = 'lab-verdict';
-      verdict.textContent = `Attack document quarantined. ${data.surface === 'post_index_tamper' ? 'The protected clean snapshot detected a post-index change.' : 'The research detector flagged the accepted document.'}`;
+      verdict.textContent = `All retrieved attack passages were quarantined. ${data.surface === 'post_index_tamper' ? 'The protected clean snapshot detected post-index changes or new documents.' : 'The research detector flagged the accepted passages.'}`;
     } else if (data.defended_source_is_attack) {
       verdict.className = 'lab-verdict failure';
-      verdict.textContent = 'The altered document remained the defended answer source. The saved target phrase was not returned; inspect the answer and compare with the original passage.';
+      verdict.textContent = 'An altered passage remained the defended answer source. The saved target phrase was not returned; inspect the answer and compare with the original passage.';
     } else {
       verdict.className = 'lab-verdict';
-      verdict.textContent = data.attack_retrieved ? 'The altered document was retrieved but did not supply the defended answer.' : 'The altered document did not reach the top five retrieved passages.';
+      verdict.textContent = data.attack_retrieved ? 'Altered passages were retrieved but did not supply the defended answer.' : 'No altered passage reached the top five retrieved passages.';
     }
     const citation = data.defended.citations?.[0];
     const timing = data.stage_times || {};
@@ -92,6 +92,7 @@
           qid: el('lab-case').value,
           strategy: el('lab-strategy').value,
           surface: el('lab-surface').value,
+          attack_budget: Number(el('lab-budget').value),
           attack_text: el('lab-payload').value,
         }),
       });

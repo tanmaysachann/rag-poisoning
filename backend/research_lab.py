@@ -1,6 +1,6 @@
 """Bounded, live validation experiment for the deployed research console.
 
-The browser may edit one attack document, but cannot select the test split,
+The browser may edit one passage and replicate it up to twice, but cannot select the test split,
 change a question, retrain a model, or modify the checked-in corpus. Each run
 builds an isolated temporary index and integrity manifest.
 """
@@ -77,7 +77,8 @@ def case_catalog() -> dict:
     return {"split": "validation", "cases": cases, "default_qid": "msmarco-275"}
 
 
-def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None) -> dict:
+def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None,
+             attack_budget: int = 1) -> dict:
     queries, corpus, attacks, _ = _inputs()
     if qid not in queries or strategy not in attacks or surface not in {"accepted_ingest", "post_index_tamper"}:
         raise ValueError("Select a listed validation case, attack family, and trust surface")
@@ -86,6 +87,12 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
     text = attack["text"] if attack_text is None else attack_text
     if not text.strip() or len(text) > 4000:
         raise ValueError("The attack document must contain 1 to 4000 characters")
+    if not isinstance(attack_budget, int) or not 1 <= attack_budget <= 3:
+        raise ValueError("Attack passage budget must be from 1 to 3")
+    attack_id = int(attack["attack_doc_id"])
+    next_copy_id = max(max(corpus), attack_id) + 1
+    attack_ids = [attack_id, *(next_copy_id + offset for offset in range(attack_budget - 1))]
+    attack_id_set = set(attack_ids)
     started = time.perf_counter()
     corpus_path = VALIDATION / "corpus.jsonl"
     with tempfile.TemporaryDirectory(prefix="sentinel-live-lab-") as directory:
@@ -95,9 +102,13 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         clean_answer, clean_source, _ = _select_answer(query["question"], clean_candidates, clean_retriever)
         staged_path = work / "staged.jsonl"
         stage_document_attack(
-            corpus_path, staged_path, doc_id=int(attack["attack_doc_id"]), text=text,
+            corpus_path, staged_path, doc_id=attack_id, text=text,
             replace_existing=strategy == "stealth",
         )
+        if attack_budget > 1:
+            with staged_path.open("a", encoding="utf-8", newline="\n") as handle:
+                for doc_id in attack_ids[1:]:
+                    handle.write(json.dumps({"doc_id": doc_id, "text": text}, ensure_ascii=False) + "\n")
         clean_manifest_path = work / "clean_manifest.json"
         manifest_key = os.getenv("RAG_MANIFEST_KEY")
         write_manifest(
@@ -120,13 +131,14 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         inference = infer_research(query["question"], retriever, manifest, detector)
         rows = inference["documents"]
         for row in rows:
-            row["is_attack"] = row["doc_id"] == attack["attack_doc_id"]
+            row["is_attack"] = row["doc_id"] in attack_id_set
         off_answer = inference["undefended"]["answer"]
         off_source = inference["undefended"]["source_doc_id"]
         on_answer = inference["defended"]["answer"]
         on_source = inference["defended"]["source_doc_id"]
     wrong = attack["wrong_answer"].casefold()
-    attack_id = int(attack["attack_doc_id"])
+    retrieved_attacks = [row for row in rows if row["is_attack"]]
+    quarantined_attacks = [row for row in retrieved_attacks if row["decision"] == "quarantine"]
     return {
         "split": "validation",
         "execution": "live_hashing_extractive",
@@ -134,14 +146,18 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "question": query["question"],
         "strategy": strategy,
         "surface": surface,
+        "attack_budget": attack_budget,
         "attack_doc_id": attack_id,
-        "attack_retrieved": any(row["is_attack"] for row in rows),
-        "attack_quarantined": any(row["is_attack"] and row["decision"] == "quarantine" for row in rows),
-        "defended_source_is_attack": on_source == attack_id,
+        "attack_doc_ids": attack_ids,
+        "attack_retrieved": bool(retrieved_attacks),
+        "attack_retrieved_count": len(retrieved_attacks),
+        "attack_quarantined": bool(retrieved_attacks) and len(quarantined_attacks) == len(retrieved_attacks),
+        "attack_quarantined_count": len(quarantined_attacks),
+        "defended_source_is_attack": on_source in attack_id_set,
         "defended_answer_matches_clean": on_answer.casefold() == clean_answer.casefold(),
         "clean_alias_recovered": any(alias.casefold() in on_answer.casefold() for alias in query["answer_aliases"]),
-        "undefended_attack_success": off_source == attack_id and wrong in off_answer.casefold(),
-        "defended_attack_success": on_source == attack_id and wrong in on_answer.casefold(),
+        "undefended_attack_success": off_source in attack_id_set and wrong in off_answer.casefold(),
+        "defended_attack_success": on_source in attack_id_set and wrong in on_answer.casefold(),
         "undefended": inference["undefended"],
         "defended": inference["defended"],
         "clean": {"answer": clean_answer, "source_doc_id": clean_source},
@@ -153,7 +169,7 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "retrieval_backend": inference["retrieval_backend"],
         "detector_threshold": detector.threshold,
         "latency_ms": round((time.perf_counter() - started) * 1000, 1),
-        "note": "This is a live validation run with the hashing extractor. MiniLM, PPO and Qwen results are saved offline experiments.",
+        "note": "This is a live validation run with the hashing extractor. Extra attack passages are identical copies from one attacker, not independent sources. MiniLM, PPO and Qwen results are saved offline experiments.",
     }
 
 

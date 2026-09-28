@@ -1,5 +1,6 @@
 import unittest
 import hashlib
+import json
 import re
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -102,6 +103,31 @@ class ResearchApiTests(unittest.TestCase):
         request.attack_text = next(row["original_text"] for row in catalog["cases"] if row["qid"] == request.qid)
         edited = lab_run(request)
         self.assertFalse(edited["defended_attack_success"])
+
+        request.attack_text = None
+        request.attack_budget = 3
+        replicated = lab_run(request)
+        self.assertEqual(replicated["attack_budget"], 3)
+        self.assertEqual(len(replicated["attack_doc_ids"]), 3)
+        replicated_attack_rows = [row for row in replicated["documents"] if row["is_attack"]]
+        self.assertEqual(len(replicated_attack_rows), replicated["attack_retrieved_count"])
+        self.assertTrue(all(row["integrity"] == "verified" for row in replicated_attack_rows))
+        self.assertEqual(replicated["defended_source_is_attack"],
+                         replicated["defended"]["source_doc_id"] in replicated["attack_doc_ids"])
+        saved_budget_path = Path(__file__).resolve().parents[1] / "results/poison_budget_stealth_validation.cases.jsonl"
+        saved_budget = next(row for row in map(json.loads, saved_budget_path.read_text(encoding="utf-8").splitlines())
+                            if row["qid"] == request.qid and row["budget"] == 3)
+        self.assertEqual(replicated["defended_attack_success"], saved_budget["defended_attack_success"])
+        self.assertEqual(replicated["undefended_attack_success"], saved_budget["undefended_attack_success"])
+        self.assertEqual(replicated["attack_retrieved_count"], len(saved_budget["retrieved_attack_doc_ids"]))
+        self.assertEqual(replicated["attack_quarantined_count"], len(saved_budget["quarantined_attack_doc_ids"]))
+
+        request.surface = "post_index_tamper"
+        replicated_tamper = lab_run(request)
+        self.assertEqual(len(replicated_tamper["attack_doc_ids"]), 3)
+        self.assertFalse(replicated_tamper["defended_source_is_attack"])
+        self.assertTrue(all(row["decision"] == "quarantine" for row in
+                            replicated_tamper["documents"] if row["is_attack"]))
 
     def test_ppo_endpoint_exposes_training_and_one_validation_trace(self):
         history = lab_ppo()

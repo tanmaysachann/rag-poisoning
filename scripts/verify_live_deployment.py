@@ -60,10 +60,18 @@ def verify(base_url: str) -> dict:
                 "retrieval", "integrity", "detection", "provenance", "answer",
             ]):
         raise ValueError("Production live inference trace is incomplete")
+    replicated = post(base_url, "/api/lab/run", {
+        "qid": "msmarco-275", "strategy": "stealth",
+        "surface": "accepted_ingest", "attack_budget": 3,
+    })
+    if (replicated.get("attack_budget") != 3 or len(replicated["attack_doc_ids"]) != 3
+            or replicated["attack_retrieved_count"] != sum(row["is_attack"] for row in replicated["documents"])):
+        raise ValueError("Production multi-passage attack control is incomplete")
     return {
         "status": "verified", "url": base_url, "health": health["status"],
         "validation_cases": len(catalog["cases"]), "frozen_test_cases": 75,
         "live_documents": len(live["documents"]), "live_audit_stages": len(live["audit"]),
+        "multi_attack_budget": replicated["attack_budget"],
         "live_latency_ms": live["latency_ms"],
     }
 

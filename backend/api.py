@@ -35,6 +35,7 @@ class ResearchRunRequest(BaseModel):
     strategy: str = Field(pattern="^(greedy|stealth)$")
     surface: str = Field(pattern="^(accepted_ingest|post_index_tamper)$")
     attack_text: str | None = Field(default=None, max_length=4000)
+    attack_budget: int = Field(default=1, ge=1, le=3)
 
 
 @app.get("/api/health")
@@ -156,7 +157,8 @@ def lab_cases() -> dict:
 @app.post("/api/lab/run")
 def lab_run(body: ResearchRunRequest) -> dict:
     try:
-        return run_case(body.qid, body.strategy, body.surface, body.attack_text)
+        return run_case(body.qid, body.strategy, body.surface, body.attack_text,
+                        attack_budget=body.attack_budget)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 

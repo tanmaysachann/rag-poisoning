@@ -55,12 +55,14 @@
     </section>
 
     <section class="lab-section" aria-labelledby="lab-workbench-title">
-      <div class="lab-section-heading"><div><span>Live experiment</span><h2 id="lab-workbench-title">Attack workbench</h2></div><p>Each run stages one validation document in temporary storage. The checked-in corpus and sealed test evidence stay fixed.</p></div>
+      <div class="lab-section-heading"><div><span>Live experiment</span><h2 id="lab-workbench-title">Attack workbench</h2></div><p>Each run stages one edited passage and up to two copies in temporary storage. The checked-in corpus and sealed test evidence stay fixed.</p></div>
       <div class="lab-workbench">
         <div class="lab-controls">
           <div class="lab-control-top"><span>Experiment input</span><span class="lab-live"><i></i> Runs on server</span></div>
           <label for="lab-case">Validation question</label><select id="lab-case"></select>
           <div class="lab-control-grid"><div><label for="lab-strategy">Attack family</label><select id="lab-strategy"><option value="stealth">Answer substitution</option><option value="greedy">Query-matched insertion</option></select></div><div><label for="lab-surface">Trust surface</label><select id="lab-surface"><option value="accepted_ingest">Accepted at ingest</option><option value="post_index_tamper">Edited after indexing</option></select></div></div>
+          <label for="lab-budget">Attack passage budget</label><select id="lab-budget"><option value="1">1 passage</option><option value="2">2 identical passages</option><option value="3">3 identical passages</option></select>
+          <p class="lab-input-note">Extra passages repeat this text under new document IDs. They share one attacker origin.</p>
           <p class="lab-input-note" id="lab-case-note">Loading validation corpus…</p>
           <label for="lab-original">Original trusted passage</label><div id="lab-original" class="lab-original"></div>
           <div class="lab-label-row"><label for="lab-payload">Attacker-controlled passage</label><button id="lab-reset" type="button">Reset text</button></div><textarea id="lab-payload" rows="8" maxlength="4000" spellcheck="false"></textarea>
