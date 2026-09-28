@@ -27,6 +27,7 @@
 .lab-controls label { margin: 14px 0 6px; color: var(--ink); font-size: 12px; font-weight: 600; }
 .lab-controls select, .lab-controls textarea { background: #fff; color: var(--ink); font: 13px/1.45 Arial, Helvetica, sans-serif; }
 .lab-controls textarea { min-height: 160px; }
+.lab-controls [hidden] { display: none; }
 .lab-control-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .lab-input-note { margin: 16px 0 0; padding: 10px 12px; border-left: 3px solid var(--blue); background: var(--soft); color: var(--muted); font-size: 12px; line-height: 1.5; }
 .lab-original { max-height: 135px; overflow: auto; padding: 11px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); font-size: 12px; line-height: 1.55; white-space: pre-wrap; }

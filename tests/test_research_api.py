@@ -108,6 +108,7 @@ class ResearchApiTests(unittest.TestCase):
         request.attack_budget = 3
         replicated = lab_run(request)
         self.assertEqual(replicated["attack_budget"], 3)
+        self.assertEqual(replicated["attack_payloads_distinct"], 1)
         self.assertEqual(len(replicated["attack_doc_ids"]), 3)
         replicated_attack_rows = [row for row in replicated["documents"] if row["is_attack"]]
         self.assertEqual(len(replicated_attack_rows), replicated["attack_retrieved_count"])
@@ -122,12 +123,29 @@ class ResearchApiTests(unittest.TestCase):
         self.assertEqual(replicated["attack_retrieved_count"], len(saved_budget["retrieved_attack_doc_ids"]))
         self.assertEqual(replicated["attack_quarantined_count"], len(saved_budget["quarantined_attack_doc_ids"]))
 
+        base_text = next(row["stealth_text"] for row in catalog["cases"] if row["qid"] == request.qid)
+        variants = [base_text + " Variant two.", base_text + " Variant three."]
+        request.additional_attack_texts = variants
+        varied = lab_run(request)
+        self.assertEqual(varied["attack_payloads_distinct"], 3)
+        self.assertEqual(varied["attack_doc_ids"], replicated["attack_doc_ids"])
+        retrieved_by_id = {row["doc_id"]: row for row in varied["documents"] if row["is_attack"]}
+        self.assertTrue(set(varied["attack_doc_ids"][1:]) & set(retrieved_by_id))
+        for doc_id, expected_text in zip(varied["attack_doc_ids"][1:], variants):
+            if doc_id in retrieved_by_id:
+                self.assertEqual(retrieved_by_id[doc_id]["text"], expected_text)
+                self.assertEqual(retrieved_by_id[doc_id]["integrity"], "verified")
+
         request.surface = "post_index_tamper"
         replicated_tamper = lab_run(request)
         self.assertEqual(len(replicated_tamper["attack_doc_ids"]), 3)
         self.assertFalse(replicated_tamper["defended_source_is_attack"])
         self.assertTrue(all(row["decision"] == "quarantine" for row in
                             replicated_tamper["documents"] if row["is_attack"]))
+        request.additional_attack_texts = ["", base_text]
+        with self.assertRaises(HTTPException) as caught:
+            lab_run(request)
+        self.assertEqual(caught.exception.status_code, 400)
 
     def test_ppo_endpoint_exposes_training_and_one_validation_trace(self):
         history = lab_ppo()

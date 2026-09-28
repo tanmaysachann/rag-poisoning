@@ -18,7 +18,18 @@
   function resetPayload() {
     const item = selectedCase();
     if (!item) return;
-    el('lab-payload').value = el('lab-strategy').value === 'stealth' ? item.stealth_text : item.greedy_text;
+    const text = el('lab-strategy').value === 'stealth' ? item.stealth_text : item.greedy_text;
+    for (const id of ['lab-payload', 'lab-payload-2', 'lab-payload-3']) el(id).value = text;
+  }
+
+  function syncBudget() {
+    const budget = Number(el('lab-budget').value);
+    for (const number of [2, 3]) {
+      el(`lab-extra-${number}`).hidden = number > budget;
+      if (number <= budget && !el(`lab-payload-${number}`).value.trim()) {
+        el(`lab-payload-${number}`).value = el('lab-payload').value;
+      }
+    }
   }
 
   function chooseCase() {
@@ -48,7 +59,7 @@
   function renderRun(data) {
     el('lab-time').textContent = `${Math.round(data.latency_ms)} MS / ${data.execution.replaceAll('_', ' ').toUpperCase()}`;
     el('lab-status').dataset.state = 'ok';
-    el('lab-status').textContent = `${data.documents.length} passages retrieved · attack ${data.attack_retrieved_count}/${data.attack_budget} in top five · ${data.attack_quarantined_count} quarantined · threshold ${Number(data.detector_threshold).toFixed(3)}`;
+    el('lab-status').textContent = `${data.documents.length} passages retrieved · attack ${data.attack_retrieved_count}/${data.attack_budget} in top five · ${data.attack_quarantined_count} quarantined · ${data.attack_payloads_distinct} unique attacker texts · threshold ${Number(data.detector_threshold).toFixed(3)}`;
     el('lab-off-answer').textContent = data.undefended.answer;
     el('lab-on-answer').textContent = data.defended.answer;
     el('lab-clean-answer').textContent = data.clean.answer;
@@ -94,6 +105,7 @@
           surface: el('lab-surface').value,
           attack_budget: Number(el('lab-budget').value),
           attack_text: el('lab-payload').value,
+          additional_attack_texts: [2, 3].slice(0, Number(el('lab-budget').value) - 1).map(number => el(`lab-payload-${number}`).value),
         }),
       });
       renderRun(data);
@@ -190,6 +202,7 @@
 
   el('lab-case').addEventListener('change', chooseCase);
   el('lab-strategy').addEventListener('change', resetPayload);
+  el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
   loadCases(); loadTest(); loadPpo();

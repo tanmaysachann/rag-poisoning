@@ -1,6 +1,6 @@
 """Bounded, live validation experiment for the deployed research console.
 
-The browser may edit one passage and replicate it up to twice, but cannot select the test split,
+The browser may edit up to three passages, but cannot select the test split,
 change a question, retrain a model, or modify the checked-in corpus. Each run
 builds an isolated temporary index and integrity manifest.
 """
@@ -78,7 +78,7 @@ def case_catalog() -> dict:
 
 
 def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None,
-             attack_budget: int = 1) -> dict:
+             attack_budget: int = 1, additional_attack_texts: list[str] | None = None) -> dict:
     queries, corpus, attacks, _ = _inputs()
     if qid not in queries or strategy not in attacks or surface not in {"accepted_ingest", "post_index_tamper"}:
         raise ValueError("Select a listed validation case, attack family, and trust surface")
@@ -89,6 +89,14 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         raise ValueError("The attack document must contain 1 to 4000 characters")
     if not isinstance(attack_budget, int) or not 1 <= attack_budget <= 3:
         raise ValueError("Attack passage budget must be from 1 to 3")
+    if additional_attack_texts is not None:
+        if len(additional_attack_texts) != attack_budget - 1:
+            raise ValueError("Provide one additional text for each extra attack passage")
+        if any(not isinstance(value, str) or not value.strip() or len(value) > 4000
+               for value in additional_attack_texts):
+            raise ValueError("Each additional attack passage must contain 1 to 4000 characters")
+    extra_texts = additional_attack_texts if additional_attack_texts is not None else [text] * (attack_budget - 1)
+    attack_texts = [text, *extra_texts]
     attack_id = int(attack["attack_doc_id"])
     next_copy_id = max(max(corpus), attack_id) + 1
     attack_ids = [attack_id, *(next_copy_id + offset for offset in range(attack_budget - 1))]
@@ -107,8 +115,8 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         )
         if attack_budget > 1:
             with staged_path.open("a", encoding="utf-8", newline="\n") as handle:
-                for doc_id in attack_ids[1:]:
-                    handle.write(json.dumps({"doc_id": doc_id, "text": text}, ensure_ascii=False) + "\n")
+                for doc_id, extra_text in zip(attack_ids[1:], extra_texts):
+                    handle.write(json.dumps({"doc_id": doc_id, "text": extra_text}, ensure_ascii=False) + "\n")
         clean_manifest_path = work / "clean_manifest.json"
         manifest_key = os.getenv("RAG_MANIFEST_KEY")
         write_manifest(
@@ -147,6 +155,7 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "strategy": strategy,
         "surface": surface,
         "attack_budget": attack_budget,
+        "attack_payloads_distinct": len(set(attack_texts)),
         "attack_doc_id": attack_id,
         "attack_doc_ids": attack_ids,
         "attack_retrieved": bool(retrieved_attacks),
@@ -169,7 +178,7 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "retrieval_backend": inference["retrieval_backend"],
         "detector_threshold": detector.threshold,
         "latency_ms": round((time.perf_counter() - started) * 1000, 1),
-        "note": "This is a live validation run with the hashing extractor. Extra attack passages are identical copies from one attacker, not independent sources. MiniLM, PPO and Qwen results are saved offline experiments.",
+        "note": "This is a live validation run with the hashing extractor. All altered passages share one attacker origin even when their text differs; they are not independent sources. MiniLM, PPO and Qwen results are saved offline experiments.",
     }
 
 

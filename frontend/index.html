@@ -61,11 +61,13 @@
           <div class="lab-control-top"><span>Experiment input</span><span class="lab-live"><i></i> Runs on server</span></div>
           <label for="lab-case">Validation question</label><select id="lab-case"></select>
           <div class="lab-control-grid"><div><label for="lab-strategy">Attack family</label><select id="lab-strategy"><option value="stealth">Answer substitution</option><option value="greedy">Query-matched insertion</option></select></div><div><label for="lab-surface">Trust surface</label><select id="lab-surface"><option value="accepted_ingest">Accepted at ingest</option><option value="post_index_tamper">Edited after indexing</option></select></div></div>
-          <label for="lab-budget">Attack passage budget</label><select id="lab-budget"><option value="1">1 passage</option><option value="2">2 identical passages</option><option value="3">3 identical passages</option></select>
-          <p class="lab-input-note">Extra passages repeat this text under new document IDs. They share one attacker origin.</p>
+          <label for="lab-budget">Attack passage budget</label><select id="lab-budget"><option value="1">1 passage</option><option value="2">2 passages</option><option value="3">3 passages</option></select>
+          <p class="lab-input-note">Edit each passage separately, or leave the same text in each field to test copies. All passages share one attacker origin.</p>
           <p class="lab-input-note" id="lab-case-note">Loading validation corpus…</p>
           <label for="lab-original">Original trusted passage</label><div id="lab-original" class="lab-original"></div>
           <div class="lab-label-row"><label for="lab-payload">Attacker-controlled passage</label><button id="lab-reset" type="button">Reset text</button></div><textarea id="lab-payload" rows="8" maxlength="4000" spellcheck="false"></textarea>
+          <div id="lab-extra-2" hidden><label for="lab-payload-2">Attacker passage 2</label><textarea id="lab-payload-2" rows="6" maxlength="4000" spellcheck="false"></textarea></div>
+          <div id="lab-extra-3" hidden><label for="lab-payload-3">Attacker passage 3</label><textarea id="lab-payload-3" rows="6" maxlength="4000" spellcheck="false"></textarea></div>
           <button id="lab-run" class="lab-run" type="button">Run validation experiment <span>&rarr;</span></button>
           <p class="lab-small">This web experiment uses the trained hashing detector and extractive answerer. MiniLM, Qwen and PPO results below are measured offline runs.</p>
         </div>

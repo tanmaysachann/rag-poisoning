@@ -31,7 +31,7 @@ def post(base_url: str, path: str, payload: dict) -> dict:
 def verify(base_url: str) -> dict:
     base_url = base_url.rstrip("/")
     page = get(base_url, "/")
-    if not all(marker in page for marker in ("lab-case", "lab-ppo-cache-ablation",
+    if not all(marker in page for marker in ("lab-case", "lab-payload-2", "lab-payload-3", "lab-ppo-cache-ablation",
                                                 "lab-unseen-summary", "lab-budget-summary",
                                                 "benchmark label, not a website version")):
         raise ValueError("Production page is missing research lab bindings")
@@ -65,13 +65,25 @@ def verify(base_url: str) -> dict:
         "surface": "accepted_ingest", "attack_budget": 3,
     })
     if (replicated.get("attack_budget") != 3 or len(replicated["attack_doc_ids"]) != 3
+            or replicated.get("attack_payloads_distinct") != 1
             or replicated["attack_retrieved_count"] != sum(row["is_attack"] for row in replicated["documents"])):
         raise ValueError("Production multi-passage attack control is incomplete")
+    base_text = next(row["stealth_text"] for row in catalog["cases"] if row["qid"] == "msmarco-275")
+    varied = post(base_url, "/api/lab/run", {
+        "qid": "msmarco-275", "strategy": "stealth", "surface": "accepted_ingest",
+        "attack_budget": 3, "attack_text": base_text,
+        "additional_attack_texts": [base_text + " Variant two.", base_text + " Variant three."],
+    })
+    retrieved_texts = {row["text"] for row in varied["documents"] if row["is_attack"]}
+    if (varied.get("attack_payloads_distinct") != 3
+            or not retrieved_texts.intersection({base_text + " Variant two.", base_text + " Variant three."})):
+        raise ValueError("Production varied-passage attack control is incomplete")
     return {
         "status": "verified", "url": base_url, "health": health["status"],
         "validation_cases": len(catalog["cases"]), "frozen_test_cases": 75,
         "live_documents": len(live["documents"]), "live_audit_stages": len(live["audit"]),
         "multi_attack_budget": replicated["attack_budget"],
+        "varied_attack_payloads": varied["attack_payloads_distinct"],
         "live_latency_ms": live["latency_ms"],
     }
 
