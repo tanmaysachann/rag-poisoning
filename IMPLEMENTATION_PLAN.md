@@ -42,6 +42,10 @@ Three overt answer-layout development probes were also run on the same 75
 validation questions: 225/225 altered documents were quarantined, with zero
 defended wrong-answer successes. This does not establish robustness to novel
 source families or subtle accepted-ingest replacements.
+An accepted-ingest copy-budget study replicated the same stealth edited
+passage one to three times on those 75 validation questions. Defended wrong
+answers were 11/75, 9/75, and 9/75; the copies shared one attacker origin and
+do not establish independent corroboration or varied-attack robustness.
 A signed, operator-reviewed source-origin map and
 optional exact-span two-origin abstention policy now provide a high-assurance
 contract for future corpora with genuinely independent sources. The current
@@ -61,7 +65,7 @@ the remaining path to the complete system described by the presentation:
 | 2. Cited answer generation | Improve local generator answer quality, source-span citations, and abstention. Validate on clean and attacked development cases before enabling model generation in serving. Keep the extractive backend as the stable fallback. |
 | 3. Integrated research serving | Connect versioned retrieval, integrity/provenance, calibrated signals, selective checks, generation, citation validation, and audit events. Expose the genuine model/backend and timing for every candidate. The deployed lab currently runs the hashing/extractive validation profile; MiniLM, Qwen, and PPO results are offline artifacts. |
 | 4. PPO evidence | Three defender-aware seeds now have matched fixed substitutions and random edits. PPO beats random edits but not fixed substitution. Detector-risk, auxiliary critic, optional edit-effect cache, and action-head conditioning ablations are measured. Add undefended multi-seed runs and remaining reward/architecture ablations. |
-| 5. Retrieval and robustness | FAISS FlatIP versus NumPy is measured on 425 development vectors and 10,200 synthetic perturbed replicas. Pinned Contriever-msmarco matches MiniLM's 73/75 and 74/75 RRF support recall on 75 validation passages, with higher observed CPU query latency, so the small serving profile remains MiniLM/NumPy where available. Three overt answer-layout probes were caught on development validation. Evaluate subtle new attack families, poison budgets, alternate generators, and genuinely distinct source origins. Freeze a new held-out protocol before testing an improved defense; v1 test is spent and v2 test is untouched. |
+| 5. Retrieval and robustness | FAISS FlatIP versus NumPy is measured on 425 development vectors and 10,200 synthetic perturbed replicas. Pinned Contriever-msmarco matches MiniLM's 73/75 and 74/75 RRF support recall on 75 validation passages, with higher observed CPU query latency, so the small serving profile remains MiniLM/NumPy where available. Three overt answer-layout probes were caught and a one-to-three identical stealth-copy budget was measured on development validation. Evaluate subtle new attack families, varied multi-document budgets, alternate generators, and genuinely distinct source origins. Freeze a new held-out protocol before testing an improved defense; v1 test is spent and v2 test is untouched. |
 | 6. Reproducible release | Package CPU and GPU reproduction commands, raw examples, confidence intervals, resource costs, bibliography corrections, and a corrected presentation export. Every final claim must point to a measured artifact. |
 
 Presentation-specific choices require explicit resolution: the implemented PPO

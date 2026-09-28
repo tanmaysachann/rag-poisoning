@@ -132,7 +132,7 @@
       el('lab-greedy-bars').innerHTML = barRow('BEFORE', greedy.undefended_attack_success_rate) + barRow('AFTER', greedy.defended_attack_success_rate, true);
       el('lab-stealth-bars').innerHTML = barRow('BEFORE', stealth.undefended_attack_success_rate) + barRow('AFTER', stealth.defended_attack_success_rate, true);
       el('lab-clean-bars').innerHTML = barRow('MATCH', clean.alias_match_accuracy, true);
-      el('lab-test-status').textContent = 'Frozen v1 test: 75 questions per attack family. File hashes and per-case counts verified by the server. This test has been used for v1.';
+      el('lab-test-status').textContent = 'First frozen test setup (v1): 75 questions per attack family. The server verified file hashes and case counts. This test is historical evidence for that setup.';
     } catch (error) { el('lab-test-status').textContent = error.message; }
   }
 
@@ -170,6 +170,8 @@
       if (v2) el('lab-v2-summary').textContent = `On 30 validation questions, the full-context cosine gate left attack success at ${v2.attack_success_before_gate}/${v2.cases} → ${v2.attack_success_after_gate}/${v2.cases} while clean alias matches fell ${v2.clean_answer_alias_before_gate}/${v2.cases} → ${v2.clean_answer_alias_after_gate}/${v2.cases}. It was not deployed.`;
       const layouts = summary.summaries.unseen_templates?.styles;
       if (layouts) el('lab-unseen-summary').textContent = `Three overt answer layouts were tested on the same 75 development questions. All ${Object.values(layouts).reduce((total, row) => total + row.cases, 0)} altered documents were quarantined; defended attack success was ${Object.values(layouts).reduce((total, row) => total + row.defended_attack_successes, 0)}. These probes do not establish unseen-source robustness.`;
+      const budgets = summary.summaries.poison_budget?.budgets;
+      if (budgets) el('lab-budget-summary').textContent = `With one, two, or three identical accepted stealth passages, defended wrong answers occurred in ${budgets['1'].defended_attack_successes}/75, ${budgets['2'].defended_attack_successes}/75, and ${budgets['3'].defended_attack_successes}/75 validation cases. Copies share one attacker origin; this is not a varied-attack guarantee.`;
     } catch (error) { el('lab-ppo-chart').outerHTML = `<p class="lab-evidence-caption">${escapeHtml(error.message)}</p>`; }
   }
 

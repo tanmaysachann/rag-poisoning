@@ -31,7 +31,9 @@ def post(base_url: str, path: str, payload: dict) -> dict:
 def verify(base_url: str) -> dict:
     base_url = base_url.rstrip("/")
     page = get(base_url, "/")
-    if not all(marker in page for marker in ("lab-case", "lab-ppo-cache-ablation", "lab-unseen-summary")):
+    if not all(marker in page for marker in ("lab-case", "lab-ppo-cache-ablation",
+                                                "lab-unseen-summary", "lab-budget-summary",
+                                                "benchmark label, not a website version")):
         raise ValueError("Production page is missing research lab bindings")
     health = get(base_url, "/api/health")
     if health.get("status") != "operational":
@@ -40,6 +42,7 @@ def verify(base_url: str) -> dict:
     if (summary.get("split") != "validation"
             or summary["summaries"]["ppo_multiseed"]["ppo_successes"] != 31
             or summary["summaries"]["unseen_templates"]["styles"]["qa_header"]["cases"] != 75
+            or summary["summaries"]["poison_budget"]["budgets"]["3"]["defended_attack_successes"] != 9
             or summary["summaries"]["ppo_head_ablation"]["changed_case_outcomes"] != 0):
         raise ValueError("Production research evidence differs from committed results")
     catalog = get(base_url, "/api/lab/cases")

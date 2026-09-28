@@ -35,6 +35,7 @@ class ResearchApiTests(unittest.TestCase):
         self.assertEqual(payload["summaries"]["ppo_head_ablation"]["changed_case_outcomes"], 0)
         self.assertEqual(payload["summaries"]["retrieval_contriever"]["cases"], 75)
         self.assertEqual(payload["summaries"]["unseen_templates"]["styles"]["qa_header"]["cases"], 75)
+        self.assertEqual(payload["summaries"]["poison_budget"]["budgets"]["3"]["defended_attack_successes"], 9)
 
     def test_static_asset_route_rejects_path_escape(self):
         with self.assertRaises(HTTPException) as caught:

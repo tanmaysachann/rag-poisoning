@@ -1,6 +1,11 @@
 # Sentinel RAG
 
 Sentinel RAG is a controlled, CPU-first research product for studying poisoned retrieval context. It includes a five-case demo, a live validation attack workbench, frozen benchmark evidence, and an offline PPO attack harness. See `PROJECT_MEMORY.md` for implementation status and `IMPLEMENTATION_PLAN.md` for the original build plan and remaining research goals.
+In this repository, **v1** means the first frozen 75-question test setup
+(MiniLM retrieval, sentence ranker, hashing detector), not the version of the
+live website. **v2** is a separate two-passage research benchmark whose test
+split remains unevaluated. The hosted workbench uses hashing retrieval on v1
+validation questions; its live outputs are separate from the frozen v1 test.
 The ordered work for the next session is saved in `NEXT_SESSION.md`.
 `V2_BENCHMARK_PROTOCOL.md` documents the disjoint two-passage development
 benchmark and why its first consistency gate was not adopted.
@@ -136,6 +141,13 @@ were quarantined by the hashing research detector, but the subtler answer
 substitution family remains a known failure. Run
 `python -m evaluation.verify_unseen_templates` to check every saved case and
 aggregate. These development probes do not establish unseen-source robustness.
+
+A separate accepted-ingest budget study replicated each saved stealth passage
+one to three times on the 75 validation questions. Defended wrong-answer
+successes were 11/75, 9/75, and 9/75 respectively, even though more poisoned
+passages were retrieved. The copies were identical and shared one attacker
+origin. See `results/poison_budget_stealth_validation.json` and run
+`python -m evaluation.verify_poison_budget` to check the raw cases.
 
 The optional Vercel deployment commands are:
 

@@ -84,6 +84,7 @@ def research_summary() -> dict:
         "qwen_span_repair": "local_generation_answer_repair_validation_20.json",
         "faiss_scale": "faiss_exact_scale_validation.json",
         "unseen_templates": "unseen_templates_validation.json",
+        "poison_budget": "poison_budget_stealth_validation.json",
         "fixed_baseline": "edit_rollout_validation_greedy_proxy.summary.json",
         "v2_clean": "multisupport_v2_validation.json",
         "v2_paired_gate": "paired_gate_v2_validation_full_context.json",
