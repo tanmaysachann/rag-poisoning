@@ -91,7 +91,9 @@ tradeoff (0.2: 13 clean / 2 attacks; 0.3: 7 clean / 1 attack; 0.4: 6 clean /
 0 attacks). Leave-one-out influence was true in 27/30 clean and 29/30
 attacked cases, so it does not discriminate here. The gate stays out of
 serving. See `results/answer_corroboration_v2_train_calibration.json` and
-`results/answer_corroboration_v2_validation.json` with case records. v2 test
+`results/answer_corroboration_v2_validation.json` with case records.
+`evaluation/verify_answer_corroboration.py` recomputes both summaries from
+their case rows and is wired into `scripts/verify_release.py`. v2 test
 remains unevaluated.
 
 ## Next decision

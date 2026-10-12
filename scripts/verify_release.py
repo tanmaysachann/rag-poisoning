@@ -18,6 +18,7 @@ from evaluation.summarize_ppo_proxy_ablation import summarize as summarize_proxy
 from evaluation.summarize_ppo_cache_ablation import summarize as summarize_cache_ablation
 from evaluation.summarize_ppo_head_ablation import summarize as summarize_head_ablation
 from evaluation.verify_v2_development import verify as verify_v2_development
+from evaluation.verify_answer_corroboration import verify as verify_answer_corroboration
 from evaluation.verify_contriever_result import verify as verify_contriever_result
 from evaluation.verify_unseen_templates import verify as verify_unseen_templates
 from evaluation.probe_v2_peer_failover import summarize as summarize_v2_peer_failover
@@ -39,6 +40,7 @@ def main() -> int:
     run(sys.executable, "-m", "evaluation.verify_test_v1")
     run(sys.executable, "-m", "data.validate_multisupport_benchmark")
     print(json.dumps(verify_v2_development(), indent=2), flush=True)
+    print(json.dumps(verify_answer_corroboration(), indent=2), flush=True)
     print(json.dumps(verify_contriever_result(), indent=2), flush=True)
     print(json.dumps(verify_unseen_templates(), indent=2), flush=True)
     print(json.dumps(verify_poison_budget(), indent=2), flush=True)

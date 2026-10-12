@@ -1,6 +1,6 @@
 # Sentinel RAG project memory
 
-Last reviewed: 2026-10-12. Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
+Last reviewed: 2026-10-12 (audit + release check). Primary source: `Presentation.pdf` (38 slides). Full execution plan: `IMPLEMENTATION_PLAN.md`; measured claims: `REPORT_EVIDENCE.md`.
 
 2026-10-12 checkpoint: a new answer-corroboration abstention probe
 (`generation/answer_corroboration.py`, train calibration + validation
@@ -8,7 +8,10 @@ evaluation) was added for Priority 1. Train threshold 0.0833 met the 5%
 missing-rate target (7/140), but validation showed 16/30 clean and 2/30
 attack success both before and after the gate, with no acceptable sweep
 tradeoff. LOO influence was true in 27/30 clean and 29/30 attacked cases.
-The gate stays out of serving; v2 test remains untouched. See
+The gate stays out of serving; v2 test remains untouched. `audit/events.py`
+adds the versioned audit-event contract (build/validate, no file writes),
+and `evaluation/verify_answer_corroboration.py` is wired into
+`scripts/verify_release.py`. 75 unit tests and release verification pass. See
 `V2_BENCHMARK_PROTOCOL.md` and `REPORT_EVIDENCE.md`.
 
 2026-09-27 checkpoint: the live validation lab now uses `pipeline/research_inference.py`
