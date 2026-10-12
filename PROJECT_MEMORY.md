@@ -17,7 +17,10 @@ greedy insertion on every seed (197/225 vs 197/225) and beats random edits
 (88/225); see `results/ppo_multiseed_undefended_validation.json`. Overt
 payload families (instruction/URL/refusal, query-aware, 75 validation queries
 each) score 71/70/72 undefended and 0 defended with 75/75 quarantined; see
-`results/payload_families_validation.json`. See
+`results/payload_families_validation.json`. A slide-corrections map
+(`SLIDE_CORRECTIONS.md`) now gives keep/correct/remove verdicts per slide
+group, and `RUN_ENVIRONMENT.md` records later-study costs plus the
+clean-checkout reproduction order. See
 `V2_BENCHMARK_PROTOCOL.md` and `REPORT_EVIDENCE.md`.
 
 2026-09-27 checkpoint: the live validation lab now uses `pipeline/research_inference.py`

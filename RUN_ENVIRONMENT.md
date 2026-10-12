@@ -47,3 +47,45 @@ byte `pytorch_model.bin` whose SHA-256 is
 It used four PyTorch CPU threads, attention-mask mean pooling, L2 normalized
 768-dimensional vectors, and 256-token maximum inputs. Only v1 validation
 questions and passages were scored; v2 test stayed untouched.
+
+## Addendum (2026-10-12): later studies, same host
+
+All studies below ran on the same CPU-only Windows host with the same
+installed packages. PPO training sets `torch.set_num_threads(1)`.
+
+- Undefended PPO multi-seed: seeds 43 and 44 repeated the 200-episode CPU
+  run (10 batches x 20 episodes, max 3 edit steps) with seed-matched
+  greedy-insertion and random baselines on the same 75 validation questions.
+  Checkpoints are ~476 KB each (`artifacts/poison_policy_ppo_seed43.pt`,
+  `artifacts/poison_policy_ppo_seed44.pt`); per-seed validation cases are
+  ~120-150 KB of JSON. Summary:
+  `results/ppo_multiseed_undefended_validation.json`.
+- Payload-family probe: 3 families x 75 validation queries on the
+  hashing/extractive accepted-ingest profile, one isolated per-case index
+  rebuild each. Median per-case latency 259-264 ms on this CPU (includes
+  reindexing, not serving latency). Summary:
+  `results/payload_families_validation.json` with per-family case files.
+- Answer-corroboration probe: v2 train calibration (140 cases) plus v2
+  validation (30 cases, one isolated per-case MiniLM index rebuild each) with
+  the cached MiniLM encoder. Summaries:
+  `results/answer_corroboration_v2_train_calibration.json`,
+  `results/answer_corroboration_v2_validation.json`. v2 test untouched.
+
+## Clean-checkout reproduction order
+
+```powershell
+pip install -r requirements-dev.txt
+python scripts/doctor.py
+python scripts/index_benchmark.py                      # frozen v1 indexes + manifests
+python -m detect.train_fusion_classifier               # Review-1 demo classifier
+python scripts/build_web_detector.py                    # frozen hashing research detector
+python -m generation.train_sentence_ranker --minilm --offline --strict
+python -m unittest discover -s tests -q
+python scripts/verify_release.py --skip-smoke           # artifacts, sealed v1, v2 hashes, PPO comparisons
+python scripts/smoke_rebuild.py                         # isolated offline demo rebuild
+```
+
+GPU training was never used; the slide's Llama-3-8B NF4 profile has not run.
+Qwen2.5-0.5B runs on CPU float weights (see weight SHA-256 above) and stays
+outside serving. `SLIDE_CORRECTIONS.md` maps every slide claim to its measured
+artifact and required correction.

@@ -10,7 +10,7 @@ The ordered work for the next session is saved in `NEXT_SESSION.md`.
 `V2_BENCHMARK_PROTOCOL.md` documents the disjoint two-passage development
 benchmark and why its first consistency gate was not adopted.
 
-`REPORT_EVIDENCE.md` maps measured claims to raw results and names the slide commitments that still need evidence. `LITERATURE_AUDIT.md` explains citation corrections, `PRESENTATION_REFERENCES_READY.md` provides 24 replacement entries, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
+`REPORT_EVIDENCE.md` maps measured claims to raw results and names the slide commitments that still need evidence. `SLIDE_CORRECTIONS.md` maps every slide group to its keep/correct/remove verdict with evidence pointers. `LITERATURE_AUDIT.md` explains citation corrections, `PRESENTATION_REFERENCES_READY.md` provides 24 replacement entries, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
 `DEMO_SCRIPT.md` gives a seven-minute walkthrough of the live console and
 separate research evidence.
 
