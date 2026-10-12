@@ -96,6 +96,18 @@ serving. See `results/answer_corroboration_v2_train_calibration.json` and
 their case rows and is wired into `scripts/verify_release.py`. v2 test
 remains unevaluated.
 
+## Exact-span two-origin feasibility note (2026-10-12)
+
+On the 140 v2 train oracle pairs (same-row, both answer-bearing: the best
+case for span overlap), independently ranker-selected answers match exactly in
+only 21 cases (15%), while both contain an answer alias in 47. The strict
+exact-span two-origin policy in `security/provenance.py` would therefore
+abstain on ~85% of clean cases even before any attack, and genuinely
+independent (cross-row) pairs would do worse. The policy stays implemented
+but unevaluated pending a curated corpus with repeated canonical claims; no
+relaxed alias-level variant was promoted either, since alias agreement is
+already covered by the failed token-F1 probe above.
+
 ## Next decision
 
 Before v2 test evaluation, define a better answer-level agreement or trusted

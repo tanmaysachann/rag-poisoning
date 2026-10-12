@@ -1,0 +1,12 @@
+{
+  "split": "validation",
+  "cases": 20,
+  "input": "results/local_generation_grounded_validation_20.cases.jsonl",
+  "cited_extractive_valid_citations": 20,
+  "cited_extractive_cited_support": 20,
+  "cited_extractive_alias_match": 9,
+  "cited_extractive_abstentions": 0,
+  "same_questions_qwen_cited_support": 5,
+  "same_questions_qwen_alias_match": 1,
+  "note": "Same 20 clean development questions as the Qwen diagnostic. Citation validity is exact-span containment, not factual entailment or attack robustness."
+}
