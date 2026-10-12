@@ -11,7 +11,10 @@ tradeoff. LOO influence was true in 27/30 clean and 29/30 attacked cases.
 The gate stays out of serving; v2 test remains untouched. `audit/events.py`
 adds the versioned audit-event contract (build/validate, no file writes),
 and `evaluation/verify_answer_corroboration.py` is wired into
-`scripts/verify_release.py`. 75 unit tests and release verification pass. See
+`scripts/verify_release.py`. 75 unit tests and release verification pass. A
+three-seed undefended PPO comparison (42/43/44, 200 episodes each) ties
+greedy insertion on every seed (197/225 vs 197/225) and beats random edits
+(88/225); see `results/ppo_multiseed_undefended_validation.json`. See
 `V2_BENCHMARK_PROTOCOL.md` and `REPORT_EVIDENCE.md`.
 
 2026-09-27 checkpoint: the live validation lab now uses `pipeline/research_inference.py`

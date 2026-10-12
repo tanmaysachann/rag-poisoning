@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from evaluation.summarize_ppo_seeds import summarize
+from evaluation.summarize_ppo_undefended_seeds import summarize as summarize_undefended
 from evaluation.summarize_ppo_detection_ablation import summarize as summarize_detection_ablation
 from evaluation.summarize_ppo_proxy_ablation import summarize as summarize_proxy_ablation
 from evaluation.summarize_ppo_cache_ablation import summarize as summarize_cache_ablation
@@ -55,6 +56,10 @@ def main() -> int:
     if saved != regenerated:
         raise ValueError(f"Saved PPO comparison is stale: {saved_path}")
     print("PPO three-seed comparison: verified against raw runs and checkpoints", flush=True)
+    undefended_path = ROOT / "results/ppo_multiseed_undefended_validation.json"
+    if json.loads(undefended_path.read_text(encoding="utf-8")) != summarize_undefended():
+        raise ValueError(f"Saved PPO undefended comparison is stale: {undefended_path}")
+    print("PPO undefended three-seed comparison: verified against raw runs and checkpoints", flush=True)
     ablation_path = ROOT / "results/ppo_detection_reward_ablation_validation.json"
     if json.loads(ablation_path.read_text(encoding="utf-8")) != summarize_detection_ablation():
         raise ValueError(f"Saved PPO detection-reward ablation is stale: {ablation_path}")

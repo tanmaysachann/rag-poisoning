@@ -1,0 +1,14 @@
+{
+  "split": "validation",
+  "strategy": "greedy_proxy",
+  "cases": 75,
+  "retrieval_rate": 1.0,
+  "attack_success_rate": 0.8666666666666667,
+  "defended_attack_success_rate": null,
+  "defender_aware": false,
+  "replace_existing": false,
+  "seed": 44,
+  "mean_reward": 4.400550005808474,
+  "cached_transitions": 150,
+  "output": "results\\edit_rollout_validation_greedy_proxy_seed44.jsonl"
+}
