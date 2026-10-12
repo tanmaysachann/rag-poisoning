@@ -1,0 +1,16 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "validation",
+  "cases": 30,
+  "train_calibrated_token_f1_threshold": 0.08333333333333334,
+  "clean_answer_alias_before_gate": 16,
+  "clean_answer_alias_after_gate": 16,
+  "clean_answer_kept": 29,
+  "attack_retrieved": 28,
+  "attack_success_before_gate": 2,
+  "attack_success_after_gate": 2,
+  "attacked_answer_kept": 28,
+  "gate_policy": "abstain_on_disagreement_or_missing_peer_no_failover",
+  "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
+  "note": "One of two selected passages replaced; two passages may share source origin. Abstention removes a wrong answer without selecting the peer."
+}

@@ -1,0 +1,60 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "train",
+  "cases": 140,
+  "target_clean_rejection": 0.05,
+  "calibrated_token_f1_threshold": 0.08333333333333334,
+  "train_clean_rejected_or_missing": 7,
+  "target_feasible": true,
+  "train_clean_alias_match": 67,
+  "missing_usable_corroboration_score": 6,
+  "missing_peer_document": 6,
+  "threshold_sweep": {
+    "0.0": {
+      "clean_kept": 134,
+      "clean_rejected_or_missing": 6
+    },
+    "0.1": {
+      "clean_kept": 131,
+      "clean_rejected_or_missing": 9
+    },
+    "0.2": {
+      "clean_kept": 102,
+      "clean_rejected_or_missing": 38
+    },
+    "0.3": {
+      "clean_kept": 63,
+      "clean_rejected_or_missing": 77
+    },
+    "0.4": {
+      "clean_kept": 44,
+      "clean_rejected_or_missing": 96
+    },
+    "0.5": {
+      "clean_kept": 34,
+      "clean_rejected_or_missing": 106
+    },
+    "0.6": {
+      "clean_kept": 30,
+      "clean_rejected_or_missing": 110
+    },
+    "0.7": {
+      "clean_kept": 28,
+      "clean_rejected_or_missing": 112
+    },
+    "0.8": {
+      "clean_kept": 26,
+      "clean_rejected_or_missing": 114
+    },
+    "0.9": {
+      "clean_kept": 24,
+      "clean_rejected_or_missing": 116
+    },
+    "1.0": {
+      "clean_kept": 20,
+      "clean_rejected_or_missing": 120
+    }
+  },
+  "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
+  "note": "Token-F1 agreement between full-context selected answer and independent peer-doc answer. Two passages share an MS MARCO query and are not independent origins."
+}

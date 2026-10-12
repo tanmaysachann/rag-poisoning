@@ -76,11 +76,30 @@ saved table and affected query IDs are in
 cannot assume the peer is clean; it is not a serving defense. The v2 test
 split remains untouched.
 
+## Answer-c corroboration abstention probe (2026-10-12)
+
+`generation/answer_corroboration.py` compares the full-context selected
+answer with an independent peer-document answer using symmetric unigram
+token-F1. On disagreement or a missing peer it abstains; it never fails over
+to the peer. `evaluation/calibrate_answer_corroboration_v2.py` calibrated the
+threshold on v2 train only: 0.0833 with 7/140 clean rejected-or-missing, so
+the 5% missing-rate target was formally feasible. `evaluation/evaluate_answer_corroboration_v2.py`
+evaluated that frozen threshold on v2 validation only: clean alias 16/30
+before and after, attack success 2/30 before and after, 29/30 clean and 28/30
+attacked answers kept. A descriptive validation sweep found no acceptable
+tradeoff (0.2: 13 clean / 2 attacks; 0.3: 7 clean / 1 attack; 0.4: 6 clean /
+0 attacks). Leave-one-out influence was true in 27/30 clean and 29/30
+attacked cases, so it does not discriminate here. The gate stays out of
+serving. See `results/answer_corroboration_v2_train_calibration.json` and
+`results/answer_corroboration_v2_validation.json` with case records. v2 test
+remains unevaluated.
+
 ## Next decision
 
 Before v2 test evaluation, define a better answer-level agreement or trusted
 source policy on train/validation and freeze its threshold and success/utility
-metrics. The two tested pairwise signals did not beat the no-gate baseline.
+metrics. The two tested pairwise signals plus this token-F1 corroboration
+probe did not beat the no-gate baseline.
 Until a better rule does, retain that baseline and leave v2 test untouched. A
 broader final test requires genuinely distinct source provenance, more attack
 families, and a larger query sample.

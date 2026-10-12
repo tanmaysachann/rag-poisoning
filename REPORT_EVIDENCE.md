@@ -70,6 +70,7 @@ snapshot.
 | Stealth answer substitution, hashing answerer | 12/75 undefended; 11/75 defended; 4/75 attack documents quarantined | `results/defense_validation_stealth_accepted_ingest.json` and `.cases.jsonl` |
 | Accepted stealth copy budget, hashing answerer | Replacing one labeled support passage with the saved stealth edit gave 11/75 defended wrong answers. Adding one or two identical accepted copies gave 9/75 and 9/75; poisoned passages retrieved across the 75 cases rose from 60 to 119 and 174. The extra copies competed for rank and did not increase attack success in this narrow setup. All copies share one attacker origin, so this does not test independent corroboration or varied poisoning. | `results/poison_budget_stealth_validation.json` and `.cases.jsonl`; `python -m evaluation.evaluate_poison_budget`; `python -m evaluation.verify_poison_budget` |
 | V2 peer-answer failover probe | On the corrected 30-question two-passage validation traces, replacing the selected answer with its paired answer when cosine fell below 0.60 raised clean alias matches from 16 to 20 and removed both original wrong-answer successes, but created two new wrong-answer successes by choosing poisoned peers. A post-hoc 0.50 threshold produced 17 clean aliases and 1 attacker success, but it was selected after inspecting validation. Neither result supports a deployed threshold or independent-origin claim. | `results/v2_peer_failover_validation_probe.json`; `python -m evaluation.probe_v2_peer_failover` |
+| V2 answer-corroboration abstention probe | Train-calibrated token-F1 threshold 0.0833 (7/140 clean rejected-or-missing, 5% target formally feasible). On v2 validation: clean alias 16/30 before and after, attack success 2/30 before and after; sweep 0.2/0.3/0.4 gave 13/2, 7/1, 6/0 clean/attack. LOO influence true in 27/30 clean and 29/30 attacked. Gate abstains on disagreement without peer failover and stays out of serving. | `results/answer_corroboration_v2_train_calibration.json`, `results/answer_corroboration_v2_validation.json` and `.cases.jsonl`; `python -m evaluation.calibrate_answer_corroboration_v2`, `python -m evaluation.evaluate_answer_corroboration_v2` |
 | Greedy transfer to MiniLM + ranker | 31/75 undefended; 0/75 defended; 39/75 clean alias recovery; median case latency ~1.03 s | `results/defense_validation_greedy_accepted_ingest_minilm_ranker.json` and `.cases.jsonl` |
 | Stealth transfer to MiniLM + ranker | 21/75 undefended and defended; 4/75 attack documents quarantined; median case latency ~0.96 s | `results/defense_validation_stealth_accepted_ingest_minilm_ranker.json` and `.cases.jsonl` |
 | Same-template detector | Greedy recall 100%, clean FPR 4% at validation threshold 0.6902 | `results/research_detector_validation.json` |
@@ -159,7 +160,9 @@ where the attacker changed the selected answer. It also remains diagnostic.
 These pair results were recomputed after fixing the evaluator's metadata lookup: the old
 evaluator could mistake an unrelated passage for the paired support. The
 corrected peer matched a labeled support in 29/30 clean and 28/30 attacked
-validation runs.
+validation runs. A token-F1 disagreement-abstain probe with a v2-train-calibrated
+threshold kept clean aliases at 16/30 and attack successes at 2/30, with no
+acceptable sweep tradeoff; it also remains diagnostic.
 The v2 test split remains unevaluated. See
 `V2_BENCHMARK_PROTOCOL.md` for construction, raw files, and limits.
 
