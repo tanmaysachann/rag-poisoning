@@ -14,7 +14,10 @@ and `evaluation/verify_answer_corroboration.py` is wired into
 `scripts/verify_release.py`. 75 unit tests and release verification pass. A
 three-seed undefended PPO comparison (42/43/44, 200 episodes each) ties
 greedy insertion on every seed (197/225 vs 197/225) and beats random edits
-(88/225); see `results/ppo_multiseed_undefended_validation.json`. See
+(88/225); see `results/ppo_multiseed_undefended_validation.json`. Overt
+payload families (instruction/URL/refusal, query-aware, 75 validation queries
+each) score 71/70/72 undefended and 0 defended with 75/75 quarantined; see
+`results/payload_families_validation.json`. See
 `V2_BENCHMARK_PROTOCOL.md` and `REPORT_EVIDENCE.md`.
 
 2026-09-27 checkpoint: the live validation lab now uses `pipeline/research_inference.py`

@@ -24,6 +24,7 @@ from evaluation.verify_contriever_result import verify as verify_contriever_resu
 from evaluation.verify_unseen_templates import verify as verify_unseen_templates
 from evaluation.probe_v2_peer_failover import summarize as summarize_v2_peer_failover
 from evaluation.verify_poison_budget import verify as verify_poison_budget
+from evaluation.verify_payload_families import verify as verify_payload_families
 
 
 def run(*command: str) -> None:
@@ -45,6 +46,7 @@ def main() -> int:
     print(json.dumps(verify_contriever_result(), indent=2), flush=True)
     print(json.dumps(verify_unseen_templates(), indent=2), flush=True)
     print(json.dumps(verify_poison_budget(), indent=2), flush=True)
+    print(json.dumps(verify_payload_families(), indent=2), flush=True)
     peer_probe_path = ROOT / "results/v2_peer_failover_validation_probe.json"
     if json.loads(peer_probe_path.read_text(encoding="utf-8")) != summarize_v2_peer_failover():
         raise ValueError(f"Saved v2 peer-failover probe is stale: {peer_probe_path}")
