@@ -26,7 +26,10 @@ Qwen's 5/20 cited support and 1/20 alias
 (`results/cited_extractive_validation_20.json`); an alias-matcher drift note
 (2/20 frozen booleans) is recorded in `REPORT_EVIDENCE.md`. The exact-span
 two-origin provenance policy was measured infeasible on MS MARCO-style pairs
-(21/140 exact matches best-case); see `V2_BENCHMARK_PROTOCOL.md`. See
+(21/140 exact matches best-case); see `V2_BENCHMARK_PROTOCOL.md`. The console
+research summary and evidence cards now also surface the undefended PPO
+comparison, payload families, corroboration probe, and cited-extractive
+results. See
 `V2_BENCHMARK_PROTOCOL.md` and `REPORT_EVIDENCE.md`.
 
 2026-09-27 checkpoint: the live validation lab now uses `pipeline/research_inference.py`

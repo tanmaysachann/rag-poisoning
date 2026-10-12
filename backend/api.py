@@ -79,6 +79,7 @@ def research_summary() -> dict:
         "ppo": "ppo_validation_evaluation.json",
         "ppo_defender": "ppo_validation_defender_evaluation.json",
         "ppo_multiseed": "ppo_multiseed_validation.json",
+        "ppo_multiseed_undefended": "ppo_multiseed_undefended_validation.json",
         "ppo_detection_ablation": "ppo_detection_reward_ablation_validation.json",
         "ppo_proxy_ablation": "ppo_proxy_value_ablation_validation.json",
         "ppo_cache_ablation": "ppo_cache_ablation_validation.json",
@@ -87,10 +88,14 @@ def research_summary() -> dict:
         "faiss_scale": "faiss_exact_scale_validation.json",
         "unseen_templates": "unseen_templates_validation.json",
         "poison_budget": "poison_budget_stealth_validation.json",
+        "payload_families": "payload_families_validation.json",
         "fixed_baseline": "edit_rollout_validation_greedy_proxy.summary.json",
         "v2_clean": "multisupport_v2_validation.json",
         "v2_paired_gate": "paired_gate_v2_validation_full_context.json",
         "v2_pair_classifier": "pairwise_detector_v2_validation.json",
+        "v2_corroboration": "answer_corroboration_v2_validation.json",
+        "v2_corroboration_train": "answer_corroboration_v2_train_calibration.json",
+        "cited_extractive": "cited_extractive_validation_20.json",
     }
     summaries = {}
     for key, filename in names.items():

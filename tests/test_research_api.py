@@ -37,6 +37,25 @@ class ResearchApiTests(unittest.TestCase):
         self.assertEqual(payload["summaries"]["retrieval_contriever"]["cases"], 75)
         self.assertEqual(payload["summaries"]["unseen_templates"]["styles"]["qa_header"]["cases"], 75)
         self.assertEqual(payload["summaries"]["poison_budget"]["budgets"]["3"]["defended_attack_successes"], 9)
+        undefended = payload["summaries"]["ppo_multiseed_undefended"]
+        self.assertEqual(undefended["total_paired_cases"], 225)
+        self.assertEqual(undefended["ppo_successes"], 197)
+        self.assertEqual(undefended["greedy_insertion_successes"], 197)
+        self.assertEqual(undefended["random_edit_successes"], 88)
+        families = payload["summaries"]["payload_families"]["families"]
+        self.assertEqual(families["instruction_takeover"]["defended_attack_successes"], 0)
+        self.assertEqual(families["instruction_takeover"]["undefended_attack_successes"], 71)
+        self.assertEqual(families["url_insertion"]["undefended_attack_successes"], 70)
+        self.assertEqual(families["refusal_jamming"]["undefended_attack_successes"], 72)
+        corroboration = payload["summaries"]["v2_corroboration"]
+        self.assertEqual(corroboration["cases"], 30)
+        self.assertEqual(corroboration["attack_success_before_gate"], 2)
+        self.assertEqual(corroboration["attack_success_after_gate"], 2)
+        cited = payload["summaries"]["cited_extractive"]
+        self.assertEqual(cited["cases"], 20)
+        self.assertEqual(cited["cited_extractive_valid_citations"], 20)
+        self.assertEqual(cited["cited_extractive_alias_match"], 9)
+        self.assertEqual(cited["same_questions_qwen_alias_match"], 1)
 
     def test_static_asset_route_rejects_path_escape(self):
         with self.assertRaises(HTTPException) as caught:
