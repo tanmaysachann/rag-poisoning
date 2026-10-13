@@ -1,0 +1,16 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "validation",
+  "cases": 30,
+  "train_selected_mode": "content_only",
+  "clean_answer_alias_before_gate": 16,
+  "clean_answer_alias_after_gate": 4,
+  "clean_answer_kept": 6,
+  "attack_retrieved": 28,
+  "attack_success_before_gate": 2,
+  "attack_success_after_gate": 0,
+  "attacked_answer_kept": 3,
+  "gate_policy": "abstain_when_answer_key_absent_from_peer_passage_no_failover",
+  "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
+  "note": "One of two selected passages replaced; two passages may share source origin."
+}

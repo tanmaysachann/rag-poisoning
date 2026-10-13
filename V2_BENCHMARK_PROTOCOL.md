@@ -96,6 +96,25 @@ serving. See `results/answer_corroboration_v2_train_calibration.json` and
 their case rows and is wired into `scripts/verify_release.py`. v2 test
 remains unevaluated.
 
+## Answer-key containment probe (2026-10-13)
+
+`generation/answer_key_corroboration.py` checks the discriminative part the
+similarity gates missed: every content token of the selected answer must occur
+in the peer passage's full text, else abstain (never fail over).
+`evaluation/calibrate_answer_key_corroboration_v2.py` on v2 train only kept
+36/140 clean in content-only mode (104 rejected-or-missing), so the 5%
+budget was infeasible and the gate was disqualified before serving.
+`evaluation/evaluate_answer_key_corroboration_v2.py` on v2 validation only
+confirms the operating point is wrong, not the signal: both attacks were
+caught (2/30 → 0/30) but clean alias matches fell 16/30 → 4/30 with only 6/30
+clean answers kept. Unlike token-F1 (which kept everything and caught
+nothing), key containment discriminates — but same-row MS MARCO passages do
+not share enough vocabulary for clean utility. The gate stays out of serving.
+See `results/answer_key_corroboration_v2_train_calibration.json` and
+`results/answer_key_corroboration_v2_validation.json` with case records.
+`evaluation/verify_answer_key_corroboration.py` recomputes both summaries and
+is wired into `scripts/verify_release.py`. v2 test remains unevaluated.
+
 ## Exact-span two-origin feasibility note (2026-10-12)
 
 On the 140 v2 train oracle pairs (same-row, both answer-bearing: the best

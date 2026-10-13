@@ -1,0 +1,26 @@
+{
+  "benchmark": "two-support-msmarco-v2",
+  "split": "train",
+  "cases": 140,
+  "target_clean_rejection": 0.05,
+  "target_budget": 7,
+  "modes": {
+    "strict": {
+      "clean_kept": 35,
+      "clean_rejected_or_missing": 105,
+      "clean_alias_retained": 16
+    },
+    "content_only": {
+      "clean_kept": 36,
+      "clean_rejected_or_missing": 104,
+      "clean_alias_retained": 16
+    }
+  },
+  "selected_mode": "content_only",
+  "selected_content_only": true,
+  "target_feasible": false,
+  "train_clean_alias_match": 67,
+  "missing_peer_document": 6,
+  "peer_group_contract": "non-null source_query_id equality for retrieved IDs via corpus metadata",
+  "note": "Answer-key containment in the full peer passage text, not sentence similarity. Two passages share an MS MARCO query and are not independent origins."
+}
