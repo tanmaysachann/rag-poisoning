@@ -29,7 +29,9 @@ two-origin provenance policy was measured infeasible on MS MARCO-style pairs
 (21/140 exact matches best-case); see `V2_BENCHMARK_PROTOCOL.md`. An
 answer-key containment probe catches both v2 validation attacks (2/30 → 0/30)
 but keeps only 6/30 clean answers (4/30 aliases), so it also stays out of
-serving; see `results/answer_key_corroboration_v2_validation.json`. The console
+serving; see `results/answer_key_corroboration_v2_validation.json`. A Qwen
+token-likelihood probe gives the best stealth content signal yet (AUC 0.763)
+but only 17.3% recall at 5% FPR; see `results/perplexity_validation.json`. The console
 research summary and evidence cards now also surface the undefended PPO
 comparison, payload families, corroboration probe, and cited-extractive
 results. See

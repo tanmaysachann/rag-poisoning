@@ -1,0 +1,16 @@
+{
+  "benchmark": "msmarco-v1.1-frozen",
+  "split": "validation",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct (local CPU, mean token NLL)",
+  "train_clean_cases": 100,
+  "target_fpr": 0.05,
+  "nll_threshold": 3.774808883666992,
+  "clean_fpr": 0.05333333333333334,
+  "attack_recall": 0.17333333333333334,
+  "roc_auc": 0.7628444444444444,
+  "pr_auc": 0.7202642765975982,
+  "mean_clean_nll": 2.6423740641276043,
+  "mean_attacked_nll": 3.2264604918162028,
+  "direction": "flag high NLL (low model likelihood) as suspicious",
+  "note": "Wrong answers drawn from other queries\u2019 pools raise mean NLL (3.23 vs 2.64 clean) with AUC 0.76, but recall at 5% FPR is only 17.3% at full Qwen-inference cost per document. Diagnostic only, not a serving gate."
+}
