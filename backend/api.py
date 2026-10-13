@@ -95,7 +95,10 @@ def research_summary() -> dict:
         "v2_pair_classifier": "pairwise_detector_v2_validation.json",
         "v2_corroboration": "answer_corroboration_v2_validation.json",
         "v2_corroboration_train": "answer_corroboration_v2_train_calibration.json",
+        "v2_answer_key": "answer_key_corroboration_v2_validation.json",
+        "v2_answer_key_train": "answer_key_corroboration_v2_train_calibration.json",
         "cited_extractive": "cited_extractive_validation_20.json",
+        "perplexity": "perplexity_validation.json",
     }
     summaries = {}
     for key, filename in names.items():

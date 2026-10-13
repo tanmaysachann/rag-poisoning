@@ -56,6 +56,18 @@ class ResearchApiTests(unittest.TestCase):
         self.assertEqual(cited["cited_extractive_valid_citations"], 20)
         self.assertEqual(cited["cited_extractive_alias_match"], 9)
         self.assertEqual(cited["same_questions_qwen_alias_match"], 1)
+        answer_key = payload["summaries"]["v2_answer_key"]
+        self.assertEqual(answer_key["cases"], 30)
+        self.assertEqual(answer_key["attack_success_before_gate"], 2)
+        self.assertEqual(answer_key["attack_success_after_gate"], 0)
+        self.assertEqual(answer_key["clean_answer_alias_before_gate"], 16)
+        self.assertEqual(answer_key["clean_answer_alias_after_gate"], 4)
+        self.assertEqual(answer_key["clean_answer_kept"], 6)
+        perplexity = payload["summaries"]["perplexity"]
+        self.assertEqual(perplexity["train_clean_cases"], 100)
+        self.assertAlmostEqual(perplexity["clean_fpr"], 4 / 75)
+        self.assertAlmostEqual(perplexity["attack_recall"], 13 / 75)
+        self.assertAlmostEqual(perplexity["roc_auc"], 0.7628444444444444)
 
     def test_static_asset_route_rejects_path_escape(self):
         with self.assertRaises(HTTPException) as caught:
