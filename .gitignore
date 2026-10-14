@@ -17,3 +17,21 @@ artifacts/models/
 artifacts/vendor/
 
 .vercel
+
+# Local-only process/development docs (kept locally, not tracked on GitHub).
+DEMO_SCRIPT.md
+IMPLEMENTATION_PLAN.md
+LITERATURE_AUDIT.md
+NEXT_SESSION.md
+PHASE1_RESULTS.md
+Phase1.md
+PRESENTATION_REFERENCES_READY.md
+PROJECT_MEMORY.md
+SLIDE_CORRECTIONS.md
+Presentation.pdf
+Paper.pdf
+Research Paper.pdf
+REVISED_MANUSCRIPT_ICIIPC2026.md
+WEBSITE_TEACHER_PRESENTATION_GUIDE_LOCAL.md
+template/
+compiled.pdf

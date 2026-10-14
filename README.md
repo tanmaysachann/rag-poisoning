@@ -1,18 +1,15 @@
 # Sentinel RAG
 
-Sentinel RAG is a controlled, CPU-first research product for studying poisoned retrieval context. It includes a five-case demo, a live validation attack workbench, frozen benchmark evidence, and an offline PPO attack harness. See `PROJECT_MEMORY.md` for implementation status and `IMPLEMENTATION_PLAN.md` for the original build plan and remaining research goals.
+Sentinel RAG is a controlled, CPU-first research product for studying poisoned retrieval context. It includes a five-case demo, a live validation attack workbench, frozen benchmark evidence, and an offline PPO attack harness.
 In this repository, **v1** means the first frozen 75-question test setup
 (MiniLM retrieval, sentence ranker, hashing detector), not the version of the
 live website. **v2** is a separate two-passage research benchmark whose test
 split remains unevaluated. The hosted workbench uses hashing retrieval on v1
 validation questions; its live outputs are separate from the frozen v1 test.
-The ordered work for the next session is saved in `NEXT_SESSION.md`.
 `V2_BENCHMARK_PROTOCOL.md` documents the disjoint two-passage development
 benchmark and why its first consistency gate was not adopted.
 
-`REPORT_EVIDENCE.md` maps measured claims to raw results and names the slide commitments that still need evidence. `SLIDE_CORRECTIONS.md` maps every slide group to its keep/correct/remove verdict with evidence pointers. `LITERATURE_AUDIT.md` explains citation corrections, `PRESENTATION_REFERENCES_READY.md` provides 24 replacement entries, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
-`DEMO_SCRIPT.md` gives a seven-minute walkthrough of the live console and
-separate research evidence.
+`REPORT_EVIDENCE.md` maps measured claims to raw results, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
 
 Verify the frozen 75-question test snapshot with `python -m evaluation.verify_test_v1`.
 Its hashes and exact case counts are recorded in `TEST_EVIDENCE_V1.json`.

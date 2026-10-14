@@ -1,10 +1,10 @@
 # Sentinel RAG research evidence (frozen test v1 checkpoint)
 
-This evidence map supports the 38-slide `Presentation.pdf`. It includes a
+This evidence map records a
 first frozen 75-question held-out test run for the MiniLM/ranker/hashed-detector
 pipeline, plus separate validation-stage development results. The five-case
 Review-1 demo, MS MARCO/NQ-Open benchmark, and PPO attack experiment are
-separate profiles. The source audit is in `LITERATURE_AUDIT.md`.
+separate profiles.
 
 ## Dataset and experimental boundary
 

@@ -85,7 +85,5 @@ python scripts/verify_release.py --skip-smoke           # artifacts, sealed v1, 
 python scripts/smoke_rebuild.py                         # isolated offline demo rebuild
 ```
 
-GPU training was never used; the slide's Llama-3-8B NF4 profile has not run.
-Qwen2.5-0.5B runs on CPU float weights (see weight SHA-256 above) and stays
-outside serving. `SLIDE_CORRECTIONS.md` maps every slide claim to its measured
-artifact and required correction.
+GPU training was never used. Qwen2.5-0.5B runs on CPU float weights (see weight SHA-256 above) and stays
+outside serving.
