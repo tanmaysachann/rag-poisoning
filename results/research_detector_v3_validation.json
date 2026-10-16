@@ -1,0 +1,33 @@
+{
+  "evaluation": "validation only; test split untouched",
+  "embedding_backend": "sklearn-hashing-384",
+  "reference_clean": 400,
+  "classifier_clean": 300,
+  "classifier_attack": 600,
+  "train_attack_files": [
+    "results\\v3_attack_train_random.jsonl",
+    "results\\v3_attack_train_stealth.jsonl"
+  ],
+  "validation_attack_file": "results\\v3_attack_validation_greedy.jsonl",
+  "validation_clean": 150,
+  "validation_attack": 150,
+  "target_fpr": 0.05,
+  "threshold": 0.6513894414344262,
+  "observed_validation_fpr": 0.04666666666666667,
+  "validation_recall": 0.9933333333333333,
+  "validation_precision": 0.9551282051282052,
+  "validation_f1": 0.9738562091503268,
+  "validation_roc_auc": 0.9983111111111111,
+  "validation_pr_auc": 0.9983217112455519,
+  "feature_names": [
+    "mahalanobis",
+    "isolation_forest",
+    "relevance_spike",
+    "instruction_pattern",
+    "url_pattern",
+    "authority_cue",
+    "query_doc_cosine",
+    "query_copy_ratio"
+  ],
+  "note": "Validation-only local attack families; evaluate unseen attack families before claiming generalization."
+}

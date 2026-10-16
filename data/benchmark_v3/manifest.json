@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "nq_alias_present": 10,
+    "nq_challenge": 100,
+    "test": 150,
+    "train": 700,
+    "validation": 150
+  },
+  "file_sha256": {
+    "nq_challenge.jsonl": "e6566095b5250f7624c442f1512102caeea90e77407cc907dba9558d44e47be8",
+    "test/corpus.jsonl": "602bda1c4d207bded6a98347ca5991363ec5af3d4e161206df240d7febe1a951",
+    "test/queries.jsonl": "59b6634a6dad7923532e61c87b9ee3056440403d5f184b715417d3be5672b4de",
+    "train/corpus.jsonl": "5202388ad05c50dd1b734029b57552bec877482c1a17dd15d508765c135777e6",
+    "train/queries.jsonl": "f4543a70e2e40dbddbd3705d6f292c75cf0a29bd231e317de7cbd0057dea8d0b",
+    "validation/corpus.jsonl": "6dbf1f15fa2c405a3ababeef8effb888122f3468619344830353628a7d8d0f5d",
+    "validation/queries.jsonl": "e81e920d837328ce780edf6325284c912ccbb9a19602e752f65c2545339f6fdb"
+  },
+  "msmarco_rows_scanned": 2231,
+  "schema_version": 1,
+  "seed": 1042,
+  "selection": "v3 disjoint single-passage, excludes v1+v2 source ids/passages/questions",
+  "sources": {
+    "ms_marco": {
+      "config": "v1.1",
+      "dataset": "microsoft/ms_marco",
+      "revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a",
+      "split": "train"
+    },
+    "nq_open": {
+      "dataset": "google-research-datasets/nq_open",
+      "revision": "5dd9790a83002ad084ddeb7c420dc716852c6f28",
+      "split": "train"
+    }
+  }
+}
