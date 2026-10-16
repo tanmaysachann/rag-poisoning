@@ -30,6 +30,8 @@ def main() -> None:
     parser.add_argument("--sentence-ranker", action="store_true", help="Use the train-only learned sentence selector")
     parser.add_argument("--strict", action="store_true", help="Use support-removed calibrated abstention threshold")
     parser.add_argument("--remove-support", action="store_true", help="Evaluate abstention after withholding labeled support passages")
+    parser.add_argument("--ranker-path", type=Path, default=None)
+    parser.add_argument("--label-suffix", type=str, default="")
     args = parser.parse_args()
     validate_benchmark(args.benchmark)
     os.environ["RAG_USE_MINILM"] = "1" if args.minilm else "0"
@@ -44,7 +46,7 @@ def main() -> None:
         raise RuntimeError("MiniLM was requested but could not be loaded")
     ranker = None
     if args.sentence_ranker:
-        artifact = ARTIFACTS_DIR / f"sentence_ranker_{'minilm' if args.minilm else 'hashing'}{'_strict' if args.strict else ''}.joblib"
+        artifact = args.ranker_path or ARTIFACTS_DIR / f"sentence_ranker_{'minilm' if args.minilm else 'hashing'}{'_strict' if args.strict else ''}.joblib"
         ranker = joblib.load(artifact)
         if not isinstance(ranker, SentenceRanker):
             raise ValueError("Wrong sentence-ranker artifact type")
@@ -94,7 +96,7 @@ def main() -> None:
         ),
     }
     RESULTS_DIR.mkdir(exist_ok=True)
-    label = f"clean_answers_{args.split}{'_minilm' if args.minilm else ''}{'_top1' if args.top_doc_only else ''}{'_ranker' if ranker else ''}{'_strict' if args.strict else ''}{'_no_support' if args.remove_support else ''}"
+    label = f"clean_answers_{args.split}{'_minilm' if args.minilm else ''}{'_top1' if args.top_doc_only else ''}{'_ranker' if ranker else ''}{'_strict' if args.strict else ''}{'_no_support' if args.remove_support else ''}{args.label_suffix}"
     (RESULTS_DIR / f"{label}.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
     with (RESULTS_DIR / f"{label}.cases.jsonl").open("w", encoding="utf-8", newline="\n") as handle:
         for row in cases:

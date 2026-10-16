@@ -149,6 +149,30 @@
     } catch (error) { el('lab-test-status').textContent = error.message; }
   }
 
+  async function loadV3() {
+    try {
+      const data = await jsonRequest('/api/research-summary');
+      const s = data.summaries;
+      if (s.v3_defense_greedy) {
+        el('lab-greedy-v3-result').textContent = `${count(s.v3_defense_greedy.undefended_attack_success_rate, 150)} → ${count(s.v3_defense_greedy.defended_attack_success_rate, 150)}`;
+        el('lab-greedy-v3-bars').innerHTML = barRow('BEFORE', s.v3_defense_greedy.undefended_attack_success_rate) + barRow('AFTER', s.v3_defense_greedy.defended_attack_success_rate, true);
+      }
+      if (s.v3_defense_stealth) {
+        el('lab-stealth-v3-result').textContent = `${count(s.v3_defense_stealth.undefended_attack_success_rate, 150)} → ${count(s.v3_defense_stealth.defended_attack_success_rate, 150)}`;
+        el('lab-stealth-v3-bars').innerHTML = barRow('BEFORE', s.v3_defense_stealth.undefended_attack_success_rate) + barRow('AFTER', s.v3_defense_stealth.defended_attack_success_rate, true);
+      }
+      if (s.v3_retrieval) {
+        const r = s.v3_retrieval.splits.validation;
+        el('lab-retrieval-v3-result').textContent = `${count(r.recall_at_1, 150)} → ${count(r.recall_at_5, 150)}`;
+        el('lab-retrieval-v3-bars').innerHTML = barRow('R@1', r.recall_at_1) + barRow('R@5', r.recall_at_5, true);
+      }
+      if (s.v3_clean_minilm) {
+        el('lab-clean-v3-result').textContent = count(s.v3_clean_minilm.alias_match_accuracy, 150);
+        el('lab-clean-v3-bars').innerHTML = barRow('MATCH', s.v3_clean_minilm.alias_match_accuracy, true);
+      }
+    } catch (error) { /* v3 cards keep placeholders when summaries are unavailable */ }
+  }
+
   function plotPpo(plain, defended) {
     const x = index => 47 + index * 69;
     const y = value => 192 - Math.max(0, Math.min(1, Number(value || 0))) * 159;
@@ -217,5 +241,5 @@
   el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
-  loadCases(); loadTest(); loadPpo();
+  loadCases(); loadTest(); loadPpo(); loadV3();
 })();

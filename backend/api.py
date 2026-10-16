@@ -99,6 +99,14 @@ def research_summary() -> dict:
         "v2_answer_key_train": "answer_key_corroboration_v2_train_calibration.json",
         "cited_extractive": "cited_extractive_validation_20.json",
         "perplexity": "perplexity_validation.json",
+        "v3_retrieval": "v3_benchmark_retrieval.json",
+        "v3_detector_greedy": "research_detector_v3_validation.json",
+        "v3_detector_stealth": "research_detector_v3_validation_stealth.json",
+        "v3_defense_greedy": "v3_defense_validation_greedy_accepted_ingest.json",
+        "v3_defense_stealth": "v3_defense_validation_stealth_accepted_ingest.json",
+        "v3_defense_greedy_minilm": "v3_defense_validation_greedy_accepted_ingest_minilm_ranker.json",
+        "v3_defense_stealth_minilm": "v3_defense_validation_stealth_accepted_ingest_minilm_ranker.json",
+        "v3_clean_minilm": "clean_answers_validation_minilm_ranker_strict_v3.json",
     }
     summaries = {}
     for key, filename in names.items():
