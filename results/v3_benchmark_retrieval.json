@@ -1,0 +1,25 @@
+{
+  "benchmark": "data/benchmark_v3",
+  "splits": {
+    "validation": {
+      "documents": 150,
+      "queries": 150,
+      "embedding_backend": "sklearn-hashing-384",
+      "recall_at_1": 0.5866666666666667,
+      "recall_at_5": 0.8066666666666666,
+      "mean_query_ms": 1.5882406666848208,
+      "corpus_sha256": "6dbf1f15fa2c405a3ababeef8effb888122f3468619344830353628a7d8d0f5d",
+      "integrity_manifest": "artifacts/indexes/bf0cec2456fed665/corpus_hashes.json"
+    },
+    "train": {
+      "documents": 700,
+      "queries": 700,
+      "embedding_backend": "sklearn-hashing-384",
+      "recall_at_1": 0.5528571428571428,
+      "recall_at_5": 0.7357142857142858,
+      "mean_query_ms": 3.3579091428743726,
+      "corpus_sha256": "5202388ad05c50dd1b734029b57552bec877482c1a17dd15d508765c135777e6",
+      "integrity_manifest": "artifacts/indexes/ad0c8c38d7d701a6/corpus_hashes.json"
+    }
+  }
+}

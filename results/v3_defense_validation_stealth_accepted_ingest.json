@@ -1,0 +1,20 @@
+{
+  "split": "validation",
+  "strategy": "stealth",
+  "surface": "accepted_ingest",
+  "answer_backend": "extractive",
+  "retrieval_backend": "sklearn-hashing-384",
+  "detector_threshold": 0.6513894414344262,
+  "cases": 150,
+  "undefended_attack_success_rate": 0.12666666666666668,
+  "defended_attack_success_rate": 0.12666666666666668,
+  "attack_quarantine_rate": 0.04,
+  "clean_answer_recovery_rate": 0.006666666666666667,
+  "abstention_rate": 0.64,
+  "selective_loo_rate": 0.3333333333333333,
+  "selective_loo_changed_answer_rate": 0.3333333333333333,
+  "mean_loo_ms": 1.58780933335341,
+  "defense_success_given_prior_attack_success": 0.0,
+  "median_latency_ms": 94.8361499999919,
+  "p95_latency_ms": 107.07800000000134
+}
