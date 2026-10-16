@@ -87,3 +87,22 @@ python scripts/smoke_rebuild.py                         # isolated offline demo 
 
 GPU training was never used. Qwen2.5-0.5B runs on CPU float weights (see weight SHA-256 above) and stays
 outside serving.
+
+## Addendum (2026-10-16): CUDA enablement on RTX 3050 Laptop 4GB
+
+The same Windows host now runs `torch 2.7.0+cu126` (driver 592.82, `cuda.is_available() == True`)
+after `pip install --force-reinstall --no-deps torch==2.7.0 --index-url https://download.pytorch.org/whl/cu126`.
+No repo code changed: `SentenceTransformer()` and `generation/local_llm.py:107` select CUDA automatically.
+Sealed v1 inputs are untouched (`python -m evaluation.verify_test_v1` still verified) and the full suite
+passes (94 passed, 21 subtests). One machine-level workaround was required: `torch cu126` + `pyarrow 24`
+collide at import on Windows (access violation in `pyarrow/dataset.py` via the `sentence_transformers`
+import chain), so `rag_poisoning_preload.pth` (`import pyarrow.dataset`) was placed in site-packages to
+preload pyarrow before torch; documented here so a fresh machine reproduces it.
+
+Measured on the RTX 3050 (speed checks only, not evidence runs):
+
+- MiniLM-L6-v2 encode: steady batch-32 in 7.7 ms at ~100 MB VRAM (CPU reference: ~11 ms per query).
+- Qwen2.5-0.5B-Instruct (unpinned HF HEAD fetched 2026-10-16, fp32): loads to `cuda:0` in one step,
+  ~2.0 GB VRAM, 48-token greedy generation in ~1.7 s. MiniLM + 0.5B co-resident fits the 4 GB budget.
+- Llama-3-8B NF4 (~6 GB) does not fit this 4 GB card; the 8B GPU profile remains a Kaggle one-shot,
+  and the live path stays hashing/extractive with MiniLM/Qwen as offline-measured backends.
