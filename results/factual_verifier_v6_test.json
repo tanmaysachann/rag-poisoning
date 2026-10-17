@@ -1,0 +1,103 @@
+{
+  "task": "trusted-evidence claim verification; not RAG poison detection",
+  "test_data_sha256": "becfbe794334638126c9c07f150022d7c8953cf62fe9d0d189e650a768c5d163",
+  "training_report_sha256": "6fd48fecc58f7991ad950f5038873fde5cf1095774be0bc67d44711c15fb044b",
+  "model_weight_sha256": "d686901fef439dcc8a8c7342818d1c7d58910277d61672e471a188692d8a285a",
+  "cases": 7000,
+  "distinct_test_pages": 2189,
+  "device": "cuda",
+  "macro_f1": 0.5706837863187127,
+  "confusion_matrix_labels": [
+    "SUPPORTS",
+    "REFUTES",
+    "NOT ENOUGH INFO"
+  ],
+  "confusion_matrix": [
+    [
+      3363,
+      1472,
+      165
+    ],
+    [
+      284,
+      622,
+      94
+    ],
+    [
+      280,
+      204,
+      516
+    ]
+  ],
+  "threshold_source": "calibration only",
+  "quarantine_threshold": 0.7824279665946962,
+  "by_label": {
+    "SUPPORTS": {
+      "classification_accuracy": {
+        "count": 3363,
+        "total": 5000,
+        "rate": 0.6726,
+        "wilson_95": {
+          "lower": 0.6594647018851546,
+          "upper": 0.6854702874034116
+        }
+      },
+      "quarantine_rate": {
+        "count": 3,
+        "total": 5000,
+        "rate": 0.0006,
+        "wilson_95": {
+          "lower": 0.00020407465419434642,
+          "upper": 0.001762706048528709
+        }
+      }
+    },
+    "REFUTES": {
+      "classification_accuracy": {
+        "count": 622,
+        "total": 1000,
+        "rate": 0.622,
+        "wilson_95": {
+          "lower": 0.5915339669665516,
+          "upper": 0.651532303962973
+        }
+      },
+      "quarantine_rate": {
+        "count": 50,
+        "total": 1000,
+        "rate": 0.05,
+        "wilson_95": {
+          "lower": 0.03813026239274882,
+          "upper": 0.06531382024425081
+        }
+      }
+    },
+    "NOT ENOUGH INFO": {
+      "classification_accuracy": {
+        "count": 516,
+        "total": 1000,
+        "rate": 0.516,
+        "wilson_95": {
+          "lower": 0.48502415202019794,
+          "upper": 0.5468533917082643
+        }
+      },
+      "quarantine_rate": {
+        "count": 10,
+        "total": 1000,
+        "rate": 0.01,
+        "wilson_95": {
+          "lower": 0.005440754445529249,
+          "upper": 0.018309468870314774
+        }
+      }
+    }
+  },
+  "elapsed_seconds": 7.76,
+  "mean_scoring_ms_per_pair": 1.108,
+  "limitations": [
+    "VitaminC labels factual relation to supplied evidence, not attacker intent.",
+    "Trusted evidence is supplied directly; live retrieval of such evidence is not evaluated.",
+    "This is one source family with Wikipedia revision language, not unseen RAG attack families."
+  ]
+}

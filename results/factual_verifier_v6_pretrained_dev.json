@@ -1,0 +1,28 @@
+{
+  "model": "tals/albert-base-vitaminc",
+  "task": "development-only trusted-evidence factual verification",
+  "model_weight_sha256": "6aa6aafccbc60506edd0917f01f722ae1d307f1f75cc65ba7a629445c99c9ffb",
+  "validation_calibration_threshold": 0.9989545345306398,
+  "threshold_fpr_target_per_non_refuted_class": 0.01,
+  "calibration_rates": {
+    "SUPPORTS": {
+      "count": 13,
+      "total": 5000,
+      "rate": 0.0026
+    },
+    "REFUTES": {
+      "count": 380,
+      "total": 1000,
+      "rate": 0.38
+    },
+    "NOT ENOUGH INFO": {
+      "count": 10,
+      "total": 1000,
+      "rate": 0.01
+    }
+  },
+  "validation_accuracy": 0.8123636363636364,
+  "calibration_accuracy": 0.8828571428571429,
+  "elapsed_seconds": 105.48,
+  "limitation": "Same dataset family used in this published model's training; not an independent RAG-poison evaluation."
+}

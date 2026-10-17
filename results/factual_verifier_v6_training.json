@@ -1,0 +1,39 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "task": "trusted-evidence claim verification",
+  "data_manifest_sha256": "d397aaf31a7814f38c82a26560481692c97b85648d07d365aafa4b36534d2b99",
+  "model_directory": "artifacts/factual_verifier_v6",
+  "device": "cuda",
+  "seed": 20261017,
+  "epochs": 2,
+  "batch_size": 8,
+  "max_length": 256,
+  "train_examples": 30000,
+  "validation_examples": 5500,
+  "calibration_examples": 7000,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8949789388020833,
+      "validation_macro_f1": 0.5603992450021877
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7535759195963542,
+      "validation_macro_f1": 0.5869416722146662
+    }
+  ],
+  "selected_validation_macro_f1": 0.5869416722146662,
+  "quarantine_score": "P(REFUTES | claim, trusted evidence)",
+  "target_fpr_each_non_refuted_class": 0.01,
+  "calibration_thresholds": {
+    "SUPPORTS": 0.6409040093421937,
+    "NOT ENOUGH INFO": 0.7824279665946962
+  },
+  "quarantine_threshold": 0.7824279665946962,
+  "calibration_refutes_recall": 0.043,
+  "calibration_supports_false_quarantine": 0.0008,
+  "calibration_unsupported_false_quarantine": 0.01,
+  "elapsed_seconds": 290.82,
+  "limitation": "Contradiction is not proof of malicious origin; runtime requires independent trusted evidence."
+}

@@ -9,6 +9,15 @@ detector on v3 validation questions; the three-family v3 test report evaluates
 that same detector, threshold, and extractive answer path.
 `V2_BENCHMARK_PROTOCOL.md` documents the disjoint two-passage development
 benchmark and why its first consistency gate was not adopted.
+`FACTUAL_VERIFIER_V6.md` reports the offline 30,000-example reference-aware
+training experiment and its failed strict-quarantine gate; it is not live.
+`EXTERNAL_RAG_V7.md` reports an independent 921-question RAG poisoning replay.
+The tested factual verifiers and existing detector miss most retrieved attacks;
+none passed the adoption gate, so this experiment is not live.
+`TRUSTED_REFERENCE_V8.md` evaluates a reference-only answer path on the same
+archive. It reduces attacker-target answers when a benchmark-judged reference
+is supplied, but the live system cannot yet select such a source without that
+oracle, and the reader still abstains or errs too often for deployment.
 
 `REPORT_EVIDENCE.md` maps measured claims to raw results, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
 

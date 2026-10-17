@@ -1,0 +1,25 @@
+{
+  "split": "calibration",
+  "source": "benchmark qrel reference proxy",
+  "source_manifest_sha256": "63329e8fb7b7e06011ae06fc4e745d0ab2957284a5ef37ef8ac4032fd8607a91",
+  "model": "deepset/tinyroberta-squad2",
+  "model_weight_sha256": "39955cbf5f636762a2ef642b718c8c6e172d153c94a13de40b37efd00822cd80",
+  "min_reader_score": 0.44327613711357117,
+  "metrics": {
+    "questions": 234,
+    "correct_match": 68,
+    "wrong_emitted": 14,
+    "target_match": 6,
+    "abstained": 152,
+    "correct_match_rate": 0.2905982905982906,
+    "wrong_emitted_rate": 0.05982905982905983,
+    "abstention_rate": 0.6495726495726496
+  },
+  "reference_present_in_logged_top10": {
+    "clean": 234,
+    "naive": 232,
+    "corruptrag_ak": 223
+  },
+  "elapsed_seconds": 2.17,
+  "limitation": "Answer strings are used only for scoring; qrel reference is not a live source attestation."
+}

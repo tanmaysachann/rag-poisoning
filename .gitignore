@@ -16,6 +16,9 @@ tmp/
 artifacts/models/
 artifacts/vendor/
 artifacts/detector_pilot_v4/
+artifacts/factual_verifier_v6/
+data/factual_verifier_v6/
+data/external_rag_v7/
 
 .vercel
 

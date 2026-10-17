@@ -1,0 +1,64 @@
+{
+  "scope": "secondary extractive answer replay, frozen v3 content detector",
+  "source_manifest_sha256": "63329e8fb7b7e06011ae06fc4e745d0ab2957284a5ef37ef8ac4032fd8607a91",
+  "threshold": 0.6513894414344262,
+  "questions": 687,
+  "answer_match": "normalized exact substring; aliases and paraphrases can be missed",
+  "families": {
+    "clean": {
+      "before": {
+        "correct_match": 61,
+        "target_match": 0,
+        "no_evidence": 517,
+        "questions": 687,
+        "correct_match_rate": 0.08879184861717612,
+        "target_match_rate": 0.0
+      },
+      "after": {
+        "correct_match": 59,
+        "target_match": 0,
+        "no_evidence": 521,
+        "questions": 687,
+        "correct_match_rate": 0.0858806404657933,
+        "target_match_rate": 0.0
+      }
+    },
+    "naive": {
+      "before": {
+        "correct_match": 54,
+        "target_match": 49,
+        "no_evidence": 462,
+        "questions": 687,
+        "correct_match_rate": 0.07860262008733625,
+        "target_match_rate": 0.07132459970887918
+      },
+      "after": {
+        "correct_match": 54,
+        "target_match": 38,
+        "no_evidence": 474,
+        "questions": 687,
+        "correct_match_rate": 0.07860262008733625,
+        "target_match_rate": 0.055312954876273655
+      }
+    },
+    "corruptrag_ak": {
+      "before": {
+        "correct_match": 194,
+        "target_match": 57,
+        "no_evidence": 365,
+        "questions": 687,
+        "correct_match_rate": 0.2823871906841339,
+        "target_match_rate": 0.08296943231441048
+      },
+      "after": {
+        "correct_match": 177,
+        "target_match": 54,
+        "no_evidence": 378,
+        "questions": 687,
+        "correct_match_rate": 0.2576419213973799,
+        "target_match_rate": 0.07860262008733625
+      }
+    }
+  },
+  "elapsed_seconds": 27.22
+}

@@ -1,0 +1,28 @@
+{
+  "split": "test",
+  "source": "benchmark qrel reference proxy",
+  "source_manifest_sha256": "63329e8fb7b7e06011ae06fc4e745d0ab2957284a5ef37ef8ac4032fd8607a91",
+  "model": "nlpconnect/roberta-base-squad2-nq",
+  "model_weight_sha256": "b2f61c7b1710fcc6826fc0cc12dca8c59c0fbdadd82c05bb6ebff2028583fcf6",
+  "min_reader_score": 0.24418172240257263,
+  "metrics": {
+    "questions": 687,
+    "correct_match": 257,
+    "wrong_emitted": 79,
+    "target_match": 8,
+    "abstained": 351,
+    "token_f1_sum": 249.3430067999577,
+    "token_f1_at_least_half": 261,
+    "correct_match_rate": 0.37409024745269287,
+    "wrong_emitted_rate": 0.11499272197962154,
+    "abstention_rate": 0.5109170305676856,
+    "mean_token_f1_all_questions": 0.36294469694316983
+  },
+  "reference_present_in_logged_top10": {
+    "clean": 687,
+    "naive": 670,
+    "corruptrag_ak": 640
+  },
+  "elapsed_seconds": 9.54,
+  "limitation": "Answer strings are used only for scoring; qrel reference is not a live source attestation."
+}
