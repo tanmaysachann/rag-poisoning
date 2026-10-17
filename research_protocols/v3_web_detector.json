@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "source_artifact": "artifacts/research_detector_v3_hashing.joblib",
+  "source_sha256": "632f07f0a729dfa2665a2fcebb756b0418c5d0ed8efe913b633892edba8a17d0",
+  "serving_artifact": "artifacts/research_detector_v3_hashing_web.joblib",
+  "serving_sha256": "fd93e4548d056aa4e5382ec3e79fe88d5dd50d164a662b356a4671167cd61df9",
+  "embedding_backend": "sklearn-hashing-384",
+  "threshold": 0.6513894414344262,
+  "validation_score_parity_cases": 300,
+  "validation_score_parity_atol": 1e-06
+}

@@ -54,9 +54,19 @@ def _inputs() -> tuple[dict, dict, dict, dict]:
 
 @lru_cache(maxsize=1)
 def _detector() -> ResearchDetector:
-    detector = joblib.load(ROOT / "artifacts" / "research_detector_v3_hashing.joblib")
+    source_path = ROOT / "artifacts" / "research_detector_v3_hashing.joblib"
+    serving_path = ROOT / "artifacts" / "research_detector_v3_hashing_web.joblib"
+    manifest_path = ROOT / "research_protocols" / "v3_web_detector.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if hashlib.sha256(source_path.read_bytes()).hexdigest() != manifest["source_sha256"]:
+        raise ValueError("The portable detector does not match the frozen v3 source artifact")
+    if hashlib.sha256(serving_path.read_bytes()).hexdigest() != manifest["serving_sha256"]:
+        raise ValueError("The portable v3 detector artifact failed its hash check")
+    detector = joblib.load(serving_path)
     if not isinstance(detector, ResearchDetector) or detector.embedding_model != "sklearn-hashing-384":
         raise ValueError("The packaged research detector has the wrong type or backend")
+    if detector.threshold != manifest["threshold"]:
+        raise ValueError("The portable v3 detector threshold does not match its manifest")
     return detector
 
 
@@ -182,7 +192,7 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "detector_threshold": detector.threshold,
         "latency_ms": round((time.perf_counter() - started) * 1000, 1),
         "benchmark": "v3",
-        "detector_artifact": "research_detector_v3_hashing.joblib",
+        "detector_artifact": "research_detector_v3_hashing_web.joblib",
         "note": "This live validation run uses the frozen v3 hashing detector and deterministic extractor also evaluated by evaluation/evaluate_v3_generalization.py. All altered passages share one attacker origin even when their text differs. The test report is frozen; this editor only runs validation cases.",
     }
 
