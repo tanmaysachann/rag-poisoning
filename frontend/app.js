@@ -7,7 +7,90 @@ let researchCases = [];
 document.querySelectorAll('.nav-btn').forEach(button => button.addEventListener('click', () => {
   document.querySelectorAll('.nav-btn').forEach(item => item.classList.toggle('active', item === button));
   document.querySelectorAll('.view').forEach(view => view.classList.toggle('active', view.id === `view-${button.dataset.view}`));
+  if (button.dataset.view === 'secure') loadSecureStatus();
 }));
+
+const secureCheckLabels = {
+  operator_signing_key: 'Operator signing key', corpus_file: 'Signed corpus file',
+  integrity_manifest_file: 'Integrity manifest', source_attestations_file: 'Source attestations',
+  four_probe_calibration: 'Four-probe calibration', hashing_retrieval: 'Hashing retrieval backend',
+  local_qwen_weights: 'Local Qwen weights', qwen_matches_calibration: 'Qwen matches calibration',
+};
+
+async function loadSecureStatus() {
+  const refresh = $('secure-refresh');
+  if (refresh) refresh.disabled = true;
+  try {
+    const response = await fetch('/api/secure-query/status');
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail || 'Secure service status is unavailable');
+    $('secure-readiness').dataset.state = data.ready ? 'ready' : 'error';
+    $('secure-readiness').textContent = data.ready
+      ? 'Ready. The first request may take longer while local models initialize.'
+      : 'Not ready. Configure the missing operator trust inputs and local model assets.';
+    $('secure-checks').innerHTML = Object.entries(data.checks || {}).map(([key, ready]) =>
+      `<li><span>${esc(secureCheckLabels[key] || key)}</span><b class="${ready ? 'secure-ok' : 'secure-missing'}">${ready ? 'Ready' : 'Missing'}</b></li>`
+    ).join('');
+    $('secure-run').disabled = !data.ready;
+    if (!data.ready) $('secure-run-status').textContent = 'Secure query is disabled until all readiness checks pass.';
+  } catch (error) {
+    $('secure-readiness').dataset.state = 'error';
+    $('secure-readiness').textContent = 'Could not read secure-service status. Check that the local API is running.';
+    $('secure-checks').innerHTML = '';
+    $('secure-run').disabled = true;
+  } finally { if (refresh) refresh.disabled = false; }
+}
+
+async function runSecureQuery() {
+  const query = $('secure-query-input').value.trim();
+  if (!query) { $('secure-run-status').textContent = 'Enter a question first.'; return; }
+  const button = $('secure-run');
+  button.disabled = true;
+  $('secure-run-status').textContent = 'Running signed-corpus retrieval, integrity, provenance, and answer-source probes…';
+  try {
+    const response = await fetch('/api/secure-query', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query, top_k: Number($('secure-top-k').value)}),
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail || 'Secure query failed');
+    const answer = data.answer || {};
+    const provenance = data.provenance || {};
+    const probe = data.four_probe || {};
+    $('secure-result').hidden = false;
+    $('secure-answer-text').textContent = answer.answer || 'No answer returned.';
+    $('secure-answer-source').textContent = answer.source_doc_id == null
+      ? `No answer source / ${answer.generation_status || provenance.answer_abstention_reason || 'abstained'}`
+      : `Answer source document ${answer.source_doc_id} / ${answer.backend || 'extractive'}`;
+    $('secure-answer-state').textContent = answer.source_doc_id == null ? 'Abstained' : 'Evidence-backed';
+    $('secure-answer-state').className = `status-pill ${answer.source_doc_id == null ? 'unsafe' : 'safe'}`;
+    $('secure-latency').textContent = `${Math.round(data.latency_ms || 0)} ms`;
+    $('secure-init-time').textContent = data.service_was_cached ? 'Service already initialized' : `Service initialization ${Math.round(data.service_initialization_ms || 0)} ms`;
+    $('secure-provenance').textContent = provenance.supported === true ? 'Corroborated' : provenance.supported === false ? 'Not corroborated' : 'Not evaluated';
+    $('secure-provenance-reason').textContent = provenance.reason || provenance.answer_abstention_reason || 'No provenance detail';
+    $('secure-probe-decision').textContent = probe.decision || 'Not run';
+    $('secure-probe-risk').textContent = probe.combined_risk == null ? (probe.reason || 'No accepted answer source') : `Joint risk ${Number(probe.combined_risk).toFixed(4)} / threshold ${Number(probe.threshold).toFixed(4)} / ${probe.reason || ''}`;
+    const ranks = probe.rank_risks || {};
+    const rankLabels = {s1_hidden_state_mahalanobis:'S1 Hidden-state geometry',s2_attention_deviation:'S2 Attention deviation',s3_slm_srq:'S3 Small-model SRQ',s4_loo_influence:'S4 Leave-one-out influence'};
+    $('secure-probe-list').innerHTML = Object.entries(rankLabels).map(([key, label]) =>
+      `<div class="secure-probe"><b>${esc(label)}</b><span>${ranks[key] == null ? 'Not run' : `${(Number(ranks[key]) * 100).toFixed(1)} percentile risk`}</span></div>`
+    ).join('');
+    const docs = data.documents || [];
+    $('secure-doc-count').textContent = `${docs.length} candidates`;
+    $('secure-doc-list').innerHTML = docs.length ? docs.map(doc =>
+      `<div class="secure-doc"><b>Document ${esc(doc.doc_id)}</b><span>${esc(doc.decision || 'unknown')}</span><small>Integrity: ${esc(doc.integrity || 'unknown')} / detector risk: ${doc.risk == null ? '--' : Number(doc.risk).toFixed(3)} / ${esc((doc.reasons || []).join(', ') || 'no flags')}</small></div>`
+    ).join('') : '<p>No candidate documents were returned.</p>';
+    $('secure-audit-data').textContent = JSON.stringify({audit: data.audit, policy: data.policy, timings: data.timings, retrieval_backend: data.retrieval_backend}, null, 2);
+    $('secure-run-status').dataset.state = 'ready';
+    $('secure-run-status').textContent = 'Query completed. The result shown is the defended response only.';
+  } catch (error) {
+    $('secure-run-status').dataset.state = 'error';
+    $('secure-run-status').textContent = `Secure query failed: ${error.message}`;
+    if (responseConfigError(error.message)) await loadSecureStatus();
+  } finally { button.disabled = $('secure-readiness').dataset.state !== 'ready'; }
+}
+
+function responseConfigError(message) { return /required|missing|must point|calibration|signed|configure/i.test(message); }
 
 $('toggle').addEventListener('click', () => {
   defense = !defense; $('toggle').classList.toggle('on', defense);
@@ -178,6 +261,9 @@ async function loadResearchCases() {
 }
 
 $('run').addEventListener('click', run); initialize(); loadResearch(); loadTestSummary(); loadResearchCases();
+$('secure-refresh').addEventListener('click', loadSecureStatus);
+$('secure-run').addEventListener('click', runSecureQuery);
+loadSecureStatus();
 $('r-profile').addEventListener('change', loadResearchCases);
 $('r-strategy').addEventListener('change', loadResearchCases);
 $('r-case').addEventListener('change', renderResearchCase);

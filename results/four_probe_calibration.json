@@ -1,0 +1,477 @@
+{
+  "calibration_count": 50,
+  "calibration_method": "leave-one-out-clean-rank-threshold-v1",
+  "calibration_qids": [
+    "msmarco-230",
+    "msmarco-362",
+    "msmarco-237",
+    "msmarco-353",
+    "msmarco-85",
+    "msmarco-323",
+    "msmarco-171",
+    "msmarco-393",
+    "msmarco-153",
+    "msmarco-313",
+    "msmarco-38",
+    "msmarco-392",
+    "msmarco-69",
+    "msmarco-106",
+    "msmarco-348",
+    "msmarco-489",
+    "msmarco-428",
+    "msmarco-158",
+    "msmarco-31",
+    "msmarco-244",
+    "msmarco-8",
+    "msmarco-267",
+    "msmarco-485",
+    "msmarco-233",
+    "msmarco-261",
+    "msmarco-401",
+    "msmarco-291",
+    "msmarco-198",
+    "msmarco-132",
+    "msmarco-324",
+    "msmarco-322",
+    "msmarco-2",
+    "msmarco-18",
+    "msmarco-488",
+    "msmarco-263",
+    "msmarco-76",
+    "msmarco-253",
+    "msmarco-314",
+    "msmarco-351",
+    "msmarco-471",
+    "msmarco-143",
+    "msmarco-449",
+    "msmarco-66",
+    "msmarco-179",
+    "msmarco-133",
+    "msmarco-144",
+    "msmarco-406",
+    "msmarco-280",
+    "msmarco-269",
+    "msmarco-466"
+  ],
+  "calibration_rows": [
+    {
+      "s1_hidden_state_mahalanobis": 25.625171973565468,
+      "s2_attention_deviation": 0.097358183726743,
+      "s3_slm_srq": 0.5257546850975523,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.693365531663254,
+      "s2_attention_deviation": 0.23140173646503434,
+      "s3_slm_srq": 0.43046112060546876,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.22780285968669,
+      "s2_attention_deviation": 0.12790902781505817,
+      "s3_slm_srq": 0.6870449185371399,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.723701703842785,
+      "s2_attention_deviation": 1.5930578108059361,
+      "s3_slm_srq": 1.6127786171145555,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 21.284070454591415,
+      "s2_attention_deviation": 0.09072010891570637,
+      "s3_slm_srq": 0.5117633294086067,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.648999703467137,
+      "s2_attention_deviation": 0.43376467013075065,
+      "s3_slm_srq": 0.42970946797153403,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.64275100861906,
+      "s2_attention_deviation": 2.2472553495064207,
+      "s3_slm_srq": 0.44979241315056295,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 22.327680463743953,
+      "s2_attention_deviation": 1.945388375500234,
+      "s3_slm_srq": 0.6452942544763738,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 21.855591696011036,
+      "s2_attention_deviation": 1.0477563938375531,
+      "s3_slm_srq": 0.3105311328417634,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.39390557527324,
+      "s2_attention_deviation": 1.5384339828424307,
+      "s3_slm_srq": 0.7205391146919944,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.68800585096615,
+      "s2_attention_deviation": 0.21890866009435042,
+      "s3_slm_srq": 0.6119686232672797,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.312736137821698,
+      "s2_attention_deviation": 0.31679267825579915,
+      "s3_slm_srq": 0.2512348089645158,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.8440110433746,
+      "s2_attention_deviation": 1.6155707340397163,
+      "s3_slm_srq": 0.3129037022590637,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.505243294828524,
+      "s2_attention_deviation": 0.4058546057842907,
+      "s3_slm_srq": 0.38203333519600535,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 21.951442246448593,
+      "s2_attention_deviation": 1.1749877656421188,
+      "s3_slm_srq": 0.5132783160490149,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 21.589719546008833,
+      "s2_attention_deviation": 0.828831173869316,
+      "s3_slm_srq": 1.0981815302813493,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 21.186834405216388,
+      "s2_attention_deviation": 0.8454331102489326,
+      "s3_slm_srq": 0.34735772344801163,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.134295749289688,
+      "s2_attention_deviation": 0.6658658356539444,
+      "s3_slm_srq": 0.4883840201330967,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 21.19182541983703,
+      "s2_attention_deviation": 0.2006006922018341,
+      "s3_slm_srq": 0.20544565640963042,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 16.009496676876225,
+      "s2_attention_deviation": 0.2746738862984528,
+      "s3_slm_srq": 0.8272885496799762,
+      "s4_loo_influence": 0.9280234190022073
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.320514511181937,
+      "s2_attention_deviation": 0.7730908465344302,
+      "s3_slm_srq": 0.3821667201483428,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.84656922165984,
+      "s2_attention_deviation": 0.8931310544144127,
+      "s3_slm_srq": 0.2222268191250888,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 26.89132340857215,
+      "s2_attention_deviation": 0.604132619572313,
+      "s3_slm_srq": 0.8863465480315379,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.387671455097127,
+      "s2_attention_deviation": 0.5432332200442096,
+      "s3_slm_srq": 0.39511988654969227,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.346531570870287,
+      "s2_attention_deviation": 0.6374628142821799,
+      "s3_slm_srq": 0.593606894870974,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.397520989434405,
+      "s2_attention_deviation": 0.7124263510146716,
+      "s3_slm_srq": 0.12948279197399432,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.785772295392984,
+      "s2_attention_deviation": 1.2383913928547663,
+      "s3_slm_srq": 0.1073015766628718,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.530483529987173,
+      "s2_attention_deviation": 1.1777510449860131,
+      "s3_slm_srq": 0.5813998031616211,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.321565692036216,
+      "s2_attention_deviation": 2.293252395489982,
+      "s3_slm_srq": 0.36319997093894263,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.90081747120337,
+      "s2_attention_deviation": 0.8770652021470267,
+      "s3_slm_srq": 0.2965576531457119,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 22.844119871461114,
+      "s2_attention_deviation": 3.346397993637725,
+      "s3_slm_srq": 0.5550500529153006,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.79965694211747,
+      "s2_attention_deviation": 0.22832879198845332,
+      "s3_slm_srq": 0.38266357421874997,
+      "s4_loo_influence": 0.826898789146672
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.18237660544052,
+      "s2_attention_deviation": 0.018490404614639713,
+      "s3_slm_srq": 0.46152560564936423,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.229879886631096,
+      "s2_attention_deviation": 0.5063850747968373,
+      "s3_slm_srq": 0.8695927208120173,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.87161394692744,
+      "s2_attention_deviation": 0.02876588973856175,
+      "s3_slm_srq": 0.25168370519365585,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 22.42029744737077,
+      "s2_attention_deviation": 0.9230792615345406,
+      "s3_slm_srq": 0.3700134178687786,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 26.587999946670497,
+      "s2_attention_deviation": 0.9490277168275065,
+      "s3_slm_srq": 0.4877884349515361,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.957263102318407,
+      "s2_attention_deviation": 0.1190451020337817,
+      "s3_slm_srq": 0.4245898231627449,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.261756825069995,
+      "s2_attention_deviation": 0.24569425723615224,
+      "s3_slm_srq": 0.5818147903833634,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.984354777904088,
+      "s2_attention_deviation": 1.8423421875969745,
+      "s3_slm_srq": 0.5640681722889777,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 23.15607652329297,
+      "s2_attention_deviation": 0.887656008612853,
+      "s3_slm_srq": 0.41844096550574666,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 20.974382644884987,
+      "s2_attention_deviation": 0.7326333090710192,
+      "s3_slm_srq": 0.2640695329439842,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 22.97765975836388,
+      "s2_attention_deviation": 0.48335901764544315,
+      "s3_slm_srq": 1.0384599245511568,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 19.510801575729488,
+      "s2_attention_deviation": 0.774196081530469,
+      "s3_slm_srq": 0.8052975809251939,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 18.635970359586715,
+      "s2_attention_deviation": 0.6679461377073755,
+      "s3_slm_srq": 0.6921815077463785,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 26.756450773324747,
+      "s2_attention_deviation": 0.5721370082981415,
+      "s3_slm_srq": 0.14856052994728086,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 27.537474162678762,
+      "s2_attention_deviation": 0.9907454984878229,
+      "s3_slm_srq": 1.0687534375624224,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 17.47098821686138,
+      "s2_attention_deviation": 0.8623339868594262,
+      "s3_slm_srq": 0.3028229181883765,
+      "s4_loo_influence": 1.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 27.756086185406524,
+      "s2_attention_deviation": 3.403451006209258,
+      "s3_slm_srq": 1.0272748735215929,
+      "s4_loo_influence": 0.0
+    },
+    {
+      "s1_hidden_state_mahalanobis": 22.319100284630068,
+      "s2_attention_deviation": 1.5316612974366732,
+      "s3_slm_srq": 0.7006328526665182,
+      "s4_loo_influence": 0.0
+    }
+  ],
+  "calibration_version": "four-probe-joint-clean-rank-v2",
+  "joint_threshold": 0.979591836734694,
+  "minilm_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "minilm_model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "probe_names": [
+    "s1_hidden_state_mahalanobis",
+    "s2_attention_deviation",
+    "s3_slm_srq",
+    "s4_loo_influence"
+  ],
+  "probe_reference_count": 100,
+  "qwen_model": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\artifacts\\models\\qwen2_5_0_5b",
+  "qwen_weight_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+  "reference_qids": [
+    "msmarco-164",
+    "msmarco-383",
+    "msmarco-45",
+    "msmarco-156",
+    "msmarco-53",
+    "msmarco-72",
+    "msmarco-315",
+    "msmarco-209",
+    "msmarco-74",
+    "msmarco-333",
+    "msmarco-403",
+    "msmarco-415",
+    "msmarco-92",
+    "msmarco-215",
+    "msmarco-479",
+    "msmarco-59",
+    "msmarco-368",
+    "msmarco-163",
+    "msmarco-210",
+    "msmarco-251",
+    "msmarco-443",
+    "msmarco-320",
+    "msmarco-289",
+    "msmarco-389",
+    "msmarco-7",
+    "msmarco-462",
+    "msmarco-249",
+    "msmarco-228",
+    "msmarco-245",
+    "msmarco-211",
+    "msmarco-129",
+    "msmarco-162",
+    "msmarco-223",
+    "msmarco-41",
+    "msmarco-278",
+    "msmarco-21",
+    "msmarco-434",
+    "msmarco-68",
+    "msmarco-227",
+    "msmarco-151",
+    "msmarco-369",
+    "msmarco-217",
+    "msmarco-154",
+    "msmarco-177",
+    "msmarco-397",
+    "msmarco-139",
+    "msmarco-141",
+    "msmarco-326",
+    "msmarco-175",
+    "msmarco-170",
+    "msmarco-88",
+    "msmarco-96",
+    "msmarco-439",
+    "msmarco-303",
+    "msmarco-50",
+    "msmarco-199",
+    "msmarco-297",
+    "msmarco-131",
+    "msmarco-120",
+    "msmarco-358",
+    "msmarco-180",
+    "msmarco-370",
+    "msmarco-37",
+    "msmarco-160",
+    "msmarco-4",
+    "msmarco-93",
+    "msmarco-304",
+    "msmarco-188",
+    "msmarco-374",
+    "msmarco-453",
+    "msmarco-94",
+    "msmarco-468",
+    "msmarco-292",
+    "msmarco-340",
+    "msmarco-407",
+    "msmarco-408",
+    "msmarco-187",
+    "msmarco-334",
+    "msmarco-213",
+    "msmarco-127",
+    "msmarco-11",
+    "msmarco-6",
+    "msmarco-442",
+    "msmarco-246",
+    "msmarco-396",
+    "msmarco-425",
+    "msmarco-345",
+    "msmarco-89",
+    "msmarco-426",
+    "msmarco-26",
+    "msmarco-77",
+    "msmarco-184",
+    "msmarco-262",
+    "msmarco-207",
+    "msmarco-182",
+    "msmarco-95",
+    "msmarco-100",
+    "msmarco-419",
+    "msmarco-394",
+    "msmarco-155"
+  ],
+  "rows": 50,
+  "target_clean_fpr": 0.05,
+  "training_corpus_sha256": "d08b73c62955c9624fff4d83f1172487ae57e4d299c2acd66427f155d77a2106",
+  "training_queries_sha256": "154492563bd4d65d28ba8eea7f0a21d76b2348ee4640144e44f4951177683873"
+}

@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from config import POISONED_DOCS_PATH
 from backend.research_lab import case_catalog, ppo_case, ppo_history, run_case
+from backend.secure_service import SecureServiceConfigurationError, secure_query, secure_service_status
 from pipeline.secure_rag import secure_rag_answer
 
 app = FastAPI(title="Sentinel RAG", version="0.6.0")
@@ -37,6 +38,11 @@ class ResearchRunRequest(BaseModel):
     attack_text: str | None = Field(default=None, max_length=4000)
     attack_budget: int = Field(default=1, ge=1, le=3)
     additional_attack_texts: list[str] | None = Field(default=None, max_length=2)
+
+
+class SecureQueryRequest(BaseModel):
+    query: str = Field(min_length=2, max_length=2000)
+    top_k: int = Field(default=5, ge=1, le=20)
 
 
 @app.get("/api/health")
@@ -219,6 +225,23 @@ def analyze(body: QueryRequest) -> dict:
                               for doc in result["kept_docs"] + result["filtered_docs"]
                           ) / max(len(result["kept_docs"]) + len(result["filtered_docs"]), 1)
                       )}}
+
+
+@app.post("/api/secure-query")
+def secure_analyze(body: SecureQueryRequest) -> dict:
+    """Serve from an operator-signed corpus and require independent origins."""
+    try:
+        return secure_query(body.query, top_k=body.top_k)
+    except SecureServiceConfigurationError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+
+
+@app.get("/api/secure-query/status")
+def secure_query_status() -> dict:
+    """Return safe configuration flags for the secure-query browser view."""
+    return secure_service_status()
 
 
 @app.get("/", include_in_schema=False)

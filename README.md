@@ -33,7 +33,7 @@ the ignored `artifacts/models/qwen2_5_0_5b/` directory.
 - Zero-trust prompt isolation and deterministic extractive answer backend
 - FastAPI security console with defended/undefended comparison
 - Strict closed-corpus retrieval: no web search, external API, or fallback knowledge source
-- Explicit S1 Mahalanobis geometry probe and S4 leave-one-out stability probe
+- A separate strict serving endpoint with signed corpus/source-origin checks and an integrated, calibrated S1-S4 answer-source gate
 
 ## Setup
 
@@ -205,9 +205,59 @@ also requires `--replace-existing-manifest`. Load it with
 `require_independent_origins=True`. This policy abstains when an exact claim
 cannot be corroborated. It is not calibrated on the current benchmark.
 
+### Fail-closed secure query endpoint
+
+`POST /api/secure-query` is a stricter serving path than the demo and
+validation workbench. It requires an operator-provided corpus, a signed
+integrity manifest, and a separately reviewed signed source-origin map. The
+corpus byte digest must match both manifests, every document must be covered,
+and an exact answer span must occur in two accepted documents with different
+attested origins. Missing or mismatched trust data prevents serving;
+insufficient corroboration returns an abstention. The packaged detector can
+quarantine candidates, but its score does not replace the origin requirement.
+
+Configure `RAG_SECURE_CORPUS`, `RAG_SECURE_MANIFEST`,
+`RAG_SOURCE_ATTESTATIONS`, and `RAG_MANIFEST_KEY` in the API process after
+reviewing and signing both manifests with the trusted-ingest commands above.
+Set `RAG_USE_MINILM=0` and set `RAG_LLM_MODEL` to the exact local Qwen directory
+used to build `artifacts/four_probe_calibration.joblib` before starting the API.
+The packaged detector currently requires hashing retrieval. The Secure Query
+tab calls the strict endpoint and shows readiness, defended answer, provenance,
+four-probe ranks, document decisions, and an audit summary. The endpoint
+runs all four probes on the selected answer source: MiniLM layer-3 hidden-state
+distance, MiniLM attention deviation, local Qwen SRQ, and extractive
+leave-one-out answer influence. A joint clean-rank gate can quarantine that source and
+abstain. The Five-Case Demo and research workbench remain separate paths and do
+not call this endpoint. The Secure Query tab stays disabled until the operator
+trust files, retrieval mode, calibration artifact, and local Qwen model pass the
+readiness checks.
+
+This remains an experimental defense, not a demonstrated general solution. On
+75 validation queries per condition, the gate quarantined 3/29 probe-covered
+stealth sources but prevented 0 attack answers that the detector-only path
+would have produced; both paths had 11/75 stealth attack answers (12/75
+undefended). It blocked one clean answer: exact-alias recovery fell from
+15/75 to 14/75 and abstentions rose from 39/75 to 40/75. The joint gate was
+calibrated on 50 clean training cases using leave-one-out ranks at a nominal
+5% target; its threshold is not a guarantee on new corpora. For requests where
+the gate ran, measured inference median latency was 0.85-0.89 seconds, mostly
+from local Qwen SRQ. Response `latency_ms` includes request setup and cold-start
+initialization; `inference_latency_ms` isolates inference, and
+`service_initialization_ms` reports model/index loading separately. The endpoint cannot verify that an operator
+assigned accurate source origins, and exact wording is a conservative
+corroboration rule.
+
 Every predefined scenario is constructed to demonstrate both sides of the experiment: the poisoned payload wins extraction with Defense OFF, while Defense ON quarantines that same report and recovers the clean answer. This is enforced by regression tests for all five attacks. The relevance gate also checks the query's least-common corpus concept, preventing generic overlap such as "largest" and "Earth" from using an ocean report to answer a country question.
 
-S1 is the Review-1 hidden-state proxy described in the presentation: MiniLM document embeddings are compared with the covariance-aware clean distribution using Mahalanobis distance. S4 performs an actual baseline plus leave-one-document-out extraction pass and measures whether removing one retrieved report changes the answer. Their calibrated risks participate directly in the quarantine decision; the remaining statistical and behavioural features support the fusion classifier.
+The older demo detector and the strict secure endpoint are distinct. In the
+secure endpoint, S1 uses MiniLM encoder layer-3 states (not activations from the
+answer-generating model), S2 uses MiniLM attention deviation, S3 calls local
+Qwen to produce the preliminary response for SRQ, and S4 measures answer
+influence with deterministic extractive leave-one-out ablations. Their
+train-calibrated maximum rank risk participates in the quarantine decision.
+The ablation is sequential in this prototype, not the slide's high-concurrency
+LLM N+1 inference design. The integrated validation results and limits are in
+`results/four_probe_gate_validation.json`.
 
 ## Research benchmark build
 
@@ -287,19 +337,20 @@ documents were quarantined. These results are in
 `results/defense_validation_*_minilm_ranker.json`. The learned ranker remains
 outside the live defense path because its subtle-attack behavior is unresolved.
 
-The cached MiniLM encoder also supplies actual layer-3 hidden states and
-attention tensors for a separate research probe. On validation, the
-train-calibrated layer-distance score caught 0% of greedy and 6.7% of stealth
-edits; attention deviation caught 0% and 4%. These are encoder signals, not
-hidden states from the answer-generating model. They are not used to quarantine
-documents. See `results/model_probes_validation.json`.
+The cached MiniLM encoder supplies actual layer-3 hidden states and attention
+tensors. Standalone validation probes caught 0% of greedy and 6.7% of stealth
+edits with layer distance; attention deviation caught 0% and 4%. These are
+encoder signals, not hidden states from the answer-generating model. The
+separate strict secure endpoint now combines these signals with SRQ and LOO in
+a joint gate; see its measured results above and `REPORT_EVIDENCE.md`.
 
 The local Qwen 0.5B model was run for SRQ and decoder-internal research probes.
 With a threshold calibrated on 50 train-clean pairs, SRQ detected 0/75 greedy
 and 4/75 stealth validation attacks while flagging 5/75 clean passages. A
 separate decoder prefill probe detected at most 7/75 stealth attacks, with
-6/75 clean passages flagged by that attention score. Neither signal is used
-by the live gate. The original local Qwen answer prompt produced no valid
+6/75 clean passages flagged by that attention score. Those standalone scores
+are not used alone for decisions; the secure endpoint includes SRQ with the
+other three signals in its joint gate. The original local Qwen answer prompt produced no valid
 citation in a ten-question clean diagnostic. A revised 20-question validation
 study required each answer to be an exact span of its cited document and
 repaired missing IDs only for such spans: 5/20 outputs were cited, all through
@@ -327,10 +378,10 @@ python -m detect.train_fusion_classifier
 python backend/api.py
 ```
 
-The first command that loads MiniLM may download the model once. After it is cached, add `$env:HF_HUB_OFFLINE="1"` and `$env:TRANSFORMERS_OFFLINE="1"` for a fully offline demonstration. Keep `RAG_USE_MINILM=1` set in the terminal used to start the API so the index, detector, and query vectors all use the same embedding space.
+The first command that loads MiniLM may download the model once. After it is cached, add `$env:HF_HUB_OFFLINE="1"` and `$env:TRANSFORMERS_OFFLINE="1"` for a fully offline demonstration. Keep `RAG_USE_MINILM=1` for the standard Research Lab API so its index, detector, and query vectors use the same embedding space; the secure-query endpoint instead requires `RAG_USE_MINILM=0` and the separately documented Qwen setting.
 
 For the zero-download fallback, remove that environment variable and rerun the three artifact-building commands. Separate backend-specific classifier artifacts prevent a hashing classifier from being mixed with MiniLM features.
 
 ## Honest limitation
 
-The demo detector metrics come from a small controlled dataset and are not production generalization results. Undefended PPO still has a single-seed fixed-edit comparison; defender-aware PPO has three seeds and did not beat fixed answer substitution. Real local-SLM SRQ, MiniLM encoder, and Qwen decoder prefill probes were measured but did not detect these attacks reliably. Validated local-LLM answer quality, model-based leave-one-out, broad attack-family coverage, and policy ablations remain outstanding.
+The demo detector metrics come from a small controlled dataset and are not production generalization results. Undefended PPO still has a single-seed fixed-edit comparison; defender-aware PPO has three seeds and did not beat fixed answer substitution. The secure endpoint now runs the four probes together, but paired validation found no additional attack successes blocked and one clean answer blocked, at 0.85-0.89-second median inference latency on covered requests. It is not the interactive demo's serving path, and it requires a real operator-reviewed, signed corpus and origin map before it can serve. Validated local-LLM answer quality, slide-faithful model-based leave-one-out, broad attack-family coverage, and policy ablations remain outstanding.
