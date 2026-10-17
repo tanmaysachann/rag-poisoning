@@ -40,7 +40,12 @@
       ? 'Saved hashing run: the answer substitution passed the defense. Edit the payload to probe why.'
       : 'Saved hashing run: this substitution did not produce a defended wrong answer. You can edit the payload and rerun.';
     resetPayload();
-    loadPpoCase(item.qid);
+    if (item.qid.startsWith('msmarco-v3-')) {
+      el('lab-ppo-case-label').textContent = `${item.qid} · PPO traces are historical v1 examples and are not query-aligned to v3.`;
+      el('lab-ppo-traces').textContent = 'PPO trace archive uses a different v1 question set; no aligned trace is available for this v3 case.';
+    } else {
+      loadPpoCase(item.qid);
+    }
   }
 
   function featureCard(name, value) {
@@ -173,6 +178,32 @@
     } catch (error) { /* v3 cards keep placeholders when summaries are unavailable */ }
   }
 
+  async function loadGeneralization() {
+    try {
+      const data = await jsonRequest('/api/generalization-summary');
+      const s = data.summary;
+      const clean = s.clean_control;
+      el('lab-generalization-clean').textContent = `${clean.baseline_alias_match}/${clean.cases} → ${clean.detector_alias_match}/${clean.cases}`;
+      const rows = [
+        ['faq_record', 'lab-generalization-faq'],
+        ['correction_notice', 'lab-generalization-correction'],
+        ['catalog_record', 'lab-generalization-catalog'],
+      ];
+      for (const [key, id] of rows) {
+        const row = s.paired_attack_families[key];
+        const ci = row.paired_reduction_bootstrap_95;
+        const pp = value => `${(Number(value) * 100).toFixed(1)}%`;
+        el(id).textContent = `${row.attack_success_before}/${row.cases} → ${row.attack_success_after_detector}/${row.cases}`;
+        const card = el(id).closest('.lab-evidence-card');
+        card.querySelector('p').textContent = `Paired reduction ${(row.paired_absolute_reduction * 100).toFixed(1)} percentage points (bootstrap 95% CI ${pp(ci.lower)}–${pp(ci.upper)}); ${row.attack_quarantine_rate_given_retrieval == null ? '—' : pp(row.attack_quarantine_rate_given_retrieval)} quarantined when retrieved.`;
+      }
+      const proof = data.verification;
+      el('lab-generalization-status').textContent = `Verified frozen ${s.split} protocol · ${proof.queries} paired questions per family · detector threshold ${Number(s.detector_threshold).toFixed(3)} · protocol ${String(s.protocol_sha256).slice(0, 12)}… · outputs and input hashes checked.`;
+    } catch (error) {
+      el('lab-generalization-status').textContent = `Frozen held-out evidence unavailable: ${error.message}`;
+    }
+  }
+
   function plotPpo(plain, defended) {
     const x = index => 47 + index * 69;
     const y = value => 192 - Math.max(0, Math.min(1, Number(value || 0))) * 159;
@@ -241,5 +272,5 @@
   el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
-  loadCases(); loadTest(); loadPpo(); loadV3();
+  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization();
 })();

@@ -26,7 +26,8 @@ from security.integrity import load_runtime_manifest, write_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VALIDATION = ROOT / "data" / "benchmark" / "validation"
+VALIDATION = ROOT / "data" / "benchmark_v3" / "validation"
+LEGACY_VALIDATION = ROOT / "data" / "benchmark" / "validation"
 RESULTS = ROOT / "results"
 
 
@@ -39,11 +40,11 @@ def _inputs() -> tuple[dict, dict, dict, dict]:
     queries = {row["qid"]: row for row in _jsonl(VALIDATION / "queries.jsonl")}
     corpus = {int(row["doc_id"]): row for row in _jsonl(VALIDATION / "corpus.jsonl")}
     attacks = {
-        strategy: {row["qid"]: row for row in _jsonl(RESULTS / f"attack_baseline_validation_{strategy}.jsonl")}
+        strategy: {row["qid"]: row for row in _jsonl(RESULTS / f"v3_attack_validation_{strategy}.jsonl")}
         for strategy in ("greedy", "stealth")
     }
     saved = {
-        strategy: {row["qid"]: row for row in _jsonl(RESULTS / f"defense_validation_{strategy}_accepted_ingest.cases.jsonl")}
+        strategy: {row["qid"]: row for row in _jsonl(RESULTS / f"v3_defense_validation_{strategy}_accepted_ingest.cases.jsonl")}
         for strategy in ("greedy", "stealth")
     }
     if set(queries) != set(attacks["greedy"]) or set(queries) != set(attacks["stealth"]):
@@ -53,7 +54,7 @@ def _inputs() -> tuple[dict, dict, dict, dict]:
 
 @lru_cache(maxsize=1)
 def _detector() -> ResearchDetector:
-    detector = joblib.load(ROOT / "artifacts" / "research_detector_hashing_web.joblib")
+    detector = joblib.load(ROOT / "artifacts" / "research_detector_v3_hashing.joblib")
     if not isinstance(detector, ResearchDetector) or detector.embedding_model != "sklearn-hashing-384":
         raise ValueError("The packaged research detector has the wrong type or backend")
     return detector
@@ -74,7 +75,9 @@ def case_catalog() -> dict:
             "saved_stealth_failure": bool(saved["stealth"][qid]["defended_attack_success"]),
             "saved_greedy_blocked": bool(saved["greedy"][qid]["attack_quarantined"]),
         })
-    return {"split": "validation", "cases": cases, "default_qid": "msmarco-275"}
+    return {"split": "validation", "benchmark": "v3", "cases": cases,
+            "detector_threshold": _detector().threshold,
+            "default_qid": cases[0]["qid"] if cases else None}
 
 
 def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None,
@@ -178,7 +181,9 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "retrieval_backend": inference["retrieval_backend"],
         "detector_threshold": detector.threshold,
         "latency_ms": round((time.perf_counter() - started) * 1000, 1),
-        "note": "This is a live validation run with the hashing extractor. All altered passages share one attacker origin even when their text differs; they are not independent sources. MiniLM, PPO and Qwen results are saved offline experiments.",
+        "benchmark": "v3",
+        "detector_artifact": "research_detector_v3_hashing.joblib",
+        "note": "This live validation run uses the frozen v3 hashing detector and deterministic extractor also evaluated by evaluation/evaluate_v3_generalization.py. All altered passages share one attacker origin even when their text differs. The test report is frozen; this editor only runs validation cases.",
     }
 
 
@@ -204,8 +209,8 @@ def ppo_history() -> dict:
 
 
 def ppo_case(qid: str) -> dict:
-    queries, _, _, _ = _inputs()
-    if qid not in queries:
+    legacy_queries = {row["qid"] for row in _jsonl(LEGACY_VALIDATION / "queries.jsonl")}
+    if qid not in legacy_queries:
         raise ValueError("Select a listed validation case")
     runs = {}
     for name, filename in (

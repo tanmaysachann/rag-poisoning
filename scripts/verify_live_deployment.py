@@ -46,31 +46,38 @@ def verify(base_url: str) -> dict:
             or summary["summaries"]["ppo_head_ablation"]["changed_case_outcomes"] != 0):
         raise ValueError("Production research evidence differs from committed results")
     catalog = get(base_url, "/api/lab/cases")
-    if catalog.get("split") != "validation" or len(catalog["cases"]) != 75:
+    if (catalog.get("split") != "validation" or catalog.get("benchmark") != "v3"
+            or len(catalog["cases"]) != 150):
         raise ValueError("Production case catalog differs")
+    generalization = get(base_url, "/api/generalization-summary")
+    if (generalization["verification"].get("status") != "verified"
+            or generalization["verification"].get("queries") != 150
+            or generalization["summary"]["paired_attack_families"]["faq_record"]["attack_success_after_detector"] != 65):
+        raise ValueError("Production frozen held-out generalization evidence failed verification")
     sealed = get(base_url, "/api/test-summary")
     if (sealed.get("protocol") != "v1" or not sealed.get("available")
             or sealed["summaries"]["clean"]["cases"] != 75):
         raise ValueError("Production frozen-test aggregate failed verification")
+    qid = catalog["default_qid"]
     live = post(base_url, "/api/lab/run", {
-        "qid": "msmarco-275", "strategy": "stealth", "surface": "accepted_ingest",
+        "qid": qid, "strategy": "stealth", "surface": "accepted_ingest",
     })
-    if (live.get("qid") != "msmarco-275" or len(live["documents"]) != 5
+    if (live.get("qid") != qid or len(live["documents"]) != 5
             or [row["stage"] for row in live["audit"]] != [
                 "retrieval", "integrity", "detection", "provenance", "answer",
             ]):
         raise ValueError("Production live inference trace is incomplete")
     replicated = post(base_url, "/api/lab/run", {
-        "qid": "msmarco-275", "strategy": "stealth",
+        "qid": qid, "strategy": "stealth",
         "surface": "accepted_ingest", "attack_budget": 3,
     })
     if (replicated.get("attack_budget") != 3 or len(replicated["attack_doc_ids"]) != 3
             or replicated.get("attack_payloads_distinct") != 1
             or replicated["attack_retrieved_count"] != sum(row["is_attack"] for row in replicated["documents"])):
         raise ValueError("Production multi-passage attack control is incomplete")
-    base_text = next(row["stealth_text"] for row in catalog["cases"] if row["qid"] == "msmarco-275")
+    base_text = next(row["stealth_text"] for row in catalog["cases"] if row["qid"] == qid)
     varied = post(base_url, "/api/lab/run", {
-        "qid": "msmarco-275", "strategy": "stealth", "surface": "accepted_ingest",
+        "qid": qid, "strategy": "stealth", "surface": "accepted_ingest",
         "attack_budget": 3, "attack_text": base_text,
         "additional_attack_texts": [base_text + " Variant two.", base_text + " Variant three."],
     })
@@ -81,6 +88,7 @@ def verify(base_url: str) -> dict:
     return {
         "status": "verified", "url": base_url, "health": health["status"],
         "validation_cases": len(catalog["cases"]), "frozen_test_cases": 75,
+        "heldout_generalization_queries": generalization["verification"]["queries"],
         "live_documents": len(live["documents"]), "live_audit_stages": len(live["audit"]),
         "multi_attack_budget": replicated["attack_budget"],
         "varied_attack_payloads": varied["attack_payloads_distinct"],

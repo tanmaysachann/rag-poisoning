@@ -4,8 +4,9 @@ Sentinel RAG is a controlled, CPU-first research product for studying poisoned r
 In this repository, **v1** means the first frozen 75-question test setup
 (MiniLM retrieval, sentence ranker, hashing detector), not the version of the
 live website. **v2** is a separate two-passage research benchmark whose test
-split remains unevaluated. The hosted workbench uses hashing retrieval on v1
-validation questions; its live outputs are separate from the frozen v1 test.
+split remains unevaluated. The live workbench now uses the frozen v3 hashing
+detector on v3 validation questions; the three-family v3 test report evaluates
+that same detector, threshold, and extractive answer path.
 `V2_BENCHMARK_PROTOCOL.md` documents the disjoint two-passage development
 benchmark and why its first consistency gate was not adopted.
 
@@ -85,7 +86,7 @@ Open `http://127.0.0.1:8000`. If that port is already in use, stop the older pro
 
 The repository uses root `app.py` and `vercel.json` for Vercel's Python serverless runtime. `requirements.txt` contains only runtime dependencies; corpus-building and PDF-generation packages live in `requirements-dev.txt`. The production URL is https://rag-poisoning.vercel.app/.
 
-The Research Lab is the default view. Its workbench runs a bounded validation experiment: choose one of 75 MS MARCO questions, edit a greedy or stealth poison passage, select a one-to-three-passage attack budget and accepted-ingest or post-index tampering, and inspect a newly built BM25 + hashing + RRF index, integrity status, eight detector features, quarantine decision, and defended/undefended extractive answers. Each run uses temporary storage and does not change the trusted corpus. The live trace includes exact source-span citations, per-stage timing, audit decisions, and leave-one-out answer changes for accepted passages. Each extra passage has its own editable text and new document ID. All are controlled by one attacker and do not establish independent-source corroboration. The saved budget study below used identical copies only; the live varied-passage control is an exploration tool, not a measured robustness result. The page also shows hash-verified sealed v1 test evidence, PPO curves, a three-seed matched defender-aware comparison, and the unsuccessful v2 consistency study. The Five-Case Demo tab preserves the original Review-1 demonstration. MiniLM and Qwen generation remain offline research experiments; the v2 test split remains unevaluated.
+The Research Lab is the default view. Its workbench runs a bounded validation experiment: choose one of 150 v3 MS MARCO questions, edit a greedy or stealth poison passage, select a one-to-three-passage attack budget and accepted-ingest or post-index tampering, and inspect a newly built BM25 + hashing + RRF index, integrity status, eight detector features, quarantine decision, and defended/undefended extractive answers. It uses `artifacts/research_detector_v3_hashing.joblib` (threshold 0.651389) and the deterministic extractor. Each run uses temporary storage and does not change the trusted corpus. The live trace includes exact source-span citations, per-stage timing, audit decisions, and leave-one-out answer changes for accepted passages. Extra passages are controlled by one attacker and do not establish independent-source corroboration. The page verifies and displays the frozen 150-question v3 test for three synthetic attack layouts, clean answer utility, paired bootstrap intervals, and protocol limitations. PPO traces and the v1/v2 cards remain historical comparisons; PPO case traces are not mapped onto v3 questions. The Five-Case Demo tab preserves the original Review-1 demonstration. MiniLM and Qwen generation remain offline research experiments; the v2 test split remains unevaluated.
 
 `pipeline/research_inference.py` is the shared inference path for the live lab. It consumes a retriever, an existing integrity manifest, and the frozen detector; it does not train or seal during inference. `generation/grounded_answer.py` provides an optional model path that accepts only a verified exact source span and otherwise falls back to the accepted-document extractor. The web lab runs the extractor only. Exact-span grounding does not establish factual truth when an altered document was accepted at ingest.
 
@@ -116,7 +117,7 @@ Removing chosen-action conditioning from the position and payload heads also
 changed zero deterministic validation outcomes across 225 seed-question pairs;
 see `results/ppo_head_conditioning_ablation_validation.json`.
 
-The web lab loads `artifacts/research_detector_hashing_web.joblib`, a portable export of the frozen detector made with `python scripts/build_web_detector.py`. The original sealed detector artifact remains untouched; the export removes the Windows-specific retriever paths bundled into the training artifact. All 150 saved hashing validation decisions were reproduced by the web path after export.
+The live web lab and held-out evaluator load the same `artifacts/research_detector_v3_hashing.joblib` artifact. The frozen test protocol binds the benchmark, model, threshold, attack generator, evaluator, verifier, and validation pilot hashes before evaluating the test split. `GET /api/generalization-summary` verifies these inputs and output hashes before returning the read-only aggregate. Run `python -m evaluation.verify_v3_generalization` to audit the frozen report locally. The paired test demonstrates detector benefit on these three locally authored layouts, but remaining attack success is 22%–43% and clean alias utility is 23%; this is a research result, not a solved defense. Limitations include synthetic layouts, a single labeled support passage per query, extractive rather than generative answers, and related formats having been explored elsewhere on development corpora.
 
 The optional CPU retrieval scale check is `python -m evaluation.benchmark_faiss_exact`
 (requires the separately installed `faiss-cpu==1.8.0.post1`). It compares
@@ -363,6 +364,8 @@ to 0/75 after, while stealth success changed from 23/75 to 22/75. Clean
 alias match was 39/75. Run `python -m evaluation.verify_test_v1` to check
 the stored hashes, paired case coverage, and summary counts. The test set is
 spent for this v1 system; future experiments on it are exploratory.
+The live v3 profile has a separate frozen 150-question test across three
+synthetic layouts, verified by `python -m evaluation.verify_v3_generalization`.
 
 ## Offline use
 
@@ -378,7 +381,7 @@ python -m detect.train_fusion_classifier
 python backend/api.py
 ```
 
-The first command that loads MiniLM may download the model once. After it is cached, add `$env:HF_HUB_OFFLINE="1"` and `$env:TRANSFORMERS_OFFLINE="1"` for a fully offline demonstration. Keep `RAG_USE_MINILM=1` for the standard Research Lab API so its index, detector, and query vectors use the same embedding space; the secure-query endpoint instead requires `RAG_USE_MINILM=0` and the separately documented Qwen setting.
+The first command that loads MiniLM may download the model once. After it is cached, add `$env:HF_HUB_OFFLINE="1"` and `$env:TRANSFORMERS_OFFLINE="1"` for the separate MiniLM review/demo pipeline. The live Research Lab and Secure Query paths require `RAG_USE_MINILM=0`; the Research Lab uses the frozen hashing v3 detector, while Secure Query also needs the separately documented Qwen setting.
 
 For the zero-download fallback, remove that environment variable and rerun the three artifact-building commands. Separate backend-specific classifier artifacts prevent a hashing classifier from being mixed with MiniLM features.
 

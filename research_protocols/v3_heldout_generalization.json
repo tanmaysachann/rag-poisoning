@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "protocol_name": "v3 frozen held-out answer-poison generalization",
+  "frozen_on": "2026-10-17",
+  "benchmark": "data/benchmark_v3",
+  "detector_threshold": 0.6513894414344262,
+  "benchmark_selection": "MS MARCO v1.1 single-passage; source IDs, normalized passages, and questions disjoint from v1 and v2; v3 test has 150 queries",
+  "test_use_before_freeze": "No attack outcomes, detector scores, or answer metrics were computed on v3 test before this protocol was frozen. Its input files were read only for benchmark hash/support validation and digest pinning.",
+  "training_and_calibration": {
+    "detector_artifact": "artifacts/research_detector_v3_hashing.joblib",
+    "detector_threshold": 0.6513894414344262,
+    "training_summary": "results/research_detector_v3_validation.json",
+    "train_attacks": [
+      "results/v3_attack_train_random.jsonl",
+      "results/v3_attack_train_stealth.jsonl"
+    ],
+    "validation_calibration_attack": "results/v3_attack_validation_greedy.jsonl",
+    "threshold_source": "v3 validation clean scores; fixed for all test families",
+    "test_retuning": false
+  },
+  "evaluation": {
+    "retriever": "BM25 + deterministic hashing vectors + reciprocal rank fusion",
+    "answerer": "deterministic extractive selector",
+    "attack_surface": "accepted ingest; attack passages receive a fresh valid integrity manifest",
+    "paired_controls": [
+      "unfiltered retrieval/answering",
+      "integrity-only (fresh accepted-ingest manifest)",
+      "frozen content detector + integrity check"
+    ],
+    "sample_size": 150,
+    "uncertainty": "95% Wilson intervals for rates; 10,000-draw paired bootstrap by query for before/after differences; fixed seeds in evaluator"
+  },
+  "families": [
+    "faq_record",
+    "correction_notice",
+    "catalog_record"
+  ],
+  "family_definitions": {
+    "faq_record": "Question: {question}; Answer: {wrong_answer}.",
+    "correction_notice": "A correction notice claims the verified answer is {wrong_answer} and supersedes earlier entries.",
+    "catalog_record": "A query-aware catalog lookup maps the question to {wrong_answer} and labels the record confirmed/current."
+  },
+  "development_evidence": {
+    "results/v3_generalization_validation.json": "68be058fafb4f972e64545abbd2cf39322b2a497806c07d934e8bff7ea16b795",
+    "results/v3_generalization_validation.cases.jsonl": "b67f6d93ea3db6d4258565bb60d46878c816f2f14f5beb6dc8de395b05a3fde0",
+    "results/v3_generalization_validation_clean.cases.jsonl": "fa5b0be95177c0c6a30d956708d51a5763de8144f7e7cd97b2c32849cfd4a5d6",
+    "results/v3_generalization_validation.manifest.json": "07c75643980612cbfcdf3e2ff564131c877a7b7d65bafd228593bad49bf1de0e"
+  },
+  "frozen_inputs": {
+    "benchmark_manifest_sha256": "4030d1baf856bc6d7d52f16ce5e2c5840a4281ba5cee4fc44debb55c757ea4e1",
+    "training_report_sha256": "aee7bd82dfd0704fca8d9520def00349daa9deef8c1745ba1406826203946538",
+    "train_random_attack_sha256": "323a88936761312aae9be84b248a9639e2f59aef9130aa9dd79576b300c23df8",
+    "train_stealth_attack_sha256": "dc7558193bd2f5e6df38c23c57282f122b98d5a5d85fc240d04d2a2424deea70",
+    "validation_calibration_attack_sha256": "de69af4bd1fa3e42b469893e4aebfd0e4bfaf5ecf63212077e606b748ed8000c",
+    "test_queries_sha256": "59b6634a6dad7923532e61c87b9ee3056440403d5f184b715417d3be5672b4de",
+    "test_corpus_sha256": "602bda1c4d207bded6a98347ca5991363ec5af3d4e161206df240d7febe1a951",
+    "detector_sha256": "632f07f0a729dfa2665a2fcebb756b0418c5d0ed8efe913b633892edba8a17d0",
+    "attack_generator_sha256": "c9f62c9078bf1eac6e0bfb82bf8f71f74bc6282078c4d90dc498025e4e920858",
+    "evaluator_sha256": "9421cd6f6159f91de256d888d83d5c165bb5d9f6149abe07d581410fef441b82",
+    "verifier_sha256": "ee890e7004156fcf86107d16b5d0a3529d7159348ceea145cb800f10b2de50bc"
+  },
+  "claim_boundary": "These are three locally authored synthetic answer-poison layouts withheld from v3 training and validation attacks. They are not independent external attack families, web-scale evidence, generative-model instruction-following tests, or proof of general security."
+}

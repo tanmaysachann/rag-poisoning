@@ -28,6 +28,7 @@ from evaluation.verify_payload_families import verify as verify_payload_families
 from evaluation.evaluate_cited_extractive import verify as verify_cited_extractive
 from evaluation.verify_answer_key_corroboration import verify as verify_answer_key_corroboration
 from evaluation.verify_perplexity import verify as verify_perplexity
+from evaluation.verify_v3_generalization import verify as verify_v3_generalization
 
 
 def run(*command: str) -> None:
@@ -43,6 +44,7 @@ def main() -> int:
     run(sys.executable, "scripts/doctor.py")
     run(sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q")
     run(sys.executable, "-m", "evaluation.verify_test_v1")
+    print(json.dumps(verify_v3_generalization(), indent=2), flush=True)
     run(sys.executable, "-m", "data.validate_multisupport_benchmark")
     print(json.dumps(verify_v2_development(), indent=2), flush=True)
     print(json.dumps(verify_answer_corroboration(), indent=2), flush=True)

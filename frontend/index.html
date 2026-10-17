@@ -6,7 +6,7 @@
   <header class="topbar">
     <div class="brand"><span class="mark">S</span><div><strong>Sentinel RAG</strong><small>Research project</small></div></div>
     <nav aria-label="Console views"><button class="nav-btn active" data-view="research">Research lab</button><button class="nav-btn" data-view="secure">Secure query</button><button class="nav-btn" data-view="analysis">Five-case demo</button><button class="nav-btn" data-view="architecture">Architecture</button></nav>
-    <div class="system"><i></i> Live profile <span>hashing / validation</span></div>
+    <div class="system"><i></i> Live profile <span>v3 hashing / validation</span></div>
   </header>
 
   <main id="view-analysis" class="view">
@@ -86,12 +86,12 @@
 
   <main id="view-research" class="view active research-view">
     <section class="lab-hero">
-      <div><p class="lab-kicker">Validation experiment</p><h1>RAG poisoning research lab</h1><p class="lab-lede">Select a question from the 75-case MS MARCO validation split, edit one attack passage, and run retrieval and detection. Inspect the document-level decisions and compare the resulting answers.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Eight detector features</span><span>Closed corpus</span></div></div>
-      <aside class="lab-hero-aside"><span>Current finding</span><strong>Accepted false facts remain the main weakness.</strong><p>The detector blocks the overt insertion template but misses many accepted-ingest answer substitutions. The workbench shows both cases.</p><a href="https://github.com/tanmaysachann/rag-poisoning" target="_blank" rel="noopener noreferrer">View source code</a></aside>
+      <div><p class="lab-kicker">Research prototype · v3 live profile</p><h1>RAG poisoning research lab</h1><p class="lab-lede">Select a question from the 150-case v3 validation split, edit an attack passage, and run the same frozen hashing detector and extractive answer path evaluated in the held-out study.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Frozen v3 detector · threshold 0.651</span><span>Closed corpus</span></div></div>
+      <aside class="lab-hero-aside"><span>Held-out result</span><strong>Three withheld layouts show lower attack success, but many attacks still work.</strong><p>Across 150 test questions per layout, defended success remains 22%–43%. Clean exact-alias utility is 23% without filtering and 23% with the detector.</p><a href="https://github.com/tanmaysachann/rag-poisoning" target="_blank" rel="noopener noreferrer">View source code</a></aside>
     </section>
 
     <section class="lab-section" aria-labelledby="lab-workbench-title">
-      <div class="lab-section-heading"><div><span>Live experiment</span><h2 id="lab-workbench-title">Attack workbench</h2></div><p>Each run stages one edited passage and up to two copies in temporary storage. The checked-in corpus and sealed test evidence stay fixed.</p></div>
+      <div class="lab-section-heading"><div><span>Live experiment · v3 validation</span><h2 id="lab-workbench-title">Attack workbench</h2></div><p>Each run stages one edited passage and up to two copies in temporary storage. The checked-in corpus and sealed test evidence stay fixed.</p></div>
       <div class="lab-workbench">
         <div class="lab-controls">
           <div class="lab-control-top"><span>Experiment input</span><span class="lab-live"><i></i> Runs on server</span></div>
@@ -106,7 +106,7 @@
           <div id="lab-extra-3" hidden><label for="lab-payload-3">Attacker passage 3</label><textarea id="lab-payload-3" rows="6" maxlength="4000" spellcheck="false"></textarea></div>
           <button id="lab-run" class="lab-run" type="button">Run validation experiment <span>&rarr;</span></button>
           <p class="lab-small">Live answers are extractive spans only, not Qwen or Llama generation. Qwen 0.5B gave 5/20 cited spans and 1/20 alias matches offline and stays offline; Llama-3-8B never ran here. MiniLM, Qwen and PPO figures below are saved offline runs.</p>
-          <p class="lab-small">Threshold 0.69 is 4% clean false alarms on validation: overt greedy insertion is blocked 75/75, stealth substitution mostly passes. Adding copies (1-3) shares one attacker origin and does not prove varied-attack safety.</p>
+          <p class="lab-small">This live path uses the frozen v3 detector (threshold 0.651). Its held-out test still had 17%–43% attack success; clean exact-alias utility is weak. Integrity catches post-index changes, not false claims accepted at ingest. Adding copies (1–3) shares one attacker origin.</p>
         </div>
         <div class="lab-output">
           <div class="lab-output-top"><span>Pipeline results</span><span id="lab-time">—</span></div>
@@ -121,8 +121,20 @@
       </div>
     </section>
 
+    <section class="lab-section" aria-labelledby="lab-heldout-title">
+      <div class="lab-section-heading"><div><span>Frozen test · verified at request time</span><h2 id="lab-heldout-title">Held-out attack generalization</h2></div><p>Same v3 detector artifact and threshold as the live workbench. Each synthetic layout uses the same 150 untouched test questions, with paired before/after outcomes.</p></div>
+      <div id="lab-generalization-status" class="lab-evidence-caption">Verifying frozen protocol and output hashes…</div>
+      <div class="lab-evidence-grid">
+        <article class="lab-evidence-card"><span>Clean test · 150 questions</span><h3>Exact-alias utility</h3><div class="lab-big-number" id="lab-generalization-clean">—</div><p>Baseline → detector. The extractor is conservative and exact-alias matching is a narrow quality measure.</p></article>
+        <article class="lab-evidence-card lab-evidence-warn"><span>Withheld synthetic layout</span><h3>FAQ record</h3><div class="lab-big-number" id="lab-generalization-faq">—</div><p>Undefended → defended wrong-answer success; includes paired reduction interval.</p></article>
+        <article class="lab-evidence-card lab-evidence-warn"><span>Withheld synthetic layout</span><h3>Correction notice</h3><div class="lab-big-number" id="lab-generalization-correction">—</div><p>Undefended → defended wrong-answer success; includes paired reduction interval.</p></article>
+        <article class="lab-evidence-card lab-evidence-warn"><span>Withheld synthetic layout</span><h3>Catalog record</h3><div class="lab-big-number" id="lab-generalization-catalog">—</div><p>Undefended → defended wrong-answer success; includes paired reduction interval.</p></article>
+      </div>
+      <p id="lab-generalization-limits" class="lab-evidence-caption">Limitations: locally authored synthetic text layouts, one labeled support per question, extractive answers only, and related formats explored elsewhere in development. This is held-out split evidence, not independent external attack-source evidence.</p>
+    </section>
+
     <section class="lab-section" aria-labelledby="lab-evidence-title">
-      <div class="lab-section-heading"><div><span>Measured evidence</span><h2 id="lab-evidence-title">Results, including the failure</h2></div><p>The live workbench uses hashing. These measurements were saved from separate MiniLM and PPO experiments; they are not rerun in the browser.</p></div>
+      <div class="lab-section-heading"><div><span>Historical and comparative evidence</span><h2 id="lab-evidence-title">Results, including the failure</h2></div><p>Cards below labeled v1 and scaled v3 are saved historical comparisons. The frozen held-out test above evaluates the same v3 hashing detector now used by the live workbench.</p></div>
       <div class="lab-evidence-grid">
         <article class="lab-evidence-card"><span>Sealed test v1 / 75 questions</span><h3>Greedy insertion</h3><div class="lab-big-number" id="lab-greedy-result">—</div><p>Attack success before → after defense. The overt template was quarantined in all 75 cases.</p><div class="lab-paired-bars" id="lab-greedy-bars"></div></article>
         <article class="lab-evidence-card lab-evidence-warn"><span>Sealed test v1 / 75 questions</span><h3>Stealth substitution</h3><div class="lab-big-number" id="lab-stealth-result">—</div><p>Attack success before → after defense. Only three altered documents were quarantined.</p><div class="lab-paired-bars" id="lab-stealth-bars"></div></article>
@@ -145,7 +157,7 @@
       <p id="lab-ppo-cache-ablation" class="lab-evidence-caption">Loading the edit-effect cache ablation…</p>
       <p id="lab-ppo-head-ablation" class="lab-evidence-caption">Loading the action-head ablation…</p>
       <p id="lab-ppo-undefended-multiseed" class="lab-evidence-caption">Loading the undefended three-seed comparison…</p>
-      <div class="lab-traces"><div class="lab-trace-header"><span>Selected question / saved PPO edit traces</span><p id="lab-ppo-case-label">Choose a workbench case above.</p></div><div id="lab-ppo-traces" class="lab-trace-grid"></div></div>
+      <div class="lab-traces"><div class="lab-trace-header"><span>Historical v1 PPO edit traces</span><p id="lab-ppo-case-label">PPO archive uses the earlier v1 question set.</p></div><div id="lab-ppo-traces" class="lab-trace-grid"></div></div>
     </section>
 
     <section class="lab-section lab-limits"><div class="lab-section-heading"><div><span>Development status</span><h2>What is still unsolved</h2></div></div><div class="lab-limits-grid"><article><b>Accepted false facts</b><p>A valid SHA-256 digest confirms a snapshot, not factual truth. The first frozen test setup had 22/75 defended stealth successes.</p></article><article><b>Two-passage gate</b><p id="lab-v2-summary">Loading v2 validation…</p></article><article><b>Answer corroboration</b><p id="lab-v2-corroboration">Loading the disagreement-abstain probe…</p></article><article><b>Answer-key containment</b><p id="lab-v2-answer-key">Loading the key-containment probe…</p></article><article><b>Token likelihood</b><p id="lab-perplexity">Loading the Qwen likelihood probe…</p></article><article><b>Local generator</b><p id="lab-cited-extractive">Loading the cited-answer comparison…</p></article><article><b>Overt payload families</b><p id="lab-payload-families">Loading instruction, URL and refusal probes…</p></article><article><b>Answer-layout probes</b><p id="lab-unseen-summary">Loading three development attack layouts…</p></article><article><b>Poison budget</b><p id="lab-budget-summary">Loading replicated-passage validation…</p></article></div><div class="lab-code-links"><span>Implementation</span><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/backend/research_lab.py" target="_blank" rel="noopener noreferrer">Live research path</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/poison/train.py" target="_blank" rel="noopener noreferrer">PPO training</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/detect/research_detector.py" target="_blank" rel="noopener noreferrer">Detector</a><a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/REPORT_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence</a></div></section>

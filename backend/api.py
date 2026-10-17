@@ -244,6 +244,20 @@ def secure_query_status() -> dict:
     return secure_service_status()
 
 
+@app.get("/api/generalization-summary")
+def generalization_summary() -> dict:
+    """Return the frozen v3 held-out aggregate only after artifact verification."""
+    from evaluation.verify_v3_generalization import verify
+
+    try:
+        proof = verify()
+        path = ROOT / "results" / "v3_generalization_test.json"
+        summary = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=409, detail="Frozen generalization evidence failed verification") from error
+    return {"verification": proof, "summary": summary}
+
+
 @app.get("/", include_in_schema=False)
 def index() -> FileResponse:
     return FileResponse(ROOT / "frontend" / "index.html")

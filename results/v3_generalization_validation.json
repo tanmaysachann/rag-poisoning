@@ -1,0 +1,148 @@
+{
+  "answer_profile_details": "RAG_USE_MINILM=0; deterministic extractive selector",
+  "attack_surface": "accepted-ingest; attack is included in the newly sealed corpus snapshot",
+  "benchmark": "MS MARCO v1.1 disjoint benchmark v3",
+  "benchmark_counts": {
+    "nq_alias_present": 10,
+    "nq_challenge": 100,
+    "test": 150,
+    "train": 700,
+    "validation": 150
+  },
+  "cases_file": "results/v3_generalization_validation.cases.jsonl",
+  "clean_control": {
+    "baseline_abstention_rate": 0.5333333333333333,
+    "baseline_alias_match": 28,
+    "baseline_alias_match_rate": 0.18666666666666668,
+    "baseline_alias_match_wilson_95": {
+      "lower": 0.13242415483319162,
+      "upper": 0.2565571983041365
+    },
+    "candidate_false_positive_rate": 0.024,
+    "cases": 150,
+    "detector_abstention_rate": 0.5733333333333334,
+    "detector_alias_match": 27,
+    "detector_alias_match_rate": 0.18,
+    "detector_alias_match_wilson_95": {
+      "lower": 0.1267576780776089,
+      "upper": 0.2492232783179601
+    },
+    "paired_alias_match_change": -0.006666666666666682,
+    "paired_change_bootstrap_95": {
+      "lower": -0.02,
+      "upper": -0.0
+    }
+  },
+  "detector_threshold": 0.6513894414344262,
+  "detector_threshold_source": "frozen v3 validation calibration; no test retuning",
+  "evaluation_profile": "hashing retrieval + extractive selector + frozen v3 content detector",
+  "frozen_inputs": {
+    "attack_generator_sha256": "c9f62c9078bf1eac6e0bfb82bf8f71f74bc6282078c4d90dc498025e4e920858",
+    "benchmark_manifest_sha256": "4030d1baf856bc6d7d52f16ce5e2c5840a4281ba5cee4fc44debb55c757ea4e1",
+    "detector_sha256": "632f07f0a729dfa2665a2fcebb756b0418c5d0ed8efe913b633892edba8a17d0",
+    "evaluator_sha256": "9421cd6f6159f91de256d888d83d5c165bb5d9f6149abe07d581410fef441b82",
+    "test_corpus_sha256": "602bda1c4d207bded6a98347ca5991363ec5af3d4e161206df240d7febe1a951",
+    "test_queries_sha256": "59b6634a6dad7923532e61c87b9ee3056440403d5f184b715417d3be5672b4de",
+    "train_random_attack_sha256": "323a88936761312aae9be84b248a9639e2f59aef9130aa9dd79576b300c23df8",
+    "train_stealth_attack_sha256": "dc7558193bd2f5e6df38c23c57282f122b98d5a5d85fc240d04d2a2424deea70",
+    "training_report_sha256": "aee7bd82dfd0704fca8d9520def00349daa9deef8c1745ba1406826203946538",
+    "validation_calibration_attack_sha256": "de69af4bd1fa3e42b469893e4aebfd0e4bfaf5ecf63212077e606b748ed8000c",
+    "verifier_sha256": "ee890e7004156fcf86107d16b5d0a3529d7159348ceea145cb800f10b2de50bc"
+  },
+  "limitations": [
+    "All three withheld templates are synthetic, query-aware, and locally authored.",
+    "The benchmark contains one labeled support passage per question; this is not web-scale retrieval.",
+    "The test measures extractive source-selection outcomes, not instruction-following by a generative LLM.",
+    "Attack layouts were withheld from v3 detector train and validation; the same project may have explored related formats on other development corpora."
+  ],
+  "paired_attack_families": {
+    "catalog_record": {
+      "abstention_rate_under_attack": 0.4866666666666667,
+      "attack_quarantine_rate_given_retrieval": 0.86,
+      "attack_quarantine_rate_given_success": 0.8198198198198198,
+      "attack_retrieval_rate": 1.0,
+      "attack_success_after_detector": 20,
+      "attack_success_after_detector_rate": 0.13333333333333333,
+      "attack_success_after_wilson_95": {
+        "lower": 0.0879980047055142,
+        "upper": 0.196980174497742
+      },
+      "attack_success_before": 111,
+      "attack_success_before_rate": 0.74,
+      "attack_success_before_wilson_95": {
+        "lower": 0.6644356718314847,
+        "upper": 0.8035786108718385
+      },
+      "cases": 150,
+      "clean_alias_recovered_under_attack": 0.18666666666666668,
+      "clean_candidate_false_positive_rate": 0.025,
+      "integrity_only_attack_success": 111,
+      "median_latency_ms": 94.031,
+      "paired_absolute_reduction": 0.6066666666666667,
+      "paired_reduction_bootstrap_95": {
+        "lower": 0.5266666666666666,
+        "upper": 0.6866666666666666
+      }
+    },
+    "correction_notice": {
+      "abstention_rate_under_attack": 0.44666666666666666,
+      "attack_quarantine_rate_given_retrieval": 0.7933333333333333,
+      "attack_quarantine_rate_given_success": 0.7394957983193278,
+      "attack_retrieval_rate": 1.0,
+      "attack_success_after_detector": 31,
+      "attack_success_after_detector_rate": 0.20666666666666667,
+      "attack_success_after_wilson_95": {
+        "lower": 0.1495889415499601,
+        "upper": 0.27839360181264483
+      },
+      "attack_success_before": 119,
+      "attack_success_before_rate": 0.7933333333333333,
+      "attack_success_before_wilson_95": {
+        "lower": 0.7216063981873552,
+        "upper": 0.8504110584500398
+      },
+      "cases": 150,
+      "clean_alias_recovered_under_attack": 0.16,
+      "clean_candidate_false_positive_rate": 0.025,
+      "integrity_only_attack_success": 119,
+      "median_latency_ms": 95.015,
+      "paired_absolute_reduction": 0.5866666666666667,
+      "paired_reduction_bootstrap_95": {
+        "lower": 0.5066666666666667,
+        "upper": 0.6666666666666666
+      }
+    },
+    "faq_record": {
+      "abstention_rate_under_attack": 0.34,
+      "attack_quarantine_rate_given_retrieval": 0.54,
+      "attack_quarantine_rate_given_success": 0.484375,
+      "attack_retrieval_rate": 1.0,
+      "attack_success_after_detector": 67,
+      "attack_success_after_detector_rate": 0.44666666666666666,
+      "attack_success_after_wilson_95": {
+        "lower": 0.36942801041509465,
+        "upper": 0.5265688156508335
+      },
+      "attack_success_before": 128,
+      "attack_success_before_rate": 0.8533333333333334,
+      "attack_success_before_wilson_95": {
+        "lower": 0.7879153994391072,
+        "upper": 0.9011056278741189
+      },
+      "cases": 150,
+      "clean_alias_recovered_under_attack": 0.1,
+      "clean_candidate_false_positive_rate": 0.025,
+      "integrity_only_attack_success": 128,
+      "median_latency_ms": 93.8535,
+      "paired_absolute_reduction": 0.40666666666666673,
+      "paired_reduction_bootstrap_95": {
+        "lower": 0.32666666666666666,
+        "upper": 0.4866666666666667
+      }
+    }
+  },
+  "protocol_sha256": null,
+  "schema_version": 1,
+  "split": "validation",
+  "split_cases": 150
+}

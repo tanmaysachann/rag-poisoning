@@ -1,0 +1,25 @@
+{
+  "cases": "results/v3_generalization_test.cases.jsonl",
+  "clean_cases": "results/v3_generalization_test_clean.cases.jsonl",
+  "frozen_inputs": {
+    "attack_generator_sha256": "c9f62c9078bf1eac6e0bfb82bf8f71f74bc6282078c4d90dc498025e4e920858",
+    "benchmark_manifest_sha256": "4030d1baf856bc6d7d52f16ce5e2c5840a4281ba5cee4fc44debb55c757ea4e1",
+    "detector_sha256": "632f07f0a729dfa2665a2fcebb756b0418c5d0ed8efe913b633892edba8a17d0",
+    "evaluator_sha256": "9421cd6f6159f91de256d888d83d5c165bb5d9f6149abe07d581410fef441b82",
+    "test_corpus_sha256": "602bda1c4d207bded6a98347ca5991363ec5af3d4e161206df240d7febe1a951",
+    "test_queries_sha256": "59b6634a6dad7923532e61c87b9ee3056440403d5f184b715417d3be5672b4de",
+    "train_random_attack_sha256": "323a88936761312aae9be84b248a9639e2f59aef9130aa9dd79576b300c23df8",
+    "train_stealth_attack_sha256": "dc7558193bd2f5e6df38c23c57282f122b98d5a5d85fc240d04d2a2424deea70",
+    "training_report_sha256": "aee7bd82dfd0704fca8d9520def00349daa9deef8c1745ba1406826203946538",
+    "validation_calibration_attack_sha256": "de69af4bd1fa3e42b469893e4aebfd0e4bfaf5ecf63212077e606b748ed8000c",
+    "verifier_sha256": "ee890e7004156fcf86107d16b5d0a3529d7159348ceea145cb800f10b2de50bc"
+  },
+  "protocol_sha256": "ddc679e3975e4bcac1feeb9953466982ac41b8b12cba562be5e53caad3e57f0d",
+  "schema_version": 1,
+  "sha256": {
+    "cases": "2445887d086eda933c84a8cc3d3c10bfae12c5a1b5fd8cd0bfabee9acd008478",
+    "clean_cases": "940e18e71010f716b4ffe58034c23ec9ea575171fe0c35cb8c28034d2ea70f23",
+    "summary": "1ceed26e85cdf5ebb540262cbad54d19f4611e360120b83cf17f384794f4465b"
+  },
+  "summary": "results/v3_generalization_test.json"
+}
