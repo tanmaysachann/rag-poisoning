@@ -1,0 +1,76 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "model_type": "fine_tuned_query_passage_cross_encoder",
+  "data_manifest_sha256": "47967026d1331d19d369079a02c3e8343bd5d2e67dfe5df3f820966cfd3fd72b",
+  "data_counts": {
+    "domain_test": 100,
+    "test": 150,
+    "train": 1200,
+    "validation": 150
+  },
+  "train_examples": 7200,
+  "validation_examples": 900,
+  "device": "cuda",
+  "seed": 1417,
+  "batch_size": 8,
+  "max_length": 320,
+  "epochs": 2,
+  "threshold_target_fpr": 0.05,
+  "threshold": 0.9379252195358277,
+  "observed_validation_fpr": 0.04888888888888889,
+  "observed_validation_recall": 0.72,
+  "validation_roc_auc": 0.9317728395061727,
+  "validation_pr_auc": 0.9419549128781854,
+  "validation_by_family": {
+    "answer_replacement": {
+      "count": 150,
+      "flag_rate": 0.6333333333333333,
+      "mean_score": 0.712431403864175
+    },
+    "clean_faq": {
+      "count": 150,
+      "flag_rate": 0.02666666666666667,
+      "mean_score": 0.09838072671244542
+    },
+    "false_addendum": {
+      "count": 150,
+      "flag_rate": 1.0,
+      "mean_score": 0.988843408425649
+    },
+    "false_faq": {
+      "count": 150,
+      "flag_rate": 0.5266666666666666,
+      "mean_score": 0.6821937449711064
+    },
+    "other_clean": {
+      "count": 150,
+      "flag_rate": 0.07333333333333333,
+      "mean_score": 0.14417680848389863
+    },
+    "support": {
+      "count": 150,
+      "flag_rate": 0.04666666666666667,
+      "mean_score": 0.11007252852121989
+    }
+  },
+  "epoch_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.4986957740783691,
+      "validation_roc_auc": 0.9131061728395062,
+      "validation_pr_auc": 0.9275513162110525
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3044574303097195,
+      "validation_roc_auc": 0.9317728395061727,
+      "validation_pr_auc": 0.9419549128781854
+    }
+  ],
+  "elapsed_seconds": 77.04,
+  "limitations": [
+    "Training poisons are synthetic and locally generated.",
+    "The model reads only query and candidate, without a trusted factual reference.",
+    "The clean FAQ control and false FAQ differ mainly in factual answer content."
+  ]
+}

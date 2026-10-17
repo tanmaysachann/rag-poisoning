@@ -1,0 +1,47 @@
+{
+  "confirmation_scope": "synthetic attacks on new MS MARCO questions and new SQuAD contexts",
+  "inputs": {
+    "confirmation_report": {
+      "path": "results/detector_confirmation_v5_test.json",
+      "sha256": "fe87823ddd9e463445050e1d1fac97aab37a2ecff91f306c8e22b72d6e8343aa"
+    },
+    "model_config.json": {
+      "path": "artifacts/detector_pilot_v4/config.json",
+      "sha256": "675bf618784222f6cdd98757dff2209d050e7b33a6dc65cb862e772a3d3d5a1a"
+    },
+    "model_model.safetensors": {
+      "path": "artifacts/detector_pilot_v4/model.safetensors",
+      "sha256": "0fe0dbc573bf121e7c81cc79627b1e4a1fdc2aeab763d1b8792b154fc0b237e8"
+    },
+    "model_special_tokens_map.json": {
+      "path": "artifacts/detector_pilot_v4/special_tokens_map.json",
+      "sha256": "5aa43c2f985a25296d5a5ce621c2f77376ca8091a47993c492fd5460b895b140"
+    },
+    "model_tokenizer.json": {
+      "path": "artifacts/detector_pilot_v4/tokenizer.json",
+      "sha256": "4b9d4924d5bbaed352534029cf11bd9133cbe094b66c2ea851037e1cbf0bd522"
+    },
+    "model_tokenizer_config.json": {
+      "path": "artifacts/detector_pilot_v4/tokenizer_config.json",
+      "sha256": "46ac231e9b955a8af80fc7f23a0ecc65b524f1df84a02c2c82cbca354fb207b4"
+    },
+    "model_vocab.txt": {
+      "path": "artifacts/detector_pilot_v4/vocab.txt",
+      "sha256": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+    },
+    "old_detector": {
+      "path": "artifacts/research_detector_v3_hashing_web.joblib",
+      "sha256": "fd93e4548d056aa4e5382ec3e79fe88d5dd50d164a662b356a4671167cd61df9"
+    },
+    "training_report": {
+      "path": "results/detector_pilot_v4_training.json",
+      "sha256": "65699736cc061f9f9485d39cc89a22184f161c658652d13a4bf1a68887275620"
+    }
+  },
+  "model_directory": "artifacts/detector_pilot_v4",
+  "new_threshold": 0.9379252195358277,
+  "old_threshold": 0.6513894414344262,
+  "policy": "quarantine_if_v3_or_trained_cross_encoder_flags",
+  "runtime_requirements": "requirements-dev.txt (torch, transformers); local artifact is not bundled with the public web deployment",
+  "schema_version": 1
+}

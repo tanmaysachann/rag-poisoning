@@ -71,8 +71,11 @@ def infer_research(
         checked.append((doc, status))
     integrity_ms = (time.perf_counter() - started) * 1000 - retrieval_ms
     rows, kept = [], []
-    for rank, (doc, integrity) in enumerate(checked, 1):
-        score = detector.score(query, doc["text"])
+    if hasattr(detector, "score_batch"):
+        detector_scores = detector.score_batch(query, [doc["text"] for doc, _ in checked])
+    else:
+        detector_scores = [detector.score(query, doc["text"]) for doc, _ in checked]
+    for rank, ((doc, integrity), score) in enumerate(zip(checked, detector_scores), 1):
         quarantine = integrity["status"] != "verified" or score["decision"] == "quarantine"
         if not quarantine:
             kept.append(doc)
@@ -82,9 +85,13 @@ def infer_research(
             "rrf_score": doc["score"], "integrity": integrity["status"],
             "sha256": integrity["actual_hash"], "risk": score["risk_score"],
             "threshold": score["threshold"], "features": score["features"],
+            "risk_score_kind": score.get("risk_score_kind", "detector_probability"),
+            "detector_triggered_by": score.get("triggered_by", []),
             "decision": "quarantine" if quarantine else "accept",
             "reasons": ([f"integrity:{integrity['status']}"] if integrity["status"] != "verified" else [])
-            + (["detector:threshold"] if score["decision"] == "quarantine" else []),
+            + ([f"detector:{name}" for name in score.get("triggered_by", [])]
+               if score["decision"] == "quarantine" and score.get("triggered_by")
+               else ["detector:threshold"] if score["decision"] == "quarantine" else []),
         })
     detection_ms = (time.perf_counter() - started) * 1000 - retrieval_ms - integrity_ms
     undefended = _answer(query, candidates, retriever)

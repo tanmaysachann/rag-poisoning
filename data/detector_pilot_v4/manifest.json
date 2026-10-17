@@ -1,0 +1,24 @@
+{
+  "counts": {
+    "domain_test": 100,
+    "test": 150,
+    "train": 1200,
+    "validation": 150
+  },
+  "file_sha256": {
+    "domain_test/corpus.jsonl": "e8367305fc9fc4242ccbc4dc6e2834b62592e8e9a91f15eb6e8e511f7cecc7e5",
+    "domain_test/queries.jsonl": "66d9b485cd3a5378a7ecb1514caffa3a19598b66f72a4501aabae469efa89cfc",
+    "test/corpus.jsonl": "12795e2cad28270ef09a51a0a1a6100a645dca88d4c6ec97032785a9e17ceb1a",
+    "test/queries.jsonl": "aae9228360491da56b7daeb833afe024e7d639c27b5bac6134a4771e48398274",
+    "train/corpus.jsonl": "9ef8a30f5c5b6f5ced44998a488b154fdb1ddffc67e89c89e056c837d8072940",
+    "train/queries.jsonl": "6c0c27f58e39e394c7e8e5a20d925277c5ecfe82c9647af4f5cf8c3ac78ad6aa",
+    "validation/corpus.jsonl": "64a301c49ce12982429aa3584b83792a5e4e0454fd7736006f5404a9d7f1514a",
+    "validation/queries.jsonl": "369aa840a64b2fec6e4417e3c76208a44f68dfc21f44f5435ee26f8fc36a4c3d"
+  },
+  "ms_marco_revision": "a47ee7aae8d7d466ba15f9f0bfac3b3681087b3a",
+  "ms_marco_rows_scanned": 4467,
+  "schema_version": 1,
+  "seed": 1417,
+  "selection": "fresh disjoint MS MARCO; SQuAD validation domain test",
+  "squad_revision": "7b6d24c440a36b6815f21b70d25016731768db1f"
+}

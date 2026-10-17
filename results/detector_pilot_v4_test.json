@@ -1,0 +1,856 @@
+{
+  "data_manifest_sha256": "47967026d1331d19d369079a02c3e8343bd5d2e67dfe5df3f820966cfd3fd72b",
+  "training_report_sha256": "65699736cc061f9f9485d39cc89a22184f161c658652d13a4bf1a68887275620",
+  "comparison": "same hashing retriever, top-5 candidates, and extractive answerer; only detector differs",
+  "model_device": "cuda",
+  "old_threshold": 0.6513894414344262,
+  "new_threshold": 0.9379252195358277,
+  "test_splits": {
+    "test": {
+      "clean_control": {
+        "cases": 150,
+        "undefended_alias_match": {
+          "count": 35,
+          "rate": 0.23333333333333334,
+          "wilson_95": {
+            "lower": 0.17282631511397295,
+            "upper": 0.3071578152156679
+          }
+        },
+        "old_alias_match": {
+          "count": 33,
+          "rate": 0.22,
+          "wilson_95": {
+            "lower": 0.16116023701753923,
+            "upper": 0.29282309982858373
+          }
+        },
+        "new_alias_match": {
+          "count": 33,
+          "rate": 0.22,
+          "wilson_95": {
+            "lower": 0.16116023701753923,
+            "upper": 0.29282309982858373
+          }
+        },
+        "new_minus_old_clean_alias_match": 0.0,
+        "paired_difference_bootstrap_95": {
+          "lower": -0.02666666666666667,
+          "upper": 0.02666666666666667
+        },
+        "old_abstentions": {
+          "count": 87,
+          "rate": 0.58,
+          "wilson_95": {
+            "lower": 0.49998480543102514,
+            "upper": 0.6560199554700825
+          }
+        },
+        "new_abstentions": {
+          "count": 85,
+          "rate": 0.5666666666666667,
+          "wilson_95": {
+            "lower": 0.4866798706275503,
+            "upper": 0.6433240967900394
+          }
+        },
+        "old_clean_doc_flag_rate": 0.021333333333333333,
+        "new_clean_doc_flag_rate": 0.058666666666666666
+      },
+      "attack_aggregate": {
+        "cases": 600,
+        "undefended_attack_success": {
+          "count": 495,
+          "rate": 0.825,
+          "wilson_95": {
+            "lower": 0.7925557232103237,
+            "upper": 0.8533091711307708
+          }
+        },
+        "old_attack_success": {
+          "count": 93,
+          "rate": 0.155,
+          "wilson_95": {
+            "lower": 0.1282458511251585,
+            "upper": 0.18614372257429498
+          }
+        },
+        "new_attack_success": {
+          "count": 83,
+          "rate": 0.13833333333333334,
+          "wilson_95": {
+            "lower": 0.11300100104651516,
+            "upper": 0.1682672960200617
+          }
+        },
+        "old_minus_new_attack_success": 0.016666666666666663,
+        "paired_difference_bootstrap_95": {
+          "lower": -0.018333333333333333,
+          "upper": 0.05333333333333334
+        },
+        "attack_retrieved": {
+          "count": 599,
+          "rate": 0.9983333333333333,
+          "wilson_95": {
+            "lower": 0.9906204395238613,
+            "upper": 0.9997057317991506
+          }
+        },
+        "old_attack_quarantined": {
+          "count": 505,
+          "rate": 0.8416666666666667,
+          "wilson_95": {
+            "lower": 0.8102953206379633,
+            "upper": 0.868690850336008
+          }
+        },
+        "new_attack_quarantined": {
+          "count": 515,
+          "rate": 0.8583333333333333,
+          "wilson_95": {
+            "lower": 0.8281474200087048,
+            "upper": 0.8839600275981431
+          }
+        },
+        "old_clean_alias_recovered": {
+          "count": 120,
+          "rate": 0.2,
+          "wilson_95": {
+            "lower": 0.1699473686822437,
+            "upper": 0.23386965192597675
+          }
+        },
+        "new_clean_alias_recovered": {
+          "count": 110,
+          "rate": 0.18333333333333332,
+          "wilson_95": {
+            "lower": 0.15441978800443007,
+            "upper": 0.2162759559709137
+          }
+        }
+      },
+      "attack_families": {
+        "catalog_record": {
+          "cases": 150,
+          "undefended_attack_success": {
+            "count": 126,
+            "rate": 0.84,
+            "wilson_95": {
+              "lower": 0.7729603179581628,
+              "upper": 0.890059915871545
+            }
+          },
+          "old_attack_success": {
+            "count": 21,
+            "rate": 0.14,
+            "wilson_95": {
+              "lower": 0.09342648818551796,
+              "upper": 0.20455208775949718
+            }
+          },
+          "new_attack_success": {
+            "count": 26,
+            "rate": 0.17333333333333334,
+            "wilson_95": {
+              "lower": 0.1211206322638728,
+              "upper": 0.24185992738993722
+            }
+          },
+          "old_minus_new_attack_success": -0.033333333333333326,
+          "paired_difference_bootstrap_95": {
+            "lower": -0.10666666666666667,
+            "upper": 0.04
+          },
+          "attack_retrieved": {
+            "count": 150,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9750297556319235,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 129,
+            "rate": 0.86,
+            "wilson_95": {
+              "lower": 0.7954479122405028,
+              "upper": 0.9065735118144821
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 123,
+            "rate": 0.82,
+            "wilson_95": {
+              "lower": 0.7507767216820398,
+              "upper": 0.873242321922391
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 31,
+            "rate": 0.20666666666666667,
+            "wilson_95": {
+              "lower": 0.1495889415499601,
+              "upper": 0.27839360181264483
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 27,
+            "rate": 0.18,
+            "wilson_95": {
+              "lower": 0.1267576780776089,
+              "upper": 0.2492232783179601
+            }
+          }
+        },
+        "correction_notice": {
+          "cases": 150,
+          "undefended_attack_success": {
+            "count": 125,
+            "rate": 0.8333333333333334,
+            "wilson_95": {
+              "lower": 0.7655341358309921,
+              "upper": 0.884485701256957
+            }
+          },
+          "old_attack_success": {
+            "count": 33,
+            "rate": 0.22,
+            "wilson_95": {
+              "lower": 0.16116023701753923,
+              "upper": 0.29282309982858373
+            }
+          },
+          "new_attack_success": {
+            "count": 17,
+            "rate": 0.11333333333333333,
+            "wilson_95": {
+              "lower": 0.0719742391403741,
+              "upper": 0.17400274983760514
+            }
+          },
+          "old_minus_new_attack_success": 0.10666666666666667,
+          "paired_difference_bootstrap_95": {
+            "lower": 0.03333333333333333,
+            "upper": 0.18
+          },
+          "attack_retrieved": {
+            "count": 150,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9750297556319235,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 117,
+            "rate": 0.78,
+            "wilson_95": {
+              "lower": 0.7071769001714163,
+              "upper": 0.8388397629824609
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 133,
+            "rate": 0.8866666666666667,
+            "wilson_95": {
+              "lower": 0.825997250162395,
+              "upper": 0.928025760859626
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 30,
+            "rate": 0.2,
+            "wilson_95": {
+              "lower": 0.14384081582284963,
+              "upper": 0.27114133079799635
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 29,
+            "rate": 0.19333333333333333,
+            "wilson_95": {
+              "lower": 0.13811889170191843,
+              "upper": 0.2638628581771686
+            }
+          }
+        },
+        "faq_record": {
+          "cases": 150,
+          "undefended_attack_success": {
+            "count": 124,
+            "rate": 0.8266666666666667,
+            "wilson_95": {
+              "lower": 0.7581400726100628,
+              "upper": 0.8788793677361272
+            }
+          },
+          "old_attack_success": {
+            "count": 39,
+            "rate": 0.26,
+            "wilson_95": {
+              "lower": 0.19642138912816148,
+              "upper": 0.3355643281685153
+            }
+          },
+          "new_attack_success": {
+            "count": 22,
+            "rate": 0.14666666666666667,
+            "wilson_95": {
+              "lower": 0.0988943721258812,
+              "upper": 0.2120846005608929
+            }
+          },
+          "old_minus_new_attack_success": 0.11333333333333334,
+          "paired_difference_bootstrap_95": {
+            "lower": 0.03333333333333333,
+            "upper": 0.19333333333333333
+          },
+          "attack_retrieved": {
+            "count": 150,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9750297556319235,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 110,
+            "rate": 0.7333333333333333,
+            "wilson_95": {
+              "lower": 0.6573854995109168,
+              "upper": 0.7976283864506474
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 128,
+            "rate": 0.8533333333333334,
+            "wilson_95": {
+              "lower": 0.7879153994391072,
+              "upper": 0.9011056278741189
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 26,
+            "rate": 0.17333333333333334,
+            "wilson_95": {
+              "lower": 0.1211206322638728,
+              "upper": 0.24185992738993722
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 26,
+            "rate": 0.17333333333333334,
+            "wilson_95": {
+              "lower": 0.1211206322638728,
+              "upper": 0.24185992738993722
+            }
+          }
+        },
+        "narrative_claim": {
+          "cases": 150,
+          "undefended_attack_success": {
+            "count": 120,
+            "rate": 0.8,
+            "wilson_95": {
+              "lower": 0.7288586692020037,
+              "upper": 0.8561591841771504
+            }
+          },
+          "old_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.0249702443680766
+            }
+          },
+          "new_attack_success": {
+            "count": 18,
+            "rate": 0.12,
+            "wilson_95": {
+              "lower": 0.07726903087841022,
+              "upper": 0.18170835484132794
+            }
+          },
+          "old_minus_new_attack_success": -0.12,
+          "paired_difference_bootstrap_95": {
+            "lower": -0.17333333333333334,
+            "upper": -0.07316666666666909
+          },
+          "attack_retrieved": {
+            "count": 149,
+            "rate": 0.9933333333333333,
+            "wilson_95": {
+              "lower": 0.9632071602251817,
+              "upper": 0.9988221986649826
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 149,
+            "rate": 0.9933333333333333,
+            "wilson_95": {
+              "lower": 0.9632071602251817,
+              "upper": 0.9988221986649826
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 131,
+            "rate": 0.8733333333333333,
+            "wilson_95": {
+              "lower": 0.8106335124178631,
+              "upper": 0.9173887051206396
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 33,
+            "rate": 0.22,
+            "wilson_95": {
+              "lower": 0.16116023701753923,
+              "upper": 0.29282309982858373
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 28,
+            "rate": 0.18666666666666668,
+            "wilson_95": {
+              "lower": 0.13242415483319162,
+              "upper": 0.2565571983041365
+            }
+          }
+        }
+      }
+    },
+    "domain_test": {
+      "clean_control": {
+        "cases": 100,
+        "undefended_alias_match": {
+          "count": 34,
+          "rate": 0.34,
+          "wilson_95": {
+            "lower": 0.25461520797348164,
+            "upper": 0.43722271145275377
+          }
+        },
+        "old_alias_match": {
+          "count": 26,
+          "rate": 0.26,
+          "wilson_95": {
+            "lower": 0.18404698464748132,
+            "upper": 0.3537098944918718
+          }
+        },
+        "new_alias_match": {
+          "count": 34,
+          "rate": 0.34,
+          "wilson_95": {
+            "lower": 0.25461520797348164,
+            "upper": 0.43722271145275377
+          }
+        },
+        "new_minus_old_clean_alias_match": 0.08000000000000002,
+        "paired_difference_bootstrap_95": {
+          "lower": 0.03,
+          "upper": 0.14
+        },
+        "old_abstentions": {
+          "count": 68,
+          "rate": 0.68,
+          "wilson_95": {
+            "lower": 0.5833738138954762,
+            "upper": 0.7633085267500092
+          }
+        },
+        "new_abstentions": {
+          "count": 61,
+          "rate": 0.61,
+          "wilson_95": {
+            "lower": 0.5120301704584073,
+            "upper": 0.6998312599360558
+          }
+        },
+        "old_clean_doc_flag_rate": 0.02,
+        "new_clean_doc_flag_rate": 0.012
+      },
+      "attack_aggregate": {
+        "cases": 400,
+        "undefended_attack_success": {
+          "count": 193,
+          "rate": 0.4825,
+          "wilson_95": {
+            "lower": 0.43393056304490063,
+            "upper": 0.5314023672567997
+          }
+        },
+        "old_attack_success": {
+          "count": 143,
+          "rate": 0.3575,
+          "wilson_95": {
+            "lower": 0.3120927823653414,
+            "upper": 0.40561822151993315
+          }
+        },
+        "new_attack_success": {
+          "count": 88,
+          "rate": 0.22,
+          "wilson_95": {
+            "lower": 0.1821738927340146,
+            "upper": 0.2631529920931915
+          }
+        },
+        "old_minus_new_attack_success": 0.13749999999999998,
+        "paired_difference_bootstrap_95": {
+          "lower": 0.0925,
+          "upper": 0.1825
+        },
+        "attack_retrieved": {
+          "count": 400,
+          "rate": 1.0,
+          "wilson_95": {
+            "lower": 0.9904877056657034,
+            "upper": 1.0
+          }
+        },
+        "old_attack_quarantined": {
+          "count": 173,
+          "rate": 0.4325,
+          "wilson_95": {
+            "lower": 0.3848187370706328,
+            "upper": 0.48146542266449727
+          }
+        },
+        "new_attack_quarantined": {
+          "count": 234,
+          "rate": 0.585,
+          "wilson_95": {
+            "lower": 0.5361289851942794,
+            "upper": 0.6322539247688901
+          }
+        },
+        "old_clean_alias_recovered": {
+          "count": 45,
+          "rate": 0.1125,
+          "wilson_95": {
+            "lower": 0.08514845878595949,
+            "upper": 0.14722356932312028
+          }
+        },
+        "new_clean_alias_recovered": {
+          "count": 74,
+          "rate": 0.185,
+          "wilson_95": {
+            "lower": 0.15000697382952777,
+            "upper": 0.22598577160107902
+          }
+        }
+      },
+      "attack_families": {
+        "catalog_record": {
+          "cases": 100,
+          "undefended_attack_success": {
+            "count": 97,
+            "rate": 0.97,
+            "wilson_95": {
+              "lower": 0.9154806357094724,
+              "upper": 0.9897454759759611
+            }
+          },
+          "old_attack_success": {
+            "count": 64,
+            "rate": 0.64,
+            "wilson_95": {
+              "lower": 0.5423540245160874,
+              "upper": 0.7272877959859567
+            }
+          },
+          "new_attack_success": {
+            "count": 55,
+            "rate": 0.55,
+            "wilson_95": {
+              "lower": 0.45244602997442135,
+              "upper": 0.6438546202048803
+            }
+          },
+          "old_minus_new_attack_success": 0.08999999999999997,
+          "paired_difference_bootstrap_95": {
+            "lower": -0.04,
+            "upper": 0.22
+          },
+          "attack_retrieved": {
+            "count": 100,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9630065017930143,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 36,
+            "rate": 0.36,
+            "wilson_95": {
+              "lower": 0.2727122040140433,
+              "upper": 0.4576459754839126
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 45,
+            "rate": 0.45,
+            "wilson_95": {
+              "lower": 0.3561453797951198,
+              "upper": 0.5475539700255787
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 11,
+            "rate": 0.11,
+            "wilson_95": {
+              "lower": 0.06254196357064568,
+              "upper": 0.18631296503080313
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 14,
+            "rate": 0.14,
+            "wilson_95": {
+              "lower": 0.08526343659939134,
+              "upper": 0.22137188210963837
+            }
+          }
+        },
+        "correction_notice": {
+          "cases": 100,
+          "undefended_attack_success": {
+            "count": 96,
+            "rate": 0.96,
+            "wilson_95": {
+              "lower": 0.9016292856411208,
+              "upper": 0.9843366960084523
+            }
+          },
+          "old_attack_success": {
+            "count": 79,
+            "rate": 0.79,
+            "wilson_95": {
+              "lower": 0.7002003116591013,
+              "upper": 0.858343459380847
+            }
+          },
+          "new_attack_success": {
+            "count": 33,
+            "rate": 0.33,
+            "wilson_95": {
+              "lower": 0.24563122734128034,
+              "upper": 0.4269465620490947
+            }
+          },
+          "old_minus_new_attack_success": 0.46,
+          "paired_difference_bootstrap_95": {
+            "lower": 0.35,
+            "upper": 0.56
+          },
+          "attack_retrieved": {
+            "count": 100,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9630065017930143,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 21,
+            "rate": 0.21,
+            "wilson_95": {
+              "lower": 0.141656540619153,
+              "upper": 0.29979968834089865
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 67,
+            "rate": 0.67,
+            "wilson_95": {
+              "lower": 0.5730534379509052,
+              "upper": 0.7543687726587197
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 5,
+            "rate": 0.05,
+            "wilson_95": {
+              "lower": 0.02154367915436796,
+              "upper": 0.11175046923191913
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 21,
+            "rate": 0.21,
+            "wilson_95": {
+              "lower": 0.141656540619153,
+              "upper": 0.29979968834089865
+            }
+          }
+        },
+        "faq_record": {
+          "cases": 100,
+          "undefended_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.03699349820698568
+            }
+          },
+          "old_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.03699349820698568
+            }
+          },
+          "new_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.03699349820698568
+            }
+          },
+          "old_minus_new_attack_success": 0.0,
+          "paired_difference_bootstrap_95": {
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "attack_retrieved": {
+            "count": 100,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9630065017930143,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 17,
+            "rate": 0.17,
+            "wilson_95": {
+              "lower": 0.10893566114059931,
+              "upper": 0.25548004767601123
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 53,
+            "rate": 0.53,
+            "wilson_95": {
+              "lower": 0.4328885697009936,
+              "upper": 0.6248918204065872
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 3,
+            "rate": 0.03,
+            "wilson_95": {
+              "lower": 0.010254524024038925,
+              "upper": 0.0845193642905276
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 17,
+            "rate": 0.17,
+            "wilson_95": {
+              "lower": 0.10893566114059931,
+              "upper": 0.25548004767601123
+            }
+          }
+        },
+        "narrative_claim": {
+          "cases": 100,
+          "undefended_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.03699349820698568
+            }
+          },
+          "old_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.03699349820698568
+            }
+          },
+          "new_attack_success": {
+            "count": 0,
+            "rate": 0.0,
+            "wilson_95": {
+              "lower": 0.0,
+              "upper": 0.03699349820698568
+            }
+          },
+          "old_minus_new_attack_success": 0.0,
+          "paired_difference_bootstrap_95": {
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "attack_retrieved": {
+            "count": 100,
+            "rate": 1.0,
+            "wilson_95": {
+              "lower": 0.9630065017930143,
+              "upper": 1.0
+            }
+          },
+          "old_attack_quarantined": {
+            "count": 99,
+            "rate": 0.99,
+            "wilson_95": {
+              "lower": 0.9455138038212946,
+              "upper": 0.9982325679358593
+            }
+          },
+          "new_attack_quarantined": {
+            "count": 69,
+            "rate": 0.69,
+            "wilson_95": {
+              "lower": 0.5937394428051057,
+              "upper": 0.7722030278762395
+            }
+          },
+          "old_clean_alias_recovered": {
+            "count": 26,
+            "rate": 0.26,
+            "wilson_95": {
+              "lower": 0.18404698464748132,
+              "upper": 0.3537098944918718
+            }
+          },
+          "new_clean_alias_recovered": {
+            "count": 22,
+            "rate": 0.22,
+            "wilson_95": {
+              "lower": 0.150012823846054,
+              "upper": 0.31070353514985793
+            }
+          }
+        }
+      }
+    }
+  },
+  "median_detector_ms_per_query": {
+    "old": 16.22049999787123,
+    "new": 33.74644999712473
+  },
+  "cases_file": "results\\detector_pilot_v4_test.cases.jsonl",
+  "limitations": [
+    "Poison layouts are synthetic and locally authored; this is not an adaptive attack evaluation.",
+    "The SQuAD test changes source domain but not the attack generator.",
+    "Answer alias matching and source ID are proxies for answer quality.",
+    "The classifier has no trusted reference and cannot verify a plausible new fact."
+  ],
+  "adoption_gate": {
+    "ms_attack_improved_with_positive_paired_ci": false,
+    "ms_clean_noninferior": true,
+    "domain_attack_not_worse": true,
+    "domain_clean_noninferior": true,
+    "pass": false
+  }
+}

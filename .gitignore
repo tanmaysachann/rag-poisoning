@@ -15,6 +15,7 @@ tmp/
 .vercel/
 artifacts/models/
 artifacts/vendor/
+artifacts/detector_pilot_v4/
 
 .vercel
 
