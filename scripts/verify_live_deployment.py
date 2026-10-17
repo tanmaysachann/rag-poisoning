@@ -65,6 +65,7 @@ def verify(base_url: str) -> dict:
     if (live.get("qid") != qid or len(live["documents"]) != 5
             or [row["stage"] for row in live["audit"]] != [
                 "retrieval", "integrity", "detection", "provenance", "answer",
+                "four_probe_gate",
             ]):
         raise ValueError("Production live inference trace is incomplete")
     replicated = post(base_url, "/api/lab/run", {

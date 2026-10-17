@@ -85,9 +85,11 @@ def case_catalog() -> dict:
             "saved_stealth_failure": bool(saved["stealth"][qid]["defended_attack_success"]),
             "saved_greedy_blocked": bool(saved["greedy"][qid]["attack_quarantined"]),
         })
+    default_case = next((case for case in cases if case["saved_stealth_failure"]),
+                        cases[0] if cases else None)
     return {"split": "validation", "benchmark": "v3", "cases": cases,
             "detector_threshold": _detector().threshold,
-            "default_qid": cases[0]["qid"] if cases else None}
+            "default_qid": default_case["qid"] if default_case else None}
 
 
 def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None,
