@@ -86,7 +86,7 @@
 
   <main id="view-research" class="view active research-view">
     <section class="lab-hero">
-      <div><p class="lab-kicker">Research prototype · v3 live profile</p><h1>RAG poisoning research lab</h1><p class="lab-lede">Select a question from the 150-case v3 validation split, edit an attack passage, and run the same frozen hashing detector and extractive answer path evaluated in the held-out study.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Frozen v3 detector · threshold 0.651</span><span>Closed corpus</span></div></div>
+      <div><p class="lab-kicker">Research prototype · v3 detector + experimental source guard</p><h1>RAG poisoning research lab</h1><p class="lab-lede">Edit a passage on a v3 validation question and compare the frozen detector with a new pinned-snapshot answer guard. The v3 held-out results below do not evaluate this new guard.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Frozen v3 detector · threshold 0.651</span><span>Pinned source boundary</span></div></div>
       <aside class="lab-hero-aside"><span>Held-out result</span><strong>Three withheld layouts show lower attack success, but many attacks still work.</strong><p>Across 150 test questions per layout, defended success remains 22%–43%. Clean exact-alias utility is 23% without filtering and 23% with the detector.</p><a href="https://github.com/tanmaysachann/rag-poisoning" target="_blank" rel="noopener noreferrer">View source code</a></aside>
     </section>
 
@@ -106,19 +106,29 @@
           <div id="lab-extra-3" hidden><label for="lab-payload-3">Attacker passage 3</label><textarea id="lab-payload-3" rows="6" maxlength="4000" spellcheck="false"></textarea></div>
           <button id="lab-run" class="lab-run" type="button">Run validation experiment <span>&rarr;</span></button>
           <p class="lab-small">Live answers are extractive spans only, not Qwen or Llama generation. Qwen 0.5B gave 5/20 cited spans and 1/20 alias matches offline and stays offline; Llama-3-8B never ran here. MiniLM, Qwen and PPO figures below are saved offline runs.</p>
-          <p class="lab-small">This live path uses the frozen v3 detector (threshold 0.651). Its held-out test still had 17%–43% attack success; clean exact-alias utility is weak. Integrity catches post-index changes, not false claims accepted at ingest. Adding copies (1–3) shares one attacker origin.</p>
+          <p class="lab-small">The live v3 detector still has weak clean-answer utility. The new pinned snapshot guard checks whether the answer's exact source text existed before the attack, even when the altered text was accepted at ingest. This benchmark snapshot is an identity anchor, not an independently reviewed factual authority. Adding copies (1–3) shares one attacker origin.</p>
         </div>
         <div class="lab-output">
           <div class="lab-output-top"><span>Pipeline results</span><span id="lab-time">—</span></div>
           <div id="lab-status" class="lab-status">Preparing experiment…</div>
-          <div class="lab-outcome-grid"><div><span>Without defense</span><p id="lab-off-answer">—</p><small id="lab-off-source">No source selected</small></div><div><span>With defense</span><p id="lab-on-answer">—</p><small id="lab-on-source">No source selected</small></div></div>
-          <div class="lab-clean-reference"><span>Clean corpus answer for this question</span><p id="lab-clean-answer">—</p><small id="lab-clean-source">No source selected</small></div>
+          <div class="lab-outcome-grid"><div><span>Without defense</span><p id="lab-off-answer">—</p><small id="lab-off-source">No source selected</small></div><div><span>V3 detector</span><p id="lab-on-answer">—</p><small id="lab-on-source">No source selected</small></div><div><span>Pinned snapshot recovery · new</span><p id="lab-guard-answer">—</p><small id="lab-guard-source">No source selected</small></div></div>
+          <div class="lab-clean-reference"><span>Independent clean-snapshot answer · diagnostic only</span><p id="lab-clean-answer">—</p><small id="lab-clean-source">No source selected</small></div>
           <div id="lab-verdict" class="lab-verdict">Run a case to see whether the altered document survives.</div>
           <div class="lab-inference-trace"><div class="lab-trace-head"><div><span>Answer provenance / counterfactuals</span><h3>Inference trace</h3></div></div><div id="lab-inference-details" aria-live="polite">Run a case to inspect the selected evidence and leave-one-out results.</div></div>
           <div class="lab-trace-head"><div><span>Retrieval / integrity / detector</span><h3>Top five candidate passages</h3></div><span id="lab-candidate-count">—</span></div>
           <div id="lab-documents" class="lab-documents"></div>
         </div>
       </div>
+    </section>
+
+    <section class="lab-section" aria-labelledby="lab-snapshot-title">
+      <div class="lab-section-heading"><div><span>Live path · development replay</span><h2 id="lab-snapshot-title">Source check and independent recovery</h2></div><p>A pre-attack corpus hash anchors the source check. If the selected answer came from altered text, a separate retriever searches the pinned corpus using the question alone. The table reports both prevented attacker answers and recovered clean answers.</p></div>
+      <div id="lab-snapshot-summary" class="lab-evidence-caption">Loading the paired validation replay…</div>
+    </section>
+
+    <section class="lab-section" aria-labelledby="lab-defender-rl-title">
+      <div class="lab-section-heading"><div><span>Offline defender RL · v14</span><h2 id="lab-defender-rl-title">A trained policy, measured against its baselines</h2></div><p>This is a real one-step PPO quarantine experiment over frozen detector signals. The live snapshot guard above does not use its failed policy.</p></div>
+      <div id="lab-defender-rl" class="lab-evidence-caption">Loading the supervised and three-seed PPO comparison…</div>
     </section>
 
     <section class="lab-section" aria-labelledby="lab-heldout-title">

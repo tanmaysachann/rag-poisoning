@@ -13,6 +13,7 @@ from detect.research_detector import ResearchDetector
 from generation.grounded_answer import answer_from_accepted
 from generation.local_llm import ABSTENTION
 from pipeline.secure_rag import _counterfactual_influence
+from pipeline.snapshot_guard import guard_answer, guard_with_recovery
 from security.integrity import IntegrityManifest
 from security.provenance import SourceAttestations, corroborate_exact_span
 
@@ -54,6 +55,8 @@ def infer_research(
     source_attestations: SourceAttestations | None = None,
     require_independent_origins: bool = False,
     four_probe_gate=None,
+    pinned_snapshot: IntegrityManifest | None = None,
+    snapshot_retriever=None,
 ) -> dict[str, Any]:
     """Retrieve, verify, score, filter, answer, and audit the same candidate set."""
     if not query.strip():
@@ -173,6 +176,17 @@ def infer_research(
         else defended.get("generation_status") if defended["source_doc_id"] is None
         else None
     )
+    snapshot_reference = None
+    if pinned_snapshot is not None and snapshot_retriever is not None:
+        snapshot_answer, snapshot_trace, snapshot_reference = guard_with_recovery(
+            query, defended, kept, pinned_snapshot, snapshot_retriever,
+        )
+    elif pinned_snapshot is not None:
+        snapshot_answer, snapshot_trace = guard_answer(defended, kept, pinned_snapshot)
+    else:
+        snapshot_answer, snapshot_trace = None, {
+            "enforced": False, "decision": "not_run", "reason": "no_snapshot",
+        }
     answer_ms = (time.perf_counter() - started) * 1000 - retrieval_ms - integrity_ms - detection_ms
     timings = {
         "retrieval_ms": round(retrieval_ms, 2),
@@ -183,6 +197,8 @@ def infer_research(
     return {
         "query": query, "documents": rows, "undefended": undefended,
         "defended": defended, "counterfactuals": counterfactuals,
+        "snapshot_guarded": snapshot_answer, "snapshot_guard": snapshot_trace,
+        "snapshot_reference": snapshot_reference,
         "four_probe": four_probe,
         "provenance": provenance,
         "timings": timings, "latency_ms": round((time.perf_counter() - started) * 1000, 2),
@@ -200,5 +216,7 @@ def infer_research(
              "abstained": defended["source_doc_id"] is None},
             {"stage": "four_probe_gate", "enabled": four_probe.get("enabled", False),
              "decision": four_probe.get("decision"), "reason": four_probe.get("reason")},
+            {"stage": "snapshot_guard", "enforced": snapshot_trace["enforced"],
+             "decision": snapshot_trace["decision"], "reason": snapshot_trace["reason"]},
         ],
     }

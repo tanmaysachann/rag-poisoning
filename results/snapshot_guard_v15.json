@@ -1,0 +1,75 @@
+{
+  "protocol": "research_protocols/snapshot_guard_v15.md",
+  "split": "previously_inspected_v3_validation",
+  "snapshot_corpus_sha256": "6dbf1f15fa2c405a3ababeef8effb888122f3468619344830353628a7d8d0f5d",
+  "clean": {
+    "questions": 150,
+    "v3_alias_matches": 27,
+    "guard_alias_matches": 27,
+    "v3_abstentions": 86,
+    "guard_abstentions": 86,
+    "guard_unverified_emissions": 0
+  },
+  "attack_replays": {
+    "greedy:accepted_ingest": {
+      "cases": 150,
+      "attack_retrieved": 150,
+      "v3_attack_source_success": 0,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 27,
+      "guard_alias_match": 26,
+      "guard_abstained": 91,
+      "guard_verified_source_emissions": 59,
+      "guard_unverified_source_emissions": 0,
+      "guard_added_blocks_of_v3_attack_sources": 0
+    },
+    "greedy:post_index_tamper": {
+      "cases": 150,
+      "attack_retrieved": 150,
+      "v3_attack_source_success": 0,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 27,
+      "guard_alias_match": 27,
+      "guard_abstained": 90,
+      "guard_verified_source_emissions": 60,
+      "guard_unverified_source_emissions": 0,
+      "guard_added_blocks_of_v3_attack_sources": 0
+    },
+    "stealth:accepted_ingest": {
+      "cases": 150,
+      "attack_retrieved": 116,
+      "v3_attack_source_success": 19,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 1,
+      "guard_alias_match": 0,
+      "guard_abstained": 148,
+      "guard_verified_source_emissions": 2,
+      "guard_unverified_source_emissions": 0,
+      "guard_added_blocks_of_v3_attack_sources": 19
+    },
+    "stealth:post_index_tamper": {
+      "cases": 150,
+      "attack_retrieved": 116,
+      "v3_attack_source_success": 0,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 0,
+      "guard_alias_match": 0,
+      "guard_abstained": 148,
+      "guard_verified_source_emissions": 2,
+      "guard_unverified_source_emissions": 0,
+      "guard_added_blocks_of_v3_attack_sources": 0
+    }
+  },
+  "case_rows_sha256": "2af793570a512c14a5e2771485f6d3b2ad5162298c1cc788a7c9940ea2761b26",
+  "runtime_seconds": 98.35,
+  "limitations": [
+    "This snapshot is a pre-attack benchmark corpus, not an independently reviewed factual authority.",
+    "The attacker cannot change the pinned snapshot or server code in this replay.",
+    "Validation aggregates and questions were inspected before v15; no fresh test claim.",
+    "An abstention blocks a sourced attack answer but does not recover the correct answer."
+  ]
+}

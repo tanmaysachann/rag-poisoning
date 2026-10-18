@@ -19,6 +19,16 @@ artifacts/detector_pilot_v4/
 artifacts/factual_verifier_v6/
 data/factual_verifier_v6/
 data/external_rag_v7/
+data/reference_detector_v9/
+artifacts/reference_detector_v9/
+data/poisonarena_v9/
+data/multifamily_v10/
+artifacts/multifamily_v10/
+data/trusted_snapshot_v12/
+data/defender_bandit_v14/
+artifacts/defender_bandit_v14/
+data/snapshot_guard_v15/
+data/snapshot_guard_v16/
 
 .vercel
 

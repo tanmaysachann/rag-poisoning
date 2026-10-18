@@ -1,0 +1,331 @@
+{
+  "protocol": "research_protocols/defender_bandit_v14.md",
+  "feature_sha256": "32ae0a4a11a6fed1266a221cf6bb265a69e126a7f6e1a7aa358b4117d8ce4961",
+  "feature_manifest_sha256": "5a18fc8361abd10c4b5f3530f735d04e62b27f64f6d1c380136a5f0662e0b58e",
+  "preprocessing_sha256": "f6446d78ab405fdfa421634ac2679935eca4c5e95a2bfef4807648554e427277",
+  "model_sha256": {
+    "supervised_warmstart": "59327d25354645cec21b5d6c1dc9af2847c4e926794998166cf7c028e5c068ec",
+    "ppo_seed_11": "7af25c40f1432d02dbd4f78c6a8debe3f2306d0c664fdb913f7db514b975fde0",
+    "ppo_seed_22": "e03610c2698c858a91eb4bcd4dd7f6ea2b736ea428c4ac7023aee994f1d1d983",
+    "ppo_seed_33": "e9a8bf7a85de8f18986be0b53202fe5d94d0a93a2f8a68f76b95be48c20a8262"
+  },
+  "rows": 3490,
+  "train_rows": 1295,
+  "calibration_clean_rows": 210,
+  "training_log": {
+    "ppo_seed_11": {
+      "sampled_mean_reward_first_10": -0.5408,
+      "sampled_mean_reward_last_10": -0.311,
+      "sampled_actions": 61440
+    },
+    "ppo_seed_22": {
+      "sampled_mean_reward_first_10": -0.53,
+      "sampled_mean_reward_last_10": -0.3166,
+      "sampled_actions": 61440
+    },
+    "ppo_seed_33": {
+      "sampled_mean_reward_first_10": -0.5521,
+      "sampled_mean_reward_last_10": -0.3537,
+      "sampled_actions": 61440
+    }
+  },
+  "models": {
+    "frozen_v3": {
+      "threshold": 0.7055804499713645,
+      "clean": {
+        "documents": 290,
+        "false_flags": 2
+      },
+      "reference": {
+        "documents": 29,
+        "false_flags": 0
+      },
+      "families": {
+        "advdecoding": {
+          "documents": 145,
+          "caught": 0,
+          "questions": 29,
+          "questions_with_any_caught": 0
+        },
+        "content_poison": {
+          "documents": 30,
+          "caught": 0,
+          "questions": 6,
+          "questions_with_any_caught": 0
+        },
+        "corpus_poison": {
+          "documents": 145,
+          "caught": 0,
+          "questions": 29,
+          "questions_with_any_caught": 0
+        },
+        "garag": {
+          "documents": 145,
+          "caught": 1,
+          "questions": 29,
+          "questions_with_any_caught": 1
+        },
+        "gaslite": {
+          "documents": 145,
+          "caught": 9,
+          "questions": 29,
+          "questions_with_any_caught": 3
+        },
+        "poisonedrag_black": {
+          "documents": 145,
+          "caught": 13,
+          "questions": 29,
+          "questions_with_any_caught": 6
+        },
+        "hotpot_poisonedrag": {
+          "documents": 500,
+          "caught": 0,
+          "questions": 100,
+          "questions_with_any_caught": 0
+        }
+      },
+      "calibration_clean_false_flags": 2
+    },
+    "supervised_warmstart": {
+      "threshold": 0.4200745820999146,
+      "clean": {
+        "documents": 290,
+        "false_flags": 23
+      },
+      "reference": {
+        "documents": 29,
+        "false_flags": 1
+      },
+      "families": {
+        "advdecoding": {
+          "documents": 145,
+          "caught": 83,
+          "questions": 29,
+          "questions_with_any_caught": 26
+        },
+        "content_poison": {
+          "documents": 30,
+          "caught": 6,
+          "questions": 6,
+          "questions_with_any_caught": 2
+        },
+        "corpus_poison": {
+          "documents": 145,
+          "caught": 107,
+          "questions": 29,
+          "questions_with_any_caught": 28
+        },
+        "garag": {
+          "documents": 145,
+          "caught": 12,
+          "questions": 29,
+          "questions_with_any_caught": 9
+        },
+        "gaslite": {
+          "documents": 145,
+          "caught": 0,
+          "questions": 29,
+          "questions_with_any_caught": 0
+        },
+        "poisonedrag_black": {
+          "documents": 145,
+          "caught": 144,
+          "questions": 29,
+          "questions_with_any_caught": 29
+        },
+        "hotpot_poisonedrag": {
+          "documents": 500,
+          "caught": 352,
+          "questions": 100,
+          "questions_with_any_caught": 98
+        }
+      },
+      "calibration_clean_false_flags": 2
+    },
+    "ppo_seed_11": {
+      "threshold": 0.5761024951934816,
+      "clean": {
+        "documents": 290,
+        "false_flags": 23
+      },
+      "reference": {
+        "documents": 29,
+        "false_flags": 1
+      },
+      "families": {
+        "advdecoding": {
+          "documents": 145,
+          "caught": 82,
+          "questions": 29,
+          "questions_with_any_caught": 26
+        },
+        "content_poison": {
+          "documents": 30,
+          "caught": 5,
+          "questions": 6,
+          "questions_with_any_caught": 1
+        },
+        "corpus_poison": {
+          "documents": 145,
+          "caught": 115,
+          "questions": 29,
+          "questions_with_any_caught": 28
+        },
+        "garag": {
+          "documents": 145,
+          "caught": 12,
+          "questions": 29,
+          "questions_with_any_caught": 9
+        },
+        "gaslite": {
+          "documents": 145,
+          "caught": 0,
+          "questions": 29,
+          "questions_with_any_caught": 0
+        },
+        "poisonedrag_black": {
+          "documents": 145,
+          "caught": 144,
+          "questions": 29,
+          "questions_with_any_caught": 29
+        },
+        "hotpot_poisonedrag": {
+          "documents": 500,
+          "caught": 350,
+          "questions": 100,
+          "questions_with_any_caught": 96
+        }
+      },
+      "calibration_clean_false_flags": 2
+    },
+    "ppo_seed_22": {
+      "threshold": 0.5243961811065675,
+      "clean": {
+        "documents": 290,
+        "false_flags": 26
+      },
+      "reference": {
+        "documents": 29,
+        "false_flags": 1
+      },
+      "families": {
+        "advdecoding": {
+          "documents": 145,
+          "caught": 88,
+          "questions": 29,
+          "questions_with_any_caught": 27
+        },
+        "content_poison": {
+          "documents": 30,
+          "caught": 6,
+          "questions": 6,
+          "questions_with_any_caught": 2
+        },
+        "corpus_poison": {
+          "documents": 145,
+          "caught": 113,
+          "questions": 29,
+          "questions_with_any_caught": 28
+        },
+        "garag": {
+          "documents": 145,
+          "caught": 13,
+          "questions": 29,
+          "questions_with_any_caught": 9
+        },
+        "gaslite": {
+          "documents": 145,
+          "caught": 0,
+          "questions": 29,
+          "questions_with_any_caught": 0
+        },
+        "poisonedrag_black": {
+          "documents": 145,
+          "caught": 145,
+          "questions": 29,
+          "questions_with_any_caught": 29
+        },
+        "hotpot_poisonedrag": {
+          "documents": 500,
+          "caught": 365,
+          "questions": 100,
+          "questions_with_any_caught": 99
+        }
+      },
+      "calibration_clean_false_flags": 2
+    },
+    "ppo_seed_33": {
+      "threshold": 0.46115091443061834,
+      "clean": {
+        "documents": 290,
+        "false_flags": 27
+      },
+      "reference": {
+        "documents": 29,
+        "false_flags": 1
+      },
+      "families": {
+        "advdecoding": {
+          "documents": 145,
+          "caught": 93,
+          "questions": 29,
+          "questions_with_any_caught": 27
+        },
+        "content_poison": {
+          "documents": 30,
+          "caught": 7,
+          "questions": 6,
+          "questions_with_any_caught": 2
+        },
+        "corpus_poison": {
+          "documents": 145,
+          "caught": 121,
+          "questions": 29,
+          "questions_with_any_caught": 28
+        },
+        "garag": {
+          "documents": 145,
+          "caught": 13,
+          "questions": 29,
+          "questions_with_any_caught": 9
+        },
+        "gaslite": {
+          "documents": 145,
+          "caught": 0,
+          "questions": 29,
+          "questions_with_any_caught": 0
+        },
+        "poisonedrag_black": {
+          "documents": 145,
+          "caught": 145,
+          "questions": 29,
+          "questions_with_any_caught": 29
+        },
+        "hotpot_poisonedrag": {
+          "documents": 500,
+          "caught": 387,
+          "questions": 100,
+          "questions_with_any_caught": 100
+        }
+      },
+      "calibration_clean_false_flags": 2
+    }
+  },
+  "gate": {
+    "baseline_poisonedrag_black_caught": 144,
+    "baseline_gaslite_caught": 9,
+    "per_seed_pass": {
+      "ppo_seed_11": false,
+      "ppo_seed_22": false,
+      "ppo_seed_33": false
+    },
+    "passed": false
+  },
+  "runtime_seconds": 9.57,
+  "limitations": [
+    "Development questions were inspected in earlier v9-v13 experiments.",
+    "Source labels do not establish factual contradiction.",
+    "HotpotQA attack-only rows have no matched clean false-positive estimate.",
+    "One-step reward does not measure downstream answer compromise."
+  ]
+}

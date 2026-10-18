@@ -77,9 +77,14 @@
 .secure-audit { padding: 14px; }
 .secure-audit summary { cursor: pointer; color: var(--blue); font-size: 12px; font-weight: 700; }
 .secure-audit pre { max-height: 360px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); font-size: 11px; }
-.lab-outcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lab-outcome-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .lab-outcome-grid > div { min-width: 0; padding: 15px; border: 1px solid var(--line); border-top: 3px solid var(--red); background: #fff; }
-.lab-outcome-grid > div:last-child { border-top-color: var(--blue); }
+.lab-outcome-grid > div:nth-child(2) { border-top-color: var(--blue); }
+.lab-outcome-grid > div:last-child { border-top-color: var(--green); }
+.lab-rl-table-wrap { overflow-x: auto; }
+.lab-rl-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 12px; }
+.lab-rl-table th, .lab-rl-table td { padding: 10px 12px; border: 1px solid var(--line); text-align: left; }
+.lab-rl-table thead th { color: var(--blue); background: var(--soft); }
 .lab-outcome-grid span, .lab-clean-reference span { color: var(--muted); font-size: 11px; font-weight: 700; }
 .lab-outcome-grid p { min-height: 64px; margin: 10px 0; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
 .lab-outcome-grid small, .lab-clean-reference small { color: var(--muted); font-size: 11px; }

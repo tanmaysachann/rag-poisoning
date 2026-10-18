@@ -18,6 +18,23 @@ none passed the adoption gate, so this experiment is not live.
 archive. It reduces attacker-target answers when a benchmark-judged reference
 is supplied, but the live system cannot yet select such a source without that
 oracle, and the reader still abstains or errs too often for deployment.
+`MULTIFAMILY_DETECTOR_V10.md` reports the offline multi-family poisoning
+detector experiment, including its failed transfer to fluent PoisonedRAG
+black-box passages. `SEMANTIC_CONFLICT_V11.md` reports a failed answer-conflict
+feasibility check. `TRUSTED_SNAPSHOT_V12_V13.md` measures qrel-free reference
+retrieval over the full frozen BEIR NQ corpus; dense reranking helped retrieval
+but the selected answer policy still failed its accuracy gate. None of these
+offline models or source paths is deployed.
+`DEFENDER_BANDIT_V14.md` reports the requested offline defender-side PPO
+experiment. It improved neither the supervised baseline's usable PoisonedRAG
+catch rate nor transfer to GasLite, and exceeded the clean false-flag limit.
+Its policy is not live.
+`SNAPSHOT_RECOVERY_V16.md` describes the new live Research Lab comparison:
+the frozen v3 result alongside a pinned-source answer check and independent
+clean-snapshot recovery. On inspected validation stealth attacks, it changed
+19/150 v3 attack-sourced target answers to 0/150 while restoring 28/150
+clean-answer aliases; clean answer utility remains weak. This is a bounded
+source-control result, not general factual-poison detection.
 
 `REPORT_EVIDENCE.md` maps measured claims to raw results, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
 

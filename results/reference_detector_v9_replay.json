@@ -1,0 +1,94 @@
+{
+  "protocol": "research_protocols/reference_detector_v9.md",
+  "evaluation_status": "development replay; v7/v8 aggregates already exposed",
+  "source_manifest_sha256": "63329e8fb7b7e06011ae06fc4e745d0ab2957284a5ef37ef8ac4032fd8607a91",
+  "training_manifest_sha256": "fda1c07c52f5657ecddd7fa2a7e4499ea73524960bd1245f5822fffe81b48bd8",
+  "model_config_sha256": "1400255ab32b895590ec5f6eaec4c10df366c3d8b6a4b5162acb47a2f7d2a050",
+  "model_weights_sha256": "cc8854679126a2ebc6d629895ccfc5f6072fb88ff60170d7e6b49b0e7e008fe4",
+  "device": "cuda",
+  "threshold": 0.8218248486518861,
+  "target_clean_fpr": 0.01,
+  "calibration": {
+    "clean_flags": 23,
+    "clean_total": 2340,
+    "clean_false_quarantine_rate": 0.009829059829059829,
+    "reference_flags": 0,
+    "reference_total": 234,
+    "other_clean_flags": 23,
+    "other_clean_total": 2106,
+    "families": {
+      "naive": {
+        "own_poison_caught": 138,
+        "own_poison_retrieved": 142,
+        "any_poison_flags": 139,
+        "any_poison_total": 143,
+        "conditional_own_poison_catch_rate": 0.971830985915493
+      },
+      "corruptrag_ak": {
+        "own_poison_caught": 46,
+        "own_poison_retrieved": 234,
+        "any_poison_flags": 61,
+        "any_poison_total": 350,
+        "conditional_own_poison_catch_rate": 0.19658119658119658
+      }
+    }
+  },
+  "development_replay": {
+    "clean_flags": 66,
+    "clean_total": 6870,
+    "clean_false_quarantine_rate": 0.00960698689956332,
+    "reference_flags": 2,
+    "reference_total": 687,
+    "other_clean_flags": 64,
+    "other_clean_total": 6183,
+    "families": {
+      "naive": {
+        "own_poison_caught": 402,
+        "own_poison_retrieved": 423,
+        "any_poison_flags": 404,
+        "any_poison_total": 425,
+        "conditional_own_poison_catch_rate": 0.950354609929078
+      },
+      "corruptrag_ak": {
+        "own_poison_caught": 146,
+        "own_poison_retrieved": 687,
+        "any_poison_flags": 183,
+        "any_poison_total": 1056,
+        "conditional_own_poison_catch_rate": 0.21251819505094613
+      }
+    }
+  },
+  "scoring": {
+    "calibration_pairs": 2833,
+    "calibration_seconds": 11.47,
+    "test_pairs": 8351,
+    "test_seconds": 34.18,
+    "milliseconds_per_test_pair": 4.09
+  },
+  "frozen_v3_comparison": {
+    "clean_flags": 45,
+    "clean_total": 6870,
+    "clean_false_quarantine_rate": 0.006550218340611353,
+    "reference_flags": 15,
+    "reference_total": 687,
+    "other_clean_flags": 30,
+    "other_clean_total": 6183,
+    "families": {
+      "naive": {
+        "own_poison_caught": 43,
+        "own_poison_retrieved": 423,
+        "any_poison_flags": 43,
+        "any_poison_total": 425,
+        "conditional_own_poison_catch_rate": 0.1016548463356974
+      },
+      "corruptrag_ak": {
+        "own_poison_caught": 24,
+        "own_poison_retrieved": 687,
+        "any_poison_flags": 24,
+        "any_poison_total": 1056,
+        "conditional_own_poison_catch_rate": 0.034934497816593885
+      }
+    }
+  },
+  "limitation": "Training labels are provenance and the selected reference is a BEIR qrel oracle proxy."
+}

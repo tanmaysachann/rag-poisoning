@@ -1,0 +1,36 @@
+{
+  "protocol": "research_protocols/multifamily_detector_v10.md",
+  "training_manifest_sha256": "db71dd1e5904c21179f6757f866158fe8a81aae49e4f7d9606c1e0e1503e22e9",
+  "calibration_manifest_sha256": "63329e8fb7b7e06011ae06fc4e745d0ab2957284a5ef37ef8ac4032fd8607a91",
+  "model_config_sha256": "1400255ab32b895590ec5f6eaec4c10df366c3d8b6a4b5162acb47a2f7d2a050",
+  "model_weights_sha256": "0f6560dd5c61059d8d918e888d1cdf037e1b3c528861c55b446f38157e70240a",
+  "threshold": 0.9976394176483155,
+  "target_clean_fpr": 0.01,
+  "calibration": {
+    "clean_flags": 23,
+    "clean_total": 2340,
+    "clean_false_quarantine_rate": 0.009829059829059829,
+    "reference_flags": 0,
+    "reference_total": 234,
+    "other_clean_flags": 23,
+    "other_clean_total": 2106,
+    "families": {
+      "naive": {
+        "own_poison_caught": 128,
+        "own_poison_retrieved": 142,
+        "any_poison_flags": 128,
+        "any_poison_total": 143,
+        "conditional_own_poison_catch_rate": 0.9014084507042254
+      },
+      "corruptrag_ak": {
+        "own_poison_caught": 104,
+        "own_poison_retrieved": 234,
+        "any_poison_flags": 128,
+        "any_poison_total": 350,
+        "conditional_own_poison_catch_rate": 0.4444444444444444
+      }
+    }
+  },
+  "pairs": 2833,
+  "seconds": 13.78
+}

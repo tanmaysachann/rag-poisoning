@@ -1,0 +1,47 @@
+{
+  "base_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "data_manifest_sha256": "fda1c07c52f5657ecddd7fa2a7e4499ea73524960bd1245f5822fffe81b48bd8",
+  "seed": 20261017,
+  "model_weights_sha256": "cc8854679126a2ebc6d629895ccfc5f6072fb88ff60170d7e6b49b0e7e008fe4",
+  "device": "cuda",
+  "epochs": 2,
+  "batch_size": 8,
+  "train_questions": 2072,
+  "validation_questions": 230,
+  "train_rows": 14504,
+  "validation_rows": 1610,
+  "train_windows": 15573,
+  "validation_windows": 1731,
+  "label_counts": {
+    "reference": 2072,
+    "clean_other": 10360,
+    "poison": 2072
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.4285661101386211,
+      "window_macro_f1": 0.9520346448523052,
+      "window_poison_recall": 0.9391304347826087,
+      "window_counts": {
+        "reference": 258,
+        "clean_other": 1243,
+        "poison": 230
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.11743545533727345,
+      "window_macro_f1": 0.9457475710456428,
+      "window_poison_recall": 0.9739130434782609,
+      "window_counts": {
+        "reference": 258,
+        "clean_other": 1243,
+        "poison": 230
+      }
+    }
+  ],
+  "selected_validation_macro_f1": 0.9520346448523052,
+  "seconds": 279.96,
+  "limitation": "Labels are passage provenance, not semantic entailment or proven malice."
+}

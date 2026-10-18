@@ -1,0 +1,133 @@
+{
+  "protocol": "research_protocols/reference_detector_v9.md",
+  "model_weights_sha256": "cc8854679126a2ebc6d629895ccfc5f6072fb88ff60170d7e6b49b0e7e008fe4",
+  "poisonarena_manifest_sha256": "c4700f1d007bfec107256b2f6cb810b33b09a599d4bce4527498ec4c02ed2f53",
+  "selection": {
+    "advdecoding": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "content_poison": {
+      "published_questions": 20,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 20
+    },
+    "corpus_poison": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "garag": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "gaslite": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "poisonedrag_black": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "unique_new_questions": 100,
+    "published_answer_in_qrel": 78,
+    "reference_doc_overlap_with_train": 1
+  },
+  "v9_threshold_frozen_from_other_archive": 0.8218248486518861,
+  "v9": {
+    "clean_candidates": 1000,
+    "clean_false_flags": 16,
+    "judged_references": 100,
+    "reference_false_flags": 1,
+    "families": {
+      "advdecoding": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 7,
+        "questions_with_any_caught": 3
+      },
+      "content_poison": {
+        "questions": 20,
+        "attack_documents": 100,
+        "caught_documents": 2,
+        "questions_with_any_caught": 1
+      },
+      "corpus_poison": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 6,
+        "questions_with_any_caught": 3
+      },
+      "garag": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 2,
+        "questions_with_any_caught": 1
+      },
+      "gaslite": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 2,
+        "questions_with_any_caught": 2
+      },
+      "poisonedrag_black": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 11,
+        "questions_with_any_caught": 7
+      }
+    }
+  },
+  "frozen_v3": {
+    "clean_candidates": 1000,
+    "clean_false_flags": 13,
+    "judged_references": 100,
+    "reference_false_flags": 4,
+    "families": {
+      "advdecoding": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 1,
+        "questions_with_any_caught": 1
+      },
+      "content_poison": {
+        "questions": 20,
+        "attack_documents": 100,
+        "caught_documents": 2,
+        "questions_with_any_caught": 2
+      },
+      "corpus_poison": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "garag": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 6,
+        "questions_with_any_caught": 5
+      },
+      "gaslite": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 30,
+        "questions_with_any_caught": 15
+      },
+      "poisonedrag_black": {
+        "questions": 100,
+        "attack_documents": 500,
+        "caught_documents": 192,
+        "questions_with_any_caught": 72
+      }
+    }
+  },
+  "v9_seconds": 19.47,
+  "v3_seconds": 11.63,
+  "unique_scored_pairs": 3700,
+  "limitation": "PoisonArena released qrel is an oracle-like proxy, not an independently authenticated live source."
+}

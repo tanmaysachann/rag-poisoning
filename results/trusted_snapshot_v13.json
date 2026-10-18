@@ -1,0 +1,124 @@
+{
+  "protocol": "research_protocols/trusted_snapshot_v13.md",
+  "snapshot_manifest_sha256": "d6c6f4f2eced04e1ab755784d903fadc281c4175378c74eb9ffe98740c224aea",
+  "prediction_sha256": "3d8d914468294c99c7a9900f4f93ad09fdcd094e2399f8114893e023e798e5d5",
+  "contriever_weights_sha256": "08b88f3a3697877345669405c51a23f53ed90aa2bab441cd7b7b08659925eef8",
+  "qa_weights_sha256": "b2f61c7b1710fcc6826fc0cc12dca8c59c0fbdadd82c05bb6ebff2028583fcf6",
+  "poisonarena_manifest_sha256": "c4700f1d007bfec107256b2f6cb810b33b09a599d4bce4527498ec4c02ed2f53",
+  "calibration_questions": 71,
+  "development_questions": 29,
+  "calibration_comparison": [
+    {
+      "ranking": "dense",
+      "policy": "top1",
+      "cutoff": 0.5720648169517517,
+      "questions": 71,
+      "correct_match": 16,
+      "wrong_emitted": 6,
+      "abstained": 49
+    },
+    {
+      "ranking": "dense",
+      "policy": "max_qa5",
+      "cutoff": 0.9194014668464661,
+      "questions": 71,
+      "correct_match": 12,
+      "wrong_emitted": 4,
+      "abstained": 55
+    },
+    {
+      "ranking": "dense",
+      "policy": "consensus10",
+      "cutoff": 0.7821144461631775,
+      "questions": 71,
+      "correct_match": 18,
+      "wrong_emitted": 7,
+      "abstained": 46
+    },
+    {
+      "ranking": "fusion",
+      "policy": "top1",
+      "cutoff": 0.8357916474342346,
+      "questions": 71,
+      "correct_match": 8,
+      "wrong_emitted": 6,
+      "abstained": 57
+    },
+    {
+      "ranking": "fusion",
+      "policy": "max_qa5",
+      "cutoff": 0.9201564192771912,
+      "questions": 71,
+      "correct_match": 10,
+      "wrong_emitted": 7,
+      "abstained": 54
+    },
+    {
+      "ranking": "fusion",
+      "policy": "consensus10",
+      "cutoff": 0.8188381195068359,
+      "questions": 71,
+      "correct_match": 15,
+      "wrong_emitted": 5,
+      "abstained": 51
+    }
+  ],
+  "selected_ranking": "dense",
+  "selected_policy": "consensus10",
+  "frozen_cutoff": 0.7821144461631775,
+  "calibration": {
+    "questions": 71,
+    "correct_match": 18,
+    "wrong_emitted": 7,
+    "abstained": 46
+  },
+  "development": {
+    "questions": 29,
+    "correct_match": 8,
+    "wrong_emitted": 5,
+    "abstained": 16
+  },
+  "retrieval": {
+    "calibration": {
+      "dense": {
+        "qrel_at_1": 14,
+        "qrel_at_5": 32,
+        "qrel_at_10": 39
+      },
+      "fusion": {
+        "qrel_at_1": 9,
+        "qrel_at_5": 25,
+        "qrel_at_10": 33
+      }
+    },
+    "development": {
+      "dense": {
+        "qrel_at_1": 3,
+        "qrel_at_5": 8,
+        "qrel_at_10": 10
+      },
+      "fusion": {
+        "qrel_at_1": 2,
+        "qrel_at_5": 8,
+        "qrel_at_10": 8
+      }
+    }
+  },
+  "prior_v12_development": {
+    "questions": 29,
+    "correct_match": 6,
+    "wrong_emitted": 6,
+    "abstained": 17
+  },
+  "prior_v12_development_retrieval": {
+    "qrel_at_1": 1,
+    "qrel_at_5": 6,
+    "qrel_at_10": 8
+  },
+  "gate": {
+    "development_correct_at_least": 9,
+    "development_wrong_at_most": 2,
+    "development_qrel_at_10_at_least": 9
+  },
+  "limitation": "Same already inspected development questions; unreviewed benchmark corpus, no live source registry."
+}

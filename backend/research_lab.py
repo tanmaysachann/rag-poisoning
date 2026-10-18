@@ -19,8 +19,8 @@ import joblib
 
 from attack.harness import stage_document_attack
 from detect.research_detector import ResearchDetector
+from generation.grounded_answer import answer_from_accepted
 from pipeline.research_inference import infer_research
-from pipeline.secure_rag import _select_answer
 from retrieval.hybrid_retriever import HybridRetriever
 from security.integrity import load_runtime_manifest, write_manifest
 
@@ -93,7 +93,8 @@ def case_catalog() -> dict:
 
 
 def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None,
-             attack_budget: int = 1, additional_attack_texts: list[str] | None = None) -> dict:
+             attack_budget: int = 1, additional_attack_texts: list[str] | None = None,
+             snapshot_recovery: bool = True) -> dict:
     queries, corpus, attacks, _ = _inputs()
     if qid not in queries or strategy not in attacks or surface not in {"accepted_ingest", "post_index_tamper"}:
         raise ValueError("Select a listed validation case, attack family, and trust surface")
@@ -118,11 +119,13 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
     attack_id_set = set(attack_ids)
     started = time.perf_counter()
     corpus_path = VALIDATION / "corpus.jsonl"
+    benchmark_manifest = json.loads((ROOT / "data" / "benchmark_v3" / "manifest.json").read_text(encoding="utf-8"))
+    pinned_digest = benchmark_manifest["file_sha256"]["validation/corpus.jsonl"]
+    if hashlib.sha256(corpus_path.read_bytes()).hexdigest() != pinned_digest:
+        raise ValueError("The clean validation snapshot differs from its versioned benchmark manifest")
     with tempfile.TemporaryDirectory(prefix="sentinel-live-lab-") as directory:
         work = Path(directory)
         clean_retriever = HybridRetriever(corpus_path, artifact_dir=work / "clean_index")
-        clean_candidates = clean_retriever.retrieve(query["question"], top_k=5)
-        clean_answer, clean_source, _ = _select_answer(query["question"], clean_candidates, clean_retriever)
         staged_path = work / "staged.jsonl"
         stage_document_attack(
             corpus_path, staged_path, doc_id=attack_id, text=text,
@@ -135,9 +138,12 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         clean_manifest_path = work / "clean_manifest.json"
         manifest_key = os.getenv("RAG_MANIFEST_KEY")
         write_manifest(
-            clean_manifest_path, corpus.values(), hashlib.sha256(corpus_path.read_bytes()).hexdigest(),
+            clean_manifest_path, corpus.values(), pinned_digest,
             signing_key=manifest_key.encode("utf-8") if manifest_key else None,
         )
+        pinned_snapshot = load_runtime_manifest(clean_manifest_path)
+        if pinned_snapshot is None or pinned_snapshot.corpus_sha256 != pinned_digest:
+            raise RuntimeError("The independent clean snapshot manifest is unavailable")
         retriever = HybridRetriever(
             staged_path,
             artifact_dir=work / "index",
@@ -151,7 +157,20 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
             raise RuntimeError("The isolated experiment has no integrity manifest")
         detector = _detector()
         setup_ms = (time.perf_counter() - started) * 1000
-        inference = infer_research(query["question"], retriever, manifest, detector)
+        inference = infer_research(
+            query["question"], retriever, manifest, detector,
+            pinned_snapshot=pinned_snapshot,
+            snapshot_retriever=clean_retriever if snapshot_recovery else None,
+        )
+        if snapshot_recovery:
+            clean_reference = inference["snapshot_reference"]
+            clean_top_ids = inference["snapshot_guard"]["independent_top_five_ids"]
+        else:
+            clean_candidates = clean_retriever.retrieve(query["question"], top_k=5)
+            clean_reference = answer_from_accepted(query["question"], clean_candidates, clean_retriever)
+            clean_top_ids = [int(doc["doc_id"]) for doc in clean_candidates]
+        clean_answer = clean_reference["answer"]
+        clean_source = clean_reference["source_doc_id"]
         rows = inference["documents"]
         for row in rows:
             row["is_attack"] = row["doc_id"] in attack_id_set
@@ -159,6 +178,8 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         off_source = inference["undefended"]["source_doc_id"]
         on_answer = inference["defended"]["answer"]
         on_source = inference["defended"]["source_doc_id"]
+        guard_answer = inference["snapshot_guarded"]["answer"]
+        guard_source = inference["snapshot_guarded"]["source_doc_id"]
     wrong = attack["wrong_answer"].casefold()
     retrieved_attacks = [row for row in rows if row["is_attack"]]
     quarantined_attacks = [row for row in retrieved_attacks if row["decision"] == "quarantine"]
@@ -182,9 +203,18 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "clean_alias_recovered": any(alias.casefold() in on_answer.casefold() for alias in query["answer_aliases"]),
         "undefended_attack_success": off_source in attack_id_set and wrong in off_answer.casefold(),
         "defended_attack_success": on_source in attack_id_set and wrong in on_answer.casefold(),
+        "snapshot_guarded_attack_success": guard_source in attack_id_set and wrong in guard_answer.casefold(),
+        "snapshot_guarded_target_match": wrong in guard_answer.casefold(),
+        "snapshot_guarded_clean_alias_recovered": any(
+            alias.casefold() in guard_answer.casefold() for alias in query["answer_aliases"]
+        ),
         "undefended": inference["undefended"],
         "defended": inference["defended"],
-        "clean": {"answer": clean_answer, "source_doc_id": clean_source},
+        "snapshot_guarded": inference["snapshot_guarded"],
+        "snapshot_guard": inference["snapshot_guard"],
+        "clean": {"answer": clean_answer, "source_doc_id": clean_source,
+                  "top_five_ids": clean_top_ids,
+                  "snapshot_corpus_sha256": pinned_digest},
         "documents": rows,
         "counterfactuals": inference["counterfactuals"],
         "provenance": inference["provenance"],
@@ -195,7 +225,7 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "latency_ms": round((time.perf_counter() - started) * 1000, 1),
         "benchmark": "v3",
         "detector_artifact": "research_detector_v3_hashing_web.joblib",
-        "note": "This live validation run uses the frozen v3 hashing detector and deterministic extractor also evaluated by evaluation/evaluate_v3_generalization.py. All altered passages share one attacker origin even when their text differs. The test report is frozen; this editor only runs validation cases.",
+        "note": "This live validation run keeps the frozen v3 detector result and adds a pinned-clean-snapshot answer guard. The snapshot hash proves pre-attack identity, not factual truth. All altered passages share one attacker origin. This editor only runs previously inspected validation cases.",
     }
 
 

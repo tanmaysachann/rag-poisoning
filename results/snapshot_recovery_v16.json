@@ -1,0 +1,88 @@
+{
+  "protocol": "research_protocols/snapshot_recovery_v16.md",
+  "split": "previously_inspected_v3_validation",
+  "snapshot_corpus_sha256": "6dbf1f15fa2c405a3ababeef8effb888122f3468619344830353628a7d8d0f5d",
+  "clean": {
+    "questions": 150,
+    "v3_alias_matches": 27,
+    "guard_alias_matches": 28,
+    "v3_abstentions": 86,
+    "guard_abstentions": 80,
+    "guard_unverified_emissions": 0,
+    "guard_recovered_answers": 6
+  },
+  "attack_replays": {
+    "greedy:accepted_ingest": {
+      "cases": 150,
+      "attack_retrieved": 150,
+      "v3_attack_source_success": 0,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 27,
+      "guard_alias_match": 28,
+      "guard_abstained": 80,
+      "guard_recovered_answers": 11,
+      "guard_verified_source_emissions": 70,
+      "guard_unverified_source_emissions": 0,
+      "guard_prevented_v3_attack_source_answers": 0,
+      "guard_recovered_after_v3_attack_source": 0,
+      "guard_abstained_after_v3_attack_source": 0
+    },
+    "greedy:post_index_tamper": {
+      "cases": 150,
+      "attack_retrieved": 150,
+      "v3_attack_source_success": 0,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 27,
+      "guard_alias_match": 28,
+      "guard_abstained": 80,
+      "guard_recovered_answers": 10,
+      "guard_verified_source_emissions": 70,
+      "guard_unverified_source_emissions": 0,
+      "guard_prevented_v3_attack_source_answers": 0,
+      "guard_recovered_after_v3_attack_source": 0,
+      "guard_abstained_after_v3_attack_source": 0
+    },
+    "stealth:accepted_ingest": {
+      "cases": 150,
+      "attack_retrieved": 116,
+      "v3_attack_source_success": 19,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 1,
+      "guard_alias_match": 28,
+      "guard_abstained": 80,
+      "guard_recovered_answers": 68,
+      "guard_verified_source_emissions": 70,
+      "guard_unverified_source_emissions": 0,
+      "guard_prevented_v3_attack_source_answers": 19,
+      "guard_recovered_after_v3_attack_source": 18,
+      "guard_abstained_after_v3_attack_source": 1
+    },
+    "stealth:post_index_tamper": {
+      "cases": 150,
+      "attack_retrieved": 116,
+      "v3_attack_source_success": 0,
+      "guard_attack_source_success": 0,
+      "guard_target_answer_match": 0,
+      "v3_alias_match": 0,
+      "guard_alias_match": 28,
+      "guard_abstained": 80,
+      "guard_recovered_answers": 68,
+      "guard_verified_source_emissions": 70,
+      "guard_unverified_source_emissions": 0,
+      "guard_prevented_v3_attack_source_answers": 0,
+      "guard_recovered_after_v3_attack_source": 0,
+      "guard_abstained_after_v3_attack_source": 0
+    }
+  },
+  "case_rows_sha256": "be4bdd22277a15ef39f5510c41ae0ecbab3bcb615d02e57937ff10bdc0dd7ac0",
+  "runtime_seconds": 102.52,
+  "limitations": [
+    "This snapshot is a pre-attack benchmark corpus, not an independently reviewed factual authority.",
+    "The attacker cannot change the pinned snapshot or server code in this replay.",
+    "Validation aggregates and questions were inspected before v15; no fresh test claim.",
+    "Recovered source identity does not establish factual correctness; exact alias match is a narrow proxy."
+  ]
+}

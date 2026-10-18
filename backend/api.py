@@ -200,6 +200,43 @@ def lab_ppo_case(qid: str) -> dict:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
 
+@app.get("/api/lab/defender-rl")
+def lab_defender_rl() -> dict:
+    """Expose the aggregate offline defender PPO comparison, including failure."""
+    path = ROOT / "results" / "defender_bandit_v14.json"
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="Defender RL aggregate is unavailable")
+    report = json.loads(path.read_text(encoding="utf-8"))
+    models = {}
+    for name, row in report["models"].items():
+        models[name] = {
+            "clean_flags": row["clean"]["false_flags"],
+            "clean_documents": row["clean"]["documents"],
+            "poisonedrag_caught": row["families"]["poisonedrag_black"]["caught"],
+            "poisonedrag_documents": row["families"]["poisonedrag_black"]["documents"],
+            "gaslite_caught": row["families"]["gaslite"]["caught"],
+            "gaslite_documents": row["families"]["gaslite"]["documents"],
+        }
+    return {"split": "previously_inspected_development", "live": False,
+            "training_rows": report["train_rows"], "models": models,
+            "ppo_sampled_actions_per_seed": report["training_log"]["ppo_seed_11"]["sampled_actions"],
+            "gate_passed": report["gate"]["passed"],
+            "limitation": "Source-labelled offline passage screening, not a live SLM fine-tune or end-to-end defense."}
+
+
+@app.get("/api/lab/snapshot-recovery")
+def lab_snapshot_recovery() -> dict:
+    """Expose aggregate v16 development outcomes without replaying during a request."""
+    path = ROOT / "results" / "snapshot_recovery_v16.json"
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="Snapshot recovery aggregate is unavailable")
+    report = json.loads(path.read_text(encoding="utf-8"))
+    return {"split": report["split"], "clean": report["clean"],
+            "attack_replays": report["attack_replays"],
+            "snapshot_corpus_sha256": report["snapshot_corpus_sha256"],
+            "limitation": report["limitations"][0]}
+
+
 @app.post("/api/analyze")
 def analyze(body: QueryRequest) -> dict:
     try:

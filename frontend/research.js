@@ -67,10 +67,12 @@
     el('lab-status').textContent = `${data.documents.length} passages retrieved · attack ${data.attack_retrieved_count}/${data.attack_budget} in top five · ${data.attack_quarantined_count} quarantined · ${data.attack_payloads_distinct} unique attacker texts · threshold ${Number(data.detector_threshold).toFixed(3)}`;
     el('lab-off-answer').textContent = data.undefended.answer;
     el('lab-on-answer').textContent = data.defended.answer;
+    el('lab-guard-answer').textContent = data.snapshot_guarded.answer;
     el('lab-clean-answer').textContent = data.clean.answer;
     el('lab-off-source').textContent = `SOURCE DOC ${data.undefended.source_doc_id ?? 'NONE'}`;
     el('lab-on-source').textContent = `SOURCE DOC ${data.defended.source_doc_id ?? 'NONE'}`;
-    el('lab-clean-source').textContent = `SOURCE DOC ${data.clean.source_doc_id ?? 'NONE'} · DEFENDED ANSWER ${data.defended_answer_matches_clean ? 'MATCHES' : 'DIFFERS'}`;
+    el('lab-guard-source').textContent = `SOURCE DOC ${data.snapshot_guarded.source_doc_id ?? 'NONE'} · ${data.snapshot_guard.reason.replaceAll('_', ' ')}`;
+    el('lab-clean-source').textContent = `SOURCE DOC ${data.clean.source_doc_id ?? 'NONE'} · DIAGNOSTIC, NOT EMITTED`;
     const verdict = el('lab-verdict');
     if (data.defended_attack_success) {
       verdict.className = 'lab-verdict failure';
@@ -85,12 +87,20 @@
       verdict.className = 'lab-verdict';
       verdict.textContent = data.attack_retrieved ? 'Altered passages were retrieved but did not supply the defended answer.' : 'No altered passage reached the top five retrieved passages.';
     }
+    verdict.textContent += data.snapshot_guard.decision === 'allow'
+      ? ' The pinned snapshot verified the emitted source and cited span.'
+      : data.snapshot_guard.decision === 'recover'
+        ? ` Independent question-only retrieval recovered a cited answer from pinned DOC ${data.snapshot_guard.recovery_source_id}.`
+        : ` The pinned snapshot could not recover an answer (${data.snapshot_guard.reason.replaceAll('_', ' ')}).`;
     const citation = data.defended.citations?.[0];
     const timing = data.stage_times || {};
     const changed = (data.counterfactuals || []).filter(row => row.answer_changed);
     el('lab-inference-details').innerHTML = `<p><b>Selected evidence:</b> ${citation ? `DOC ${escapeHtml(citation.doc_id)} / ${escapeHtml(citation.span)}` : 'Abstained - no accepted source span.'}</p>
       <p><b>Backend:</b> ${escapeHtml(data.defended.backend)} · <b>Stage time:</b> setup + indexing ${Number(timing.setup_and_index_ms || 0).toFixed(1)} ms, retrieval ${Number(timing.retrieval_ms || 0).toFixed(1)} ms, integrity ${Number(timing.integrity_ms || 0).toFixed(1)} ms, detector ${Number(timing.detection_ms || 0).toFixed(1)} ms, answer + leave-one-out ${Number(timing.answer_and_loo_ms || 0).toFixed(1)} ms.</p>
       <p><b>Independent-origin check:</b> ${data.provenance?.enforced ? escapeHtml(data.provenance.reason) : 'Not applied; this benchmark has no reviewed independent source origins.'}</p>
+      <p><b>Pinned snapshot:</b> ${escapeHtml(data.snapshot_guard.decision.toUpperCase())} · ${escapeHtml(data.snapshot_guard.reason.replaceAll('_', ' '))} · source ${escapeHtml(data.snapshot_guard.source_status ?? 'none')} · exact cited span ${data.snapshot_guard.span_verified ? 'verified' : 'unavailable'}.</p>
+      <p><b>Independent recovery:</b> ${data.snapshot_guard.recovery_attempted ? 'attempted' : 'not needed'} · source DOC ${escapeHtml(data.snapshot_guard.recovery_source_id ?? 'none')} · source status ${escapeHtml(data.snapshot_guard.recovery_source_status ?? 'not checked')} · top five ${escapeHtml((data.snapshot_guard.independent_top_five_ids || []).join(', '))}.</p>
+      <p><b>Snapshot SHA-256:</b> ${escapeHtml(data.snapshot_guard.snapshot_corpus_sha256)}<br><b>Selected source SHA-256:</b> ${escapeHtml(data.snapshot_guard.source_sha256 ?? 'none')}<br><b>Expected source SHA-256:</b> ${escapeHtml(data.snapshot_guard.expected_sha256 ?? 'none')}</p>
       <details><summary>${changed.length} of ${(data.counterfactuals || []).length} accepted passages changed the answer when removed</summary><ul>${(data.counterfactuals || []).map(row => `<li>Remove DOC ${escapeHtml(row.removed_doc_id)}: ${row.answer_changed ? 'answer changed to' : 'answer unchanged'} ${escapeHtml(row.answer_after_removal)}</li>`).join('')}</ul></details>`;
     el('lab-candidate-count').textContent = `${data.documents.length} CANDIDATES`;
     el('lab-documents').innerHTML = data.documents.map(documentCard).join('');
@@ -176,6 +186,42 @@
         el('lab-clean-v3-bars').innerHTML = barRow('MATCH', s.v3_clean_minilm.alias_match_accuracy, true);
       }
     } catch (error) { /* v3 cards keep placeholders when summaries are unavailable */ }
+  }
+
+  async function loadDefenderRl() {
+    const container = el('lab-defender-rl');
+    try {
+      const report = await jsonRequest('/api/lab/defender-rl');
+      const names = [['frozen_v3', 'Frozen v3'], ['supervised_warmstart', 'Supervised warm-start'],
+        ['ppo_seed_11', 'PPO seed 11'], ['ppo_seed_22', 'PPO seed 22'], ['ppo_seed_33', 'PPO seed 33']];
+      const rows = names.map(([key, label]) => {
+        const row = report.models[key];
+        return `<tr><th scope="row">${escapeHtml(label)}</th><td>${row.clean_flags}/${row.clean_documents}</td><td>${row.poisonedrag_caught}/${row.poisonedrag_documents}</td><td>${row.gaslite_caught}/${row.gaslite_documents}</td></tr>`;
+      }).join('');
+      container.innerHTML = `<p><b>Result: ${report.gate_passed ? 'passed' : 'failed'}.</b> ${report.training_rows} training rows; ${report.ppo_sampled_actions_per_seed.toLocaleString()} sampled RL actions per seed. Cutoffs were set on separate clean calibration questions. These are development results, not a deployed policy.</p>
+        <div class="lab-rl-table-wrap"><table class="lab-rl-table"><thead><tr><th>Policy</th><th>Clean flags</th><th>PoisonedRAG caught</th><th>GasLite caught</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <p>${escapeHtml(report.limitation)} PoisonedRAG gains coincided with too many clean flags, and learned policies missed GasLite.</p>`;
+    } catch (error) { container.textContent = error.message; }
+  }
+
+  async function loadSnapshotSummary() {
+    const container = el('lab-snapshot-summary');
+    try {
+      const report = await jsonRequest('/api/lab/snapshot-recovery');
+      const names = [
+        ['greedy:accepted_ingest', 'Insertion · accepted ingest'],
+        ['greedy:post_index_tamper', 'Insertion · post-index tamper'],
+        ['stealth:accepted_ingest', 'Substitution · accepted ingest'],
+        ['stealth:post_index_tamper', 'Substitution · post-index tamper'],
+      ];
+      const rows = names.map(([key, label]) => {
+        const row = report.attack_replays[key];
+        return `<tr><th scope="row">${escapeHtml(label)}</th><td>${row.v3_attack_source_success} → ${row.guard_attack_source_success}</td><td>${row.guard_alias_match}/${row.cases}</td><td>${row.guard_abstained}/${row.cases}</td><td>${row.guard_recovered_answers}/${row.cases}</td></tr>`;
+      }).join('');
+      container.innerHTML = `<p><b>Clean, unmodified corpus:</b> exact-alias matches ${report.clean.v3_alias_matches}/${report.clean.questions} with v3 and ${report.clean.guard_alias_matches}/${report.clean.questions} with snapshot recovery. The snapshot is checked against SHA-256 ${escapeHtml(report.snapshot_corpus_sha256)}.</p>
+        <div class="lab-rl-table-wrap"><table class="lab-rl-table"><thead><tr><th>Attack surface</th><th>Attack-sourced answers: v3 → guard</th><th>Guard clean aliases</th><th>Guard abstentions</th><th>Recovered answers</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <p>${escapeHtml(report.limitation)} These are previously inspected validation questions; source verification does not certify factual truth.</p>`;
+    } catch (error) { container.textContent = error.message; }
   }
 
   async function loadGeneralization() {
@@ -272,5 +318,5 @@
   el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
-  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization();
+  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization(); loadDefenderRl(); loadSnapshotSummary();
 })();

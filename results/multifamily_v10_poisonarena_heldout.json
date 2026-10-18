@@ -1,0 +1,179 @@
+{
+  "protocol": "research_protocols/multifamily_detector_v10.md",
+  "model_weights_sha256": "0f6560dd5c61059d8d918e888d1cdf037e1b3c528861c55b446f38157e70240a",
+  "poisonarena_manifest_sha256": "c4700f1d007bfec107256b2f6cb810b33b09a599d4bce4527498ec4c02ed2f53",
+  "selection": {
+    "advdecoding": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "content_poison": {
+      "published_questions": 20,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 20
+    },
+    "corpus_poison": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "garag": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "gaslite": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "poisonedrag_black": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "unique_new_questions": 100,
+    "published_answer_in_qrel": 78,
+    "reference_doc_overlap_with_train": 1
+  },
+  "evaluated_questions": 29,
+  "heldout_v10_questions": true,
+  "threshold_frozen_from_other_archive": 0.9976394176483155,
+  "candidate_model": {
+    "clean_candidates": 290,
+    "clean_false_flags": 2,
+    "judged_references": 29,
+    "reference_false_flags": 0,
+    "families": {
+      "advdecoding": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 29,
+        "questions_with_any_caught": 13
+      },
+      "content_poison": {
+        "questions": 6,
+        "attack_documents": 30,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "corpus_poison": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 60,
+        "questions_with_any_caught": 20
+      },
+      "garag": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 2,
+        "questions_with_any_caught": 2
+      },
+      "gaslite": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 108,
+        "questions_with_any_caught": 28
+      },
+      "poisonedrag_black": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 2,
+        "questions_with_any_caught": 2
+      }
+    }
+  },
+  "frozen_v3": {
+    "clean_candidates": 290,
+    "clean_false_flags": 5,
+    "judged_references": 29,
+    "reference_false_flags": 0,
+    "families": {
+      "advdecoding": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 1,
+        "questions_with_any_caught": 1
+      },
+      "content_poison": {
+        "questions": 6,
+        "attack_documents": 30,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "corpus_poison": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "garag": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 1,
+        "questions_with_any_caught": 1
+      },
+      "gaslite": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 11,
+        "questions_with_any_caught": 5
+      },
+      "poisonedrag_black": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 44,
+        "questions_with_any_caught": 16
+      }
+    }
+  },
+  "candidate_model_seconds": 8.72,
+  "v3_seconds": 11.06,
+  "unique_scored_pairs": 1074,
+  "limitation": "PoisonArena released qrel is an oracle-like proxy, not an independently authenticated live source.",
+  "prior_v9_same_questions": {
+    "clean_candidates": 290,
+    "clean_false_flags": 1,
+    "judged_references": 29,
+    "reference_false_flags": 0,
+    "families": {
+      "advdecoding": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "content_poison": {
+        "questions": 6,
+        "attack_documents": 30,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "corpus_poison": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "garag": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "gaslite": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 0,
+        "questions_with_any_caught": 0
+      },
+      "poisonedrag_black": {
+        "questions": 29,
+        "attack_documents": 145,
+        "caught_documents": 1,
+        "questions_with_any_caught": 1
+      }
+    }
+  }
+}

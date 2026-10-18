@@ -1,0 +1,27 @@
+{
+  "protocol": "research_protocols/multifamily_detector_v10.md",
+  "model_weights_sha256": "0f6560dd5c61059d8d918e888d1cdf037e1b3c528861c55b446f38157e70240a",
+  "questions": 29,
+  "pairs": 580,
+  "threshold": 0.9976394176483155,
+  "mean_absolute_probability_change": 0.12540027529898437,
+  "changed_flag_count": 29,
+  "by_kind": {
+    "clean": {
+      "pairs": 290,
+      "original_flags": 2,
+      "shuffled_flags": 0
+    },
+    "gaslite": {
+      "pairs": 145,
+      "original_flags": 108,
+      "shuffled_flags": 89
+    },
+    "poisonedrag_black": {
+      "pairs": 145,
+      "original_flags": 2,
+      "shuffled_flags": 0
+    }
+  },
+  "interpretation_limit": "Shuffled references are out of distribution; this measures dependence, not factual correctness."
+}
