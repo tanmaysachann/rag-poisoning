@@ -1,0 +1,22 @@
+{
+  "scope": "post-evaluation diagnostic; these 500 questions are now spent",
+  "protocol": "research_protocols/full_corpus_v17.md",
+  "parent_result_sha256": "10f4f3faea269c8e6f5e38cfebe3f7f8e138f2e09e31426157b7b78f4b000a14",
+  "retrievals_sha256": "89a313eb7807db5adfe5b60384608bcc42495e9894602c0543c4bab0888eb850",
+  "questions": 500,
+  "counts": {
+    "alias_in_dense_top_10": 370,
+    "alias_in_fusion_top_10": 351,
+    "alias_in_lexical_top_10": 307,
+    "alias_in_lexical_top_100": 444,
+    "reader_exact_candidate_in_dense_top_10": 228,
+    "reader_exact_candidate_in_fusion_top_10": 223,
+    "reader_exact_candidate_in_lexical_top_10": 192,
+    "reader_substring_candidate_in_dense_top_10": 310,
+    "reader_substring_candidate_in_fusion_top_10": 303,
+    "reader_substring_candidate_in_lexical_top_10": 268,
+    "selected_policy_abstained": 410,
+    "selected_policy_exact": 32
+  },
+  "interpretation": "Candidate presence is an oracle ceiling, not achievable answer accuracy; alias matching may miss paraphrases or alternate valid answers."
+}

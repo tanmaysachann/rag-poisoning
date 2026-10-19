@@ -1,0 +1,22 @@
+{
+  "protocol": "research_protocols/answer_selector_v18.md",
+  "model_sha256": "d72e95a488450a2541fa497696527ad577f32e1d637a7403e0950149cb4d8542",
+  "calibration_questions": 200,
+  "baseline_v17_frozen": {
+    "questions": 200,
+    "strict_match": 14,
+    "substring_match": 18,
+    "nonmatching_emitted": 22,
+    "abstained": 164
+  },
+  "learned_v18": {
+    "questions": 200,
+    "strict_match": 16,
+    "substring_match": 19,
+    "nonmatching_emitted": 13,
+    "abstained": 171
+  },
+  "proceed_to_fresh_evaluation": true,
+  "fresh_split_sha256": "78f24ebc44b4b8453f4edf3fdbef955857e53c7c990f21aa6552e57076a7344b",
+  "fresh_split_predictions_created": false
+}

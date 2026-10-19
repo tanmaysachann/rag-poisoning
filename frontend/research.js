@@ -224,6 +224,21 @@
     } catch (error) { container.textContent = error.message; }
   }
 
+  async function loadFullCorpus() {
+    const container = el('lab-full-corpus');
+    try {
+      const report = await jsonRequest('/api/lab/full-corpus');
+      const rows = [
+        ['V17 · first 500 questions', report.v17],
+        ['V18 · frozen policy on next 500', report.v18_baseline],
+        ['V18 · learned selector on same 500', report.v18_learned],
+      ].map(([label, row]) => `<tr><th scope="row">${escapeHtml(label)}</th><td>${row.strict_match}/${row.questions}</td><td>${row.nonmatching_emitted}/${row.questions}</td><td>${row.abstained}/${row.questions}</td></tr>`).join('');
+      container.innerHTML = `<p><b>Scale gate failed.</b> ${report.corpus_passages.toLocaleString()} indexed passages; ${report.questions_per_evaluation} new questions in each evaluation. The learned selector reduced wrong answers on its paired split but answered fewer questions correctly.</p>
+        <div class="lab-rl-table-wrap"><table class="lab-rl-table"><thead><tr><th>Answer policy</th><th>Exact correct</th><th>Nonmatching answer</th><th>Abstained</th></tr></thead><tbody>${rows}</tbody></table></div>
+        <p>In v17, a judged passage reached dense top ten for ${report.v17_dense_qrel_at_10}/500 questions, and the reader produced an exact answer candidate in ${report.v17_reader_exact_candidate}/500. Final correct answers were ${report.v17.strict_match}/500. ${escapeHtml(report.limitation)} No attack-resistance claim is made from this run.</p>`;
+    } catch (error) { container.textContent = error.message; }
+  }
+
   async function loadGeneralization() {
     try {
       const data = await jsonRequest('/api/generalization-summary');
@@ -318,5 +333,5 @@
   el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
-  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization(); loadDefenderRl(); loadSnapshotSummary();
+  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization(); loadDefenderRl(); loadSnapshotSummary(); loadFullCorpus();
 })();

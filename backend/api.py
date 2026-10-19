@@ -237,6 +237,39 @@ def lab_snapshot_recovery() -> dict:
             "limitation": report["limitations"][0]}
 
 
+@app.get("/api/lab/full-corpus")
+def lab_full_corpus() -> dict:
+    """Expose frozen offline scale results, including the failed clean gate."""
+    paths = {
+        name: ROOT / "results" / filename for name, filename in {
+            "v17": "full_corpus_v17.json",
+            "diagnostic": "full_corpus_v17_diagnostics.json",
+            "v18": "answer_selector_v18.json",
+        }.items()
+    }
+    if any(not path.is_file() for path in paths.values()):
+        raise HTTPException(status_code=404, detail="Full-corpus aggregate is unavailable")
+    reports = {name: json.loads(path.read_text(encoding="utf-8"))
+               for name, path in paths.items()}
+    v17, v18 = reports["v17"], reports["v18"]
+    return {
+        "live": False,
+        "scope": "public Natural Questions clean-answer evaluation; no poison replay",
+        "corpus_passages": v17["beir_passages"],
+        "questions_per_evaluation": 500,
+        "v17": v17["evaluation"],
+        "v17_dense_qrel_at_10": v17["retrieval"]["evaluation"]["dense"]["qrel_at_10"],
+        "v17_reader_exact_candidate": reports["diagnostic"]["counts"][
+            "reader_exact_candidate_in_dense_top_10"],
+        "v18_baseline": v18["baseline_v17_frozen_policy"],
+        "v18_learned": v18["learned_v18_selector"],
+        "v17_gate_passed": v17["gate_passed"],
+        "v18_gate_passed": v18["gate_passed"],
+        "unverified_emissions": v18["unverified_emissions"],
+        "limitation": "Public benchmark clean QA only; the live 150-passage guard has not been validated at this scale.",
+    }
+
+
 @app.post("/api/analyze")
 def analyze(body: QueryRequest) -> dict:
     try:

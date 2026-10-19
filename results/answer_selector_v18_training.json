@@ -1,0 +1,35 @@
+{
+  "protocol": "research_protocols/answer_selector_v18.md",
+  "source_v17_split_sha256": "6e674a700140abdd5f144f634b742d7ec0301bdca8615701ed41d4770e361171",
+  "source_v17_predictions_sha256": "2868075323e3024965fb5d47ec65181a9063997e5905e6ea2f60414591d50275",
+  "fresh_v18_split_sha256": "78f24ebc44b4b8453f4edf3fdbef955857e53c7c990f21aa6552e57076a7344b",
+  "model_sha256": "d72e95a488450a2541fa497696527ad577f32e1d637a7403e0950149cb4d8542",
+  "training_questions": 500,
+  "calibration_questions": 200,
+  "training_candidates": 8839,
+  "positive_candidates": 560,
+  "features": [
+    "qa_score",
+    "lexical_reciprocal_rank",
+    "dense_reciprocal_rank",
+    "fusion_reciprocal_rank",
+    "answer_log_words",
+    "agreement_count",
+    "agreement_score_sum",
+    "agreement_best_score",
+    "qa_gap_from_question_best"
+  ],
+  "cutoff": 0.5285170521315274,
+  "calibration": {
+    "questions": 200,
+    "strict_match": 16,
+    "substring_match": 19,
+    "nonmatching_emitted": 13,
+    "abstained": 171
+  },
+  "gate_on_fresh_evaluation": {
+    "strict_match_at_least": 150,
+    "nonmatching_emitted_at_most": 50,
+    "unverified_emissions": 0
+  }
+}

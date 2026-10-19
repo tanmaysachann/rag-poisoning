@@ -1,0 +1,2824 @@
+{
+  "protocol": "research_protocols/full_corpus_v17.md",
+  "source": "BEIR Natural Questions queries and official NQ-Open dev answers",
+  "beir_archive_md5": "d4d3d2e48787a744b6f6e691ff534307",
+  "beir_archive_sha256": "2553bf7bfbab47b1436ca00a34bce57320e18e611fd00999a2a3a1b4714be752",
+  "beir_queries_sha256": "72f08f0cd333a47e393dac61cf1e56d4fb41eabf1d6ad5ca99f40250b0b491c8",
+  "beir_qrels_sha256": "6df0cd2cbbe88504b64c68f21e946a759b62c4d864225720cec256f0196e2210",
+  "nq_open_answers_sha256": "f15567f38099f3615f5b8a685c0aef449c11ad90d3da3735e8d1b98115b40616",
+  "exclusion_hashes": {
+    "external/calibration.jsonl": "049261a9420610b776ad9cba0b5954a0efdc05ee22631615b88d35263ede8e9a",
+    "external/test.jsonl": "1655ef431f1e679e53ca71b9f8b035e73a80ba25cc3b6ec5d46a3d50a782ff39",
+    "poisonarena/nq_queries.json": "00442822d09482eb153c86ae368600d7609b9729d9da3d2ffd1ea008c3cf0a27",
+    "poisonarena/nq_arena.json": "5d2fed04ef7f33a12c1b333921155ee9de309ee6d475f1d9b0c4538969eef6cd",
+    "benchmark_v3/nq_challenge.jsonl": "e6566095b5250f7624c442f1512102caeea90e77407cc907dba9558d44e47be8"
+  },
+  "excluded_ids": 1003,
+  "excluded_question_texts": 1121,
+  "eligible_questions": 2492,
+  "selection": "SHA256('v17-full-corpus:' + BEIR qid); 200 calibration, next 500 evaluation",
+  "calibration": [
+    {
+      "qid": "test461",
+      "question": "who was the spanish civil war fought between"
+    },
+    {
+      "qid": "test2340",
+      "question": "where was one direction what makes you beautiful filmed"
+    },
+    {
+      "qid": "test342",
+      "question": "when must a system of linear equations be solved algebraically"
+    },
+    {
+      "qid": "test2330",
+      "question": "where was percy jackson and the olympians filmed"
+    },
+    {
+      "qid": "test2941",
+      "question": "is there going to be a bates motel season 6"
+    },
+    {
+      "qid": "test3374",
+      "question": "what size engine does a 2005 honda civic have"
+    },
+    {
+      "qid": "test601",
+      "question": "when does the world cup of hockey start"
+    },
+    {
+      "qid": "test2580",
+      "question": "where was the movie a walk among the tombstones filmed"
+    },
+    {
+      "qid": "test2570",
+      "question": "what was the result of the first wave of feminism"
+    },
+    {
+      "qid": "test2251",
+      "question": "what is the purpose of the muscles that line the esophagus"
+    },
+    {
+      "qid": "test1452",
+      "question": "when was the last time anyone was on the moon"
+    },
+    {
+      "qid": "test1035",
+      "question": "sweet leavened bread prepared for easter in romania"
+    },
+    {
+      "qid": "test2709",
+      "question": "when did audio video and the film industry begin"
+    },
+    {
+      "qid": "test3235",
+      "question": "who sing in beauty and the beast 2017"
+    },
+    {
+      "qid": "test31",
+      "question": "who do you meet at the gates of heaven"
+    },
+    {
+      "qid": "test1961",
+      "question": "where are the bahamas located in relation to the united states"
+    },
+    {
+      "qid": "test18",
+      "question": "when did american two party system began to emerge"
+    },
+    {
+      "qid": "test2078",
+      "question": "who invented the first computer game in 1962 and what was the name of the game"
+    },
+    {
+      "qid": "test2506",
+      "question": "who sings the rap in baby by justin bieber"
+    },
+    {
+      "qid": "test3076",
+      "question": "do all eu countries have to use the euro"
+    },
+    {
+      "qid": "test2338",
+      "question": "how to reach red light area in kolkata"
+    },
+    {
+      "qid": "test2485",
+      "question": "when was the cello invented and by whom"
+    },
+    {
+      "qid": "test1179",
+      "question": "what is the theme of fablehaven book 1"
+    },
+    {
+      "qid": "test3003",
+      "question": "who made the first to record with the electric guitar"
+    },
+    {
+      "qid": "test2639",
+      "question": "who sang the song oh what a lonely boy"
+    },
+    {
+      "qid": "test2283",
+      "question": "who is often associated with printing the first book using moveable type in germany"
+    },
+    {
+      "qid": "test1997",
+      "question": "who plays lindsay denton in line of duty"
+    },
+    {
+      "qid": "test2423",
+      "question": "how does sweden view its role during war-time"
+    },
+    {
+      "qid": "test2586",
+      "question": "when is a pilot on an ifr flight plan responsible for avoiding other aircraft"
+    },
+    {
+      "qid": "test689",
+      "question": "who was the first imperial power that was fighting in vietnam"
+    },
+    {
+      "qid": "test821",
+      "question": "when did the song rapper's delight come out"
+    },
+    {
+      "qid": "test2683",
+      "question": "which is the tallest building in the world 2018"
+    },
+    {
+      "qid": "test3132",
+      "question": "why is the indian ocean the warmest in the world"
+    },
+    {
+      "qid": "test1922",
+      "question": "where did they film the theory of everything"
+    },
+    {
+      "qid": "test24",
+      "question": "who were farmers who kept a small portion of their crops & gave the rest to the landowners"
+    },
+    {
+      "qid": "test1085",
+      "question": "who plays manny in diary of a wimpy kid"
+    },
+    {
+      "qid": "test945",
+      "question": "who plays robin's dad in how i met your mother"
+    },
+    {
+      "qid": "test798",
+      "question": "what is the value of the currency in paraguay"
+    },
+    {
+      "qid": "test2117",
+      "question": "when is the silver chair narnia movie coming out"
+    },
+    {
+      "qid": "test3048",
+      "question": "who has said that caste is a closed class"
+    },
+    {
+      "qid": "test1119",
+      "question": "where is cuba located on a world map"
+    },
+    {
+      "qid": "test1809",
+      "question": "who is meredith grey dating on grey's anatomy"
+    },
+    {
+      "qid": "test1008",
+      "question": "who came up with the theory of time"
+    },
+    {
+      "qid": "test1792",
+      "question": "where does a wrinkle in time take place"
+    },
+    {
+      "qid": "test1769",
+      "question": "what is the meaning of the name gomez"
+    },
+    {
+      "qid": "test474",
+      "question": "how many episodes of the white princess will there be"
+    },
+    {
+      "qid": "test308",
+      "question": "a synonym for the content component of communication is"
+    },
+    {
+      "qid": "test593",
+      "question": "who did the original spirit in the sky"
+    },
+    {
+      "qid": "test1677",
+      "question": "when is the womens ice skating for the olympics"
+    },
+    {
+      "qid": "test1991",
+      "question": "how many stores does lowes have in canada"
+    },
+    {
+      "qid": "test2555",
+      "question": "if i die before i wake feed jake original"
+    },
+    {
+      "qid": "test2936",
+      "question": "where is iodine found in the periodic table"
+    },
+    {
+      "qid": "test1402",
+      "question": "when did the ottoman empire surrender in ww1"
+    },
+    {
+      "qid": "test2392",
+      "question": "what happens at the end of lincoln lawyer"
+    },
+    {
+      "qid": "test2122",
+      "question": "sequel to a christmas story it runs in the family"
+    },
+    {
+      "qid": "test596",
+      "question": "who is known as the father of indian constitution"
+    },
+    {
+      "qid": "test3290",
+      "question": "what does it mean to fuse the spine"
+    },
+    {
+      "qid": "test2725",
+      "question": "the intermaxillary segment formed by the fusion of the"
+    },
+    {
+      "qid": "test2861",
+      "question": "what type of rock dominates the earth's surface"
+    },
+    {
+      "qid": "test2044",
+      "question": "season 2 this is us number of episodes"
+    },
+    {
+      "qid": "test2438",
+      "question": "when does april fools day end at noon"
+    },
+    {
+      "qid": "test758",
+      "question": "when did canada gain independence from great britain"
+    },
+    {
+      "qid": "test294",
+      "question": "who was the oldest man elected president of usa"
+    },
+    {
+      "qid": "test547",
+      "question": "what type of car is a g wagon"
+    },
+    {
+      "qid": "test589",
+      "question": "who is the girl that played darlene in roseanne"
+    },
+    {
+      "qid": "test1218",
+      "question": "who won the ncaa basketball championship in 1994"
+    },
+    {
+      "qid": "test2949",
+      "question": "what is the normal range for plasma glucose concentration"
+    },
+    {
+      "qid": "test1641",
+      "question": "what material was used to build the roofs of houses in burzahom"
+    },
+    {
+      "qid": "test274",
+      "question": "who failed the boards on grey's anatomy"
+    },
+    {
+      "qid": "test360",
+      "question": "where do green tree frogs go during the day"
+    },
+    {
+      "qid": "test685",
+      "question": "how many points are scored for a touchdown in american football"
+    },
+    {
+      "qid": "test2584",
+      "question": "the first war in the history of mankind"
+    },
+    {
+      "qid": "test1435",
+      "question": "what is the main premise behind the marketing concept"
+    },
+    {
+      "qid": "test2582",
+      "question": "in what part of the great compromise are the ideas of the virginia plan represented the senate"
+    },
+    {
+      "qid": "test1910",
+      "question": "who wrote put your hand in the hand of the man who stilled the water"
+    },
+    {
+      "qid": "test1059",
+      "question": "who hosted and won the inagural world cup"
+    },
+    {
+      "qid": "test2946",
+      "question": "who won the election for mayor in boston"
+    },
+    {
+      "qid": "test87",
+      "question": "when was the first underwater cable laid beneath the english channel"
+    },
+    {
+      "qid": "test228",
+      "question": "how many games in a row have the uconn women's basketball team won"
+    },
+    {
+      "qid": "test423",
+      "question": "who is the song diamonds and rust about"
+    },
+    {
+      "qid": "test161",
+      "question": "who is the guy that jumped from space"
+    },
+    {
+      "qid": "test2727",
+      "question": "why did jean valjean take care of cosette"
+    },
+    {
+      "qid": "test782",
+      "question": "who is the guy with 1 eye in vikings"
+    },
+    {
+      "qid": "test3421",
+      "question": "when is a liquid considered to be a very volatile liquid"
+    },
+    {
+      "qid": "test2985",
+      "question": "who does claire from mcleods daughters end up with"
+    },
+    {
+      "qid": "test1144",
+      "question": "when did starbucks become a publicly traded company"
+    },
+    {
+      "qid": "test2698",
+      "question": "who plays harry's mom in harry potter"
+    },
+    {
+      "qid": "test1985",
+      "question": "legislation regarding data protection and security in uk"
+    },
+    {
+      "qid": "test1845",
+      "question": "who is in charge of ratifying treaties in the us"
+    },
+    {
+      "qid": "test918",
+      "question": "when did the drinking age turn from 18 to 21"
+    },
+    {
+      "qid": "test750",
+      "question": "who votes in the baseball hall of fame"
+    },
+    {
+      "qid": "test896",
+      "question": "when was corporal punishment banned in south africa"
+    },
+    {
+      "qid": "test971",
+      "question": "where was the remake of dirty dancing filmed"
+    },
+    {
+      "qid": "test3086",
+      "question": "what is the function and structure of the nervous system"
+    },
+    {
+      "qid": "test1399",
+      "question": "when was fingerprinting first used by the police"
+    },
+    {
+      "qid": "test431",
+      "question": "the function of the excretory system is to help maintain homeostasis by"
+    },
+    {
+      "qid": "test1951",
+      "question": "how many episodes are in season 7 of pretty little liars"
+    },
+    {
+      "qid": "test2720",
+      "question": "at what age are you no longer a toddler"
+    },
+    {
+      "qid": "test2904",
+      "question": "who is the designer in devil wears prada"
+    },
+    {
+      "qid": "test1028",
+      "question": "i do i do i do movie plot"
+    },
+    {
+      "qid": "test2242",
+      "question": "does archie end up with betty or veronica in riverdale"
+    },
+    {
+      "qid": "test2280",
+      "question": "when was the national flag of india adopted"
+    },
+    {
+      "qid": "test3299",
+      "question": "who is the writer of 50 shades of grey"
+    },
+    {
+      "qid": "test2914",
+      "question": "who turns into a bear in the hobbit"
+    },
+    {
+      "qid": "test1969",
+      "question": "when was harry potter and the philosophers stone published"
+    },
+    {
+      "qid": "test3318",
+      "question": "where does putting two fingers up come from"
+    },
+    {
+      "qid": "test2372",
+      "question": "what does the keys to the city mean"
+    },
+    {
+      "qid": "test1410",
+      "question": "what is the ethnic background of the shib sibs"
+    },
+    {
+      "qid": "test1590",
+      "question": "where can you find dna in the body"
+    },
+    {
+      "qid": "test137",
+      "question": "fast and furious 7 red car abu dhabi"
+    },
+    {
+      "qid": "test1054",
+      "question": "who made the poppies at tower of london"
+    },
+    {
+      "qid": "test1124",
+      "question": "where do they film take me out fernando's"
+    },
+    {
+      "qid": "test3261",
+      "question": "the first element on the periodic table is"
+    },
+    {
+      "qid": "test3376",
+      "question": "where was because i could not stop for death published"
+    },
+    {
+      "qid": "test266",
+      "question": "who is the world war 2 memorial dedicated to"
+    },
+    {
+      "qid": "test2800",
+      "question": "what does it mean if a car is a fleet vehicle"
+    },
+    {
+      "qid": "test2262",
+      "question": "who gave the famous objective co relative theory"
+    },
+    {
+      "qid": "test2385",
+      "question": "where do the secretory cells of endocrine glands secrete their products"
+    },
+    {
+      "qid": "test810",
+      "question": "when was nepal declared a secular state in bs"
+    },
+    {
+      "qid": "test429",
+      "question": "when does the turn of the screw take place"
+    },
+    {
+      "qid": "test2734",
+      "question": "what part of dc is howard university in"
+    },
+    {
+      "qid": "test1950",
+      "question": "why is ireland not a member of the commonwealth"
+    },
+    {
+      "qid": "test78",
+      "question": "when did the not in this lifetime tour start"
+    },
+    {
+      "qid": "test2597",
+      "question": "who sang the them song for as told by ginger"
+    },
+    {
+      "qid": "test772",
+      "question": "who played the princess in kingsman secret service"
+    },
+    {
+      "qid": "test537",
+      "question": "in which country were the two battles of el alamein fought"
+    },
+    {
+      "qid": "test2146",
+      "question": "an object that moves around an external axis is said to be"
+    },
+    {
+      "qid": "test1517",
+      "question": "what type of car is a jeep considered"
+    },
+    {
+      "qid": "test2399",
+      "question": "who played mrs. trumbull on i love lucy"
+    },
+    {
+      "qid": "test929",
+      "question": "where did they film woody the woodpecker movie"
+    },
+    {
+      "qid": "test371",
+      "question": "where did immigrants enter the us on the west coast"
+    },
+    {
+      "qid": "test1992",
+      "question": "who developed the central processing unit (cpu)"
+    },
+    {
+      "qid": "test2600",
+      "question": "who wrote the country song i can only imagine"
+    },
+    {
+      "qid": "test282",
+      "question": "who did the chiefs play in the playoffs"
+    },
+    {
+      "qid": "test3422",
+      "question": "who has won the most masters green jackets"
+    },
+    {
+      "qid": "test3449",
+      "question": "who does eric end up with in that 70s show"
+    },
+    {
+      "qid": "test185",
+      "question": "when does star wars battlefront 2 com out"
+    },
+    {
+      "qid": "test3028",
+      "question": "is there anywhere in america with no speed limit"
+    },
+    {
+      "qid": "test2144",
+      "question": "where does the sweetness of fruit come from"
+    },
+    {
+      "qid": "test457",
+      "question": "the roman name for a liberal arts education is known as"
+    },
+    {
+      "qid": "test223",
+      "question": "why the hole in the ozone layer over antarctica"
+    },
+    {
+      "qid": "test134",
+      "question": "how many different kinds of pokemon cards are there"
+    },
+    {
+      "qid": "test1106",
+      "question": "when did the botswana currency first come into circulation"
+    },
+    {
+      "qid": "test1134",
+      "question": "the density of osmium which is the densest metal"
+    },
+    {
+      "qid": "test3293",
+      "question": "what olympic athlete has won the most medals"
+    },
+    {
+      "qid": "test778",
+      "question": "when was the south asian association for regional co-operation (saarc) formed"
+    },
+    {
+      "qid": "test582",
+      "question": "colby chees is named after a town in what state"
+    },
+    {
+      "qid": "test2482",
+      "question": "where is the world cup being held 2018"
+    },
+    {
+      "qid": "test2097",
+      "question": "are they still making games for xbox one"
+    },
+    {
+      "qid": "test1461",
+      "question": "which financial statement involves all aspects of the accounting​ equation"
+    },
+    {
+      "qid": "test1595",
+      "question": "who sings the song you'll never find another love like mine"
+    },
+    {
+      "qid": "test879",
+      "question": "when does the stock market open pacific time"
+    },
+    {
+      "qid": "test1375",
+      "question": "when does the call of the wild take place"
+    },
+    {
+      "qid": "test3229",
+      "question": "when did gimme gimme gimme start"
+    },
+    {
+      "qid": "test847",
+      "question": "how many episodes of the killing on netflix"
+    },
+    {
+      "qid": "test659",
+      "question": "explain why the 1400s are known as the first global age"
+    },
+    {
+      "qid": "test2905",
+      "question": "who does the female vocals in a little piece of heaven"
+    },
+    {
+      "qid": "test2813",
+      "question": "what is in the centre of the earth"
+    },
+    {
+      "qid": "test980",
+      "question": "this inventor co-created the film fred ott’s sneeze"
+    },
+    {
+      "qid": "test857",
+      "question": "what is the next movie after percy jackson and the sea of monsters"
+    },
+    {
+      "qid": "test1650",
+      "question": "who played mark on the show the rifleman"
+    },
+    {
+      "qid": "test1303",
+      "question": "who discovered that plants were made of cells"
+    },
+    {
+      "qid": "test3264",
+      "question": "where is the oculus in new york city"
+    },
+    {
+      "qid": "test1128",
+      "question": "one important reason for a large variety of wildlife found in india"
+    },
+    {
+      "qid": "test1381",
+      "question": "what year did return of the mack come out"
+    },
+    {
+      "qid": "test112",
+      "question": "when is the last time the dolphins went to the superbowl"
+    },
+    {
+      "qid": "test2298",
+      "question": "who plays meredith quill in guardians of the galaxy 2"
+    },
+    {
+      "qid": "test1327",
+      "question": "who is opening for j cole 2017 tour"
+    },
+    {
+      "qid": "test2352",
+      "question": "which river separates the bronx in new york city from manhattan island"
+    },
+    {
+      "qid": "test560",
+      "question": "who played doctor smith in lost in space"
+    },
+    {
+      "qid": "test2927",
+      "question": "what is the width of the mississippi river"
+    },
+    {
+      "qid": "test1898",
+      "question": "what is the enrollment at university of miami"
+    },
+    {
+      "qid": "test3269",
+      "question": "where is avon park florida on the map"
+    },
+    {
+      "qid": "test1487",
+      "question": "what happens to the rbc in acute hemolytic reaction"
+    },
+    {
+      "qid": "test216",
+      "question": "patents to produce and sell inventions are conveyed by the federal government for a period​ of"
+    },
+    {
+      "qid": "test102",
+      "question": "where does the big sur begin and end"
+    },
+    {
+      "qid": "test1602",
+      "question": "who is the guy who walked across the twin towers"
+    },
+    {
+      "qid": "test1479",
+      "question": "character in macbeth who is murdered and appears as a ghost"
+    },
+    {
+      "qid": "test2806",
+      "question": "what culture region is germany a part of"
+    },
+    {
+      "qid": "test3440",
+      "question": "when did the united states became a nation"
+    },
+    {
+      "qid": "test675",
+      "question": "brian cox wonders of the universe episode 1"
+    },
+    {
+      "qid": "test202",
+      "question": "what is the meaning of the book of proverbs"
+    },
+    {
+      "qid": "test5",
+      "question": "who were the three elves who got rings"
+    },
+    {
+      "qid": "test884",
+      "question": "what type of writing did ancient egypt use"
+    },
+    {
+      "qid": "test1574",
+      "question": "can a woman carry twins from two different fathers"
+    },
+    {
+      "qid": "test1794",
+      "question": "where was the dukes of hazzard show filmed"
+    },
+    {
+      "qid": "test262",
+      "question": "when do mark and susan get together in er"
+    },
+    {
+      "qid": "test2326",
+      "question": "who administers the oath of office to the vice president"
+    },
+    {
+      "qid": "test2281",
+      "question": "what was the most important new religious figure of the new kingdom of ancient egypt"
+    },
+    {
+      "qid": "test2300",
+      "question": "how does a star become a main sequence"
+    },
+    {
+      "qid": "test3046",
+      "question": "the most recent technological change to the u.s. economy was"
+    },
+    {
+      "qid": "test1611",
+      "question": "where was a time for choosing speech given"
+    },
+    {
+      "qid": "test2918",
+      "question": "when did the soviet union first gain control of parts of poland and the baltic republics"
+    },
+    {
+      "qid": "test1705",
+      "question": "the letter of the law versus the spirit of the law"
+    },
+    {
+      "qid": "test713",
+      "question": "what is the meaning of molech in the bible"
+    },
+    {
+      "qid": "test2237",
+      "question": "if a star is class b what is its temperature"
+    },
+    {
+      "qid": "test1131",
+      "question": "when is an articulated lorry most likely to jackknife"
+    },
+    {
+      "qid": "test301",
+      "question": "who won the 7 man elimination chamber match"
+    },
+    {
+      "qid": "test1912",
+      "question": "who is the girl in the hinder video lips of an angel"
+    },
+    {
+      "qid": "test797",
+      "question": "who does dwyane wade play for right now"
+    }
+  ],
+  "evaluation": [
+    {
+      "qid": "test113",
+      "question": "who is responsible for introducing the principle of uniformitarianism"
+    },
+    {
+      "qid": "test451",
+      "question": "how did peaks of otter get its name"
+    },
+    {
+      "qid": "test229",
+      "question": "when did scotland last qualify for world cup"
+    },
+    {
+      "qid": "test2770",
+      "question": "where was the movie 500 days of summer filmed"
+    },
+    {
+      "qid": "test472",
+      "question": "where do harry potter's aunt and uncle live"
+    },
+    {
+      "qid": "test1056",
+      "question": "where did the british army launch a successful invasion in 1776"
+    },
+    {
+      "qid": "test3238",
+      "question": "what did ted do to barney's sister"
+    },
+    {
+      "qid": "test2988",
+      "question": "the boiling point of water is 100 degrees celsius express this in si units"
+    },
+    {
+      "qid": "test1476",
+      "question": "where do red ear slider turtles lay eggs"
+    },
+    {
+      "qid": "test3324",
+      "question": "what is the dogs name in wizard of oz"
+    },
+    {
+      "qid": "test550",
+      "question": "when is the new series of keeping faith starting"
+    },
+    {
+      "qid": "test567",
+      "question": "where was a hologram for the king filmed"
+    },
+    {
+      "qid": "test1280",
+      "question": "when did the isle of wight become an island"
+    },
+    {
+      "qid": "test1986",
+      "question": "where does the eurostar train arrives in london"
+    },
+    {
+      "qid": "test829",
+      "question": "what is the symbol for christmas in brazil"
+    },
+    {
+      "qid": "test1472",
+      "question": "what parts make up the peripheral nervous system"
+    },
+    {
+      "qid": "test1676",
+      "question": "how much does it cost for the olympics"
+    },
+    {
+      "qid": "test1765",
+      "question": "who wrote antigone and what are the dates of his birth and death"
+    },
+    {
+      "qid": "test2892",
+      "question": "who ordered the forbidden city to be built"
+    },
+    {
+      "qid": "test796",
+      "question": "how is the president of united states elected"
+    },
+    {
+      "qid": "test3250",
+      "question": "how many episodes in season 2 of fargo"
+    },
+    {
+      "qid": "test1706",
+      "question": "who sings why does it hurt when i pee"
+    },
+    {
+      "qid": "test3254",
+      "question": "who died doing the luge in the olympics"
+    },
+    {
+      "qid": "test23",
+      "question": "how dose the poet present death as a voyage in crossing the bar"
+    },
+    {
+      "qid": "test1204",
+      "question": "when does part 5 of jojo take place"
+    },
+    {
+      "qid": "test3398",
+      "question": "what is the purpose of a continuing resolution"
+    },
+    {
+      "qid": "test1453",
+      "question": "the vast interior rural area of australia is known as the"
+    },
+    {
+      "qid": "test861",
+      "question": "who did dwight howard play for last year"
+    },
+    {
+      "qid": "test2978",
+      "question": "state the process that divides one nucleus into two genetically identical nuclei"
+    },
+    {
+      "qid": "test69",
+      "question": "how many students attend university of texas at austin"
+    },
+    {
+      "qid": "test2744",
+      "question": "who became a leader of the indian national congress"
+    },
+    {
+      "qid": "test1687",
+      "question": "what was one effect of the camp david accords 1977"
+    },
+    {
+      "qid": "test169",
+      "question": "where do army ants live in the rainforest"
+    },
+    {
+      "qid": "test869",
+      "question": "state with highest population growth rate in india 2011"
+    },
+    {
+      "qid": "test2315",
+      "question": "who did the united states win its independence from"
+    },
+    {
+      "qid": "test614",
+      "question": "who is going to host the 2018 winter olympics"
+    },
+    {
+      "qid": "test1838",
+      "question": "where can oxygen be found in the world"
+    },
+    {
+      "qid": "test2817",
+      "question": "how many votes to approve supreme court justice"
+    },
+    {
+      "qid": "test2228",
+      "question": "how did early humans make use of stones during the prehistoric period"
+    },
+    {
+      "qid": "test1722",
+      "question": "what is the largest magnitude earthquake that has occurred in the pacific northwest"
+    },
+    {
+      "qid": "test3012",
+      "question": "the wave length of radio wave is 1m its frequency is"
+    },
+    {
+      "qid": "test350",
+      "question": "how to decide who is white in chess"
+    },
+    {
+      "qid": "test13",
+      "question": "when did they stop cigarette advertising on television"
+    },
+    {
+      "qid": "test2462",
+      "question": "when does the heart develop and begin pumping blood"
+    },
+    {
+      "qid": "test1491",
+      "question": "the primary reason for the creation of federal whistleblower statutes was to"
+    },
+    {
+      "qid": "test2623",
+      "question": "how many seasons of rules of engagement is there"
+    },
+    {
+      "qid": "test1297",
+      "question": "which technology is being used in creating a document on google drive"
+    },
+    {
+      "qid": "test942",
+      "question": "what is it called when you believe in greek gods"
+    },
+    {
+      "qid": "test335",
+      "question": "what has been the origin of most classical dances of india"
+    },
+    {
+      "qid": "test1488",
+      "question": "where did the first african american air force unit train"
+    },
+    {
+      "qid": "test2377",
+      "question": "who played bat masterson in the movie tombstone"
+    },
+    {
+      "qid": "test990",
+      "question": "a player that can shoot pass or dribble is considered to be"
+    },
+    {
+      "qid": "test2273",
+      "question": "where does the last name perry come from"
+    },
+    {
+      "qid": "test2835",
+      "question": "what tectonic setting is responsible for the folded mountains of pennsylvania and the high himalaya"
+    },
+    {
+      "qid": "test1501",
+      "question": "where is the tv show the curse of oak island filmed"
+    },
+    {
+      "qid": "test2247",
+      "question": "here we go round the mulberry bush origin"
+    },
+    {
+      "qid": "test2801",
+      "question": "theme of the song roar by katy perry"
+    },
+    {
+      "qid": "test3294",
+      "question": "is harvard kennedy school part of harvard university"
+    },
+    {
+      "qid": "test1835",
+      "question": "who plays the first nfl game of the season"
+    },
+    {
+      "qid": "test199",
+      "question": "why was the statue of liberty given to the us as a gift from france"
+    },
+    {
+      "qid": "test3004",
+      "question": "what is the money called in south korea"
+    },
+    {
+      "qid": "test603",
+      "question": "where does some like it hot take place"
+    },
+    {
+      "qid": "test1126",
+      "question": "the first permanent european settlement on future united states soil was located where"
+    },
+    {
+      "qid": "test1771",
+      "question": "who won the mvp for the national league"
+    },
+    {
+      "qid": "test624",
+      "question": "which of these mountain ranges in india's longest railway tunnel constructed"
+    },
+    {
+      "qid": "test319",
+      "question": "who played the wicked witch in wicked on broadway"
+    },
+    {
+      "qid": "test1298",
+      "question": "how did leo dalton die in silent witness"
+    },
+    {
+      "qid": "test1849",
+      "question": "who came up with popcorn at the movies"
+    },
+    {
+      "qid": "test242",
+      "question": "when did the continental congress vote to adopt the declaration of independence"
+    },
+    {
+      "qid": "test3174",
+      "question": "who is the announcer for price is right"
+    },
+    {
+      "qid": "test3277",
+      "question": "whats the distance between mars and the sun"
+    },
+    {
+      "qid": "test3178",
+      "question": "who has the best batting average in test cricket"
+    },
+    {
+      "qid": "test2346",
+      "question": "who played cory's older brother on boy meets world"
+    },
+    {
+      "qid": "test2316",
+      "question": "who won season 8 of america's next top model"
+    },
+    {
+      "qid": "test2096",
+      "question": "what mall did they use in back to the future"
+    },
+    {
+      "qid": "test2510",
+      "question": "two atoms of the same element that are covalently bonded"
+    },
+    {
+      "qid": "test1424",
+      "question": "who is directly elected according to the constitution"
+    },
+    {
+      "qid": "test1984",
+      "question": "where does hydrogen peroxide come from in the body"
+    },
+    {
+      "qid": "test1554",
+      "question": "where does the brain get its energy from"
+    },
+    {
+      "qid": "test2634",
+      "question": "who sang what i like about you originally"
+    },
+    {
+      "qid": "test1518",
+      "question": "where are the coastal plains of india situated"
+    },
+    {
+      "qid": "test734",
+      "question": "what type of tale is the pardoner's tale"
+    },
+    {
+      "qid": "test2133",
+      "question": "what is george harrison song wah wah about"
+    },
+    {
+      "qid": "test1183",
+      "question": "where can tight junctions be found in the body"
+    },
+    {
+      "qid": "test1423",
+      "question": "who does fiona end up with adventure time"
+    },
+    {
+      "qid": "test3021",
+      "question": "where is net profit on the balance sheet"
+    },
+    {
+      "qid": "test57",
+      "question": "where was the capital of the habsburg empire located"
+    },
+    {
+      "qid": "test3094",
+      "question": "who played john coffey in the movie the green mile"
+    },
+    {
+      "qid": "test3200",
+      "question": "how are tyrants today different from those in ancient greece"
+    },
+    {
+      "qid": "test2528",
+      "question": "where did the british empire control an entire continent"
+    },
+    {
+      "qid": "test3225",
+      "question": "los angeles stadium at hollywood park opening date"
+    },
+    {
+      "qid": "test3058",
+      "question": "use of public transport to avoid pollution importance of project"
+    },
+    {
+      "qid": "test588",
+      "question": "what episode does lori die on the walking dead"
+    },
+    {
+      "qid": "test1754",
+      "question": "what season does tara die on sons of anarchy"
+    },
+    {
+      "qid": "test455",
+      "question": "mark who went to golf majors in 1998"
+    },
+    {
+      "qid": "test2839",
+      "question": "who sings this is the time of my life"
+    },
+    {
+      "qid": "test1020",
+      "question": "what is the breakdown product formed when one phosphate group is removed from atp"
+    },
+    {
+      "qid": "test190",
+      "question": "where can you find blue bell ice cream"
+    },
+    {
+      "qid": "test2515",
+      "question": "who played in the stanley cup finals last year"
+    },
+    {
+      "qid": "test1752",
+      "question": "what does a major depressive episode look like"
+    },
+    {
+      "qid": "test916",
+      "question": "what's the size of a plot of land"
+    },
+    {
+      "qid": "test384",
+      "question": "where is creatine phosphate found in the body"
+    },
+    {
+      "qid": "test717",
+      "question": "who sings in everybody dies in their nightmares"
+    },
+    {
+      "qid": "test3145",
+      "question": "the japanese pagoda was influenced by the indian stupa"
+    },
+    {
+      "qid": "test807",
+      "question": "when did we decide to leave the eu"
+    },
+    {
+      "qid": "test1913",
+      "question": "which animal is the carrier of the h1n1 virus"
+    },
+    {
+      "qid": "test2246",
+      "question": "how long is a day in majora's mask"
+    },
+    {
+      "qid": "test863",
+      "question": "who was running as vice president in 1984"
+    },
+    {
+      "qid": "test3159",
+      "question": "who plays the dad in malcom in the middle"
+    },
+    {
+      "qid": "test1219",
+      "question": "meaning of peter piper picked a peck of pickled peppers"
+    },
+    {
+      "qid": "test3218",
+      "question": "which approach to psychology focuses on the body especially the brain and nervous system"
+    },
+    {
+      "qid": "test1115",
+      "question": "when was the last god of war made"
+    },
+    {
+      "qid": "test1533",
+      "question": "when is the fourth movie of the divergent series coming out"
+    },
+    {
+      "qid": "test1127",
+      "question": "who played the mom in the partridge family"
+    },
+    {
+      "qid": "test1563",
+      "question": "who led the soldiers in ending the raid on the harper's ferry arsenal"
+    },
+    {
+      "qid": "test1180",
+      "question": "where was the movie the glass castle filmed"
+    },
+    {
+      "qid": "test695",
+      "question": "when do wood thrushes fly when they are migrating"
+    },
+    {
+      "qid": "test1351",
+      "question": "how does a solid state fuel pump work"
+    },
+    {
+      "qid": "test1196",
+      "question": "leader of carthage in the first punic war"
+    },
+    {
+      "qid": "test602",
+      "question": "who were the judges on dancing on ice 2014"
+    },
+    {
+      "qid": "test3023",
+      "question": "where is the villa in call me by your name"
+    },
+    {
+      "qid": "test707",
+      "question": "when did south america take form that it has today"
+    },
+    {
+      "qid": "test2966",
+      "question": "what is the meaning of one standard deviation"
+    },
+    {
+      "qid": "test111",
+      "question": "where does the phrase blue moon come from"
+    },
+    {
+      "qid": "test343",
+      "question": "where was robin hood prince of thieves made"
+    },
+    {
+      "qid": "test53",
+      "question": "where did aeneas go when he left carthage"
+    },
+    {
+      "qid": "test1109",
+      "question": "who is the real killer in basic instinct 2"
+    },
+    {
+      "qid": "test1264",
+      "question": "who plays nikko in the wizard of oz"
+    },
+    {
+      "qid": "test2008",
+      "question": "who is playing halftime show super bowl 50"
+    },
+    {
+      "qid": "test116",
+      "question": "who was the last nba player to get drafted out of high school"
+    },
+    {
+      "qid": "test2441",
+      "question": "what was the ancient chinese umbrella used for"
+    },
+    {
+      "qid": "test1366",
+      "question": "where does blonde hair green eyes come from"
+    },
+    {
+      "qid": "test1068",
+      "question": "how many seasons are in star wars the clone wars"
+    },
+    {
+      "qid": "test905",
+      "question": "what's the population of prince edward island"
+    },
+    {
+      "qid": "test1468",
+      "question": "who dies in transformers revenge of the fallen"
+    },
+    {
+      "qid": "test2291",
+      "question": "where is the tablet of the ten commandments"
+    },
+    {
+      "qid": "test221",
+      "question": "what is the meaning of shalom in english"
+    },
+    {
+      "qid": "test1312",
+      "question": "who wrote from now on from the greatest showman"
+    },
+    {
+      "qid": "test1024",
+      "question": "how much space does a fennec fox need"
+    },
+    {
+      "qid": "test1038",
+      "question": "who played thelma lou in andy griffith show"
+    },
+    {
+      "qid": "test85",
+      "question": "when was the debating club established in almora"
+    },
+    {
+      "qid": "test549",
+      "question": "who did kenny rogers sing mary did you know with"
+    },
+    {
+      "qid": "test3388",
+      "question": "is there a book of james in the catholic bible"
+    },
+    {
+      "qid": "test846",
+      "question": "what football player is called the honey badger"
+    },
+    {
+      "qid": "test1110",
+      "question": "what effect did russia's signing of the treaty of brest-litovsk have on wwi"
+    },
+    {
+      "qid": "test1247",
+      "question": "what is the oasis in ready player one"
+    },
+    {
+      "qid": "test3358",
+      "question": "what state courts can order a new trial"
+    },
+    {
+      "qid": "test712",
+      "question": "who is stillwater from almost famous based on"
+    },
+    {
+      "qid": "test2787",
+      "question": "the christian church used which holiday to take attention away from samhain"
+    },
+    {
+      "qid": "test1330",
+      "question": "why do we celebrate holi festival in hindi"
+    },
+    {
+      "qid": "test3087",
+      "question": "how do you determine what the root of the triad is"
+    },
+    {
+      "qid": "test2214",
+      "question": "how many cracker barrels in the united states"
+    },
+    {
+      "qid": "test3366",
+      "question": "does the district of columbia have their own license plates"
+    },
+    {
+      "qid": "test2932",
+      "question": "central idea of poem lines from the deserted village"
+    },
+    {
+      "qid": "test2884",
+      "question": "where is the island in and then there were none"
+    },
+    {
+      "qid": "test979",
+      "question": "last world series that didn't go 7 games"
+    },
+    {
+      "qid": "test1042",
+      "question": "who directed the best years of our lives"
+    },
+    {
+      "qid": "test2105",
+      "question": "when did france and belgium invade the ruhr"
+    },
+    {
+      "qid": "test1153",
+      "question": "a barrier that runs across a river or stream to control the flow of water"
+    },
+    {
+      "qid": "test2081",
+      "question": "what is the movie the crying game about"
+    },
+    {
+      "qid": "test3172",
+      "question": "when does closure of the ductus arteriosus occur"
+    },
+    {
+      "qid": "test2883",
+      "question": "distance from one side of a bridge to the other crossword"
+    },
+    {
+      "qid": "test1740",
+      "question": "what is the role of hcl in the stomach"
+    },
+    {
+      "qid": "test2741",
+      "question": "where do refugees come from to australia 2017"
+    },
+    {
+      "qid": "test98",
+      "question": "what year is the deer hunter set in"
+    },
+    {
+      "qid": "test12",
+      "question": "who plays the doc in back to the future"
+    },
+    {
+      "qid": "test2279",
+      "question": "who took part in the american civil war"
+    },
+    {
+      "qid": "test3196",
+      "question": "when does jim propose to pam on the office"
+    },
+    {
+      "qid": "test886",
+      "question": "who started the guinness book of world records"
+    },
+    {
+      "qid": "test66",
+      "question": "when is chinese new year and what year is it"
+    },
+    {
+      "qid": "test2789",
+      "question": "who has played in the most masters tournaments"
+    },
+    {
+      "qid": "test2756",
+      "question": "suburbanization of more developed countries is mostly due to"
+    },
+    {
+      "qid": "test1739",
+      "question": "when did how you remind me come out"
+    },
+    {
+      "qid": "test1855",
+      "question": "bible verse about honor thy mother and father"
+    },
+    {
+      "qid": "test2458",
+      "question": "bible verse taking the lord's name in vain"
+    },
+    {
+      "qid": "test3044",
+      "question": "who does the voice of nelson on simpsons"
+    },
+    {
+      "qid": "test2000",
+      "question": "when does madea's family funeral come out"
+    },
+    {
+      "qid": "test543",
+      "question": "who was the german leader who signed the treaty of versailles"
+    },
+    {
+      "qid": "test90",
+      "question": "where does the donkey talk in the bible"
+    },
+    {
+      "qid": "test2784",
+      "question": "when boy meets girl waiting for a star to fall"
+    },
+    {
+      "qid": "test805",
+      "question": "describe the three phases of the normal blood clotting process"
+    },
+    {
+      "qid": "test3355",
+      "question": "meaning of the song we built this city"
+    },
+    {
+      "qid": "test1243",
+      "question": "why do you think the state of himachal pradesh has been given the name himachal"
+    },
+    {
+      "qid": "test831",
+      "question": "when was the term prime minister first used"
+    },
+    {
+      "qid": "test3176",
+      "question": "what is the process to become a santero"
+    },
+    {
+      "qid": "test2333",
+      "question": "who was charlie writing to in perks of being a wallflower movie"
+    },
+    {
+      "qid": "test3273",
+      "question": "during periods of high inflation the money supply typically has been"
+    },
+    {
+      "qid": "test2329",
+      "question": "when did equus first appear in fossil record"
+    },
+    {
+      "qid": "test75",
+      "question": "how long do nhl players stay on waivers"
+    },
+    {
+      "qid": "test1704",
+      "question": "who plays jack's mom in 30 rock"
+    },
+    {
+      "qid": "test291",
+      "question": "what does the adrenal gland produce that is necessary for the sympathetic nervous system to function"
+    },
+    {
+      "qid": "test1203",
+      "question": "where did the river thames start and end"
+    },
+    {
+      "qid": "test310",
+      "question": "where is the new football stadium in atlanta"
+    },
+    {
+      "qid": "test2448",
+      "question": "what is the approximate volume of the brain"
+    },
+    {
+      "qid": "test1242",
+      "question": "what flag is red and has a gold star"
+    },
+    {
+      "qid": "test2460",
+      "question": "why only 8 episodes in satc season 5"
+    },
+    {
+      "qid": "test3092",
+      "question": "what is small business tax rate in canada"
+    },
+    {
+      "qid": "test752",
+      "question": "what do you call initials that stand for something"
+    },
+    {
+      "qid": "test2087",
+      "question": "when did the us stop trading with japan"
+    },
+    {
+      "qid": "test534",
+      "question": "who said sociology as queen of all sciences"
+    },
+    {
+      "qid": "test407",
+      "question": "the actual name of the confederate force at gettysburg was"
+    },
+    {
+      "qid": "test3332",
+      "question": "roman god of the underworld also called orcus or pluto"
+    },
+    {
+      "qid": "test1579",
+      "question": "who won the oscar for best picture in 1976"
+    },
+    {
+      "qid": "test996",
+      "question": "who plays brad pitt's daughter in moneyball"
+    },
+    {
+      "qid": "test3043",
+      "question": "when does sloan come into grey's anatomy"
+    },
+    {
+      "qid": "test1808",
+      "question": "who won the ncaa women's championship last year 2017"
+    },
+    {
+      "qid": "test2447",
+      "question": "who plays the grandmother in game of thrones"
+    },
+    {
+      "qid": "test1311",
+      "question": "universal social services are provided to members of society based on their income or means"
+    },
+    {
+      "qid": "test1150",
+      "question": "what are the power of supreme court in the philippines"
+    },
+    {
+      "qid": "test1921",
+      "question": "how much were the actors in the office paid"
+    },
+    {
+      "qid": "test2894",
+      "question": "who was the greatest pool player of all time"
+    },
+    {
+      "qid": "test1859",
+      "question": "where was the first high level language operating system created"
+    },
+    {
+      "qid": "test1817",
+      "question": "what is the story of around the world in 80 days"
+    },
+    {
+      "qid": "test561",
+      "question": "when does jo come in grey's anatomy"
+    },
+    {
+      "qid": "test822",
+      "question": "is it illegal to own a lockpick set in the uk"
+    },
+    {
+      "qid": "test2183",
+      "question": "where are the giant redwoods located in california"
+    },
+    {
+      "qid": "test1171",
+      "question": "when is the last time congress passed a complete budget"
+    },
+    {
+      "qid": "test2957",
+      "question": "who plays in the new mary poppins movie"
+    },
+    {
+      "qid": "test2572",
+      "question": "what is meant by the church is one"
+    },
+    {
+      "qid": "test2444",
+      "question": "when does mens hockey start in the olympics"
+    },
+    {
+      "qid": "test1959",
+      "question": "when did it become law to stand for the national anthem"
+    },
+    {
+      "qid": "test1778",
+      "question": "when is the last time the vikings were in the nfc championship"
+    },
+    {
+      "qid": "test967",
+      "question": "when did the daylight savings time come into effect in alberta"
+    },
+    {
+      "qid": "test904",
+      "question": "who was kicked out of the grand ole opry"
+    },
+    {
+      "qid": "test2661",
+      "question": "the german princes who chose the holy roman empire were called"
+    },
+    {
+      "qid": "test2959",
+      "question": "where does see no evil speak no evil come from"
+    },
+    {
+      "qid": "test542",
+      "question": "who wrote the theme to last of the mohicans"
+    },
+    {
+      "qid": "test1864",
+      "question": "how many times have real madrid won the champions league in a row"
+    },
+    {
+      "qid": "test1578",
+      "question": "how tall is the actor who plays hagrid in harry potter"
+    },
+    {
+      "qid": "test2037",
+      "question": "where does sleeping freshmen never lie take place"
+    },
+    {
+      "qid": "test3075",
+      "question": "itai-itai disease was a form of poisoning associated with ingestion of"
+    },
+    {
+      "qid": "test2874",
+      "question": "in the little mermaid how did ariel's mom die"
+    },
+    {
+      "qid": "test1358",
+      "question": "who is responsible for establishing local licensing forum"
+    },
+    {
+      "qid": "test672",
+      "question": "what happened to the actor that played crocodile dundee"
+    },
+    {
+      "qid": "test3319",
+      "question": "where is bruno from dancing with the stars"
+    },
+    {
+      "qid": "test503",
+      "question": "when did the song push it come out"
+    },
+    {
+      "qid": "test2619",
+      "question": "how did orchestra change in the romantic period"
+    },
+    {
+      "qid": "test1719",
+      "question": "where is the emerald ash borer found in the us"
+    },
+    {
+      "qid": "test2658",
+      "question": "when was the canadian pacific railway started and finished"
+    },
+    {
+      "qid": "test3106",
+      "question": "how many rooms is there in buckingham palace"
+    },
+    {
+      "qid": "test2156",
+      "question": "where is singapore on the map of asia"
+    },
+    {
+      "qid": "test2820",
+      "question": "phase change from gas to solid is called"
+    },
+    {
+      "qid": "test2969",
+      "question": "when did lynyrd skynyrd's plane crash happen"
+    },
+    {
+      "qid": "test1277",
+      "question": "what breed is the dog on the cesar commercial"
+    },
+    {
+      "qid": "test1721",
+      "question": "what is the meaning of the name von"
+    },
+    {
+      "qid": "test598",
+      "question": "when did the sims 4 toddlers come out"
+    },
+    {
+      "qid": "test1841",
+      "question": "what was the divestment social movement in south africa"
+    },
+    {
+      "qid": "test470",
+      "question": "when was the jury system abolished in india"
+    },
+    {
+      "qid": "test3129",
+      "question": "who does tyler end up with in you get me"
+    },
+    {
+      "qid": "test2095",
+      "question": "meaning of phil collins another day in paradise"
+    },
+    {
+      "qid": "test1799",
+      "question": "who was involved in the currency act of 1764"
+    },
+    {
+      "qid": "test1895",
+      "question": "when do we find out luke and leia are siblings"
+    },
+    {
+      "qid": "test1073",
+      "question": "who played the face in the a team"
+    },
+    {
+      "qid": "test3091",
+      "question": "in the song i drive your truck who is he talking about"
+    },
+    {
+      "qid": "test3384",
+      "question": "when did the first pokemon game come out"
+    },
+    {
+      "qid": "test1121",
+      "question": "do you need visa to go to taiwan"
+    },
+    {
+      "qid": "test3135",
+      "question": "who has access to the presidential daily briefing"
+    },
+    {
+      "qid": "test1065",
+      "question": "what is the female lion called in lion king"
+    },
+    {
+      "qid": "test2323",
+      "question": "where does the term pop music come from"
+    },
+    {
+      "qid": "test1384",
+      "question": "when was the japanese videogame company nintendo founded"
+    },
+    {
+      "qid": "test3088",
+      "question": "who supported states rights during the civil war"
+    },
+    {
+      "qid": "test2523",
+      "question": "who carried florida by 537 votes in 2000"
+    },
+    {
+      "qid": "test1299",
+      "question": "public companies are part of what economic sector"
+    },
+    {
+      "qid": "test1025",
+      "question": "how many gallons of water in the gulf of mexico"
+    },
+    {
+      "qid": "test1493",
+      "question": "how often does a speed limit sign need to be posted"
+    },
+    {
+      "qid": "test1001",
+      "question": "why did france decide to aid the united states in its war for independence"
+    },
+    {
+      "qid": "test1658",
+      "question": "who wants a heart in the wizard of oz"
+    },
+    {
+      "qid": "test1789",
+      "question": "who sang the song you got a friend in me"
+    },
+    {
+      "qid": "test882",
+      "question": "how long did it take an ocean liner to cross the atlantic"
+    },
+    {
+      "qid": "test1191",
+      "question": "where are they playing the superbowl at this year"
+    },
+    {
+      "qid": "test3031",
+      "question": "which was the first village of karnataka which declared independence"
+    },
+    {
+      "qid": "test1582",
+      "question": "who was involved in the mapp vs ohio case"
+    },
+    {
+      "qid": "test2342",
+      "question": "what was the worst flu season in history"
+    },
+    {
+      "qid": "test2046",
+      "question": "queens of the stone age 3 and 7"
+    },
+    {
+      "qid": "test1732",
+      "question": "how do tsetse flies (glossina spp.) differ from other dipteran flies"
+    },
+    {
+      "qid": "test2217",
+      "question": "what does it mean to dream about waking up"
+    },
+    {
+      "qid": "test2815",
+      "question": "in 1945 which party came into power in england"
+    },
+    {
+      "qid": "test1645",
+      "question": "who was the french chef given credit for developing the classic kitchen​ brigade"
+    },
+    {
+      "qid": "test3217",
+      "question": "when does the sword art online movie take place"
+    },
+    {
+      "qid": "test2807",
+      "question": "mount and blade with fire and sword time period"
+    },
+    {
+      "qid": "test3360",
+      "question": "who was the first person to successfully introduce a device exclusively designed for data processing"
+    },
+    {
+      "qid": "test630",
+      "question": "who founded amazon where is the headquarters of amazon"
+    },
+    {
+      "qid": "test3032",
+      "question": "how to sue for defamation of character in uk"
+    },
+    {
+      "qid": "test3119",
+      "question": "is there a difference between polycythemia and polycythemia vera"
+    },
+    {
+      "qid": "test92",
+      "question": "when is the haunted mansion nightmare before christmas"
+    },
+    {
+      "qid": "test790",
+      "question": "when was the first commercial cell phone released"
+    },
+    {
+      "qid": "test3060",
+      "question": "during the great depression in the 1930s the u.s. economy experienced a"
+    },
+    {
+      "qid": "test1449",
+      "question": "who did bette midler portray in the rose"
+    },
+    {
+      "qid": "test2837",
+      "question": "who is the girl in the stone sour video say you'll haunt me"
+    },
+    {
+      "qid": "test329",
+      "question": "where did they film season 8 of the walking dead"
+    },
+    {
+      "qid": "test3397",
+      "question": "who won the last fight in million dollar baby"
+    },
+    {
+      "qid": "test3246",
+      "question": "who does the choreography for dancing with the stars"
+    },
+    {
+      "qid": "test3164",
+      "question": "who was the viceroy when the simon commission visited india"
+    },
+    {
+      "qid": "test655",
+      "question": "where will you see polaris in north pole"
+    },
+    {
+      "qid": "test927",
+      "question": "who wrote the words to god save the queen"
+    },
+    {
+      "qid": "test2581",
+      "question": "what dynasty completed the great wall of china"
+    },
+    {
+      "qid": "test1473",
+      "question": "what is the source of electrons during photosynthesis"
+    },
+    {
+      "qid": "test2086",
+      "question": "when does the second part of vikings season 4 start"
+    },
+    {
+      "qid": "test1830",
+      "question": "true or false guinea only has one season the dry season"
+    },
+    {
+      "qid": "test1458",
+      "question": "who is signed to death row records 2017"
+    },
+    {
+      "qid": "test2654",
+      "question": "which hormone is released from the ruptured follicle or corpus luteum"
+    },
+    {
+      "qid": "test180",
+      "question": "when is the second half of vikings season 5 coming out"
+    },
+    {
+      "qid": "test2202",
+      "question": "who is the pastor of new birth missionary baptist church now"
+    },
+    {
+      "qid": "test177",
+      "question": "who plays the little girl in jurassic park"
+    },
+    {
+      "qid": "test3414",
+      "question": "who plays the new mossad director on ncis"
+    },
+    {
+      "qid": "test47",
+      "question": "how long prime minister stay in office canada"
+    },
+    {
+      "qid": "test1686",
+      "question": "who has hosted the most fifa world cups"
+    },
+    {
+      "qid": "test213",
+      "question": "who won the most mvp awards in the nba"
+    },
+    {
+      "qid": "test2525",
+      "question": "where was the movie silver linings playbook filmed"
+    },
+    {
+      "qid": "test554",
+      "question": "when did world war 2 end in the pacific"
+    },
+    {
+      "qid": "test3280",
+      "question": "the event marking the beginning of the renaissance period was"
+    },
+    {
+      "qid": "test211",
+      "question": "when did the eagles last play in a superbowl"
+    },
+    {
+      "qid": "test1515",
+      "question": "in which sea pearl is found in india"
+    },
+    {
+      "qid": "test1712",
+      "question": "where did the violin get its name from"
+    },
+    {
+      "qid": "test2032",
+      "question": "where does transcription occur in a gram negative bacterium"
+    },
+    {
+      "qid": "test83",
+      "question": "where do they put the tomb vampires in order to burn them during founders day"
+    },
+    {
+      "qid": "test3419",
+      "question": "where does london broil come from on a cow"
+    },
+    {
+      "qid": "test19",
+      "question": "where are the mitochondria located in the sperm"
+    },
+    {
+      "qid": "test844",
+      "question": "who said one man's vulgarity is another's lyric"
+    },
+    {
+      "qid": "test962",
+      "question": "what do the seven stars on the venezuelan flag mean"
+    },
+    {
+      "qid": "test687",
+      "question": "new mexico was admitted to the union as the . . . state"
+    },
+    {
+      "qid": "test357",
+      "question": "what episode of pll does jenna get her sight back"
+    },
+    {
+      "qid": "test3403",
+      "question": "who plays todd in scott pilgrim vs the world"
+    },
+    {
+      "qid": "test1258",
+      "question": "george jones who's gonna fill their shoes meaning"
+    },
+    {
+      "qid": "test1862",
+      "question": "a musical instrument with strings beginning with c"
+    },
+    {
+      "qid": "test1647",
+      "question": "what is the short story the gift of the magi about"
+    },
+    {
+      "qid": "test2732",
+      "question": "when does elena turn into a vampire in the tv series"
+    },
+    {
+      "qid": "test1544",
+      "question": "name the process of fusion of an egg with a sperm"
+    },
+    {
+      "qid": "test1609",
+      "question": "where is the protien made in the cell"
+    },
+    {
+      "qid": "test265",
+      "question": "when does season 3 of strnger things come out"
+    },
+    {
+      "qid": "test2427",
+      "question": "who ends up together in the end of gossip girl"
+    },
+    {
+      "qid": "test1601",
+      "question": "why top soil has most amount of humus"
+    },
+    {
+      "qid": "test1307",
+      "question": "who's flag is red white and green"
+    },
+    {
+      "qid": "test1408",
+      "question": "when does the new mlp movie come out"
+    },
+    {
+      "qid": "test566",
+      "question": "is it marley and me or marley and i"
+    },
+    {
+      "qid": "test1908",
+      "question": "where is the hero golf challenge being played"
+    },
+    {
+      "qid": "test2317",
+      "question": "who plays justin hammer in iron man 2"
+    },
+    {
+      "qid": "test32",
+      "question": "what are bulls used for on a farm"
+    },
+    {
+      "qid": "test2877",
+      "question": "how does the word crucible related to the book crucible"
+    },
+    {
+      "qid": "test2142",
+      "question": "why does kerosene oil rise up in the wick of lantern"
+    },
+    {
+      "qid": "test2255",
+      "question": "how many seasons are there for lost girl"
+    },
+    {
+      "qid": "test456",
+      "question": "who wrote hallelujah i just love her so"
+    },
+    {
+      "qid": "test469",
+      "question": "who won the icc under 19 world cup 2018"
+    },
+    {
+      "qid": "test3310",
+      "question": "when does new model year start for cars"
+    },
+    {
+      "qid": "test340",
+      "question": "when was thine is the kingdom added to lord's prayer"
+    },
+    {
+      "qid": "test1098",
+      "question": "who hit the first home run in the houston astrodome"
+    },
+    {
+      "qid": "test1780",
+      "question": "when did movies start coming out in color"
+    },
+    {
+      "qid": "test1919",
+      "question": "who sings far from the home i love in fiddler on the roof"
+    },
+    {
+      "qid": "test2419",
+      "question": "when was the first nuclear power plant opened"
+    },
+    {
+      "qid": "test3022",
+      "question": "can i use my driver license to enter canada"
+    },
+    {
+      "qid": "test1340",
+      "question": "how many wars held between india and pakistan"
+    },
+    {
+      "qid": "test1490",
+      "question": "where does the saying like a boss come from"
+    },
+    {
+      "qid": "test1079",
+      "question": "when did world war one begin and end"
+    },
+    {
+      "qid": "test2562",
+      "question": "what is the meaning of utang na loob"
+    },
+    {
+      "qid": "test2605",
+      "question": "where is the manifold absolute pressure sensor located"
+    },
+    {
+      "qid": "test237",
+      "question": "is carbon tax an example of a pigovian tax"
+    },
+    {
+      "qid": "test2880",
+      "question": "who wrote it's gonna take a lot of love"
+    },
+    {
+      "qid": "test1625",
+      "question": "suzanne's story orange is the new black"
+    },
+    {
+      "qid": "test3363",
+      "question": "authorities involved in formulating accounting standard in india"
+    },
+    {
+      "qid": "test2878",
+      "question": "when was the first time lebron went to the finals"
+    },
+    {
+      "qid": "test978",
+      "question": "who developed the concept of total quality management"
+    },
+    {
+      "qid": "test1077",
+      "question": "who wrote if i were a boy reba or beyonce"
+    },
+    {
+      "qid": "test1875",
+      "question": "who was in dont worry be happy video"
+    },
+    {
+      "qid": "test2999",
+      "question": "who lives on 50th floor of trump tower"
+    },
+    {
+      "qid": "test2269",
+      "question": "what true story is the movie fargo based on"
+    },
+    {
+      "qid": "test1733",
+      "question": "fast & furious 8 release date in india"
+    },
+    {
+      "qid": "test292",
+      "question": "who sings god is great beer is good"
+    },
+    {
+      "qid": "test1286",
+      "question": "1 the bureau of land management manages over acres of land in the united states"
+    },
+    {
+      "qid": "test3344",
+      "question": "where was the tv show in the heat of the night filmed"
+    },
+    {
+      "qid": "test2601",
+      "question": "when did university stop being free in australia"
+    },
+    {
+      "qid": "test781",
+      "question": "number of films in lord of the rings"
+    },
+    {
+      "qid": "test640",
+      "question": "who was the guy who died in glee"
+    },
+    {
+      "qid": "test2067",
+      "question": "who has become the new chairman of sebi"
+    },
+    {
+      "qid": "test205",
+      "question": "which body part(s) occupy the greatest portion of the primary motor cortex"
+    },
+    {
+      "qid": "test563",
+      "question": "why dry ether is used in woods reaction"
+    },
+    {
+      "qid": "test2933",
+      "question": "did they make madden 18 for xbox 360"
+    },
+    {
+      "qid": "test2548",
+      "question": "what is the meaning of the word autumn"
+    },
+    {
+      "qid": "test1566",
+      "question": "where are most nutrients absorbed in the human digestive tract"
+    },
+    {
+      "qid": "test1591",
+      "question": "what continents does the ring of fire touch"
+    },
+    {
+      "qid": "test2645",
+      "question": "three or more different alleles may be present for a given gene in a population"
+    },
+    {
+      "qid": "test1870",
+      "question": "marsupials are found in north america and australia"
+    },
+    {
+      "qid": "test3372",
+      "question": "what is the prince of persia in the bible"
+    },
+    {
+      "qid": "test868",
+      "question": "why is a brain freeze called a brain freeze"
+    },
+    {
+      "qid": "test2113",
+      "question": "which condition would most likely require nutrition delivered through tpn"
+    },
+    {
+      "qid": "test82",
+      "question": "when did the apple iphone se come out"
+    },
+    {
+      "qid": "test3148",
+      "question": "when was the taming ofthe shrew first performed"
+    },
+    {
+      "qid": "test414",
+      "question": "who did america declare war on in ww1"
+    },
+    {
+      "qid": "test419",
+      "question": "what nfl coach has the most wins ever"
+    },
+    {
+      "qid": "test1129",
+      "question": "who directed the iconic animated short educational film ek anek aur ekta"
+    },
+    {
+      "qid": "test933",
+      "question": "what was an economic effect of world war ii"
+    },
+    {
+      "qid": "test88",
+      "question": "where is the setting for beauty and the beast"
+    },
+    {
+      "qid": "test1300",
+      "question": "who played young clark kent in 1978 superman"
+    },
+    {
+      "qid": "test2761",
+      "question": "how many counties does the state of georgia have"
+    },
+    {
+      "qid": "test233",
+      "question": "india participated olympic hockey for the first time"
+    },
+    {
+      "qid": "test1386",
+      "question": "who proposed the virginia plan at the constitutional convention"
+    },
+    {
+      "qid": "test1069",
+      "question": "who sings gone gone gone she been gone so long"
+    },
+    {
+      "qid": "test260",
+      "question": "what movie is count on me by bruno mars in"
+    },
+    {
+      "qid": "test594",
+      "question": "who was elected president in mexico in 2000"
+    },
+    {
+      "qid": "test2017",
+      "question": "where was part of the classic surfing movie endless summer filmed"
+    },
+    {
+      "qid": "test1355",
+      "question": "what is the spelling of lakh in english"
+    },
+    {
+      "qid": "test2655",
+      "question": "what was hawaii's primary export to the united states"
+    },
+    {
+      "qid": "test1976",
+      "question": "who are the parents of the three fates"
+    },
+    {
+      "qid": "test2376",
+      "question": "when does clark meet the flash in smallville"
+    },
+    {
+      "qid": "test3322",
+      "question": "which layer of the osi model handles physical addressing"
+    },
+    {
+      "qid": "test7",
+      "question": "in order to prove disparate impact you first must establish"
+    },
+    {
+      "qid": "test671",
+      "question": "what happened to the west wing of the white house during a christmas party in 1929"
+    },
+    {
+      "qid": "test622",
+      "question": "who plays the genie in aladdin the musical"
+    },
+    {
+      "qid": "test1486",
+      "question": "who is the owner of reading football club"
+    },
+    {
+      "qid": "test1305",
+      "question": "where does the sun hit the us first"
+    },
+    {
+      "qid": "test3373",
+      "question": "when were taxes implemented in the united states"
+    },
+    {
+      "qid": "test2084",
+      "question": "what is the silver box at elephant and castle"
+    },
+    {
+      "qid": "test2913",
+      "question": "who is the sixth president of the united states"
+    },
+    {
+      "qid": "test2943",
+      "question": "asia vs rest of the world cricket match"
+    },
+    {
+      "qid": "test2191",
+      "question": "where did the race in grease take place"
+    },
+    {
+      "qid": "test3111",
+      "question": "when did mcgee became a regular on ncis"
+    },
+    {
+      "qid": "test2107",
+      "question": "when do you get your dress blues in the army"
+    },
+    {
+      "qid": "test1954",
+      "question": "prior to 1948 north and south vietnam were a part of"
+    },
+    {
+      "qid": "test730",
+      "question": "who wrote the song rainy days and mondays"
+    },
+    {
+      "qid": "test1496",
+      "question": "where in the constitution is the concept of federalism established"
+    },
+    {
+      "qid": "test2541",
+      "question": "what is a priest in the catholic church"
+    },
+    {
+      "qid": "test110",
+      "question": "how many seasons of from dusk till dawn are there"
+    },
+    {
+      "qid": "test1278",
+      "question": "what is the definition of the word hosanna"
+    },
+    {
+      "qid": "test215",
+      "question": "where did the meech lake accord take place"
+    },
+    {
+      "qid": "test65",
+      "question": "when was the seat moved to the capitol"
+    },
+    {
+      "qid": "test1504",
+      "question": "what is the main mineral in lithium batteries"
+    },
+    {
+      "qid": "test2679",
+      "question": "when is i can only imagine coming out"
+    },
+    {
+      "qid": "test3163",
+      "question": "who did the singing in into the woods"
+    },
+    {
+      "qid": "test447",
+      "question": "is isle of man part of united kingdom"
+    },
+    {
+      "qid": "test36",
+      "question": "who is edmund on days of our lives"
+    },
+    {
+      "qid": "test1564",
+      "question": "when did disney art of animation resort open"
+    },
+    {
+      "qid": "test3249",
+      "question": "what type of energy do satellites generally use to communicate with earth"
+    },
+    {
+      "qid": "test241",
+      "question": "what is the song who are you by the who about"
+    },
+    {
+      "qid": "test1210",
+      "question": "what was the first light beer in the us"
+    },
+    {
+      "qid": "test334",
+      "question": "where did the northernmost land action of the american civil war occur"
+    },
+    {
+      "qid": "test219",
+      "question": "when was the first temple built in jerusalem"
+    },
+    {
+      "qid": "test105",
+      "question": "who plays dorian tyrell when he puts on the mask"
+    },
+    {
+      "qid": "test2206",
+      "question": "who hosted they think it's all over"
+    },
+    {
+      "qid": "test2059",
+      "question": "what territory is spain and the united kingdom in a dispute over"
+    },
+    {
+      "qid": "test1104",
+      "question": "where does fungi go on a food web"
+    },
+    {
+      "qid": "test3438",
+      "question": "who plays nathan's mother on general hospital"
+    },
+    {
+      "qid": "test1164",
+      "question": "what does the application of contract of adhesion mean"
+    },
+    {
+      "qid": "test1673",
+      "question": "when did the animal rights movement began in the us"
+    },
+    {
+      "qid": "test785",
+      "question": "auditing is the process of verifying the accuracy of the financial statements"
+    },
+    {
+      "qid": "test1199",
+      "question": "when did come fly with me come out"
+    },
+    {
+      "qid": "test121",
+      "question": "how many kilometers of great wall of china"
+    },
+    {
+      "qid": "test3446",
+      "question": "what happened to germany's leader after ww1"
+    },
+    {
+      "qid": "test664",
+      "question": "who has won the eurovision song contest the most times"
+    },
+    {
+      "qid": "test1037",
+      "question": "why is the angel of the north there"
+    },
+    {
+      "qid": "test2500",
+      "question": "where does the movie mothers day take place"
+    },
+    {
+      "qid": "test2256",
+      "question": "the key to rescuing a man overboard is"
+    },
+    {
+      "qid": "test938",
+      "question": "when did the vikings first sail and reach britain"
+    },
+    {
+      "qid": "test2921",
+      "question": "why did ric flair go back to wcw"
+    },
+    {
+      "qid": "test76",
+      "question": "what year did the price is right first air"
+    },
+    {
+      "qid": "test1269",
+      "question": "where did the punch brothers get their name"
+    },
+    {
+      "qid": "test2728",
+      "question": "what was the purpose of the bantu education act"
+    },
+    {
+      "qid": "test2901",
+      "question": "what year does the quiet man take place"
+    },
+    {
+      "qid": "test684",
+      "question": "where is the movie only the brave filmed"
+    },
+    {
+      "qid": "test1514",
+      "question": "where was the music video what ifs filmed"
+    },
+    {
+      "qid": "test425",
+      "question": "who sang lead on papa was a rolling stone"
+    },
+    {
+      "qid": "test1040",
+      "question": "what does the law of multiple proportions state"
+    },
+    {
+      "qid": "test1555",
+      "question": "who wrote the book the origin of species"
+    },
+    {
+      "qid": "test1061",
+      "question": "iupac name of element with atomic number 107"
+    },
+    {
+      "qid": "test1939",
+      "question": "what are the different types of non communicable disease"
+    },
+    {
+      "qid": "test1867",
+      "question": "when was the last time beijing hosted the winter olympics"
+    },
+    {
+      "qid": "test240",
+      "question": "who sang let's do the timewarp again"
+    },
+    {
+      "qid": "test3359",
+      "question": "who used morse code in world war 2"
+    },
+    {
+      "qid": "test2266",
+      "question": "what happened to the actor who played frost on rizzoli and isles"
+    },
+    {
+      "qid": "test521",
+      "question": "what song plays at the end of tinker tailor soldier spy"
+    },
+    {
+      "qid": "test2989",
+      "question": "known as the punk poet who used poetry in their music"
+    },
+    {
+      "qid": "test288",
+      "question": "once upon a time season 3 where is ruby"
+    },
+    {
+      "qid": "test2694",
+      "question": "how did english government change during the glorious revolution"
+    },
+    {
+      "qid": "test1980",
+      "question": "who laid the foundation for indian national congress"
+    },
+    {
+      "qid": "test1824",
+      "question": "what was the primary goal of the first green revolution"
+    },
+    {
+      "qid": "test2593",
+      "question": "who is the young man in hawthorne's my kinsman major molineux"
+    },
+    {
+      "qid": "test2767",
+      "question": "where does most shrimp in the us come from"
+    },
+    {
+      "qid": "test346",
+      "question": "who is third in command of the united states"
+    },
+    {
+      "qid": "test1017",
+      "question": "what is the name of the skin between your nostrils"
+    },
+    {
+      "qid": "test2649",
+      "question": "why does cooling water run through the condenser"
+    },
+    {
+      "qid": "test2501",
+      "question": "when did russia join the world economic forum"
+    },
+    {
+      "qid": "test536",
+      "question": "who plays the dad in drake and josh"
+    },
+    {
+      "qid": "test2889",
+      "question": "when was the original stephen king it movie made"
+    },
+    {
+      "qid": "test1157",
+      "question": "name two fibres which are made of proteins"
+    },
+    {
+      "qid": "test2791",
+      "question": "rhett butler's daughter in gone with the wind"
+    },
+    {
+      "qid": "test1804",
+      "question": "did anyone survive the battle of little bighorn"
+    },
+    {
+      "qid": "test2514",
+      "question": "when are general elections held in the us"
+    },
+    {
+      "qid": "test3271",
+      "question": "during the first world war against which country germany did not fight"
+    },
+    {
+      "qid": "test1010",
+      "question": "what molecule in plants captures energy from the sun"
+    },
+    {
+      "qid": "test1897",
+      "question": "what happens when you dont rotate your tires"
+    },
+    {
+      "qid": "test1414",
+      "question": "when did bird is the word come out"
+    },
+    {
+      "qid": "test15",
+      "question": "how many seasons of prison break are on netflix"
+    },
+    {
+      "qid": "test2785",
+      "question": "trick taking card game name derived from spanish for man"
+    },
+    {
+      "qid": "test732",
+      "question": "who played nicky on the drew carey show"
+    },
+    {
+      "qid": "test1624",
+      "question": "who did the astros play last time they were in the world series"
+    },
+    {
+      "qid": "test2355",
+      "question": "i like the way you move video cast"
+    },
+    {
+      "qid": "test3266",
+      "question": "who sings the final countdown in pitch perfect"
+    },
+    {
+      "qid": "test546",
+      "question": "what color is the golden gate bridge in san francisco"
+    },
+    {
+      "qid": "test2076",
+      "question": "i feel like i'm fixin to die woodstock"
+    },
+    {
+      "qid": "test2585",
+      "question": "what is united nations declaration of human rights"
+    },
+    {
+      "qid": "test1597",
+      "question": "an example of a post and lintel system is"
+    },
+    {
+      "qid": "test3198",
+      "question": "when did the sat become out of 1600"
+    }
+  ]
+}

@@ -26,7 +26,10 @@ data/multifamily_v10/
 artifacts/multifamily_v10/
 data/trusted_snapshot_v12/
 data/defender_bandit_v14/
+data/full_corpus_v17/
+data/full_corpus_v18/
 artifacts/defender_bandit_v14/
+artifacts/answer_selector_v18/
 data/snapshot_guard_v15/
 data/snapshot_guard_v16/
 

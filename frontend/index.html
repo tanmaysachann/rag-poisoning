@@ -126,6 +126,11 @@
       <div id="lab-snapshot-summary" class="lab-evidence-caption">Loading the paired validation replay…</div>
     </section>
 
+    <section class="lab-section" aria-labelledby="lab-full-corpus-title">
+      <div class="lab-section-heading"><div><span>Offline scale gate · 2.68 million passages</span><h2 id="lab-full-corpus-title">Clean answer quality on new questions</h2></div><p>Two disjoint 500-question evaluations search the full Natural Questions corpus. The second compares the frozen answer policy with a learned selector on the same questions.</p></div>
+      <div id="lab-full-corpus" class="lab-evidence-caption">Loading the full-corpus evaluation…</div>
+    </section>
+
     <section class="lab-section" aria-labelledby="lab-defender-rl-title">
       <div class="lab-section-heading"><div><span>Offline defender RL · v14</span><h2 id="lab-defender-rl-title">A trained policy, measured against its baselines</h2></div><p>This is a real one-step PPO quarantine experiment over frozen detector signals. The live snapshot guard above does not use its failed policy.</p></div>
       <div id="lab-defender-rl" class="lab-evidence-caption">Loading the supervised and three-seed PPO comparison…</div>

@@ -1,0 +1,58 @@
+{
+  "protocol": "research_protocols/answer_selector_v18.md",
+  "split_sha256": "78f24ebc44b4b8453f4edf3fdbef955857e53c7c990f21aa6552e57076a7344b",
+  "predictions_sha256": "2b080477db7cbfd0ee1e3063e66d8327a108adae547f97ed975555c2e844e79b",
+  "model_sha256": "d72e95a488450a2541fa497696527ad577f32e1d637a7403e0950149cb4d8542",
+  "questions": 500,
+  "corpus_passages": 2681468,
+  "baseline_v17_frozen_policy": {
+    "questions": 500,
+    "strict_match": 60,
+    "substring_match": 73,
+    "nonmatching_emitted": 46,
+    "abstained": 394
+  },
+  "learned_v18_selector": {
+    "questions": 500,
+    "strict_match": 50,
+    "substring_match": 56,
+    "nonmatching_emitted": 28,
+    "abstained": 422
+  },
+  "retrieval": {
+    "lexical": {
+      "qrel_at_1": 43,
+      "qrel_at_5": 144,
+      "qrel_at_10": 194
+    },
+    "dense": {
+      "qrel_at_1": 71,
+      "qrel_at_5": 200,
+      "qrel_at_10": 256
+    },
+    "fusion": {
+      "qrel_at_1": 78,
+      "qrel_at_5": 195,
+      "qrel_at_10": 254
+    }
+  },
+  "unverified_emissions": 0,
+  "gate_passed": false,
+  "case_rows_sha256": "4863a2b20a0ad2799f88cbb7fd1538656d0a487e3555e5a35c55280b8d9ceef6",
+  "prediction_timing": {
+    "questions": 500,
+    "unique_retrieved_passages": 47771,
+    "unique_reader_pairs": 8896,
+    "retrieval_seconds_in_this_run": 486.9,
+    "rerank_seconds": 755.63,
+    "reader_seconds": 174.66,
+    "retrieval_cache_reused": false,
+    "retrieval_cache_sha256": "d4780ddee0fe8b12451fb07e29c8bd7b72f1fe59eaa1e30967b15b41bf938406",
+    "device": "cuda"
+  },
+  "limitations": [
+    "Public benchmark clean QA, not an attack or deployment test",
+    "NQ exact aliases may miss valid equivalent answers",
+    "V17 spent questions trained this policy; v18 questions did not"
+  ]
+}

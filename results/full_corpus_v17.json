@@ -1,0 +1,179 @@
+{
+  "protocol": "research_protocols/full_corpus_v17.md",
+  "split_sha256": "6e674a700140abdd5f144f634b742d7ec0301bdca8615701ed41d4770e361171",
+  "predictions_sha256": "2868075323e3024965fb5d47ec65181a9063997e5905e6ea2f60414591d50275",
+  "cases_sha256": "1be4b38d269c4e6f7f981e5821773cded344d5900a7ef068032a39155ad13eaa",
+  "beir_passages": 2681468,
+  "calibration_questions": 200,
+  "evaluation_questions": 500,
+  "selected_ranking": "dense",
+  "selected_policy": "consensus10",
+  "calibrated_score_cutoff": 0.8076929450035095,
+  "calibration_options": [
+    {
+      "ranking": "lexical",
+      "policy": "top1",
+      "cutoff": 0.6667357683181763,
+      "questions": 200,
+      "strict_match": 10,
+      "substring_match": 12,
+      "nonmatching_emitted": 19,
+      "abstained": 171
+    },
+    {
+      "ranking": "lexical",
+      "policy": "max_qa5",
+      "cutoff": 0.8673257827758789,
+      "questions": 200,
+      "strict_match": 15,
+      "substring_match": 16,
+      "nonmatching_emitted": 19,
+      "abstained": 166
+    },
+    {
+      "ranking": "lexical",
+      "policy": "consensus10",
+      "cutoff": 0.7231194972991943,
+      "questions": 200,
+      "strict_match": 20,
+      "substring_match": 23,
+      "nonmatching_emitted": 19,
+      "abstained": 161
+    },
+    {
+      "ranking": "dense",
+      "policy": "top1",
+      "cutoff": 0.6575329899787903,
+      "questions": 200,
+      "strict_match": 13,
+      "substring_match": 14,
+      "nonmatching_emitted": 19,
+      "abstained": 168
+    },
+    {
+      "ranking": "dense",
+      "policy": "max_qa5",
+      "cutoff": 0.9010512828826904,
+      "questions": 200,
+      "strict_match": 16,
+      "substring_match": 17,
+      "nonmatching_emitted": 18,
+      "abstained": 166
+    },
+    {
+      "ranking": "dense",
+      "policy": "consensus10",
+      "cutoff": 0.8076929450035095,
+      "questions": 200,
+      "strict_match": 24,
+      "substring_match": 27,
+      "nonmatching_emitted": 19,
+      "abstained": 157
+    },
+    {
+      "ranking": "fusion",
+      "policy": "top1",
+      "cutoff": 0.7231194972991943,
+      "questions": 200,
+      "strict_match": 11,
+      "substring_match": 13,
+      "nonmatching_emitted": 17,
+      "abstained": 172
+    },
+    {
+      "ranking": "fusion",
+      "policy": "max_qa5",
+      "cutoff": 0.8737480640411377,
+      "questions": 200,
+      "strict_match": 21,
+      "substring_match": 22,
+      "nonmatching_emitted": 19,
+      "abstained": 160
+    },
+    {
+      "ranking": "fusion",
+      "policy": "consensus10",
+      "cutoff": 0.8744435906410217,
+      "questions": 200,
+      "strict_match": 15,
+      "substring_match": 16,
+      "nonmatching_emitted": 14,
+      "abstained": 171
+    }
+  ],
+  "calibration": {
+    "questions": 200,
+    "strict_match": 24,
+    "substring_match": 27,
+    "nonmatching_emitted": 19,
+    "abstained": 157
+  },
+  "evaluation": {
+    "questions": 500,
+    "strict_match": 32,
+    "substring_match": 48,
+    "nonmatching_emitted": 58,
+    "abstained": 410
+  },
+  "retrieval": {
+    "calibration": {
+      "lexical": {
+        "qrel_at_1": 16,
+        "qrel_at_5": 48,
+        "qrel_at_10": 72
+      },
+      "dense": {
+        "qrel_at_1": 22,
+        "qrel_at_5": 68,
+        "qrel_at_10": 104
+      },
+      "fusion": {
+        "qrel_at_1": 26,
+        "qrel_at_5": 67,
+        "qrel_at_10": 96
+      }
+    },
+    "evaluation": {
+      "lexical": {
+        "qrel_at_1": 42,
+        "qrel_at_5": 139,
+        "qrel_at_10": 187
+      },
+      "dense": {
+        "qrel_at_1": 78,
+        "qrel_at_5": 209,
+        "qrel_at_10": 269
+      },
+      "fusion": {
+        "qrel_at_1": 66,
+        "qrel_at_5": 183,
+        "qrel_at_10": 240
+      }
+    }
+  },
+  "reader_source_span_verification_failures": 1,
+  "emitted_unverified_sources": 0,
+  "gate": {
+    "strict_match_at_least": 200,
+    "nonmatching_emitted_at_most": 50,
+    "emitted_unverified_sources": 0
+  },
+  "gate_passed": false,
+  "limitations": [
+    "Public NQ benchmark, not an operational corpus",
+    "Clean QA only; no poisoning attack was run in v17",
+    "Exact string scoring can miss valid paraphrases",
+    "Source hash proves snapshot identity, not factual truth"
+  ],
+  "inference_timing": {
+    "questions": 700,
+    "unique_retrieved_passages": 66938,
+    "unique_reader_pairs": 12448,
+    "retrieval_seconds_in_this_run": 11.37,
+    "rerank_seconds": 1308.5,
+    "reader_seconds": 243.25,
+    "retrieval_cache_reused": true,
+    "retrieval_cache_sha256": "89a313eb7807db5adfe5b60384608bcc42495e9894602c0543c4bab0888eb850",
+    "device": "cuda"
+  }
+}
