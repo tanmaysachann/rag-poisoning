@@ -1,0 +1,53 @@
+{
+  "protocol": "research_protocols/answer_selector_v19.md",
+  "split_sha256": "1a6fc5013a8d48a516485a7828d083eeebd4bf4b46e9883df63cce6b4df199c9",
+  "model_weights_sha256": "755cd87eb439482e22b8a68473719fd25e0541317dfbacb61bd4a3fff10b3ac9",
+  "training_examples_sha256": "f67f6586dcedab6f364dbc4bbc9f246b8d61861bcdbe49aaf156d849e06693fe",
+  "reader_predictions_sha256": "5f12e79a0807d44f67fd6527967e743aa1b0070de07a0827b66aa71c2d826e70",
+  "selected_predictions_sha256": "5b597c9f13fc3edda6f6ea5d3aa85940e3ab6e2f17425f23fa41417ef725f565",
+  "case_rows_sha256": "89f52470ba0bf0773f9f9de8feebebb8c30dc9f7a0c9c03652acbe4615b6307e",
+  "corpus_passages": 2681468,
+  "questions": 500,
+  "baseline_v17_frozen_policy": {
+    "questions": 500,
+    "strict_match": 30,
+    "substring_match": 38,
+    "nonmatching_emitted": 64,
+    "abstained": 406
+  },
+  "trained_v19_selector": {
+    "questions": 500,
+    "strict_match": 23,
+    "substring_match": 27,
+    "nonmatching_emitted": 64,
+    "abstained": 413
+  },
+  "reader_exact_candidate_questions": 205,
+  "reader_source_span_failures": 0,
+  "unverified_emissions": 0,
+  "gate_passed": false,
+  "baseline_cutoff": 0.8076929450035095,
+  "trained_cutoff": 0.6046615839004517,
+  "retrieval_reader_timing": {
+    "questions": 500,
+    "unique_retrieved_passages": 47351,
+    "unique_reader_pairs": 8841,
+    "retrieval_seconds_in_this_run": 582.59,
+    "rerank_seconds": 747.47,
+    "reader_seconds": 174.01,
+    "retrieval_cache_reused": false,
+    "retrieval_cache_sha256": "1ec8584b6fbca5c03e0a669e2bda7fcc37510446cf402b1a7e78414ac72350ef",
+    "device": "cuda"
+  },
+  "selector_timing": {
+    "questions": 500,
+    "selected_sha256": "5b597c9f13fc3edda6f6ea5d3aa85940e3ab6e2f17425f23fa41417ef725f565",
+    "model_weights_sha256": "755cd87eb439482e22b8a68473719fd25e0541317dfbacb61bd4a3fff10b3ac9",
+    "selector_seconds": 16.7
+  },
+  "limitations": [
+    "Public NQ benchmark clean QA, not poisoning resistance",
+    "Answer-alias labels may miss valid equivalent answers",
+    "Corpus passages are hash-pinned but not authority-reviewed"
+  ]
+}

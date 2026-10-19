@@ -35,6 +35,12 @@ clean-snapshot recovery. On inspected validation stealth attacks, it changed
 19/150 v3 attack-sourced target answers to 0/150 while restoring 28/150
 clean-answer aliases; clean answer utility remains weak. This is a bounded
 source-control result, not general factual-poison detection.
+`FULL_CORPUS_V17_V18.md` and `FULL_CORPUS_V19.md` report clean-answer studies
+against a pinned 2.68-million-passage NQ corpus. In v19, a text selector trained
+on 37,703 extracted candidates from 3,700 questions scored 23 correct and 64
+nonmatching answers on 500 fresh questions, versus 30 correct and 64
+nonmatching for the frozen policy on those same questions. The scale gate
+failed; this selector is not live and no v19 poisoning replay was run.
 
 `REPORT_EVIDENCE.md` maps measured claims to raw results, and `TEST_PROTOCOL_V1.md` records the frozen first test run.
 

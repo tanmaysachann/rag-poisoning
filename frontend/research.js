@@ -232,10 +232,12 @@
         ['V17 · first 500 questions', report.v17],
         ['V18 · frozen policy on next 500', report.v18_baseline],
         ['V18 · learned selector on same 500', report.v18_learned],
+        ['V19 · frozen policy on third 500', report.v19_baseline],
+        ['V19 · trained text selector on same 500', report.v19_trained],
       ].map(([label, row]) => `<tr><th scope="row">${escapeHtml(label)}</th><td>${row.strict_match}/${row.questions}</td><td>${row.nonmatching_emitted}/${row.questions}</td><td>${row.abstained}/${row.questions}</td></tr>`).join('');
-      container.innerHTML = `<p><b>Scale gate failed.</b> ${report.corpus_passages.toLocaleString()} indexed passages; ${report.questions_per_evaluation} new questions in each evaluation. The learned selector reduced wrong answers on its paired split but answered fewer questions correctly.</p>
+      container.innerHTML = `<p><b>V19 scale gate failed.</b> ${report.corpus_passages.toLocaleString()} indexed passages were searched; the text model trained on ${report.v19_training_candidates.toLocaleString()} extracted candidates from ${report.v19_training_questions.toLocaleString()} questions. On its fresh ${report.questions_per_evaluation} questions, it got ${report.v19_trained.strict_match} correct and ${report.v19_trained.nonmatching_emitted} nonmatching answers, versus ${report.v19_baseline.strict_match} correct and ${report.v19_baseline.nonmatching_emitted} nonmatching answers for the frozen policy.</p>
         <div class="lab-rl-table-wrap"><table class="lab-rl-table"><thead><tr><th>Answer policy</th><th>Exact correct</th><th>Nonmatching answer</th><th>Abstained</th></tr></thead><tbody>${rows}</tbody></table></div>
-        <p>In v17, a judged passage reached dense top ten for ${report.v17_dense_qrel_at_10}/500 questions, and the reader produced an exact answer candidate in ${report.v17_reader_exact_candidate}/500. Final correct answers were ${report.v17.strict_match}/500. ${escapeHtml(report.limitation)} No attack-resistance claim is made from this run.</p>`;
+        <p>In v19, the reader produced an exact answer candidate in ${report.v19_reader_exact_candidate}/500 questions; the text selector ranked one first in ${report.v19_unthresholded_top_candidate_exact}/500, then emitted ${report.v19_trained.strict_match}/500 correct after its calibrated cutoff. Unverified emissions: ${report.v19_unverified_emissions}. ${escapeHtml(report.limitation)} No attack-resistance claim is made from these runs. <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/FULL_CORPUS_V19.md" target="_blank" rel="noopener noreferrer">Read the protocol and full results</a>.</p>`;
     } catch (error) { container.textContent = error.message; }
   }
 

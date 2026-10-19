@@ -245,13 +245,16 @@ def lab_full_corpus() -> dict:
             "v17": "full_corpus_v17.json",
             "diagnostic": "full_corpus_v17_diagnostics.json",
             "v18": "answer_selector_v18.json",
+            "v19": "answer_selector_v19.json",
+            "v19_training": "answer_selector_v19_training.json",
+            "v19_diagnostic": "answer_selector_v19_diagnostics.json",
         }.items()
     }
     if any(not path.is_file() for path in paths.values()):
         raise HTTPException(status_code=404, detail="Full-corpus aggregate is unavailable")
     reports = {name: json.loads(path.read_text(encoding="utf-8"))
                for name, path in paths.items()}
-    v17, v18 = reports["v17"], reports["v18"]
+    v17, v18, v19 = reports["v17"], reports["v18"], reports["v19"]
     return {
         "live": False,
         "scope": "public Natural Questions clean-answer evaluation; no poison replay",
@@ -265,6 +268,16 @@ def lab_full_corpus() -> dict:
         "v18_learned": v18["learned_v18_selector"],
         "v17_gate_passed": v17["gate_passed"],
         "v18_gate_passed": v18["gate_passed"],
+        "v19_baseline": v19["baseline_v17_frozen_policy"],
+        "v19_trained": v19["trained_v19_selector"],
+        "v19_training_questions": (reports["v19_training"]["nq_open_train_questions"]
+                                   + reports["v19_training"]["spent_v17_questions"]),
+        "v19_training_candidates": reports["v19_training"]["training_candidates"],
+        "v19_reader_exact_candidate": v19["reader_exact_candidate_questions"],
+        "v19_unthresholded_top_candidate_exact": reports["v19_diagnostic"][
+            "unthresholded_model_top_candidate_exact"],
+        "v19_gate_passed": v19["gate_passed"],
+        "v19_unverified_emissions": v19["unverified_emissions"],
         "unverified_emissions": v18["unverified_emissions"],
         "limitation": "Public benchmark clean QA only; the live 150-passage guard has not been validated at this scale.",
     }

@@ -1,0 +1,19 @@
+{
+  "analysis_after_evaluation": true,
+  "evaluation_sha256": "84b6afb7de2554ea0ea19b1971415a65ebe8a81231ba37e780c410b2c04b8c3f",
+  "case_rows_sha256": "89f52470ba0bf0773f9f9de8feebebb8c30dc9f7a0c9c03652acbe4615b6307e",
+  "selected_predictions_sha256": "5b597c9f13fc3edda6f6ea5d3aa85940e3ab6e2f17425f23fa41417ef725f565",
+  "questions": 500,
+  "reader_exact_candidate_questions": 205,
+  "unthresholded_model_top_candidate_exact": 75,
+  "calibrated_correct_emissions": 23,
+  "calibrated_wrong_emissions": 64,
+  "wrong_emissions_despite_exact_candidate": 26,
+  "abstentions_despite_exact_candidate": 156,
+  "both_policies_correct": 7,
+  "trained_only_correct": 16,
+  "baseline_only_correct": 23,
+  "top_candidate_score_median_if_exact": 0.15856483578681946,
+  "top_candidate_score_median_if_nonmatching": 0.05634009465575218,
+  "limitation": "Oracle candidate presence and post-evaluation score distributions are diagnostics on a spent split, not an achievable accuracy claim or a tuning set."
+}

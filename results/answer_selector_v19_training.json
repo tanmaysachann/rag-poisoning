@@ -1,0 +1,59 @@
+{
+  "protocol": "research_protocols/answer_selector_v19.md",
+  "split_sha256": "1a6fc5013a8d48a516485a7828d083eeebd4bf4b46e9883df63cce6b4df199c9",
+  "training_examples_sha256": "f67f6586dcedab6f364dbc4bbc9f246b8d61861bcdbe49aaf156d849e06693fe",
+  "nq_open_train_questions": 3000,
+  "spent_v17_questions": 700,
+  "training_data_counts": {
+    "nq_train_questions": 3000,
+    "nq_train_questions_with_positive": 982,
+    "nq_train_candidates": 29942,
+    "nq_train_positive_candidates": 1668,
+    "spent_v17_questions": 700,
+    "spent_v17_questions_with_positive": 365,
+    "spent_v17_candidates": 7761,
+    "spent_v17_positive_candidates": 796
+  },
+  "training_candidates": 37703,
+  "positive_candidates": 2464,
+  "negative_candidates": 35239,
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "base_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "base_weights_sha256": "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db",
+  "model_weights_sha256": "755cd87eb439482e22b8a68473719fd25e0541317dfbacb61bd4a3fff10b3ac9",
+  "device": "cuda",
+  "epochs": 2,
+  "batch_size": 8,
+  "max_length": 256,
+  "seed": 19,
+  "positive_class_weight": 10.0,
+  "history": [
+    {
+      "epoch": 1,
+      "mean_loss": 0.7731528503232616,
+      "elapsed_seconds": 584.52
+    },
+    {
+      "epoch": 2,
+      "mean_loss": 0.7546813897266842,
+      "elapsed_seconds": 1165.11
+    }
+  ],
+  "calibration_questions": 200,
+  "calibrated_cutoff": 0.6046615839004517,
+  "calibration": {
+    "questions": 200,
+    "strict_match": 20,
+    "substring_match": 22,
+    "nonmatching_emitted": 20,
+    "abstained": 160
+  },
+  "paired_frozen_baseline_calibration": {
+    "questions": 200,
+    "strict_match": 27,
+    "substring_match": 31,
+    "nonmatching_emitted": 22,
+    "abstained": 151
+  },
+  "elapsed_seconds": 1181.84
+}
