@@ -55,9 +55,14 @@
   function documentCard(doc) {
     const risk = Math.max(0, Math.min(100, Math.round(doc.risk * 100)));
     const featureRows = Object.entries(doc.features).map(([key, value]) => featureCard(key, value)).join('');
+    const evidence = doc.evidence_screen || {};
+    const changed = evidence.changed_claim_pair;
+    const sourceComparison = changed
+      ? `<p><b>Pinned source sentence:</b> ${escapeHtml(changed.source_sentence)}</p><p><b>Retrieved sentence:</b> ${escapeHtml(changed.candidate_sentence)}</p>`
+      : '';
     return `<details class="lab-doc ${doc.is_attack ? 'attack' : ''} ${doc.decision === 'quarantine' ? 'quarantined' : 'accepted'}" ${doc.is_attack ? 'open' : ''}>
       <summary><span>#${doc.rank}</span><strong>DOC ${doc.doc_id}${doc.is_attack ? ' / ALTERED' : ''}</strong><span>RISK ${risk}%</span><em>${doc.decision.toUpperCase()}</em></summary>
-      <div class="lab-doc-body"><div class="lab-doc-meta"><span>BM25 RANK ${doc.bm25_rank}</span><span>DENSE RANK ${doc.dense_rank}</span><span>RRF ${Number(doc.rrf_score).toFixed(4)}</span><span>SHA-256 ${escapeHtml(doc.integrity.toUpperCase())}</span></div><p>${escapeHtml(doc.text)}</p><div class="lab-risk-track"><i style="width:${risk}%"></i></div><div class="lab-feature-grid">${featureRows}</div><div class="lab-doc-meta" style="margin-top:12px">SHA-256 ${escapeHtml(doc.sha256)}</div></div>
+      <div class="lab-doc-body"><div class="lab-doc-meta"><span>BM25 RANK ${doc.bm25_rank}</span><span>DENSE RANK ${doc.dense_rank}</span><span>RRF ${Number(doc.rrf_score).toFixed(4)}</span><span>INGEST SHA-256 ${escapeHtml(doc.integrity.toUpperCase())}</span><span>PINNED SOURCE ${escapeHtml(evidence.snapshot_status || 'unavailable').toUpperCase()}</span></div><p>${escapeHtml(doc.text)}</p>${sourceComparison}<p><b>Source decision:</b> ${escapeHtml(evidence.reason || 'not_run').replaceAll('_', ' ')}. This check does not establish factual truth.</p><div class="lab-risk-track"><i style="width:${risk}%"></i></div><div class="lab-feature-grid">${featureRows}</div><div class="lab-doc-meta" style="margin-top:12px">SHA-256 ${escapeHtml(doc.sha256)}</div></div>
     </details>`;
   }
 
@@ -68,11 +73,13 @@
     el('lab-off-answer').textContent = data.undefended.answer;
     el('lab-on-answer').textContent = data.defended.answer;
     el('lab-guard-answer').textContent = data.snapshot_guarded.answer;
+    el('lab-evidence-answer').textContent = data.evidence_defended.answer;
     el('lab-clean-answer').textContent = data.clean.answer;
     el('lab-off-source').textContent = `SOURCE DOC ${data.undefended.source_doc_id ?? 'NONE'}`;
     el('lab-on-source').textContent = `SOURCE DOC ${data.defended.source_doc_id ?? 'NONE'}`;
     el('lab-guard-source').textContent = `SOURCE DOC ${data.snapshot_guarded.source_doc_id ?? 'NONE'} · ${data.snapshot_guard.reason.replaceAll('_', ' ')}`;
     el('lab-clean-source').textContent = `SOURCE DOC ${data.clean.source_doc_id ?? 'NONE'} · DIAGNOSTIC, NOT EMITTED`;
+    el('lab-evidence-source').textContent = `SOURCE DOC ${data.evidence_defended.source_doc_id ?? 'NONE'} · ${data.evidence_attack_quarantined_count}/${data.attack_retrieved_count} retrieved attack passages excluded by the pinned source check`;
     const verdict = el('lab-verdict');
     if (data.defended_attack_success) {
       verdict.className = 'lab-verdict failure';
@@ -92,6 +99,11 @@
       : data.snapshot_guard.decision === 'recover'
         ? ` Independent question-only retrieval recovered a cited answer from pinned DOC ${data.snapshot_guard.recovery_source_id}.`
         : ` The pinned snapshot could not recover an answer (${data.snapshot_guard.reason.replaceAll('_', ' ')}).`;
+    if (data.attack_retrieved) {
+      verdict.textContent += data.evidence_attack_quarantined
+        ? ' Source screening excluded every retrieved altered passage before its answer path ran.'
+        : ' At least one retrieved altered passage passed the source screen.';
+    }
     const citation = data.defended.citations?.[0];
     const timing = data.stage_times || {};
     const changed = (data.counterfactuals || []).filter(row => row.answer_changed);
@@ -224,6 +236,20 @@
     } catch (error) { container.textContent = error.message; }
   }
 
+  async function loadEvidenceSummary() {
+    const container = el('lab-evidence-summary');
+    try {
+      const report = await jsonRequest('/api/lab/evidence-screen');
+      const source = report.live_replay;
+      const factual = report.model_diagnostic;
+      const qa = report.qa_diagnostic;
+      container.innerHTML = `<p><b>Pinned source decision:</b> ${report.attacks.greedy.quarantined}/${report.attacks.greedy.total} new attack passages and ${report.attacks.stealth.quarantined}/${report.attacks.stealth.total} substituted passages excluded; ${report.clean.quarantined}/${report.clean.total} unchanged passages excluded.</p>
+        <p><b>Live replay of old detector failures:</b> ${source.previous_v3_attack_success}/${source.cases} attack-sourced answers with v3 became ${source.source_screen_attack_success}/${source.cases} with source screening; ${source.source_screen_clean_alias_match}/${source.cases} clean aliases were returned and ${source.source_screen_abstained}/${source.cases} abstained.</p>
+        <p><b>Factual model diagnostic:</b> ${factual.at_least_0_5}/${factual.count} changed sentences had refutation probability at least 0.5. The question-answering model extracted different spans in ${qa.answer_disagreements}/${qa.count}, falling to ${qa.disagreements_by_minimum_confidence['0.05']}/${qa.count} when both span confidences had to reach 0.05. These model scores have no calibrated clean-revision false-flag rate and do not drive quarantine.</p>
+        <p>${escapeHtml(report.limitation)} The cases were previously inspected validation examples. <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/EVIDENCE_CLAIM_SCREEN.md" target="_blank" rel="noopener noreferrer">Read the method and limits</a>.</p>`;
+    } catch (error) { container.textContent = error.message; }
+  }
+
   async function loadFullCorpus() {
     const container = el('lab-full-corpus');
     try {
@@ -335,5 +361,5 @@
   el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
-  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization(); loadDefenderRl(); loadSnapshotSummary(); loadFullCorpus();
+  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization(); loadDefenderRl(); loadSnapshotSummary(); loadEvidenceSummary(); loadFullCorpus();
 })();

@@ -9,6 +9,7 @@ from __future__ import annotations
 import time
 from typing import Any
 
+from detect.evidence_claim import EvidenceScreen
 from detect.research_detector import ResearchDetector
 from generation.grounded_answer import answer_from_accepted
 from generation.local_llm import ABSTENTION
@@ -96,6 +97,19 @@ def infer_research(
                if score["decision"] == "quarantine" and score.get("triggered_by")
                else ["detector:threshold"] if score["decision"] == "quarantine" else []),
         })
+    evidence_screen = {"enabled": False, "quarantined_doc_ids": [],
+                       "verified_doc_ids": []}
+    if pinned_snapshot is not None and snapshot_retriever is not None:
+        independent_screen = EvidenceScreen.from_retriever(
+            pinned_snapshot, snapshot_retriever,
+        )
+        for doc, row in zip(candidates, rows):
+            assessment = independent_screen.assess(doc)
+            row["evidence_screen"] = assessment
+            bucket = ("verified_doc_ids" if assessment["decision"] == "accept"
+                      else "quarantined_doc_ids")
+            evidence_screen[bucket].append(int(doc["doc_id"]))
+        evidence_screen["enabled"] = True
     detection_ms = (time.perf_counter() - started) * 1000 - retrieval_ms - integrity_ms
     undefended = _answer(query, candidates, retriever)
     accepted_answer = _answer(query, kept, retriever)
@@ -177,9 +191,20 @@ def infer_research(
         else None
     )
     snapshot_reference = None
+    evidence_defended = None
+    evidence_answer_trace = {"enforced": False, "reason": "no_evidence_channel"}
     if pinned_snapshot is not None and snapshot_retriever is not None:
         snapshot_answer, snapshot_trace, snapshot_reference = guard_with_recovery(
             query, defended, kept, pinned_snapshot, snapshot_retriever,
+        )
+        screened_documents = [
+            doc for doc, row in zip(candidates, rows)
+            if row["evidence_screen"]["decision"] == "accept"
+        ]
+        screened_answer = _answer(query, screened_documents, retriever)
+        evidence_defended, evidence_answer_trace, _ = guard_with_recovery(
+            query, screened_answer, screened_documents, pinned_snapshot,
+            snapshot_retriever,
         )
     elif pinned_snapshot is not None:
         snapshot_answer, snapshot_trace = guard_answer(defended, kept, pinned_snapshot)
@@ -199,6 +224,9 @@ def infer_research(
         "defended": defended, "counterfactuals": counterfactuals,
         "snapshot_guarded": snapshot_answer, "snapshot_guard": snapshot_trace,
         "snapshot_reference": snapshot_reference,
+        "evidence_screen": evidence_screen,
+        "evidence_defended": evidence_defended,
+        "evidence_answer_trace": evidence_answer_trace,
         "four_probe": four_probe,
         "provenance": provenance,
         "timings": timings, "latency_ms": round((time.perf_counter() - started) * 1000, 2),

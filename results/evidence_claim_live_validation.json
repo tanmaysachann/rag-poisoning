@@ -1,0 +1,18 @@
+{
+  "split": "previously_inspected_v3_validation_saved_failures",
+  "attack": "stealth answer substitution accepted at ingest",
+  "metrics": {
+    "cases": 19,
+    "previous_v3_attack_success": 19,
+    "retrieved_attacks": 19,
+    "source_excluded_attacks": 19,
+    "source_screen_attack_success": 0,
+    "source_screen_clean_alias_match": 13,
+    "source_screen_abstained": 1
+  },
+  "limitations": [
+    "These were selected because the old detector had already failed; this is development evidence.",
+    "The attacker cannot change the pinned preattack corpus or its manifest.",
+    "Source screening detects unauthorized modification, not false claims inside approved documents."
+  ]
+}

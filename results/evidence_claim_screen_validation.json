@@ -1,0 +1,49 @@
+{
+  "task": "independent pinned-source screening before answer selection",
+  "split": "previously_inspected_v3_validation",
+  "pinned_corpus_sha256": "6dbf1f15fa2c405a3ababeef8effb888122f3468619344830353628a7d8d0f5d",
+  "clean": {
+    "total": 150,
+    "quarantined": 0
+  },
+  "attacks": {
+    "greedy": {
+      "unknown_document": 150,
+      "quarantined": 150,
+      "total": 150
+    },
+    "stealth": {
+      "tampered": 150,
+      "quarantined": 150,
+      "total": 150
+    }
+  },
+  "changed_sentence_pairs": 150,
+  "model_diagnostic": {
+    "model": "tals/albert-base-vitaminc",
+    "count": 150,
+    "mean_refutation_probability": 0.1181059695786098,
+    "at_least_0_5": 16,
+    "at_least_0_9": 7,
+    "note": "Uncalibrated sentence-pair diagnostic; no model-based quarantine or accuracy claim."
+  },
+  "qa_diagnostic": {
+    "model": "nlpconnect/roberta-base-squad2-nq",
+    "count": 150,
+    "valid_spans": 150,
+    "answer_disagreements": 106,
+    "disagreements_by_minimum_confidence": {
+      "0.05": 50,
+      "0.1": 32,
+      "0.25": 15,
+      "0.5": 6
+    },
+    "note": "Independent source is matched by document identity. No legitimate revisions or new-source cases establish a deployable false-flag rate."
+  },
+  "limitations": [
+    "The attacker cannot change the pinned preattack corpus or its manifest.",
+    "This recognizes unauthorized source changes, not factual falsity in an approved source.",
+    "Validation questions and attack families were previously inspected.",
+    "A new legitimate document is also unreviewed until an operator approves it."
+  ]
+}

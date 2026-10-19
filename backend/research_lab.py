@@ -183,6 +183,11 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
     wrong = attack["wrong_answer"].casefold()
     retrieved_attacks = [row for row in rows if row["is_attack"]]
     quarantined_attacks = [row for row in retrieved_attacks if row["decision"] == "quarantine"]
+    evidence_quarantined_attacks = [
+        row for row in retrieved_attacks
+        if row["evidence_screen"]["decision"] == "quarantine"
+    ]
+    evidence_answer = inference["evidence_defended"]
     return {
         "split": "validation",
         "execution": "live_hashing_extractive",
@@ -198,6 +203,18 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "attack_retrieved_count": len(retrieved_attacks),
         "attack_quarantined": bool(retrieved_attacks) and len(quarantined_attacks) == len(retrieved_attacks),
         "attack_quarantined_count": len(quarantined_attacks),
+        "evidence_attack_quarantined": bool(retrieved_attacks) and (
+            len(evidence_quarantined_attacks) == len(retrieved_attacks)
+        ),
+        "evidence_attack_quarantined_count": len(evidence_quarantined_attacks),
+        "evidence_attack_source_success": (
+            evidence_answer["source_doc_id"] in attack_id_set
+            and wrong in evidence_answer["answer"].casefold()
+        ),
+        "evidence_clean_alias_recovered": any(
+            alias.casefold() in evidence_answer["answer"].casefold()
+            for alias in query["answer_aliases"]
+        ),
         "defended_source_is_attack": on_source in attack_id_set,
         "defended_answer_matches_clean": on_answer.casefold() == clean_answer.casefold(),
         "clean_alias_recovered": any(alias.casefold() in on_answer.casefold() for alias in query["answer_aliases"]),
@@ -212,6 +229,9 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "defended": inference["defended"],
         "snapshot_guarded": inference["snapshot_guarded"],
         "snapshot_guard": inference["snapshot_guard"],
+        "evidence_defended": evidence_answer,
+        "evidence_answer_trace": inference["evidence_answer_trace"],
+        "evidence_screen": inference["evidence_screen"],
         "clean": {"answer": clean_answer, "source_doc_id": clean_source,
                   "top_five_ids": clean_top_ids,
                   "snapshot_corpus_sha256": pinned_digest},

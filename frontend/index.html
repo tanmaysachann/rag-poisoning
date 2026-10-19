@@ -113,6 +113,7 @@
           <div id="lab-status" class="lab-status">Preparing experiment…</div>
           <div class="lab-outcome-grid"><div><span>Without defense</span><p id="lab-off-answer">—</p><small id="lab-off-source">No source selected</small></div><div><span>V3 detector</span><p id="lab-on-answer">—</p><small id="lab-on-source">No source selected</small></div><div><span>Pinned snapshot recovery · new</span><p id="lab-guard-answer">—</p><small id="lab-guard-source">No source selected</small></div></div>
           <div class="lab-clean-reference"><span>Independent clean-snapshot answer · diagnostic only</span><p id="lab-clean-answer">—</p><small id="lab-clean-source">No source selected</small></div>
+          <div class="lab-clean-reference"><span>Independent source screening before answering</span><p id="lab-evidence-answer">No run yet</p><small id="lab-evidence-source">No source selected</small></div>
           <div id="lab-verdict" class="lab-verdict">Run a case to see whether the altered document survives.</div>
           <div class="lab-inference-trace"><div class="lab-trace-head"><div><span>Answer provenance / counterfactuals</span><h3>Inference trace</h3></div></div><div id="lab-inference-details" aria-live="polite">Run a case to inspect the selected evidence and leave-one-out results.</div></div>
           <div class="lab-trace-head"><div><span>Retrieval / integrity / detector</span><h3>Top five candidate passages</h3></div><span id="lab-candidate-count">—</span></div>
@@ -124,6 +125,11 @@
     <section class="lab-section" aria-labelledby="lab-snapshot-title">
       <div class="lab-section-heading"><div><span>Live path · development replay</span><h2 id="lab-snapshot-title">Source check and independent recovery</h2></div><p>A pre-attack corpus hash anchors the source check. If the selected answer came from altered text, a separate retriever searches the pinned corpus using the question alone. The table reports both prevented attacker answers and recovered clean answers.</p></div>
       <div id="lab-snapshot-summary" class="lab-evidence-caption">Loading the paired validation replay…</div>
+    </section>
+
+    <section class="lab-section" aria-labelledby="lab-evidence-title-current">
+      <div class="lab-section-heading"><div><span>Independent source screening</span><h2 id="lab-evidence-title-current">What was actually detected</h2></div><p>The new path excludes unreviewed or altered passages before answering. A separate model diagnostic shows how much factual detection remains unsolved.</p></div>
+      <div id="lab-evidence-summary" class="lab-evidence-caption">Loading the source-screen evaluation...</div>
     </section>
 
     <section class="lab-section" aria-labelledby="lab-full-corpus-title">

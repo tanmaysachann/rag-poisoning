@@ -237,6 +237,21 @@ def lab_snapshot_recovery() -> dict:
             "limitation": report["limitations"][0]}
 
 
+@app.get("/api/lab/evidence-screen")
+def lab_evidence_screen() -> dict:
+    """Expose the bounded source-screen and model diagnostic aggregates."""
+    screen_path = ROOT / "results" / "evidence_claim_screen_validation.json"
+    replay_path = ROOT / "results" / "evidence_claim_live_validation.json"
+    if not screen_path.is_file() or not replay_path.is_file():
+        raise HTTPException(status_code=404, detail="Evidence-screen aggregate is unavailable")
+    screen = json.loads(screen_path.read_text(encoding="utf-8"))
+    replay = json.loads(replay_path.read_text(encoding="utf-8"))
+    return {"split": screen["split"], "clean": screen["clean"],
+            "attacks": screen["attacks"], "model_diagnostic": screen["model_diagnostic"],
+            "qa_diagnostic": screen["qa_diagnostic"], "live_replay": replay["metrics"],
+            "limitation": screen["limitations"][1]}
+
+
 @app.get("/api/lab/full-corpus")
 def lab_full_corpus() -> dict:
     """Expose frozen offline scale results, including the failed clean gate."""
