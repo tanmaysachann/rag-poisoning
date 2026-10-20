@@ -207,7 +207,7 @@
 
   <main id="view-v24" class="view research-view">
     <section class="lab-hero">
-      <div><p class="lab-kicker">V25 · hosted research scanner</p><h1>Screen a candidate passage</h1><p class="lab-lede">Supply a question, a trusted reference, and the passage under review. V25 adds a behavioral detector and a reference-relative score to the V24 MiniLM, document signals, and pinned source search. Compare both versions below. A review is a source-risk signal, not a factual verdict.</p><div class="lab-chips"><span>Six attack families</span><span>Reference-adaptive ensemble</span><span>Source containment</span></div></div>
+      <div><p class="lab-kicker">V26 · hosted research scanner</p><h1>Screen a candidate passage</h1><p class="lab-lede">Supply a question, a trusted reference, and the passage under review. V26 adds a trained role-boundary signal to the V25 ensemble of behavioral, reference-relative, and source-integrity checks. Compare all three versions below. A review is a source-risk signal, not a factual verdict.</p><div class="lab-chips"><span>FiQA cross-domain challenge</span><span>Trained role-boundary signal</span><span>Source containment</span></div></div>
       <aside class="lab-hero-aside"><span>Development evaluation</span><strong id="v24-hero-result">Loading saved results…</strong><p>29 previously inspected questions. This is not a blind test or a paired improvement over the earlier 30.3% figure.</p></aside>
     </section>
     <section class="lab-section" aria-labelledby="v24-scan-title">
@@ -215,7 +215,7 @@
       <div class="lab-workbench">
         <div class="lab-controls">
           <div class="lab-control-top"><span>Scanner input</span><span id="v24-ready">Checking assets…</span></div>
-          <label for="v24-model">Scanner version</label><select id="v24-model"><option value="v25">V25 · reference adaptive</option><option value="v24">V24 · original baseline</option></select>
+          <label for="v24-model">Scanner version</label><select id="v24-model"><option value="v26">V26 · role adaptive</option><option value="v25">V25 · reference adaptive</option><option value="v24">V24 · original baseline</option></select>
           <button id="v24-example" class="v24-secondary" type="button">Load published attack example</button>
           <label for="v24-query">Question</label><textarea id="v24-query" rows="2" maxlength="500"></textarea>
           <label for="v24-reference">Trusted reference passage</label><textarea id="v24-reference" rows="5" maxlength="6000"></textarea>
@@ -231,6 +231,7 @@
             <strong id="v24-decision" class="v24-decision"></strong>
             <div class="v24-reasons"><article><span>Learned model</span><strong id="v24-learned">—</strong><small id="v24-learned-detail"></small></article><article><span>Pinned source containment</span><strong id="v24-integrity">—</strong><small id="v24-integrity-detail"></small></article><article><span>Expected hash</span><strong id="v24-identity">—</strong><small id="v24-identity-detail"></small></article></div>
             <div id="v25-reasons" class="v24-reasons" hidden><article><span>V3 behavioral detector</span><strong id="v25-v3">—</strong><small id="v25-v3-detail"></small></article><article><span>Reference-relative fusion</span><strong id="v25-relative">—</strong><small id="v25-relative-detail"></small></article></div>
+            <div id="v26-reason" class="v24-reasons" hidden><article><span>Trained role-boundary signal</span><strong id="v26-role">—</strong><small id="v26-role-risk"></small></article></div>
             <p class="lab-input-note">A review result means the passage merits checking. A pass does not prove factual accuracy or safe behavior in a downstream RAG answer.</p>
           </div>
         </div>
@@ -263,6 +264,11 @@
       <p id="v24-ppo" class="lab-evidence-caption">Loading adaptive PPO comparison…</p>
       <div class="v24-metrics"><article><span>SciFact transfer / inserted attacks</span><strong id="v24-transfer-attack">--</strong><small id="v24-transfer-clean">Loading 300-question transfer report...</small></article><article><span>Three PPO attacker seeds</span><strong id="v24-seeds">--</strong><small>Defended successes on 75 inspected validation questions per seed</small></article><article><span>Answer path / initial</span><strong id="v24-answer-initial">--</strong><small>V24 attack successes before source admission, 300 inspected cases</small></article><article><span>Answer path / admitted</span><strong id="v24-answer-admitted">--</strong><small>V24 attack successes after source admission and pinned recovery</small></article></div>
       <div class="v24-metrics"><article><span>Frozen NFCorpus holdout / V25</span><strong id="v25-holdout-attack">--</strong><small id="v25-holdout-clean">Loading first-scored 120-question holdout...</small></article><article><span>Same holdout / V24</span><strong id="v25-baseline-attack">--</strong><small id="v25-baseline-clean">Paired original scanner baseline</small></article></div>
+      <div class="v24-metrics"><article><span>Frozen FiQA challenge / V26</span><strong id="v26-holdout-attack">--</strong><small id="v26-holdout-clean">Loading 120-question finance-domain test...</small></article><article><span>Same FiQA cases / V25</span><strong id="v26-baseline-attack">--</strong><small id="v26-baseline-clean">Paired scanner baseline</small></article></div>
+      <p id="v26-role-detail" class="lab-small">Loading role-attack breakdown...</p>
+      <p id="v26-stress-detail" class="lab-small">Loading targeted role-delimiter stress...</p>
+      <p id="v26-answer-detail" class="lab-small">Loading retrieval and answer replay...</p>
+      <p class="lab-small">FiQA source labels combine original passages with deterministic synthetic insertions. The answer replay reuses these cases after scanner scoring. PPO trains the attacker; the V26 role signal is supervised logistic regression. Source admission requires authenticated document hashes.</p>
       <p id="v24-research-note" class="lab-small">Loading cross-domain and answer-path limitations...</p>
       <p class="lab-small">The 2.68-million-passage source corpus is a separate lookup snapshot, not 2.68 million labeled training rows. The 29 PoisonArena evaluation questions and PPO validation cases were previously inspected. AdvDecoding recall is 43/145. The answer-path replay above also uses previously inspected cases.</p>
     </section>

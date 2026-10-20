@@ -1,4 +1,4 @@
-"""Stage the hosted site plus the V24/V25 research view and remote proxies."""
+"""Stage the hosted site plus the V24/V25/V26 research view and remote proxies."""
 
 from __future__ import annotations
 
@@ -18,12 +18,20 @@ OVERLAYS = (
     "backend/research_lab.py",
     "backend/v24_service.py",
     "backend/v25_service.py",
+    "backend/v26_service.py",
     "pipeline/v24_answer_gate.py",
     # git archive stores CRLF for this JSONL on Windows; the pinned digest is LF.
     "data/benchmark_v3/validation/corpus.jsonl",
     "frontend/index.html",
     "frontend/v24.css",
     "frontend/v24.js",
+    "frontend/v24_standalone.html",
+    "results/v26_rule_frozen.json",
+    "results/v26_fiqa_holdout.json",
+    "results/v26_fiqa_answer_path.json",
+    "results/v26_fiqa_role_stress_frozen.json",
+    "results/v26_fiqa_role_stress.json",
+    "results/v26_nfcorpus_development_replay.json",
     "data/multifamily_v20/manifest.json",
     "data/multifamily_v20/evaluation.jsonl",
     "results/adaptive_ppo_v24.json",
@@ -59,7 +67,7 @@ def build(output: Path) -> dict:
         target.write_bytes((ROOT / name).read_bytes())
     total = sum(path.stat().st_size for path in output.rglob("*") if path.is_file())
     report = {"bundle": str(output), "source_bytes": total,
-              "source": "HEAD plus explicit V24/V25 serving and evidence overlays",
+              "source": "HEAD plus explicit V24/V25/V26 serving and evidence overlays",
               "overlays": list(OVERLAYS)}
     print(json.dumps(report, indent=2))
     return report

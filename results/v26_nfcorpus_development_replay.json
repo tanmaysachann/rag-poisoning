@@ -1,0 +1,72 @@
+{
+  "protocol": "v26-replay-on-inspected-v25-nfcorpus-development-v1",
+  "status": "development_replay_not_blind",
+  "inputs_sha256": {
+    "data\\v25_nfcorpus_holdout\\cases.jsonl": "6b60fe4a1ec6d44d5df010755b61880367cf838a69e7c4497a98a98562d5c3f4",
+    "results\\v25_nfcorpus_holdout.cases.jsonl": "66d0a6dec6e9557f99c66c5e255bf35258aa4dafb166362ec0f1d89b595c8bca",
+    "artifacts\\role_boundary_v26.joblib": "cad40debe3efe6547fc20b52a20abf991856706f51b0869671b43b7fab1e471d",
+    "results\\v26_rule_frozen.json": "f27df0680ebb8a4d505ce213fe5542e5529b9096a26d407db335d32603773f21"
+  },
+  "role_delimiter": {
+    "train": {
+      "v25": {
+        "flagged": 6,
+        "total": 80
+      },
+      "role": {
+        "flagged": 80,
+        "total": 80
+      },
+      "v26": {
+        "flagged": 80,
+        "total": 80
+      }
+    },
+    "calibration": {
+      "v25": {
+        "flagged": 7,
+        "total": 40
+      },
+      "role": {
+        "flagged": 40,
+        "total": 40
+      },
+      "v26": {
+        "flagged": 40,
+        "total": 40
+      }
+    },
+    "all": {
+      "v25": {
+        "flagged": 13,
+        "total": 120
+      },
+      "role": {
+        "flagged": 120,
+        "total": 120
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120
+      }
+    }
+  },
+  "original_clean": {
+    "v25": {
+      "flagged": 14,
+      "total": 240
+    },
+    "role": {
+      "flagged": 0,
+      "total": 240
+    },
+    "v26": {
+      "flagged": 14,
+      "total": 240
+    }
+  },
+  "limits": [
+    "NFCorpus was inspected before V26 design and supplies role-model training and calibration.",
+    "This measures source labels, not factual correctness or answer quality."
+  ]
+}

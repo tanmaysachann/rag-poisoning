@@ -1,8 +1,8 @@
-/* Paired V24/V25 scanners plus an explicitly selected research answer replay. */
+/* V24/V25/V26 scanners plus saved detection and answer-path evidence. */
 (() => {
   const el = id => document.getElementById(id);
   const percent = value => `${(100 * Number(value)).toFixed(1)}%`;
-  const available = {v24: false, v25: false};
+  const available = {v24: false, v25: false, v26: false};
 
   async function request(url, options) {
     const response = await fetch(url, options);
@@ -13,14 +13,15 @@
 
   async function loadStatus() {
     const results = await Promise.allSettled([
-      request('/api/v24/status'), request('/api/v25/status'),
+      request('/api/v24/status'), request('/api/v25/status'), request('/api/v26/status'),
     ]);
     available.v24 = results[0].status === 'fulfilled' && results[0].value.available;
     available.v25 = results[1].status === 'fulfilled' && results[1].value.available;
-    for (const version of ['v24', 'v25']) {
+    available.v26 = results[2].status === 'fulfilled' && results[2].value.available;
+    for (const version of ['v24', 'v25', 'v26']) {
       el('v24-model').querySelector(`option[value="${version}"]`).disabled = !available[version];
     }
-    if (!available.v25 && available.v24) el('v24-model').value = 'v24';
+    if (!available.v26) el('v24-model').value = available.v25 ? 'v25' : 'v24';
     updateVersionAvailability();
   }
 
@@ -100,6 +101,26 @@
     }
   }
 
+  async function loadV26Evidence() {
+    try {
+      const data = await request('/api/v26/evidence');
+      const current = data.holdout.metrics.v26;
+      const baseline = data.holdout.metrics.v25;
+      const role = data.holdout.families;
+      el('v26-holdout-attack').textContent = `${current.attack_recall.flagged}/${current.attack_recall.total}`;
+      el('v26-holdout-clean').textContent = `${current.clean_false_alarm.flagged}/${current.clean_false_alarm.total} clean and benign-markup passages flagged`;
+      el('v26-baseline-attack').textContent = `${baseline.attack_recall.flagged}/${baseline.attack_recall.total}`;
+      el('v26-baseline-clean').textContent = `${baseline.clean_false_alarm.flagged}/${baseline.clean_false_alarm.total} on the same cases`;
+      el('v26-role-detail').textContent = `Role attacks flagged: ChatML ${role.chatml_role.v26.flagged}/120, XML ${role.xml_role.v26.flagged}/120, Markdown ${role.markdown_role.v26.flagged}/120. Benign markup flags: ${current.benign_markup_false_alarm.flagged}/120.`;
+      const answer = data.answer_path;
+      el('v26-answer-detail').textContent = `Retrieval found attacks for ${answer.questions_with_retrieved_attack}/${answer.questions} questions. Attack-sourced target answers: ${answer.undefended_attack_sourced_target_answers} without the gate, ${answer.versions.v26.attack_sourced_target_answers} with V26 and source admission. The clean extractor answered only ${answer.clean_preattack_answer_available}/${answer.questions}; the gated path abstained on ${answer.versions.v26.abstentions}/${answer.questions}. This replay does not show good answer utility.`;
+      const stress = data.targeted_stress.results;
+      el('v26-stress-detail').textContent = `Follow-up targeted role-delimiter stress on 120 other FiQA questions: V25 ${stress.role_delimiter.v25.flagged}/120, V26 ${stress.role_delimiter.v26.flagged}/120; quoted-markup clean flags V26 ${stress.quoted_markup.v26.flagged}/120. This pattern was known from NFCorpus and was selected after the first FiQA result.`;
+    } catch (error) {
+      el('v26-holdout-clean').textContent = `V26 report unavailable: ${error.message}`;
+    }
+  }
+
   async function scan() {
     const version = el('v24-model').value;
     const body = {
@@ -123,7 +144,7 @@
         method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body),
       });
       el('v24-result').hidden = false;
-      el('v24-mode').textContent = version === 'v25' ? 'V25 reference adaptive' : 'V24 baseline';
+      el('v24-mode').textContent = version === 'v26' ? 'V26 role adaptive' : version === 'v25' ? 'V25 reference adaptive' : 'V24 baseline';
       el('v24-decision').textContent = data.decision === 'review' ? 'REVIEW THIS PASSAGE' : 'PASS — NO FLAG AT THIS THRESHOLD';
       el('v24-decision').dataset.decision = data.decision;
       el('v24-learned').textContent = data.learned.flag ? 'Flagged' : 'No flag';
@@ -132,12 +153,17 @@
       el('v24-integrity-detail').textContent = `${data.integrity.status}; similarity ${Number(data.integrity.near_copy_score || 0).toFixed(3)}; ${data.integrity.match_method || 'no match method'}.`;
       el('v24-identity').textContent = data.identity.status === 'not_supplied' ? 'Not supplied' : data.identity.flag ? 'Digest mismatch' : 'Digest match';
       el('v24-identity-detail').textContent = data.identity.status === 'not_supplied' ? 'Requires an independently pinned hash for this document ID.' : 'Compares the candidate bytes with the supplied expected SHA-256.';
-      el('v25-reasons').hidden = version !== 'v25';
-      if (version === 'v25') {
+      el('v25-reasons').hidden = version === 'v24';
+      el('v26-reason').hidden = version !== 'v26';
+      if (version !== 'v24') {
         el('v25-v3').textContent = data.v3.flag ? 'Flagged' : 'No flag';
         el('v25-v3-detail').textContent = `Behavioral risk ${data.v3.risk.toFixed(3)}; threshold ${data.v3.threshold.toFixed(3)}.`;
         el('v25-relative').textContent = data.reference_adaptive.flag ? 'Flagged' : 'No flag';
         el('v25-relative-detail').textContent = `Candidate minus reference fusion score ${data.reference_adaptive.margin.toFixed(3)}; required margin ${data.reference_adaptive.required_margin.toFixed(3)}. The reference must be authenticated separately.`;
+      }
+      if (version === 'v26') {
+        el('v26-role').textContent = data.role_boundary.flag ? 'Flagged' : 'No flag';
+        el('v26-role-risk').textContent = `Role-boundary model score ${data.role_boundary.risk.toFixed(3)}; threshold ${data.role_boundary.threshold.toFixed(3)}; system marker ${data.role_boundary.system_marker ? 'present' : 'absent'}.`;
       }
       el('v24-status').dataset.state = 'ready';
       el('v24-status').textContent = 'Scan complete. Inspect the reasons before deciding what to do with the passage.';
@@ -210,5 +236,6 @@
   loadEvidence();
   if (el('v24-transfer-attack')) loadResearchEvidence();
   if (el('v25-holdout-attack')) loadV25Evidence();
+  if (el('v26-holdout-attack')) loadV26Evidence();
   if (el('v24-rag-case')) loadRagCases();
 })();

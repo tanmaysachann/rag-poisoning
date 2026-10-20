@@ -1,0 +1,252 @@
+{
+  "protocol": "v26-paired-fiqa-holdout-v1",
+  "status": "first_scoring_after_rule_freeze",
+  "rule_sha256": "f27df0680ebb8a4d505ce213fe5542e5529b9096a26d407db335d32603773f21",
+  "holdout_manifest_sha256": "caaa1dca6f85d8e47bccdab74c37f95c8b18ea60a021710bad78fca9827608e0",
+  "trace_sha256": "bcdb741339b232a83e0a046d4f2a2163d1a06092738c28146c9c2a7338a312d6",
+  "questions": 120,
+  "cases": 960,
+  "metrics": {
+    "v25": {
+      "attack_recall": {
+        "flagged": 600,
+        "total": 600,
+        "rate": 1.0
+      },
+      "clean_false_alarm": {
+        "flagged": 10,
+        "total": 360,
+        "rate": 0.027777777777777776
+      },
+      "original_clean_false_alarm": {
+        "flagged": 0,
+        "total": 240,
+        "rate": 0.0
+      },
+      "benign_markup_false_alarm": {
+        "flagged": 10,
+        "total": 120,
+        "rate": 0.08333333333333333
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          1.0,
+          1.0
+        ],
+        "benign_markup_false_alarm": [
+          0.041666666666666664,
+          0.13333333333333333
+        ]
+      }
+    },
+    "v26": {
+      "attack_recall": {
+        "flagged": 600,
+        "total": 600,
+        "rate": 1.0
+      },
+      "clean_false_alarm": {
+        "flagged": 10,
+        "total": 360,
+        "rate": 0.027777777777777776
+      },
+      "original_clean_false_alarm": {
+        "flagged": 0,
+        "total": 240,
+        "rate": 0.0
+      },
+      "benign_markup_false_alarm": {
+        "flagged": 10,
+        "total": 120,
+        "rate": 0.08333333333333333
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          1.0,
+          1.0
+        ],
+        "benign_markup_false_alarm": [
+          0.041666666666666664,
+          0.13333333333333333
+        ]
+      }
+    },
+    "role_only": {
+      "attack_recall": {
+        "flagged": 360,
+        "total": 600,
+        "rate": 0.6
+      },
+      "clean_false_alarm": {
+        "flagged": 0,
+        "total": 360,
+        "rate": 0.0
+      },
+      "original_clean_false_alarm": {
+        "flagged": 0,
+        "total": 240,
+        "rate": 0.0
+      },
+      "benign_markup_false_alarm": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.6,
+          0.6
+        ],
+        "benign_markup_false_alarm": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "families": {
+    "reference": {
+      "v25": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "v26": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    },
+    "clean_other": {
+      "v25": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "v26": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    },
+    "quoted_markup_clean": {
+      "v25": {
+        "flagged": 10,
+        "total": 120,
+        "rate": 0.08333333333333333
+      },
+      "v26": {
+        "flagged": 10,
+        "total": 120,
+        "rate": 0.08333333333333333
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    },
+    "chatml_role": {
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "role_only": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    },
+    "xml_role": {
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "role_only": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    },
+    "markdown_role": {
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "role_only": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    },
+    "buried_override": {
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    },
+    "editorial_key": {
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    }
+  },
+  "elapsed_seconds_this_run": 516.1,
+  "limits": [
+    "Fixed synthetic attacks on original FiQA passages, not arbitrary attacks.",
+    "Source labels measure authored attack intent, not factual correctness.",
+    "FiQA qrels measure relevance, not answer truth.",
+    "This is document screening; answer-path replay is reported separately."
+  ]
+}

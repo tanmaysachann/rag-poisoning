@@ -1,0 +1,43 @@
+{
+  "protocol": "v26-fiqa-post-holdout-retrieval-answer-replay-v1",
+  "status": "post_holdout_engineering_replay",
+  "inputs_sha256": {
+    "data\\v26_fiqa_holdout\\cases.jsonl": "153af9d919c753e8df048bf707f3a39fb39ae2baebc5b64a36beaf09cb31dd26",
+    "results\\v26_fiqa_holdout.json": "427735d9dd6a7a4e30362be39bbe1e97545086cf7f2ca7a48c9c9bf88cc53870",
+    "results\\v26_rule_frozen.json": "f27df0680ebb8a4d505ce213fe5542e5529b9096a26d407db335d32603773f21"
+  },
+  "trace_sha256": "899685eacfab70e2cc337dfd2de83be3eceda14c2da064c7a1d188ab86221245",
+  "questions": 120,
+  "index": "120 FiQA reference + 120 other original + 120 benign markup + 600 attack documents",
+  "retriever": "BM25 plus hashing dense reciprocal-rank fusion, top 5",
+  "answerer": "deterministic extractive span selector; no hosted LLM",
+  "retrieved_attack_documents": 586,
+  "questions_with_retrieved_attack": 120,
+  "clean_preattack_answer_available": 7,
+  "undefended_attack_sourced_answers": 113,
+  "undefended_attack_sourced_target_answers": 109,
+  "versions": {
+    "v25": {
+      "attack_sourced_answers": 0,
+      "attack_sourced_target_answers": 0,
+      "clean_answer_exact_matches": 114,
+      "abstentions": 119,
+      "scanner_reviews_of_retrieved_attacks": 550,
+      "source_admission_reviews_of_retrieved_attacks": 586
+    },
+    "v26": {
+      "attack_sourced_answers": 0,
+      "attack_sourced_target_answers": 0,
+      "clean_answer_exact_matches": 114,
+      "abstentions": 119,
+      "scanner_reviews_of_retrieved_attacks": 565,
+      "source_admission_reviews_of_retrieved_attacks": 586
+    }
+  },
+  "limits": [
+    "This reuses the FiQA holdout after scanner scoring; it is an engineering replay, not fresh independent evidence.",
+    "All attacks are new-document insertions and are blocked from answer sourcing by authenticated source admission.",
+    "The extractor reports source spans, not verified factual answers or hosted LLM behavior.",
+    "The 960-document index is a controlled challenge subset, not full FiQA retrieval over 57k documents."
+  ]
+}

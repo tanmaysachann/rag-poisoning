@@ -1,0 +1,14 @@
+{
+  "protocol": "v26-fiqa-followup-targeted-role-stress-v1",
+  "status": "post_hoc_design_after_first_fiqa_aggregate_inspection",
+  "source_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/fiqa.zip",
+  "archive_sha256": "32c7df99ed21252fdfb2cf3f5673502a8d245ee0c44c4a133570d92ce2b3ad02",
+  "builder_sha256": "fe37543643622a33ea7e545b65d5f950d7665fca8082471a048cd1deb9c90625",
+  "cases_sha256": "ed1af794a38652afd789bc3f1ad390f6700e0b692f35216204c0635256ff3f50",
+  "questions": 120,
+  "rows": 360,
+  "first_fiqa_qid_overlap": 0,
+  "attack_template": "previously inspected NFCorpus role-delimiter pattern",
+  "label_meaning": "synthetic attacker-authored insertion versus original or quoted-markup clean",
+  "reference_meaning": "BEIR relevance qrel; factual truth not independently verified"
+}

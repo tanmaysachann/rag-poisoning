@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Sentinel RAG V24 and V25 poisoned document scanners">
+  <meta name="description" content="Sentinel RAG V24, V25, and V26 poisoned document scanners">
   <title>Sentinel RAG · Poison scanner</title>
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/research.css">
   <link rel="stylesheet" href="/v24.css">
 </head>
 <body><div class="shell">
-  <header class="topbar"><div class="brand"><span class="mark">S</span><div><strong>Sentinel RAG</strong><small>Research scanner</small></div></div><div class="system"><i></i> V25 <span>frozen cross-domain holdout</span></div></header>
+  <header class="topbar"><div class="brand"><span class="mark">S</span><div><strong>Sentinel RAG</strong><small>Research scanner</small></div></div><div class="system"><i></i> V26 <span>frozen cross-domain challenge</span></div></header>
   <main id="view-v24" class="view active research-view">
-    <section class="lab-hero"><div><p class="lab-kicker">V25 · reference-adaptive scanner</p><h1>Screen a candidate passage</h1><p class="lab-lede">Compare the frozen V24 baseline with V25's behavioral and reference-relative checks. Supply a question, an independently trusted reference, and the passage under review. A review is a source-risk signal, not a factual verdict.</p><div class="lab-chips"><span>Trained models</span><span>Reference-adaptive ensemble</span><span>Pinned source containment</span></div></div><aside class="lab-hero-aside"><span>V24 development baseline</span><strong id="v24-hero-result">Loading saved results...</strong><p>Previously inspected PoisonArena cases; see the fresh NFCorpus comparison below.</p></aside></section>
+    <section class="lab-hero"><div><p class="lab-kicker">V26 · role-adaptive scanner</p><h1>Screen a candidate passage</h1><p class="lab-lede">Compare V26's trained role-boundary signal with V25 and V24. Supply a question, an independently trusted reference, and the passage under review. A review is a source-risk signal, not a factual verdict.</p><div class="lab-chips"><span>Trained models</span><span>FiQA cross-domain challenge</span><span>Pinned source containment</span></div></div><aside class="lab-hero-aside"><span>V24 development baseline</span><strong id="v24-hero-result">Loading saved results...</strong><p>Previously inspected PoisonArena cases; see the new FiQA comparison below.</p></aside></section>
     <section class="lab-section" aria-labelledby="v24-scan-title">
       <div class="lab-section-heading"><div><span>Live inference</span><h2 id="v24-scan-title">Document scanner</h2></div><p>The supplied reference must be authenticated by the caller. The published example is a benchmark label only.</p></div>
       <div class="lab-workbench">
         <div class="lab-controls">
           <div class="lab-control-top"><span>Scanner input</span><span id="v24-ready">Checking assets...</span></div>
-          <label for="v24-model">Scanner version</label><select id="v24-model"><option value="v25">V25 · reference adaptive</option><option value="v24">V24 · original baseline</option></select>
+          <label for="v24-model">Scanner version</label><select id="v24-model"><option value="v26">V26 · role adaptive</option><option value="v25">V25 · reference adaptive</option><option value="v24">V24 · original baseline</option></select>
           <button id="v24-example" class="v24-secondary" type="button">Load published attack example</button>
           <label for="v24-query">Question</label><textarea id="v24-query" rows="2" maxlength="500"></textarea>
           <label for="v24-reference">Trusted reference passage</label><textarea id="v24-reference" rows="5" maxlength="6000"></textarea>
@@ -31,6 +31,7 @@
           <strong id="v24-decision" class="v24-decision"></strong>
           <div class="v24-reasons"><article><span>V24 learned fusion</span><strong id="v24-learned">—</strong><small id="v24-learned-detail"></small></article><article><span>Pinned source containment</span><strong id="v24-integrity">—</strong><small id="v24-integrity-detail"></small></article><article><span>Expected hash</span><strong id="v24-identity">—</strong><small id="v24-identity-detail"></small></article></div>
           <div id="v25-reasons" class="v24-reasons" hidden><article><span>V3 behavioral detector</span><strong id="v25-v3">—</strong><small id="v25-v3-detail"></small></article><article><span>Reference-relative fusion</span><strong id="v25-relative">—</strong><small id="v25-relative-detail"></small></article></div>
+          <div id="v26-reason" class="v24-reasons" hidden><article><span>Trained role-boundary signal</span><strong id="v26-role">—</strong><small id="v26-role-risk"></small></article></div>
           <p class="lab-input-note">A pass does not prove factual accuracy or safety in a downstream RAG answer.</p>
         </div></div>
       </div>
@@ -40,6 +41,11 @@
       <div class="v24-metrics"><article><span>MiniLM warm start</span><strong>14,504</strong><small>training rows from 2,072 NQ questions</small></article><article><span>Six-family fine-tune</span><strong>1,855</strong><small>labeled rows from 51 training questions</small></article><article><span>V24 development recall</span><strong id="v24-recall">--</strong><small id="v24-recall-detail">Loading report...</small></article><article><span>V24 development clean flags</span><strong id="v24-clean">--</strong><small>Among 311 clean/reference passages</small></article></div>
       <p id="v24-ppo" class="lab-evidence-caption">Loading PPO comparison...</p>
       <div class="v24-metrics"><article><span>Frozen NFCorpus holdout / V25</span><strong id="v25-holdout-attack">--</strong><small id="v25-holdout-clean">Loading 120-question holdout...</small></article><article><span>Same holdout / V24</span><strong id="v25-baseline-attack">--</strong><small id="v25-baseline-clean">Paired original scanner baseline</small></article></div>
+      <div class="v24-metrics"><article><span>Frozen FiQA challenge / V26</span><strong id="v26-holdout-attack">--</strong><small id="v26-holdout-clean">Loading finance-domain test...</small></article><article><span>Same FiQA cases / V25</span><strong id="v26-baseline-attack">--</strong><small id="v26-baseline-clean">Paired scanner baseline</small></article></div>
+      <p id="v26-role-detail" class="lab-small">Loading role-attack breakdown...</p>
+      <p id="v26-stress-detail" class="lab-small">Loading targeted role-delimiter stress...</p>
+      <p id="v26-answer-detail" class="lab-small">Loading retrieval and answer replay...</p>
+      <p class="lab-small">FiQA source labels combine original passages with deterministic synthetic insertions. The answer replay reuses these cases after scanner scoring. PPO trains the attacker; the V26 role signal is supervised logistic regression.</p>
       <p class="lab-small">The NFCorpus attack labels are deterministic synthetic insertions. Relevance qrels do not verify factual truth, and passage screening is not an end-to-end RAG answer test.</p>
     </section>
   </main>

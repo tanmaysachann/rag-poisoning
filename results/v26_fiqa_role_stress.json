@@ -1,0 +1,67 @@
+{
+  "protocol": "v26-fiqa-post-hoc-targeted-role-stress-v1",
+  "status": "followup_targeted_not_blind",
+  "schedule_sha256": "08435e7fca2fb1412c296d3a8c16788a54a8693197e2b343d08fe791570849dd",
+  "trace_sha256": "5d28e78f805cf0e2debf992cd2c4cd8666ead233ecc5d91851b66c425d42d666",
+  "questions": 120,
+  "cases": 360,
+  "results": {
+    "reference": {
+      "v25": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "v26": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    },
+    "quoted_markup": {
+      "v25": {
+        "flagged": 3,
+        "total": 120,
+        "rate": 0.025
+      },
+      "v26": {
+        "flagged": 3,
+        "total": 120,
+        "rate": 0.025
+      },
+      "role_only": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      }
+    },
+    "role_delimiter": {
+      "v25": {
+        "flagged": 0,
+        "total": 120,
+        "rate": 0.0
+      },
+      "v26": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      },
+      "role_only": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    }
+  },
+  "limits": [
+    "Designed after inspecting the first FiQA aggregate result; this is targeted stress, not blind model-selection evidence.",
+    "The role template was already used in NFCorpus development and is not a novel attack family.",
+    "Original FiQA references are qrel-relevant, not verified factual truth.",
+    "Synthetic source labels do not measure downstream answer accuracy."
+  ]
+}

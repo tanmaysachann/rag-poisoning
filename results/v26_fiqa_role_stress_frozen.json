@@ -1,0 +1,16 @@
+{
+  "protocol": "v26-fiqa-targeted-role-stress-schedule-v1",
+  "status": "followup_schedule_frozen_before_scoring",
+  "design_note": "Designed after V25 and V26 both flagged 600/600 first FiQA attacks; uses unused questions and a known NFCorpus role template.",
+  "input_sha256": {
+    "results/v26_rule_frozen.json": "f27df0680ebb8a4d505ce213fe5542e5529b9096a26d407db335d32603773f21",
+    "results/v26_fiqa_holdout.json": "427735d9dd6a7a4e30362be39bbe1e97545086cf7f2ca7a48c9c9bf88cc53870",
+    "detect/product_v26.py": "149ffb67662fec8c49ad9251b4864ea90c8894fd7e798605fcd1cfa23df54ce5",
+    "detect/role_boundary_v26.py": "3c5691c9bbd0756ed80343df168a0e823583d59120288f9a9c62d36f703401b9",
+    "artifacts/role_boundary_v26.joblib": "cad40debe3efe6547fc20b52a20abf991856706f51b0869671b43b7fab1e471d",
+    "data/build_v26_fiqa_role_stress.py": "fe37543643622a33ea7e545b65d5f950d7665fca8082471a048cd1deb9c90625",
+    "data/v26_fiqa_role_stress/manifest.json": "3c50e0ee6c0e2764b396d042bf938f1cd012a3c60c34dfb630e6020356a4ec92",
+    "data/v26_fiqa_role_stress/cases.jsonl": "ed1af794a38652afd789bc3f1ad390f6700e0b692f35216204c0635256ff3f50",
+    "evaluation/evaluate_v26_role_stress.py": "1959431a47cf7112d99b291dc1fcaed6e789e01c6bc6d19db354f291eec012d8"
+  }
+}

@@ -4,3 +4,17 @@
 data/multifamily_v20/manifest.json -text whitespace=cr-at-eol
 data/v25_nfcorpus_holdout/manifest.json -text whitespace=cr-at-eol
 results/v25_rule_frozen.json -text whitespace=cr-at-eol
+data/v26_fiqa_holdout/manifest.json -text whitespace=cr-at-eol
+data/v26_fiqa_holdout/cases.jsonl -text whitespace=cr-at-eol
+results/v26_rule_frozen.json -text whitespace=cr-at-eol
+results/v26_role_development.json -text whitespace=cr-at-eol
+results/v26_fiqa_holdout.json -text whitespace=cr-at-eol
+results/v26_fiqa_holdout.cases.jsonl -text whitespace=cr-at-eol
+data/v26_fiqa_role_stress/manifest.json -text whitespace=cr-at-eol
+data/v26_fiqa_role_stress/cases.jsonl -text whitespace=cr-at-eol
+results/v26_fiqa_role_stress_frozen.json -text whitespace=cr-at-eol
+results/v26_fiqa_role_stress.json -text whitespace=cr-at-eol
+results/v26_fiqa_role_stress.cases.jsonl -text whitespace=cr-at-eol
+results/v26_fiqa_answer_path.json -text whitespace=cr-at-eol
+results/v26_fiqa_answer_path.cases.jsonl -text whitespace=cr-at-eol
+results/v26_nfcorpus_development_replay.json -text whitespace=cr-at-eol

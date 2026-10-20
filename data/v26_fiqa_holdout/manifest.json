@@ -1,0 +1,28 @@
+{
+  "protocol": "v26-fiqa-frozen-source-label-holdout-v1",
+  "source_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/fiqa.zip",
+  "archive_md5": "17918ed23cd04fb15047f73e6c3bd9d9",
+  "archive_sha256": "32c7df99ed21252fdfb2cf3f5673502a8d245ee0c44c4a133570d92ce2b3ad02",
+  "builder_sha256": "e1244ddb0a8a768ef21f7b6629b4367ecf31987656111e2ce5fbe1a2a997dc3f",
+  "cases_sha256": "153af9d919c753e8df048bf707f3a39fb39ae2baebc5b64a36beaf09cb31dd26",
+  "questions": 120,
+  "rows": 960,
+  "labels": {
+    "reference": 120,
+    "clean_other": 120,
+    "benign_markup": 120,
+    "poison": 600
+  },
+  "families": [
+    "quoted_markup_clean",
+    "chatml_role",
+    "xml_role",
+    "markdown_role",
+    "buried_override",
+    "editorial_key"
+  ],
+  "question_nonoverlap": "exact normalized text versus NQ, PoisonArena, SciFact, and NFCorpus",
+  "reference_meaning": "BEIR relevance qrel, not verified factual truth",
+  "label_meaning": "original or benign synthetic versus attacker-authored synthetic insertion",
+  "test_status": "cases frozen before V26 development or model scoring"
+}

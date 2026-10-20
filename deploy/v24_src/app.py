@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from backend import v24_service, v25_service
+from backend import v24_service, v25_service, v26_service
 
 ROOT = Path(__file__).resolve().parent
 app = FastAPI(title="Sentinel RAG V24 scanner", version="24.0")
@@ -86,6 +86,33 @@ def v25_scan(body: ScanRequest) -> dict:
         if "required" in str(error):
             raise HTTPException(status_code=400, detail=str(error)) from error
         raise HTTPException(status_code=503, detail="V25 scanner integrity check failed") from error
+    return {"split": "research_inference", **result}
+
+
+@app.get("/api/v26/status")
+def v26_status() -> dict:
+    return v26_service.status()
+
+
+@app.get("/api/v26/evidence")
+def v26_evidence() -> dict:
+    try:
+        return v26_service.evidence()
+    except (OSError, KeyError, ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=503, detail="V26 evidence is unavailable") from error
+
+
+@app.post("/api/v26/scan")
+def v26_scan(body: ScanRequest) -> dict:
+    try:
+        result = v26_service.scan(body.query, body.reference, body.candidate,
+                                  body.expected_sha256)
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except ValueError as error:
+        if "required" in str(error):
+            raise HTTPException(status_code=400, detail=str(error)) from error
+        raise HTTPException(status_code=503, detail="V26 scanner integrity check failed") from error
     return {"split": "research_inference", **result}
 
 

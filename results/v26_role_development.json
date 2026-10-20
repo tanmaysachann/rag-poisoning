@@ -1,0 +1,28 @@
+{
+  "protocol": "v26-role-boundary-nfcorpus-grouped-development-v1",
+  "source_sha256": "6b60fe4a1ec6d44d5df010755b61880367cf838a69e7c4497a98a98562d5c3f4",
+  "builder_sha256": "0f11857608b1bd7fc17269a04498bfaa114163cdc21ba022558fd44190834ba6",
+  "features_sha256": "3c5691c9bbd0756ed80343df168a0e823583d59120288f9a9c62d36f703401b9",
+  "train_questions": 80,
+  "calibration_questions": 40,
+  "train_rows": 880,
+  "calibration_rows": 440,
+  "calibration_positive": 200,
+  "calibration_negative": 240,
+  "threshold": 0.5,
+  "role_recall": {
+    "flagged": 200,
+    "total": 200
+  },
+  "clean_false_alarm": {
+    "flagged": 0,
+    "total": 240
+  },
+  "positive_score_min": 0.9757044459624076,
+  "negative_score_max": 0.1559765658402914,
+  "artifact_sha256": "cad40debe3efe6547fc20b52a20abf991856706f51b0869671b43b7fab1e471d",
+  "limits": [
+    "Synthetic role attacks and quoted-markup controls on inspected NFCorpus questions.",
+    "Threshold selected on 40 grouped development questions; FiQA was not scored."
+  ]
+}
