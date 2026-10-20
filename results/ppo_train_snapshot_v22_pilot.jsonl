@@ -1,0 +1,1 @@
+{"batch": 1, "episodes": 2, "transitions": 5, "retrieval_rate": 0.0, "attack_success_rate": 0.0, "defended_attack_success_rate": 0.0, "attack_detection_rate": 0.0, "edit_cache_rows": 0, "loss": 0.18522174656391144, "policy_loss": -0.042233388870954514, "value_loss": 0.4004337787628174, "proxy_value_loss": 0.5050727725028992, "entropy": 2.3269031047821045}

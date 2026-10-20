@@ -1,0 +1,14 @@
+{
+  "status": "bounded clean MS MARCO validation replay with identity",
+  "questions": 75,
+  "retrieved_clean_candidates": 375,
+  "clean_quarantines": 0,
+  "same_answers": 75,
+  "corpus_sha256": "dade088b95c8e83238b5442a8c6bff89c2ece8ef5045fdfc147b69ef8c5bdd0d",
+  "snapshot_manifest_sha256": "6ab99ce47d6702c035191e33f6ded5343be41205f107311099b008788c2f5173",
+  "case_rows_sha256": "3c4fa0af43c2b239306c03a048752b137a922fe4c2d15ca3073a8ca631d50bc2",
+  "limits": [
+    "This clean replay uses unmodified snapshot passages; approved updates were not tested.",
+    "The local extractive answerer and 75 questions do not establish general utility."
+  ]
+}

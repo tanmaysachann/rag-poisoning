@@ -1,0 +1,16 @@
+{
+  "split": "validation",
+  "strategy": "random",
+  "cases": 75,
+  "retrieval_rate": 0.9066666666666666,
+  "attack_success_rate": 0.36,
+  "defended_attack_success_rate": 0.3333333333333333,
+  "defender_aware": true,
+  "detector_kind": "snapshot_integrity_v22",
+  "evaluation_detector_sha256": "6ab99ce47d6702c035191e33f6ded5343be41205f107311099b008788c2f5173",
+  "replace_existing": true,
+  "seed": 20261020,
+  "mean_reward": 1.1336668120621058,
+  "cached_transitions": 219,
+  "output": "results\\edit_rollout_validation_random_snapshot_v22.jsonl"
+}

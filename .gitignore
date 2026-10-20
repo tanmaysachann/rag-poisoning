@@ -36,6 +36,7 @@ data/snapshot_guard_v15/
 data/snapshot_guard_v16/
 
 .vercel
+tmp/v24_bundle/
 
 # Local-only process/development docs (kept locally, not tracked on GitHub).
 DEMO_SCRIPT.md

@@ -1,0 +1,9 @@
+{
+  "backend": "hashing",
+  "model": "sklearn-hashing-384",
+  "corpus_sha256": "6dbf1f15fa2c405a3ababeef8effb888122f3468619344830353628a7d8d0f5d",
+  "shape": [
+    150,
+    384
+  ]
+}

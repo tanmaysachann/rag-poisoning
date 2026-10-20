@@ -1,0 +1,70 @@
+{
+  "status": "adaptive development after PPO insertion bypass; not blind",
+  "method": "opening/middle/ending FTS retrieval and substantial source containment",
+  "snapshot_manifest_sha256": "d6c6f4f2eced04e1ab755784d903fadc281c4175378c74eb9ffe98740c224aea",
+  "threshold": 0.9,
+  "calibration_clean_flags": 0,
+  "calibration_clean_total": 214,
+  "evaluation": {
+    "threshold": 0.9,
+    "clean_flags": 0,
+    "clean_total": 311,
+    "clean_fpr": 0.0,
+    "reference_flags": 0,
+    "reference_total": 29,
+    "poison_caught": 133,
+    "poison_total": 755,
+    "poison_recall": 0.176158940397351,
+    "families": {
+      "advdecoding": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 22,
+        "total": 30,
+        "recall": 0.7333333333333333,
+        "questions_with_any_caught": 5,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 111,
+        "total": 145,
+        "recall": 0.7655172413793103,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      }
+    }
+  },
+  "case_rows_sha256": "d97f3e6af7597709e8158f8989b46d43323c3d9670653d959aed03c2e29652bc",
+  "elapsed_seconds": 78.32,
+  "limits": [
+    "The source snapshot is pinned, not proof of factual truth.",
+    "A benign document quoting a full source passage could alert.",
+    "These development questions had already been inspected."
+  ]
+}

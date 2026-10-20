@@ -1,0 +1,120 @@
+{
+  "schema": "multifamily-v20-source-labels",
+  "source": "Pinned PoisonArena six-family files with BEIR NQ clean retrievals/qrels",
+  "poisonarena_manifest_sha256": "c4700f1d007bfec107256b2f6cb810b33b09a599d4bce4527498ec4c02ed2f53",
+  "beir_md5": "d4d3d2e48787a744b6f6e691ff534307",
+  "parent_v9_training_sha256": "5551c3911a281c8c32dbabb2e10820d1187068c87e3fe2f15deda8c7d2c6e506",
+  "families": [
+    "advdecoding",
+    "content_poison",
+    "corpus_poison",
+    "garag",
+    "gaslite",
+    "poisonedrag_black"
+  ],
+  "splits": {
+    "train": {
+      "questions": 51,
+      "rows": 1855,
+      "label_counts": {
+        "reference": 51,
+        "clean_other": 494,
+        "poison": 1310
+      },
+      "family_counts": {
+        "reference": 51,
+        "clean": 494,
+        "advdecoding": 255,
+        "content_poison": 35,
+        "corpus_poison": 255,
+        "garag": 255,
+        "gaslite": 255,
+        "poisonedrag_black": 255
+      },
+      "query_ids_sha256": "f9236b4fa8c24698a854e294e33452df0a9ccfaab5394a865de1295b65ab52b6",
+      "sha256": "839d62fa29a70689f398df1d6ba3c2f2e673d406c09d71406ab1b4ef9fa152b8"
+    },
+    "calibration": {
+      "questions": 20,
+      "rows": 749,
+      "label_counts": {
+        "reference": 20,
+        "clean_other": 194,
+        "poison": 535
+      },
+      "family_counts": {
+        "reference": 20,
+        "clean": 194,
+        "advdecoding": 100,
+        "content_poison": 35,
+        "corpus_poison": 100,
+        "garag": 100,
+        "gaslite": 100,
+        "poisonedrag_black": 100
+      },
+      "query_ids_sha256": "eb7145fc7ece582f93da7989f00d01553a3fa634cfd8e817f55c5fce62df7040",
+      "sha256": "e9975f6292b81277539543d51dd7a0ba55d549430ee1c88058e232a135af56e3"
+    },
+    "evaluation": {
+      "questions": 29,
+      "rows": 1066,
+      "label_counts": {
+        "reference": 29,
+        "clean_other": 282,
+        "poison": 755
+      },
+      "family_counts": {
+        "reference": 29,
+        "clean": 282,
+        "advdecoding": 145,
+        "content_poison": 30,
+        "corpus_poison": 145,
+        "garag": 145,
+        "gaslite": 145,
+        "poisonedrag_black": 145
+      },
+      "query_ids_sha256": "9c9840278db07402c7c0c91170e00bcd136b63ec2c93f9d01e57b0f47344928c",
+      "sha256": "a111c7e5d06835892c48fde0df8d64b4af2e831186285c10b82f557c31b351a9"
+    }
+  },
+  "source_counts": {
+    "advdecoding": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "content_poison": {
+      "published_questions": 20,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 20
+    },
+    "corpus_poison": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "garag": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "gaslite": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "poisonedrag_black": {
+      "published_questions": 100,
+      "question_text_overlap_excluded": 0,
+      "new_questions": 100
+    },
+    "unique_new_questions": 100,
+    "published_answer_in_qrel": 78,
+    "reference_doc_overlap_with_train": 1
+  },
+  "limitations": [
+    "These are source labels, not independently reviewed factual-contradiction labels.",
+    "All PoisonArena questions have previously been inspected in this project; evaluation is development-only.",
+    "BEIR qrels are benchmark-selected references, not authenticated live sources."
+  ]
+}

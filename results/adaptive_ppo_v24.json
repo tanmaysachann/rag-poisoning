@@ -1,0 +1,68 @@
+{
+  "status": "two adaptive development rounds, each with one PPO seed",
+  "training_questions_per_round": 350,
+  "validation_questions": 75,
+  "rounds": [
+    {
+      "seed": 20261020,
+      "training_episodes": 200,
+      "checkpoint_sha256": "e87c10f824d44aa099bbf6ea4e1ddbaf87f31101f75f34d3aad10e3878e6b185",
+      "frozen_policy_against_training_defender": {
+        "report_sha256": "f459bf33d04ff70e1ec63689956443db2c6fc71bd15faeba62f626726af91848",
+        "raw_successes": 67,
+        "defended_successes": 67,
+        "detected_attacks": 0,
+        "cases": 75
+      },
+      "same_policy_against_next_defender": {
+        "report_sha256": "89d4c6c45aafcfa0c1a1d47d88bfe09331c68bcdf74b4c16033473950e168509",
+        "raw_successes": 67,
+        "defended_successes": 0,
+        "detected_attacks": 75,
+        "cases": 75
+      },
+      "fixed_baseline_defended_successes": 5,
+      "random_baseline_defended_successes": 25,
+      "fixed_baseline_report_sha256": "01de9eff705d43e9acafb9a0343dc59cf3d602bdf1401a9c046a3b1a325cda6d",
+      "random_baseline_report_sha256": "d9017fcbd26287179323150a651bddda031b8fedbad371ed2d792ed54cc4482f"
+    },
+    {
+      "seed": 20261021,
+      "training_episodes": 200,
+      "checkpoint_sha256": "67e53668c1c8d789ccc049439546bb4d368e46fd1ca32ce1c88af65568d8e9a9",
+      "frozen_policy_against_training_defender": {
+        "report_sha256": "e65befb34ba1a2f66e5f0ff817f21c5f9d6b07f8a42ebf8d3fa70471848be2ad",
+        "raw_successes": 68,
+        "defended_successes": 55,
+        "detected_attacks": 13,
+        "cases": 75
+      },
+      "same_policy_against_next_defender": {
+        "report_sha256": "bb72b91972f66925ee55ded07aa24af9022a4912e4e30ef79a59bc09a96b3015",
+        "raw_successes": 68,
+        "defended_successes": 0,
+        "detected_attacks": 75,
+        "cases": 75
+      },
+      "fixed_baseline_defended_successes": 5,
+      "random_baseline_defended_successes": 20,
+      "fixed_baseline_report_sha256": "ade838fe74a34d983531c3ed96d8b270508b99a910db5fc772202a669adc16f8",
+      "random_baseline_report_sha256": "95a81c9ad0eab8fb71e4b27efd13f94f253202c36260e5df30f2d79978f40929"
+    }
+  ],
+  "clean_answer_replay": {
+    "report_sha256": "9e14cb7040dd66686901f5d15d3efccb8067c56ea91ae0ea485a3249b3660a03",
+    "same_answers": 75,
+    "questions": 75,
+    "clean_quarantines": 0,
+    "retrieved_clean_candidates": 375
+  },
+  "limits": [
+    "The PPO policy was frozen only within each paired defender replay.",
+    "The V23 and identity changes were made after inspecting attack failures.",
+    "PPO used the local extractive RAG answer path and known-document replacement.",
+    "Exact identity checking requires an independently pinned pre-attack ID/hash map.",
+    "New inserted documents and approved source updates need separate handling.",
+    "One seed per round and reused development questions do not prove generalization."
+  ]
+}

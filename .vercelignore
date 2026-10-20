@@ -1,3 +1,6 @@
 artifacts/models/
 artifacts/vendor/
+artifacts/indexes/
+data/benchmark_snapshot_v22_train/
+data/benchmark_snapshot_v22/
 tmp/

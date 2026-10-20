@@ -1,0 +1,193 @@
+{
+  "product": "V24 local source-label and integrity scanner",
+  "status": "exploratory development; adaptive hardening after PPO failures",
+  "data_manifest_sha256": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec",
+  "learned_report_sha256": "f7ce9638f3369a6aa3862aa4c8853a612515e83fec83c27fbe2211898603693b",
+  "containment_report_sha256": "5524c223bef9685d4942e87fd4093a853cc47257864c209e40cc09509bdcf56c",
+  "calibration_artifact_sha256": "dec62f8d28b5279f5f5721ebeabbf3cf95efc0c46f51ea096906c3c05112fa40",
+  "calibration_clean_total": 214,
+  "calibration_clean_flags": 2,
+  "learned_only": {
+    "threshold": 4.272025739459554,
+    "clean_flags": 9,
+    "clean_total": 311,
+    "clean_fpr": 0.028938906752411574,
+    "reference_flags": 1,
+    "reference_total": 29,
+    "poison_caught": 409,
+    "poison_total": 755,
+    "poison_recall": 0.5417218543046357,
+    "families": {
+      "advdecoding": {
+        "caught": 43,
+        "total": 145,
+        "recall": 0.296551724137931,
+        "questions_with_any_caught": 21,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 5,
+        "total": 30,
+        "recall": 0.16666666666666666,
+        "questions_with_any_caught": 1,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 95,
+        "total": 145,
+        "recall": 0.6551724137931034,
+        "questions_with_any_caught": 27,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 10,
+        "total": 145,
+        "recall": 0.06896551724137931,
+        "questions_with_any_caught": 7,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 111,
+        "total": 145,
+        "recall": 0.7655172413793103,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 145,
+        "total": 145,
+        "recall": 1.0,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      }
+    }
+  },
+  "containment_only": {
+    "threshold": 0.9,
+    "clean_flags": 0,
+    "clean_total": 311,
+    "clean_fpr": 0.0,
+    "reference_flags": 0,
+    "reference_total": 29,
+    "poison_caught": 133,
+    "poison_total": 755,
+    "poison_recall": 0.176158940397351,
+    "families": {
+      "advdecoding": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 22,
+        "total": 30,
+        "recall": 0.7333333333333333,
+        "questions_with_any_caught": 5,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 111,
+        "total": 145,
+        "recall": 0.7655172413793103,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      }
+    }
+  },
+  "combined": {
+    "threshold": 0.5,
+    "clean_flags": 9,
+    "clean_total": 311,
+    "clean_fpr": 0.028938906752411574,
+    "reference_flags": 1,
+    "reference_total": 29,
+    "poison_caught": 534,
+    "poison_total": 755,
+    "poison_recall": 0.7072847682119205,
+    "families": {
+      "advdecoding": {
+        "caught": 43,
+        "total": 145,
+        "recall": 0.296551724137931,
+        "questions_with_any_caught": 21,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 27,
+        "total": 30,
+        "recall": 0.9,
+        "questions_with_any_caught": 6,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 95,
+        "total": 145,
+        "recall": 0.6551724137931034,
+        "questions_with_any_caught": 27,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 113,
+        "total": 145,
+        "recall": 0.7793103448275862,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 111,
+        "total": 145,
+        "recall": 0.7655172413793103,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 145,
+        "total": 145,
+        "recall": 1.0,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      }
+    }
+  },
+  "classification": {
+    "true_positive": 534,
+    "false_positive": 9,
+    "false_negative": 221,
+    "true_negative": 302,
+    "binary_accuracy": 0.7842401500938087,
+    "precision_at_this_attack_prevalence": 0.9834254143646409,
+    "balanced_accuracy": 0.8391729307297544,
+    "majority_class_accuracy": 0.7082551594746717
+  },
+  "identity_rule": "optional exact expected SHA-256 for a known source ID; no such authenticated hash in these rows",
+  "limits": [
+    "PoisonArena questions had previously been inspected; this is not blind.",
+    "Source labels are not independent factual or answer-impact judgments.",
+    "The reference and optional expected digest require external authentication.",
+    "The snapshot is a pinned corpus, not proof of factual truth.",
+    "No six-family downstream answer replay was done for this scanner."
+  ]
+}

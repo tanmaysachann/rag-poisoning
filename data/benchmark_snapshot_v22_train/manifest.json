@@ -1,0 +1,8 @@
+{
+  "source": "frozen MS MARCO benchmark train corpus; not reviewed truth",
+  "source_corpus_sha256": "d08b73c62955c9624fff4d83f1172487ae57e4d299c2acd66427f155d77a2106",
+  "passages": 350,
+  "database_filename": "passages_fts5.sqlite",
+  "database_sha256": "c1e9ac23625590270c40ad1ddc4c95f12fb11d3051483f30a48d5eea9974b100",
+  "schema": "FTS5 doc_id,title,body,sha256; porter unicode61"
+}

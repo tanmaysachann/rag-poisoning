@@ -1,0 +1,237 @@
+{
+  "product": "V22 local poisoned-document research scanner",
+  "status": "exploratory development, not blind or live serving",
+  "data_manifest_sha256": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec",
+  "learned_report_sha256": "f7ce9638f3369a6aa3862aa4c8853a612515e83fec83c27fbe2211898603693b",
+  "integrity_report_sha256": "ca98ed12c7494edd4b689ea6bb8ffd4c3664a174efebb7eae5999a0a7d65427a",
+  "calibration_artifact_sha256": "e653ca4844d72230dbde32960ce17e5f7ed2e0e4108b29be118d1b7533d9eeea",
+  "calibration_clean_total": 214,
+  "calibration_clean_flags": 2,
+  "learned_only": {
+    "threshold": 4.272025739459554,
+    "clean_flags": 9,
+    "clean_total": 311,
+    "clean_fpr": 0.028938906752411574,
+    "reference_flags": 1,
+    "reference_total": 29,
+    "poison_caught": 409,
+    "poison_total": 755,
+    "poison_recall": 0.5417218543046357,
+    "families": {
+      "advdecoding": {
+        "caught": 43,
+        "total": 145,
+        "recall": 0.296551724137931,
+        "questions_with_any_caught": 21,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 5,
+        "total": 30,
+        "recall": 0.16666666666666666,
+        "questions_with_any_caught": 1,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 95,
+        "total": 145,
+        "recall": 0.6551724137931034,
+        "questions_with_any_caught": 27,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 10,
+        "total": 145,
+        "recall": 0.06896551724137931,
+        "questions_with_any_caught": 7,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 111,
+        "total": 145,
+        "recall": 0.7655172413793103,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 145,
+        "total": 145,
+        "recall": 1.0,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      }
+    }
+  },
+  "integrity_only": {
+    "threshold": 0.9,
+    "clean_flags": 0,
+    "clean_total": 311,
+    "clean_fpr": 0.0,
+    "reference_flags": 0,
+    "reference_total": 29,
+    "poison_caught": 99,
+    "poison_total": 755,
+    "poison_recall": 0.13112582781456952,
+    "families": {
+      "advdecoding": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 18,
+        "total": 30,
+        "recall": 0.6,
+        "questions_with_any_caught": 5,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 81,
+        "total": 145,
+        "recall": 0.5586206896551724,
+        "questions_with_any_caught": 28,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      }
+    }
+  },
+  "combined": {
+    "threshold": 0.5,
+    "clean_flags": 9,
+    "clean_total": 311,
+    "clean_fpr": 0.028938906752411574,
+    "reference_flags": 1,
+    "reference_total": 29,
+    "poison_caught": 501,
+    "poison_total": 755,
+    "poison_recall": 0.6635761589403973,
+    "families": {
+      "advdecoding": {
+        "caught": 43,
+        "total": 145,
+        "recall": 0.296551724137931,
+        "questions_with_any_caught": 21,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 23,
+        "total": 30,
+        "recall": 0.7666666666666667,
+        "questions_with_any_caught": 6,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 95,
+        "total": 145,
+        "recall": 0.6551724137931034,
+        "questions_with_any_caught": 27,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 84,
+        "total": 145,
+        "recall": 0.5793103448275863,
+        "questions_with_any_caught": 28,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 111,
+        "total": 145,
+        "recall": 0.7655172413793103,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 145,
+        "total": 145,
+        "recall": 1.0,
+        "questions_with_any_caught": 29,
+        "questions": 29
+      }
+    }
+  },
+  "both_alerts": {
+    "threshold": 0.5,
+    "clean_flags": 0,
+    "clean_total": 311,
+    "clean_fpr": 0.0,
+    "reference_flags": 0,
+    "reference_total": 29,
+    "poison_caught": 7,
+    "poison_total": 755,
+    "poison_recall": 0.009271523178807948,
+    "families": {
+      "advdecoding": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "content_poison": {
+        "caught": 0,
+        "total": 30,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 6
+      },
+      "corpus_poison": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "garag": {
+        "caught": 7,
+        "total": 145,
+        "recall": 0.04827586206896552,
+        "questions_with_any_caught": 5,
+        "questions": 29
+      },
+      "gaslite": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      },
+      "poisonedrag_black": {
+        "caught": 0,
+        "total": 145,
+        "recall": 0.0,
+        "questions_with_any_caught": 0,
+        "questions": 29
+      }
+    }
+  },
+  "limits": [
+    "Question-disjoint development rows, but these questions were previously inspected.",
+    "Labels identify published attack passages, not downstream answer compromise.",
+    "The reference must be authenticated by the caller; BEIR qrels alone do not do that.",
+    "The integrity branch needs a separate, pinned pre-attack snapshot.",
+    "An exact corpus match does not establish truth or safety."
+  ]
+}

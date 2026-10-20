@@ -21,11 +21,12 @@ class TrustedSnapshotSearch:
 
     def __init__(self, directory: Path):
         manifest_path = directory / "manifest.json"
-        database = directory / "beir_nq_fts5.sqlite"
         self.manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        database = directory / self.manifest.get("database_filename", "beir_nq_fts5.sqlite")
         if digest(database, "sha256") != self.manifest["database_sha256"]:
             raise ValueError("Trusted snapshot database changed")
-        self.connection = sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)
+        self.connection = sqlite3.connect(database.resolve().as_uri() + "?mode=ro",
+                                          uri=True, check_same_thread=False)
         self.connection.row_factory = sqlite3.Row
 
     def close(self) -> None:

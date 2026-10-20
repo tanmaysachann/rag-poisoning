@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -15,6 +16,7 @@ from poison.edit_cache import EditEffectCache
 from poison.env import DocumentEditEnv
 from poison.rollout import run_episode
 from detect.research_detector import ResearchDetector
+from detect.snapshot_integrity_detector_v22 import SnapshotIntegrityDetector
 
 
 def _read_jsonl(path: Path) -> list[dict]:
@@ -32,15 +34,30 @@ def main() -> None:
     parser.add_argument("--defender-aware", action="store_true")
     parser.add_argument("--replace-existing", action="store_true")
     parser.add_argument("--detector", type=Path, default=ROOT_DIR / "artifacts/research_detector_hashing.joblib")
+    parser.add_argument("--snapshot-detector", type=Path,
+                        help="Pinned V22 corpus snapshot for this split")
+    parser.add_argument("--snapshot-containment", action="store_true",
+                        help="Use V23 containment when replaying a baseline")
     args = parser.parse_args()
     if args.limit < 1:
         raise ValueError("--limit must be positive")
     validate_benchmark(args.benchmark)
     queries = _read_jsonl(args.benchmark / args.split / "queries.jsonl")[:args.limit]
     answer_pool = [row["answer_aliases"][0] for row in _read_jsonl(args.benchmark / "train" / "queries.jsonl")]
-    detector = joblib.load(args.detector) if args.defender_aware else None
-    if detector is not None and not isinstance(detector, ResearchDetector):
-        raise ValueError("Wrong detector artifact type")
+    if args.snapshot_detector is not None and not args.defender_aware:
+        raise ValueError("--snapshot-detector requires --defender-aware")
+    if args.snapshot_containment and args.snapshot_detector is None:
+        raise ValueError("--snapshot-containment requires --snapshot-detector")
+    if args.snapshot_detector is not None:
+        corpus_path = args.benchmark / args.split / "corpus.jsonl"
+        detector = SnapshotIntegrityDetector(
+            args.snapshot_detector,
+            expected_corpus_sha256=hashlib.sha256(corpus_path.read_bytes()).hexdigest(),
+            containment=args.snapshot_containment)
+    else:
+        detector = joblib.load(args.detector) if args.defender_aware else None
+        if detector is not None and not isinstance(detector, ResearchDetector):
+            raise ValueError("Wrong detector artifact type")
     if args.strategy == "fixed_substitution" and not args.replace_existing:
         raise ValueError("fixed_substitution requires --replace-existing")
     cache = EditEffectCache(774)
@@ -71,12 +88,20 @@ def main() -> None:
             if detector is not None else None
         ),
         "defender_aware": args.defender_aware,
+        "detector_kind": ("snapshot_containment_v23" if args.snapshot_containment
+                          else "snapshot_integrity_v22" if args.snapshot_detector is not None
+                          else "research_detector_v3" if args.defender_aware else "none"),
+        "evaluation_detector_sha256": (detector.manifest_sha256 if
+                                        isinstance(detector, SnapshotIntegrityDetector)
+                                        else None),
         "replace_existing": args.replace_existing,
         "seed": args.seed,
         "mean_reward": sum(row["total_reward"] for row in records) / len(records),
         "cached_transitions": len(cache.rows), "output": str(output),
     }
     output.with_suffix(".summary.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+    if isinstance(detector, SnapshotIntegrityDetector):
+        detector.close()
     print(json.dumps(summary, indent=2))
 
 

@@ -1,0 +1,8 @@
+{
+  "source": "frozen MS MARCO benchmark validation corpus; not reviewed truth",
+  "source_corpus_sha256": "dade088b95c8e83238b5442a8c6bff89c2ece8ef5045fdfc147b69ef8c5bdd0d",
+  "passages": 75,
+  "database_filename": "passages_fts5.sqlite",
+  "database_sha256": "f7b19157770ccad6daac9708757a2891964495add1fe4b12eedf9c6f1b607880",
+  "schema": "FTS5 doc_id,title,body,sha256; porter unicode61"
+}

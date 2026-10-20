@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Zero-trust RAG poisoning detection console"><title>Sentinel RAG / Research Lab</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/research.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Zero-trust RAG poisoning detection console"><title>Sentinel RAG / Research Lab</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/research.css"><link rel="stylesheet" href="/v24.css"></head>
 <body>
 <div class="shell">
   <header class="topbar">
     <div class="brand"><span class="mark">S</span><div><strong>Sentinel RAG</strong><small>Research project</small></div></div>
-    <nav aria-label="Console views"><button class="nav-btn active" data-view="research">Research lab</button><button class="nav-btn" data-view="secure">Secure query</button><button class="nav-btn" data-view="analysis">Five-case demo</button><button class="nav-btn" data-view="architecture">Architecture</button></nav>
+    <nav aria-label="Console views"><button class="nav-btn active" data-view="research">Research lab</button><button class="nav-btn" data-view="v24">Poison scanner</button><button class="nav-btn" data-view="secure">Secure query</button><button class="nav-btn" data-view="analysis">Five-case demo</button><button class="nav-btn" data-view="architecture">Architecture</button></nav>
     <div class="system"><i></i> Live profile <span>v3 hashing / validation</span></div>
   </header>
 
@@ -205,6 +205,69 @@
     </details>
   </main>
 
+  <main id="view-v24" class="view research-view">
+    <section class="lab-hero">
+      <div><p class="lab-kicker">V25 · hosted research scanner</p><h1>Screen a candidate passage</h1><p class="lab-lede">Supply a question, a trusted reference, and the passage under review. V25 adds a behavioral detector and a reference-relative score to the V24 MiniLM, document signals, and pinned source search. Compare both versions below. A review is a source-risk signal, not a factual verdict.</p><div class="lab-chips"><span>Six attack families</span><span>Reference-adaptive ensemble</span><span>Source containment</span></div></div>
+      <aside class="lab-hero-aside"><span>Development evaluation</span><strong id="v24-hero-result">Loading saved results…</strong><p>29 previously inspected questions. This is not a blind test or a paired improvement over the earlier 30.3% figure.</p></aside>
+    </section>
+    <section class="lab-section" aria-labelledby="v24-scan-title">
+      <div class="lab-section-heading"><div><span>Live inference</span><h2 id="v24-scan-title">Document scanner</h2></div><p>The supplied reference must be authenticated by the person running the check. A benchmark reference is provided only for the published example.</p></div>
+      <div class="lab-workbench">
+        <div class="lab-controls">
+          <div class="lab-control-top"><span>Scanner input</span><span id="v24-ready">Checking assets…</span></div>
+          <label for="v24-model">Scanner version</label><select id="v24-model"><option value="v25">V25 · reference adaptive</option><option value="v24">V24 · original baseline</option></select>
+          <button id="v24-example" class="v24-secondary" type="button">Load published attack example</button>
+          <label for="v24-query">Question</label><textarea id="v24-query" rows="2" maxlength="500"></textarea>
+          <label for="v24-reference">Trusted reference passage</label><textarea id="v24-reference" rows="5" maxlength="6000"></textarea>
+          <label for="v24-candidate">Candidate passage</label><textarea id="v24-candidate" rows="6" maxlength="6000"></textarea>
+          <label for="v24-hash">Operator-pinned expected SHA-256 (optional)</label><input id="v24-hash" type="text" maxlength="64" autocomplete="off" spellcheck="false" placeholder="64 hex characters from an independent ID-to-hash map">
+          <p class="lab-small">Only use the hash field when you already have an independently pinned expected digest for this document ID. The text being checked cannot establish its own trust.</p>
+          <button id="v24-run" class="lab-run" type="button">Scan document <span>&rarr;</span></button>
+        </div>
+        <div class="lab-output">
+          <div class="lab-output-top"><span>V24 decision and reasons</span><span id="v24-mode">Research only</span></div>
+          <div id="v24-status" class="lab-status">Enter the three passages or load the example.</div>
+          <div id="v24-result" hidden>
+            <strong id="v24-decision" class="v24-decision"></strong>
+            <div class="v24-reasons"><article><span>Learned model</span><strong id="v24-learned">—</strong><small id="v24-learned-detail"></small></article><article><span>Pinned source containment</span><strong id="v24-integrity">—</strong><small id="v24-integrity-detail"></small></article><article><span>Expected hash</span><strong id="v24-identity">—</strong><small id="v24-identity-detail"></small></article></div>
+            <div id="v25-reasons" class="v24-reasons" hidden><article><span>V3 behavioral detector</span><strong id="v25-v3">—</strong><small id="v25-v3-detail"></small></article><article><span>Reference-relative fusion</span><strong id="v25-relative">—</strong><small id="v25-relative-detail"></small></article></div>
+            <p class="lab-input-note">A review result means the passage merits checking. A pass does not prove factual accuracy or safe behavior in a downstream RAG answer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="lab-section" aria-labelledby="v24-answer-title">
+      <div class="lab-section-heading"><div><span>Live answer-path replay</span><h2 id="v24-answer-title">Screen retrieved passages before answering</h2></div><p>A pre-attack benchmark snapshot supplies the reference and known document hashes. The primary answerer sees scanner-passing, snapshot-admitted passages; a separate clean snapshot can recover an answer.</p></div>
+      <div class="lab-workbench">
+        <div class="lab-controls">
+          <div class="lab-control-top"><span>Previously inspected V3 validation</span><span>Extractive answerer</span></div>
+          <label for="v24-rag-case">Validation question</label><select id="v24-rag-case"></select>
+          <label for="v24-rag-strategy">Attack surface</label><select id="v24-rag-strategy"><option value="stealth">Replace a known document</option><option value="greedy">Insert a new document</option></select>
+          <p class="lab-small">Known replacements are checked against the separate pre-attack snapshot. New document IDs are scanned but cannot supply an answer until admitted to an authenticated snapshot.</p>
+          <button id="v24-rag-run" class="lab-run" type="button">Run paired RAG answers <span>&rarr;</span></button>
+        </div>
+        <div class="lab-output">
+          <div class="lab-output-top"><span>Same retrieved batch, three answer paths</span><span id="v24-rag-time">Research only</span></div>
+          <div id="v24-rag-status" class="lab-status">Loading validation questions...</div>
+          <div id="v24-rag-result" hidden>
+            <div class="v24-answer-grid"><article><span>Without filtering</span><p id="v24-rag-off"></p><small id="v24-rag-off-source"></small></article><article><span>Frozen V3 gate</span><p id="v24-rag-v3"></p><small id="v24-rag-v3-source"></small></article><article><span>V24 + source admission</span><p id="v24-rag-on"></p><small id="v24-rag-on-source"></small></article></div>
+            <p id="v24-rag-detail" class="lab-input-note"></p>
+          </div>
+        </div>
+      </div>
+      <p class="lab-small">This is an answer-path integration on previously inspected benchmark cases. The qrel-selected reference is an experimental oracle, and the extractor is not a hosted LLM.</p>
+    </section>
+    <section class="lab-section" aria-labelledby="v24-evidence-title">
+      <div class="lab-section-heading"><div><span>Dataset and PPO evidence</span><h2 id="v24-evidence-title">What was trained and tested</h2></div><p>Saved reports from the local run. PPO trained the attacker to edit passages against frozen defenders; it is not the classifier's training algorithm.</p></div>
+      <div class="v24-metrics"><article><span>MiniLM warm start</span><strong>14,504</strong><small>training rows from 2,072 NQ questions</small></article><article><span>Six-family fine-tune</span><strong>1,855</strong><small>labeled rows from 51 training questions</small></article><article><span>Development attack recall</span><strong id="v24-recall">—</strong><small id="v24-recall-detail">Loading report…</small></article><article><span>Development clean flags</span><strong id="v24-clean">—</strong><small>False alarms among 311 clean/reference passages</small></article></div>
+      <p id="v24-ppo" class="lab-evidence-caption">Loading adaptive PPO comparison…</p>
+      <div class="v24-metrics"><article><span>SciFact transfer / inserted attacks</span><strong id="v24-transfer-attack">--</strong><small id="v24-transfer-clean">Loading 300-question transfer report...</small></article><article><span>Three PPO attacker seeds</span><strong id="v24-seeds">--</strong><small>Defended successes on 75 inspected validation questions per seed</small></article><article><span>Answer path / initial</span><strong id="v24-answer-initial">--</strong><small>V24 attack successes before source admission, 300 inspected cases</small></article><article><span>Answer path / admitted</span><strong id="v24-answer-admitted">--</strong><small>V24 attack successes after source admission and pinned recovery</small></article></div>
+      <div class="v24-metrics"><article><span>Frozen NFCorpus holdout / V25</span><strong id="v25-holdout-attack">--</strong><small id="v25-holdout-clean">Loading first-scored 120-question holdout...</small></article><article><span>Same holdout / V24</span><strong id="v25-baseline-attack">--</strong><small id="v25-baseline-clean">Paired original scanner baseline</small></article></div>
+      <p id="v24-research-note" class="lab-small">Loading cross-domain and answer-path limitations...</p>
+      <p class="lab-small">The 2.68-million-passage source corpus is a separate lookup snapshot, not 2.68 million labeled training rows. The 29 PoisonArena evaluation questions and PPO validation cases were previously inspected. AdvDecoding recall is 43/145. The answer-path replay above also uses previously inspected cases.</p>
+    </section>
+  </main>
+
   <main id="view-architecture" class="view">
     <section class="page-title"><p class="eyebrow">IMPLEMENTED RESEARCH SYSTEM</p><h2>How the experiment is built</h2><p>The live workbench stages one edit against the held-out validation corpus, rebuilds retrieval, checks integrity, scores a trained detector, and compares answers. PPO training and the larger model probes run offline.</p></section>
     <section class="architecture panel"><div class="panel-head"><span>RESEARCH PATH / VALIDATION</span><span>LIVE HASHING PROFILE</span></div><div class="arch-flow"><div class="arch-node"><span>01</span><b>PINNED DATA</b><small>Disjoint train / validation / test</small></div><i>&rarr;</i><div class="arch-node"><span>02</span><b>ATTACK EDIT</b><small>Greedy, stealth, or PPO policy</small></div><i>&rarr;</i><div class="arch-node"><span>03</span><b>HYBRID RETRIEVAL</b><small>BM25 + hashing + RRF</small></div><i>&rarr;</i><div class="arch-node accent"><span>04</span><b>TRUST GATE</b><small>SHA-256 + 8-feature detector</small></div><i>&rarr;</i><div class="arch-node"><span>05</span><b>PAIRED ANSWERS</b><small>Defense off / on + case trace</small></div></div></section>
@@ -217,5 +280,5 @@
   </main>
 
   <footer><span>Sentinel RAG · Academic research prototype</span><span>Live validation lab · Saved PPO and model experiments</span></footer>
-</div><script src="/app.js"></script><script src="/research.js"></script>
+</div><script src="/app.js"></script><script src="/research.js"></script><script src="/v24.js"></script>
 </body></html>

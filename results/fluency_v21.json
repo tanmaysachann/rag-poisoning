@@ -1,0 +1,259 @@
+{
+  "status": "exploratory development; architecture chosen after prior failure analysis",
+  "data_manifest_sha256": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec",
+  "v9_clean_data_sha256": "5551c3911a281c8c32dbabb2e10820d1187068c87e3fe2f15deda8c7d2c6e506",
+  "char_lm_clean_documents": 13812,
+  "v3_artifact_sha256": "632f07f0a729dfa2665a2fcebb756b0418c5d0ed8efe913b633892edba8a17d0",
+  "model_sha256": "87747b40909a097ca8b8c43f718afde6204ad502a4432adc8158fa4b50199bf6",
+  "models": {
+    "base_signals": {
+      "calibration_clean_total": 214,
+      "calibration_clean_flags": {
+        "1": 2,
+        "2": 4
+      },
+      "roc_auc": 0.8273780370946104,
+      "pr_auc": 0.9269193384490696,
+      "evaluation_at_fpr_target": {
+        "1": {
+          "threshold": 0.9258964211830274,
+          "clean_flags": 8,
+          "clean_total": 311,
+          "clean_fpr": 0.02572347266881029,
+          "reference_flags": 1,
+          "reference_total": 29,
+          "poison_caught": 287,
+          "poison_total": 755,
+          "poison_recall": 0.3801324503311258,
+          "families": {
+            "advdecoding": {
+              "caught": 42,
+              "total": 145,
+              "recall": 0.2896551724137931,
+              "questions_with_any_caught": 19,
+              "questions": 29
+            },
+            "content_poison": {
+              "caught": 4,
+              "total": 30,
+              "recall": 0.13333333333333333,
+              "questions_with_any_caught": 1,
+              "questions": 6
+            },
+            "corpus_poison": {
+              "caught": 64,
+              "total": 145,
+              "recall": 0.4413793103448276,
+              "questions_with_any_caught": 26,
+              "questions": 29
+            },
+            "garag": {
+              "caught": 6,
+              "total": 145,
+              "recall": 0.041379310344827586,
+              "questions_with_any_caught": 3,
+              "questions": 29
+            },
+            "gaslite": {
+              "caught": 26,
+              "total": 145,
+              "recall": 0.1793103448275862,
+              "questions_with_any_caught": 17,
+              "questions": 29
+            },
+            "poisonedrag_black": {
+              "caught": 145,
+              "total": 145,
+              "recall": 1.0,
+              "questions_with_any_caught": 29,
+              "questions": 29
+            }
+          }
+        },
+        "2": {
+          "threshold": 0.9082302614524168,
+          "clean_flags": 11,
+          "clean_total": 311,
+          "clean_fpr": 0.03536977491961415,
+          "reference_flags": 1,
+          "reference_total": 29,
+          "poison_caught": 318,
+          "poison_total": 755,
+          "poison_recall": 0.42119205298013246,
+          "families": {
+            "advdecoding": {
+              "caught": 48,
+              "total": 145,
+              "recall": 0.3310344827586207,
+              "questions_with_any_caught": 20,
+              "questions": 29
+            },
+            "content_poison": {
+              "caught": 5,
+              "total": 30,
+              "recall": 0.16666666666666666,
+              "questions_with_any_caught": 1,
+              "questions": 6
+            },
+            "corpus_poison": {
+              "caught": 80,
+              "total": 145,
+              "recall": 0.5517241379310345,
+              "questions_with_any_caught": 28,
+              "questions": 29
+            },
+            "garag": {
+              "caught": 6,
+              "total": 145,
+              "recall": 0.041379310344827586,
+              "questions_with_any_caught": 3,
+              "questions": 29
+            },
+            "gaslite": {
+              "caught": 34,
+              "total": 145,
+              "recall": 0.23448275862068965,
+              "questions_with_any_caught": 19,
+              "questions": 29
+            },
+            "poisonedrag_black": {
+              "caught": 145,
+              "total": 145,
+              "recall": 1.0,
+              "questions_with_any_caught": 29,
+              "questions": 29
+            }
+          }
+        }
+      }
+    },
+    "with_char_fluency": {
+      "calibration_clean_total": 214,
+      "calibration_clean_flags": {
+        "1": 2,
+        "2": 4
+      },
+      "roc_auc": 0.8989885223909201,
+      "pr_auc": 0.9538274834055086,
+      "evaluation_at_fpr_target": {
+        "1": {
+          "threshold": 0.9386892554777372,
+          "clean_flags": 6,
+          "clean_total": 311,
+          "clean_fpr": 0.01929260450160772,
+          "reference_flags": 1,
+          "reference_total": 29,
+          "poison_caught": 335,
+          "poison_total": 755,
+          "poison_recall": 0.44370860927152317,
+          "families": {
+            "advdecoding": {
+              "caught": 37,
+              "total": 145,
+              "recall": 0.25517241379310346,
+              "questions_with_any_caught": 17,
+              "questions": 29
+            },
+            "content_poison": {
+              "caught": 5,
+              "total": 30,
+              "recall": 0.16666666666666666,
+              "questions_with_any_caught": 1,
+              "questions": 6
+            },
+            "corpus_poison": {
+              "caught": 78,
+              "total": 145,
+              "recall": 0.5379310344827586,
+              "questions_with_any_caught": 26,
+              "questions": 29
+            },
+            "garag": {
+              "caught": 9,
+              "total": 145,
+              "recall": 0.06206896551724138,
+              "questions_with_any_caught": 6,
+              "questions": 29
+            },
+            "gaslite": {
+              "caught": 61,
+              "total": 145,
+              "recall": 0.4206896551724138,
+              "questions_with_any_caught": 23,
+              "questions": 29
+            },
+            "poisonedrag_black": {
+              "caught": 145,
+              "total": 145,
+              "recall": 1.0,
+              "questions_with_any_caught": 29,
+              "questions": 29
+            }
+          }
+        },
+        "2": {
+          "threshold": 0.911777416699954,
+          "clean_flags": 12,
+          "clean_total": 311,
+          "clean_fpr": 0.03858520900321544,
+          "reference_flags": 1,
+          "reference_total": 29,
+          "poison_caught": 403,
+          "poison_total": 755,
+          "poison_recall": 0.5337748344370861,
+          "families": {
+            "advdecoding": {
+              "caught": 55,
+              "total": 145,
+              "recall": 0.3793103448275862,
+              "questions_with_any_caught": 21,
+              "questions": 29
+            },
+            "content_poison": {
+              "caught": 6,
+              "total": 30,
+              "recall": 0.2,
+              "questions_with_any_caught": 2,
+              "questions": 6
+            },
+            "corpus_poison": {
+              "caught": 102,
+              "total": 145,
+              "recall": 0.7034482758620689,
+              "questions_with_any_caught": 29,
+              "questions": 29
+            },
+            "garag": {
+              "caught": 17,
+              "total": 145,
+              "recall": 0.11724137931034483,
+              "questions_with_any_caught": 12,
+              "questions": 29
+            },
+            "gaslite": {
+              "caught": 78,
+              "total": 145,
+              "recall": 0.5379310344827586,
+              "questions_with_any_caught": 27,
+              "questions": 29
+            },
+            "poisonedrag_black": {
+              "caught": 145,
+              "total": 145,
+              "recall": 1.0,
+              "questions_with_any_caught": 29,
+              "questions": 29
+            }
+          }
+        }
+      }
+    }
+  },
+  "runtime_seconds": 13.33,
+  "limitations": [
+    "These are source labels, not independently reviewed factual-contradiction labels.",
+    "All PoisonArena questions have previously been inspected in this project; evaluation is development-only.",
+    "BEIR qrels are benchmark-selected references, not authenticated live sources."
+  ],
+  "case_rows_sha256": "fb2dd9226e7527813dc7082a5aebf14700c56b5f3ece8f9672f01adcbfb58e2b"
+}

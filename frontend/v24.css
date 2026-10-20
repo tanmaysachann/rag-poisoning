@@ -1,0 +1,24 @@
+#view-v24 { padding-bottom: 50px; }
+#view-v24 .lab-controls textarea { min-height: 0; }
+#v24-hash { width: 100%; padding: 10px 11px; border: 1px solid #aebbc6; border-radius: 3px; font: 12px/1.45 monospace; }
+.v24-secondary { padding: 9px 11px; border: 1px solid var(--blue); background: #fff; color: var(--blue); font-size: 12px; font-weight: 700; }
+.v24-secondary:hover { background: var(--soft); }
+.v24-secondary:disabled { opacity: .55; cursor: wait; }
+.v24-decision { display: block; margin: 4px 0 18px; padding: 13px; border-left: 4px solid var(--green); background: #f0f6f2; color: var(--green); font-size: 16px; }
+.v24-decision[data-decision="review"] { border-left-color: var(--red); background: #fbf2f1; color: var(--red); }
+.v24-reasons, .v24-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.v24-reasons article, .v24-metrics article { min-width: 0; padding: 14px; border: 1px solid var(--line); background: #fff; }
+.v24-reasons span, .v24-metrics span { display: block; color: var(--muted); font-size: 11px; font-weight: 700; }
+.v24-reasons strong, .v24-metrics strong { display: block; margin: 8px 0; color: var(--ink); font-size: 16px; line-height: 1.35; }
+.v24-reasons small, .v24-metrics small { display: block; color: var(--muted); font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+.v24-metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 16px; }
+.v24-metrics strong { font-size: 25px; }
+#v24-result[hidden] { display: none; }
+.v24-answer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0; }
+.v24-answer-grid article { min-width: 0; padding: 14px; border: 1px solid var(--line); background: #fff; }
+.v24-answer-grid span, .v24-answer-grid small { display: block; color: var(--muted); font-size: 11px; font-weight: 700; }
+.v24-answer-grid p { color: var(--ink); line-height: 1.5; overflow-wrap: anywhere; }
+#v24-rag-result[hidden] { display: none; }
+@media (max-width: 900px) { .v24-reasons, .v24-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .v24-answer-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .v24-reasons, .v24-metrics { grid-template-columns: 1fr; } }

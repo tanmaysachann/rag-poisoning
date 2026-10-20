@@ -1,6 +1,29 @@
 # Sentinel RAG
 
 Sentinel RAG is a controlled, CPU-first research product for studying poisoned retrieval context. It includes a five-case demo, a live validation attack workbench, frozen benchmark evidence, and an offline PPO attack harness.
+
+The [V25 scanner and frozen NFCorpus holdout](V25_RESEARCH_RELEASE.md) improve
+new-domain synthetic attack detection from V24's 137/600 to **493/600**
+flagged passages, with **14/240** original clean passages flagged. This
+reference-adaptive rule combines existing trained signals; NFCorpus was held
+out, and PPO trains an attacker rather than the defender. The full report
+documents the weak role-delimiter family and the close V3-alone result.
+See [V25 deployment and smoke checks](DEPLOY_V25.md) for the hosted version.
+
+The [V24 poisoned-document scanner](PRODUCT_V24.md) is runnable with
+`python -m scripts.scan_poison_v24 --input data/multifamily_v20/evaluation.jsonl --limit 3`.
+Its learned and pinned-source branches flagged 534/755 published attack
+passages and 9/311 clean passages on previously inspected development
+questions. The product document records the 16,114-row V9 source dataset,
+six-family fine-tuning data, PPO attacker runs, adaptive bypasses,
+exact known-document integrity check, and reproduction commands. V24 is also
+served through the site's V24 tab with an explicitly selected research RAG
+answer replay. That replay scans retrieved passages, requires pinned source
+admission, and can recover from the independently pinned clean corpus. The
+Secure Query path retains its own policy. The [research release](V24_RESEARCH_RELEASE.md)
+records the weaker SciFact transfer result, three-seed PPO check, and paired
+answer-path failures and revision. See [deployment details](DEPLOY_V24.md).
+
 In this repository, **v1** means the first frozen 75-question test setup
 (MiniLM retrieval, sentence ranker, hashing detector), not the version of the
 live website. **v2** is a separate two-passage research benchmark whose test

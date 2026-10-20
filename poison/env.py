@@ -146,7 +146,7 @@ class DocumentEditEnv:
             if self.detector is not None:
                 kept = []
                 for doc in candidates:
-                    risk = self.detector.score(self.query["question"], doc["text"])
+                    risk = self._detector_score(doc["text"], doc["doc_id"])
                     if doc["doc_id"] == self.attack_doc_id:
                         attack_risk = risk["risk_score"]
                         detected = risk["decision"] == "quarantine"
@@ -171,6 +171,11 @@ class DocumentEditEnv:
             ),
         }
 
+    def _detector_score(self, text: str, doc_id: int) -> dict:
+        if hasattr(self.detector, "score_document"):
+            return self.detector.score_document(self.query["question"], text, doc_id)
+        return self.detector.score(self.query["question"], text)
+
     def step(self, action: EditAction | dict):
         if self.done:
             raise RuntimeError("Episode is finished; call reset()")
@@ -191,7 +196,7 @@ class DocumentEditEnv:
         self.done = terminated or truncated
         relevance = float(self.query_vector @ self.embedder.encode(self.text)[0])
         risk = (
-            self.detector.score(self.query["question"], self.text)["risk_score"]
+            self._detector_score(self.text, self.attack_doc_id)["risk_score"]
             if self.detector and valid and action.operation != "STOP" else None
         )
         components = step_reward(

@@ -1,0 +1,18 @@
+FROM python:3.12-slim AS snapshot
+WORKDIR /app
+COPY data/trusted_snapshot_v12/manifest.json data/trusted_snapshot_v12/calibration_manifest.json
+COPY data/build_trusted_snapshot_v12.py data/build_trusted_snapshot_v12.py
+ARG BEIR_URL=https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nq.zip
+RUN python -c "import hashlib,json,urllib.request; from pathlib import Path; expected=json.loads(Path('data/trusted_snapshot_v12/calibration_manifest.json').read_text())['archive_sha256']; source=urllib.request.urlopen('https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nq.zip',timeout=180); h=hashlib.sha256(); sink=open('/tmp/beir-nq.zip','wb'); exec('while True:\n block=source.read(8*1024*1024)\n if not block: break\n sink.write(block)\n h.update(block)'); sink.close(); source.close(); assert h.hexdigest()==expected, 'BEIR NQ archive SHA-256 mismatch'"
+RUN python -m data.build_trusted_snapshot_v12 --beir-archive /tmp/beir-nq.zip --output data/trusted_snapshot_v12
+
+FROM python:3.12-slim
+ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 V24_REBUILT_SNAPSHOT=1
+WORKDIR /app
+COPY requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+COPY --from=snapshot /app/data/trusted_snapshot_v12/beir_nq_fts5.sqlite /app/data/trusted_snapshot_v12/beir_nq_fts5.sqlite
+COPY --from=snapshot /app/data/trusted_snapshot_v12/manifest.json /app/data/trusted_snapshot_v12/manifest.json
+COPY --from=snapshot /app/data/trusted_snapshot_v12/calibration_manifest.json /app/data/trusted_snapshot_v12/calibration_manifest.json
+CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-7860}"]

@@ -1,0 +1,16 @@
+{
+  "split": "validation",
+  "strategy": "fixed_substitution",
+  "cases": 75,
+  "retrieval_rate": 0.7866666666666666,
+  "attack_success_rate": 0.2,
+  "defended_attack_success_rate": 0.05333333333333334,
+  "defender_aware": true,
+  "detector_kind": "snapshot_containment_v23",
+  "evaluation_detector_sha256": "6ab99ce47d6702c035191e33f6ded5343be41205f107311099b008788c2f5173",
+  "replace_existing": true,
+  "seed": 20261023,
+  "mean_reward": -0.31692352352113984,
+  "cached_transitions": 153,
+  "output": "C:\\Users\\tanma\\OneDrive\\Desktop\\Major Project\\rag-poisoning\\results\\edit_rollout_validation_fixed_substitution_snapshot_v23_seed20261023.jsonl"
+}

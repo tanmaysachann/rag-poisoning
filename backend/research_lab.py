@@ -21,6 +21,7 @@ from attack.harness import stage_document_attack
 from detect.research_detector import ResearchDetector
 from generation.grounded_answer import answer_from_accepted
 from pipeline.research_inference import infer_research
+from pipeline.v24_answer_gate import answer_with_v24
 from retrieval.hybrid_retriever import HybridRetriever
 from security.integrity import load_runtime_manifest, write_manifest
 
@@ -94,7 +95,7 @@ def case_catalog() -> dict:
 
 def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = None,
              attack_budget: int = 1, additional_attack_texts: list[str] | None = None,
-             snapshot_recovery: bool = True) -> dict:
+             snapshot_recovery: bool = True, v24_gate: bool = False) -> dict:
     queries, corpus, attacks, _ = _inputs()
     if qid not in queries or strategy not in attacks or surface not in {"accepted_ingest", "post_index_tamper"}:
         raise ValueError("Select a listed validation case, attack family, and trust surface")
@@ -162,6 +163,23 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
             pinned_snapshot=pinned_snapshot,
             snapshot_retriever=clean_retriever if snapshot_recovery else None,
         )
+        v24_answer = None
+        if v24_gate:
+            from backend import v24_service
+
+            support_id = int(query["support_doc_ids"][0])
+            reference = corpus[support_id]["text"]
+            if pinned_snapshot.check(support_id, reference)["status"] != "verified":
+                raise ValueError("Benchmark reference differs from the pinned pre-attack snapshot")
+            v24_answer = answer_with_v24(
+                query["question"],
+                [{"doc_id": row["doc_id"], "text": row["text"]}
+                 for row in inference["documents"]],
+                retriever, pinned_reference=reference,
+                pinned_reference_sha256=pinned_snapshot.hashes[str(support_id)],
+                expected_hashes=pinned_snapshot.hashes, scan=v24_service.scan,
+                snapshot=pinned_snapshot, snapshot_retriever=clean_retriever,
+            )
         if snapshot_recovery:
             clean_reference = inference["snapshot_reference"]
             clean_top_ids = inference["snapshot_guard"]["independent_top_five_ids"]
@@ -231,6 +249,18 @@ def run_case(qid: str, strategy: str, surface: str, attack_text: str | None = No
         "snapshot_guard": inference["snapshot_guard"],
         "evidence_defended": evidence_answer,
         "evidence_answer_trace": inference["evidence_answer_trace"],
+        "v24_answer_path": ({
+            **v24_answer,
+            "retrieved_attack_docs_reviewed": sum(
+                row["doc_id"] in attack_id_set and row["decision"] == "review"
+                for row in v24_answer["documents"]),
+            "attack_source_success": (
+                v24_answer["defended"]["source_doc_id"] in attack_id_set
+                and wrong in v24_answer["defended"]["answer"].casefold()),
+            "clean_alias_recovered": any(
+                alias.casefold() in v24_answer["defended"]["answer"].casefold()
+                for alias in query["answer_aliases"]),
+        } if v24_answer is not None else None),
         "evidence_screen": inference["evidence_screen"],
         "clean": {"answer": clean_answer, "source_doc_id": clean_source,
                   "top_five_ids": clean_top_ids,

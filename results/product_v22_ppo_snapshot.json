@@ -1,0 +1,23 @@
+{
+  "status": "cross-corpus development stress test; no answer replay",
+  "snapshot_manifest_sha256": "6ab99ce47d6702c035191e33f6ded5343be41205f107311099b008788c2f5173",
+  "ppo_learned_case_sha256": "53bf34def006c5b75b1f0fa859d7df86f2b35cb08e265daacaff1edc43250c9b",
+  "threshold": 0.9,
+  "clean_exact_matches": 74,
+  "clean_total": 75,
+  "clean_integrity_flags": 0,
+  "attack_attempts": 225,
+  "integrity_flags": 90,
+  "combined_flags": 96,
+  "successful_attempts": 34,
+  "integrity_flags_among_successes": 12,
+  "combined_flags_among_successes": 13,
+  "limits": [
+    "The frozen corpus is a benchmark source, not a reviewed truth set.",
+    "A near-copy alert detects changed source text; benign edits can alert too.",
+    "The PPO policy was trained against V3, not the new product.",
+    "Flags on saved successful rollouts are not measured prevented answers.",
+    "The 0/75 clean result tests unmodified corpus passages, not legitimate updates."
+  ],
+  "case_rows_sha256": "18db0f62c86be31e8e2f0b6be846221d97c853f479a10f93e5257d457dbe8ac5"
+}

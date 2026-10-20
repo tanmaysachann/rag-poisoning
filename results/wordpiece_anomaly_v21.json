@@ -1,0 +1,345 @@
+{
+  "status": "exploratory development",
+  "signals": {
+    "fertility": {
+      "calibration_at_1pct": {
+        "threshold": 1.7391304347826089,
+        "clean_flags": 2,
+        "clean_total": 214,
+        "clean_fpr": 0.009345794392523364,
+        "reference_flags": 0,
+        "reference_total": 20,
+        "poison_caught": 13,
+        "poison_total": 535,
+        "poison_recall": 0.024299065420560748,
+        "families": {
+          "advdecoding": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "content_poison": {
+            "caught": 8,
+            "total": 35,
+            "recall": 0.22857142857142856,
+            "questions_with_any_caught": 4,
+            "questions": 7
+          },
+          "corpus_poison": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "garag": {
+            "caught": 5,
+            "total": 100,
+            "recall": 0.05,
+            "questions_with_any_caught": 3,
+            "questions": 20
+          },
+          "gaslite": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "poisonedrag_black": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          }
+        }
+      },
+      "evaluation_at_1pct": {
+        "threshold": 1.7391304347826089,
+        "clean_flags": 2,
+        "clean_total": 311,
+        "clean_fpr": 0.006430868167202572,
+        "reference_flags": 0,
+        "reference_total": 29,
+        "poison_caught": 16,
+        "poison_total": 755,
+        "poison_recall": 0.02119205298013245,
+        "families": {
+          "advdecoding": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          },
+          "content_poison": {
+            "caught": 11,
+            "total": 30,
+            "recall": 0.36666666666666664,
+            "questions_with_any_caught": 3,
+            "questions": 6
+          },
+          "corpus_poison": {
+            "caught": 3,
+            "total": 145,
+            "recall": 0.020689655172413793,
+            "questions_with_any_caught": 2,
+            "questions": 29
+          },
+          "garag": {
+            "caught": 2,
+            "total": 145,
+            "recall": 0.013793103448275862,
+            "questions_with_any_caught": 2,
+            "questions": 29
+          },
+          "gaslite": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          },
+          "poisonedrag_black": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          }
+        }
+      }
+    },
+    "continuation": {
+      "calibration_at_1pct": {
+        "threshold": 0.3129770992366413,
+        "clean_flags": 2,
+        "clean_total": 214,
+        "clean_fpr": 0.009345794392523364,
+        "reference_flags": 0,
+        "reference_total": 20,
+        "poison_caught": 12,
+        "poison_total": 535,
+        "poison_recall": 0.022429906542056073,
+        "families": {
+          "advdecoding": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "content_poison": {
+            "caught": 1,
+            "total": 35,
+            "recall": 0.02857142857142857,
+            "questions_with_any_caught": 1,
+            "questions": 7
+          },
+          "corpus_poison": {
+            "caught": 5,
+            "total": 100,
+            "recall": 0.05,
+            "questions_with_any_caught": 3,
+            "questions": 20
+          },
+          "garag": {
+            "caught": 6,
+            "total": 100,
+            "recall": 0.06,
+            "questions_with_any_caught": 4,
+            "questions": 20
+          },
+          "gaslite": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "poisonedrag_black": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          }
+        }
+      },
+      "evaluation_at_1pct": {
+        "threshold": 0.3129770992366413,
+        "clean_flags": 0,
+        "clean_total": 311,
+        "clean_fpr": 0.0,
+        "reference_flags": 0,
+        "reference_total": 29,
+        "poison_caught": 10,
+        "poison_total": 755,
+        "poison_recall": 0.013245033112582781,
+        "families": {
+          "advdecoding": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          },
+          "content_poison": {
+            "caught": 0,
+            "total": 30,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 6
+          },
+          "corpus_poison": {
+            "caught": 9,
+            "total": 145,
+            "recall": 0.06206896551724138,
+            "questions_with_any_caught": 4,
+            "questions": 29
+          },
+          "garag": {
+            "caught": 1,
+            "total": 145,
+            "recall": 0.006896551724137931,
+            "questions_with_any_caught": 1,
+            "questions": 29
+          },
+          "gaslite": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          },
+          "poisonedrag_black": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          }
+        }
+      }
+    },
+    "one_char_piece": {
+      "calibration_at_1pct": {
+        "threshold": 0.3779069767441861,
+        "clean_flags": 2,
+        "clean_total": 214,
+        "clean_fpr": 0.009345794392523364,
+        "reference_flags": 0,
+        "reference_total": 20,
+        "poison_caught": 6,
+        "poison_total": 535,
+        "poison_recall": 0.011214953271028037,
+        "families": {
+          "advdecoding": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "content_poison": {
+            "caught": 4,
+            "total": 35,
+            "recall": 0.11428571428571428,
+            "questions_with_any_caught": 2,
+            "questions": 7
+          },
+          "corpus_poison": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "garag": {
+            "caught": 2,
+            "total": 100,
+            "recall": 0.02,
+            "questions_with_any_caught": 2,
+            "questions": 20
+          },
+          "gaslite": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          },
+          "poisonedrag_black": {
+            "caught": 0,
+            "total": 100,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 20
+          }
+        }
+      },
+      "evaluation_at_1pct": {
+        "threshold": 0.3779069767441861,
+        "clean_flags": 6,
+        "clean_total": 311,
+        "clean_fpr": 0.01929260450160772,
+        "reference_flags": 1,
+        "reference_total": 29,
+        "poison_caught": 20,
+        "poison_total": 755,
+        "poison_recall": 0.026490066225165563,
+        "families": {
+          "advdecoding": {
+            "caught": 1,
+            "total": 145,
+            "recall": 0.006896551724137931,
+            "questions_with_any_caught": 1,
+            "questions": 29
+          },
+          "content_poison": {
+            "caught": 12,
+            "total": 30,
+            "recall": 0.4,
+            "questions_with_any_caught": 4,
+            "questions": 6
+          },
+          "corpus_poison": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          },
+          "garag": {
+            "caught": 6,
+            "total": 145,
+            "recall": 0.041379310344827586,
+            "questions_with_any_caught": 3,
+            "questions": 29
+          },
+          "gaslite": {
+            "caught": 0,
+            "total": 145,
+            "recall": 0.0,
+            "questions_with_any_caught": 0,
+            "questions": 29
+          },
+          "poisonedrag_black": {
+            "caught": 1,
+            "total": 145,
+            "recall": 0.006896551724137931,
+            "questions_with_any_caught": 1,
+            "questions": 29
+          }
+        }
+      }
+    }
+  },
+  "data_manifest_sha256": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec",
+  "tokenizer": "MiniLM WordPiece from the trained V20 model",
+  "selected_on_calibration": "fertility",
+  "selected_calibration_macro_recall": 0.04642857142857143
+}

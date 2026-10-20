@@ -1,0 +1,132 @@
+{
+  "method": "maximum clean-calibrated upper-tail surprise of MiniLM and fluency-signal model",
+  "status": "exploratory development after V20 evaluation inspection",
+  "data_manifest_sha256": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec",
+  "neural_model_sha256": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+  "signal_model_sha256": "87747b40909a097ca8b8c43f718afde6204ad502a4432adc8158fa4b50199bf6",
+  "calibration_clean_total": 214,
+  "calibration_clean_flags": {
+    "1": 2,
+    "2": 4
+  },
+  "evaluation_at_fpr_target": {
+    "1": {
+      "threshold": 4.272025739459554,
+      "clean_flags": 9,
+      "clean_total": 311,
+      "clean_fpr": 0.028938906752411574,
+      "reference_flags": 1,
+      "reference_total": 29,
+      "poison_caught": 409,
+      "poison_total": 755,
+      "poison_recall": 0.5417218543046357,
+      "families": {
+        "advdecoding": {
+          "caught": 43,
+          "total": 145,
+          "recall": 0.296551724137931,
+          "questions_with_any_caught": 21,
+          "questions": 29
+        },
+        "content_poison": {
+          "caught": 5,
+          "total": 30,
+          "recall": 0.16666666666666666,
+          "questions_with_any_caught": 1,
+          "questions": 6
+        },
+        "corpus_poison": {
+          "caught": 95,
+          "total": 145,
+          "recall": 0.6551724137931034,
+          "questions_with_any_caught": 27,
+          "questions": 29
+        },
+        "garag": {
+          "caught": 10,
+          "total": 145,
+          "recall": 0.06896551724137931,
+          "questions_with_any_caught": 7,
+          "questions": 29
+        },
+        "gaslite": {
+          "caught": 111,
+          "total": 145,
+          "recall": 0.7655172413793103,
+          "questions_with_any_caught": 29,
+          "questions": 29
+        },
+        "poisonedrag_black": {
+          "caught": 145,
+          "total": 145,
+          "recall": 1.0,
+          "questions_with_any_caught": 29,
+          "questions": 29
+        }
+      }
+    },
+    "2": {
+      "threshold": 3.9843436670077725,
+      "clean_flags": 12,
+      "clean_total": 311,
+      "clean_fpr": 0.03858520900321544,
+      "reference_flags": 1,
+      "reference_total": 29,
+      "poison_caught": 463,
+      "poison_total": 755,
+      "poison_recall": 0.6132450331125828,
+      "families": {
+        "advdecoding": {
+          "caught": 56,
+          "total": 145,
+          "recall": 0.38620689655172413,
+          "questions_with_any_caught": 25,
+          "questions": 29
+        },
+        "content_poison": {
+          "caught": 5,
+          "total": 30,
+          "recall": 0.16666666666666666,
+          "questions_with_any_caught": 1,
+          "questions": 6
+        },
+        "corpus_poison": {
+          "caught": 111,
+          "total": 145,
+          "recall": 0.7655172413793103,
+          "questions_with_any_caught": 27,
+          "questions": 29
+        },
+        "garag": {
+          "caught": 15,
+          "total": 145,
+          "recall": 0.10344827586206896,
+          "questions_with_any_caught": 9,
+          "questions": 29
+        },
+        "gaslite": {
+          "caught": 131,
+          "total": 145,
+          "recall": 0.903448275862069,
+          "questions_with_any_caught": 29,
+          "questions": 29
+        },
+        "poisonedrag_black": {
+          "caught": 145,
+          "total": 145,
+          "recall": 1.0,
+          "questions_with_any_caught": 29,
+          "questions": 29
+        }
+      }
+    }
+  },
+  "limitations": [
+    "These are source labels, not independently reviewed factual-contradiction labels.",
+    "All PoisonArena questions have previously been inspected in this project; evaluation is development-only.",
+    "BEIR qrels are benchmark-selected references, not authenticated live sources.",
+    "The development questions and component results were inspected before this fusion.",
+    "Source labels are not downstream answer outcomes."
+  ],
+  "case_rows_sha256": "d400797bd8cf5dff7405e31a956ab93c96cf2a94d93e308e55b23657201a22b0"
+}

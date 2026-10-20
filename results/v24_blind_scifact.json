@@ -1,0 +1,146 @@
+{
+  "protocol": "v24-blind-scifact-source-label-transfer-v1",
+  "status": "frozen_cross_domain_synthetic_transfer",
+  "dataset_manifest_sha256": "830aafc246f5e28a2812b2d2f136a7862da6173f2b34e1843e9ac17bca5efe70",
+  "cases_sha256": "24c8036293a0f71b1e0d67a6cc847ef356e532c35ede624384ef5850f0efa212",
+  "model_sha256": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+  "calibration_sha256": "dec62f8d28b5279f5f5721ebeabbf3cf95efc0c46f51ea096906c3c05112fa40",
+  "questions": 300,
+  "cases": 1500,
+  "metrics": {
+    "v24": {
+      "attack_recall": {
+        "flagged": 488,
+        "total": 900,
+        "rate": 0.5422222222222223
+      },
+      "clean_false_alarm": {
+        "flagged": 122,
+        "total": 600,
+        "rate": 0.20333333333333334
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.49,
+          0.5955555555555555
+        ],
+        "clean_false_alarm": [
+          0.17,
+          0.23333333333333334
+        ]
+      }
+    },
+    "v3_detector": {
+      "attack_recall": {
+        "flagged": 899,
+        "total": 900,
+        "rate": 0.9988888888888889
+      },
+      "clean_false_alarm": {
+        "flagged": 4,
+        "total": 600,
+        "rate": 0.006666666666666667
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.9966666666666667,
+          1.0
+        ],
+        "clean_false_alarm": [
+          0.0016666666666666668,
+          0.015
+        ]
+      }
+    },
+    "learned_only": {
+      "attack_recall": {
+        "flagged": 488,
+        "total": 900,
+        "rate": 0.5422222222222223
+      },
+      "clean_false_alarm": {
+        "flagged": 122,
+        "total": 600,
+        "rate": 0.20333333333333334
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.49,
+          0.5955555555555555
+        ],
+        "clean_false_alarm": [
+          0.17,
+          0.23333333333333334
+        ]
+      }
+    },
+    "containment_only": {
+      "attack_recall": {
+        "flagged": 0,
+        "total": 900,
+        "rate": 0.0
+      },
+      "clean_false_alarm": {
+        "flagged": 0,
+        "total": 600,
+        "rate": 0.0
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.0,
+          0.0
+        ],
+        "clean_false_alarm": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "attack_families": {
+    "instruction": {
+      "v24": {
+        "flagged": 173,
+        "total": 300,
+        "rate": 0.5766666666666667
+      },
+      "v3_detector": {
+        "flagged": 300,
+        "total": 300,
+        "rate": 1.0
+      }
+    },
+    "authority_spoof": {
+      "v24": {
+        "flagged": 172,
+        "total": 300,
+        "rate": 0.5733333333333334
+      },
+      "v3_detector": {
+        "flagged": 299,
+        "total": 300,
+        "rate": 0.9966666666666667
+      }
+    },
+    "answer_suffix": {
+      "v24": {
+        "flagged": 143,
+        "total": 300,
+        "rate": 0.4766666666666667
+      },
+      "v3_detector": {
+        "flagged": 300,
+        "total": 300,
+        "rate": 1.0
+      }
+    }
+  },
+  "elapsed_seconds_this_run": 608.7,
+  "limits": [
+    "Synthetic fixed-template source labels; no independent factual review.",
+    "SciFact relevance qrels are not a truth oracle for scientific claims.",
+    "New inserted documents have no authenticated known-ID hash.",
+    "This measures passage screening, not downstream RAG answer correctness.",
+    "No tuning on these cases is allowed after the freeze."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "protocol": "v24-blind-scifact-source-label-transfer-v1",
+  "source_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/scifact.zip",
+  "archive_sha256": "536e14446a0ba56ed1398ab1055f39fe852686ecad24a6306c80c490fa8e0165",
+  "archive_md5": "5f7d1de60b170fc8027bb7898e2efca1",
+  "builder_sha256": "e92bdcb3d59fd25eb7e857695ff9fa04f861f25731ed79fdda41dc56828058e9",
+  "cases_sha256": "f8d0bb5928a7fccaaa4f79db7a5a02d330ce40fbb27433a0ee06c88b8f94930d",
+  "questions": 300,
+  "rows": 1500,
+  "labels": {
+    "reference": 300,
+    "clean_other": 300,
+    "poison": 900
+  },
+  "families": [
+    "instruction",
+    "authority_spoof",
+    "answer_suffix"
+  ],
+  "attacker_surface": "new inserted document; no operator-pinned document hash",
+  "reference_meaning": "BEIR relevance qrel, not verified factual truth",
+  "label_meaning": "clean original abstract versus deterministic attacker-authored insertion",
+  "model_sha256": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+  "calibration_sha256": "dec62f8d28b5279f5f5721ebeabbf3cf95efc0c46f51ea096906c3c05112fa40",
+  "earlier_data_manifests_sha256": {
+    "data/reference_detector_v9/manifest.json": "fda1c07c52f5657ecddd7fa2a7e4499ea73524960bd1245f5822fffe81b48bd8",
+    "data/multifamily_v20/manifest.json": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec"
+  },
+  "evaluation_rule": "No model, threshold, or template changes after this manifest is frozen"
+}

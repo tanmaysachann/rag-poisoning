@@ -1,3 +1,6 @@
 *.pdf binary
 *.npy binary
 *.joblib binary
+data/multifamily_v20/manifest.json -text whitespace=cr-at-eol
+data/v25_nfcorpus_holdout/manifest.json -text whitespace=cr-at-eol
+results/v25_rule_frozen.json -text whitespace=cr-at-eol

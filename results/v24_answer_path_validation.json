@@ -1,0 +1,60 @@
+{
+  "protocol": "v24-paired-v3-validation-answer-replay-v1",
+  "split": "previously_inspected_validation",
+  "answer_backend": "hashing_extractive",
+  "attack_surface": "accepted_ingest; stealth replaces a known document, greedy inserts a new one",
+  "reference_source": "benchmark support passage checked against pre-attack corpus SHA-256 manifest",
+  "inputs_sha256": {
+    "data/benchmark_v3/manifest.json": "4030d1baf856bc6d7d52f16ce5e2c5840a4281ba5cee4fc44debb55c757ea4e1",
+    "results/v3_attack_validation_stealth.jsonl": "239419afba3a9328a12ee0cdd0409ce03ee2887fa3699ba7ba159de4e2eb92e2",
+    "results/v3_attack_validation_greedy.jsonl": "de69af4bd1fa3e42b469893e4aebfd0e4bfaf5ecf63212077e606b748ed8000c",
+    "artifacts/multifamily_v20/model.safetensors": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+    "artifacts/product_v24_calibration.joblib": "dec62f8d28b5279f5f5721ebeabbf3cf95efc0c46f51ea096906c3c05112fa40"
+  },
+  "cases_sha256": "458d87af65a7bc620b74cc447cc53f21c435be5acaccfeac4fbd4bc02bb13d87",
+  "summary": {
+    "overall": {
+      "cases": 300,
+      "retrieved_attacks": 266,
+      "undefended_attack_successes": 137,
+      "v3_attack_successes": 19,
+      "v24_attack_successes": 100,
+      "v3_clean_alias_recovered": 28,
+      "v24_clean_alias_recovered": 7,
+      "v24_abstentions": 165,
+      "v24_retrieved_attack_reviews": 140
+    },
+    "stealth": {
+      "cases": 150,
+      "retrieved_attacks": 116,
+      "undefended_attack_successes": 19,
+      "v3_attack_successes": 19,
+      "v24_attack_successes": 0,
+      "v3_clean_alias_recovered": 1,
+      "v24_clean_alias_recovered": 0,
+      "v24_abstentions": 148,
+      "v24_retrieved_attack_reviews": 116
+    },
+    "greedy": {
+      "cases": 150,
+      "retrieved_attacks": 150,
+      "undefended_attack_successes": 118,
+      "v3_attack_successes": 0,
+      "v24_attack_successes": 100,
+      "v3_clean_alias_recovered": 27,
+      "v24_clean_alias_recovered": 7,
+      "v24_abstentions": 17,
+      "v24_retrieved_attack_reviews": 24
+    }
+  },
+  "paired_question_cluster_95pct_ci_v24_minus_v3_attack_success_rate": [
+    0.22666666666666666,
+    0.31666666666666665
+  ],
+  "limits": [
+    "The same 150 validation questions were inspected during prior development.",
+    "The benchmark support passage is supplied by a qrel; a public RAG service needs its own authenticated reference selection.",
+    "The extractor emits source spans and is not a hosted LLM answer-quality test.",
+    "Any later detector tuning invalidates this as a fresh evaluation."
+  ]
+}

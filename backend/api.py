@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT))
 from config import POISONED_DOCS_PATH
 from backend.research_lab import case_catalog, ppo_case, ppo_history, run_case
 from backend.secure_service import SecureServiceConfigurationError, secure_query, secure_service_status
+from backend import v24_service, v25_service
 from pipeline.secure_rag import secure_rag_answer
 
 app = FastAPI(title="Sentinel RAG", version="0.6.0")
@@ -38,6 +39,7 @@ class ResearchRunRequest(BaseModel):
     attack_text: str | None = Field(default=None, max_length=4000)
     attack_budget: int = Field(default=1, ge=1, le=3)
     additional_attack_texts: list[str] | None = Field(default=None, max_length=2)
+    v24_gate: bool = False
 
 
 class SecureQueryRequest(BaseModel):
@@ -45,10 +47,95 @@ class SecureQueryRequest(BaseModel):
     top_k: int = Field(default=5, ge=1, le=20)
 
 
+class V24ScanRequest(BaseModel):
+    query: str = Field(min_length=2, max_length=500)
+    reference: str = Field(min_length=1, max_length=6000)
+    candidate: str = Field(min_length=1, max_length=6000)
+    expected_sha256: str | None = Field(default=None, pattern=r"^[0-9a-fA-F]{64}$")
+
+
 @app.get("/api/health")
 def health() -> dict:
     return {"status": "operational", "mode": "research-prototype", "version": "0.6.0",
             "retrieval_scope": "closed-corpus-only"}
+
+
+@app.get("/api/v24/status")
+def v24_status() -> dict:
+    return v24_service.status()
+
+
+@app.get("/api/v24/evidence")
+def v24_evidence() -> dict:
+    try:
+        return v24_service.evidence()
+    except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=503, detail="V24 evaluation reports are unavailable") from error
+
+
+@app.get("/api/v24/sample")
+def v24_sample() -> dict:
+    try:
+        return v24_service.sample()
+    except (OSError, ValueError, KeyError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=503, detail="Pinned V24 example is unavailable") from error
+
+
+@app.get("/api/v24/research-evidence")
+def v24_research_evidence() -> dict:
+    """Serve saved local reports without evaluating or training on request."""
+    names = {
+        "transfer": "v24_blind_scifact.json",
+        "answer_initial": "v24_answer_path_validation.json",
+        "answer_admitted": "v24_answer_path_validation_admitted.json",
+        "ppo_multiseed": "v24_ppo_multiseed.json",
+    }
+    try:
+        return {key: json.loads((ROOT / "results" / name).read_text(encoding="utf-8"))
+                for key, name in names.items()}
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=503, detail="Research evidence reports are unavailable") from error
+
+
+@app.post("/api/v24/scan")
+def v24_scan(body: V24ScanRequest) -> dict:
+    try:
+        result = v24_service.scan(body.query, body.reference, body.candidate,
+                                  body.expected_sha256)
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except ValueError as error:
+        if "required" in str(error):
+            raise HTTPException(status_code=400, detail=str(error)) from error
+        raise HTTPException(status_code=503, detail="V24 scanner integrity check failed") from error
+    return {"version": "v24", "split": "research_inference", **result}
+
+
+@app.get("/api/v25/status")
+def v25_status() -> dict:
+    return v25_service.status()
+
+
+@app.get("/api/v25/evidence")
+def v25_evidence() -> dict:
+    try:
+        return v25_service.evidence()
+    except (OSError, KeyError, ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=503, detail="V25 evidence is unavailable") from error
+
+
+@app.post("/api/v25/scan")
+def v25_scan(body: V24ScanRequest) -> dict:
+    try:
+        result = v25_service.scan(body.query, body.reference, body.candidate,
+                                  body.expected_sha256)
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+    except ValueError as error:
+        if "required" in str(error):
+            raise HTTPException(status_code=400, detail=str(error)) from error
+        raise HTTPException(status_code=503, detail="V25 scanner integrity check failed") from error
+    return {"split": "research_inference", **result}
 
 
 @app.get("/api/scenarios")
@@ -182,7 +269,10 @@ def lab_run(body: ResearchRunRequest) -> dict:
     try:
         return run_case(body.qid, body.strategy, body.surface, body.attack_text,
                         attack_budget=body.attack_budget,
-                        additional_attack_texts=body.additional_attack_texts)
+                        additional_attack_texts=body.additional_attack_texts,
+                        v24_gate=body.v24_gate)
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=503, detail="V24 scanner is unavailable") from error
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 

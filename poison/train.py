@@ -19,6 +19,7 @@ from poison.policy import FactoredActorCritic
 from poison.ppo import collect_episode, ppo_update
 from poison.reward import RewardWeights
 from detect.research_detector import ResearchDetector
+from detect.snapshot_integrity_detector_v22 import SnapshotIntegrityDetector
 
 
 def _read_jsonl(path: Path) -> list[dict]:
@@ -43,6 +44,10 @@ def main() -> None:
     parser.add_argument("--defender-aware", action="store_true", help="Use the frozen detector in step and terminal rewards")
     parser.add_argument("--replace-existing", action="store_true", help="Edit the support passage before accepted ingest")
     parser.add_argument("--detector", type=Path, default=ARTIFACTS_DIR / "research_detector_hashing.joblib")
+    parser.add_argument("--snapshot-detector", type=Path,
+                        help="Train against a pinned V22 pre-attack corpus snapshot")
+    parser.add_argument("--snapshot-containment", action="store_true",
+                        help="Train against V23 source containment instead of V22 near-copy")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--metrics-output", type=Path, help="Keep each seed's training history separate")
     args = parser.parse_args()
@@ -50,6 +55,10 @@ def main() -> None:
         raise ValueError("Batch and episode counts must be positive")
     if min(args.detection_weight, args.proxy_value_weight, args.cache_weight) < 0:
         raise ValueError("Reward, proxy-value, and cache weights must be nonnegative")
+    if args.snapshot_detector is not None and not args.defender_aware:
+        raise ValueError("--snapshot-detector requires --defender-aware")
+    if args.snapshot_containment and args.snapshot_detector is None:
+        raise ValueError("--snapshot-containment requires --snapshot-detector")
     validate_benchmark(args.benchmark)
     torch.set_num_threads(1)
     torch.manual_seed(args.seed)
@@ -59,9 +68,24 @@ def main() -> None:
     answer_pool = [row["answer_aliases"][0] for row in queries]
     policy = FactoredActorCritic(conditional_heads=not args.ablate_head_conditioning)
     optimizer = torch.optim.Adam(policy.parameters(), lr=args.learning_rate)
-    detector = joblib.load(args.detector) if args.defender_aware else None
-    if detector is not None and not isinstance(detector, ResearchDetector):
-        raise ValueError("Wrong detector artifact type")
+    if args.snapshot_detector is not None:
+        detector = SnapshotIntegrityDetector(
+            args.snapshot_detector,
+            expected_corpus_sha256=hashlib.sha256(corpus_path.read_bytes()).hexdigest(),
+            containment=args.snapshot_containment)
+        detector_kind = ("snapshot_containment_v23" if args.snapshot_containment
+                         else "snapshot_integrity_v22")
+        detector_sha256 = detector.manifest_sha256
+    elif args.defender_aware:
+        detector = joblib.load(args.detector)
+        if not isinstance(detector, ResearchDetector):
+            raise ValueError("Wrong detector artifact type")
+        detector_kind = "research_detector_v3"
+        detector_sha256 = hashlib.sha256(args.detector.read_bytes()).hexdigest()
+    else:
+        detector = None
+        detector_kind = "none"
+        detector_sha256 = None
     records = []
     reward_weights = RewardWeights(detection=args.detection_weight)
     edit_cache = EditEffectCache(state_dim=774) if args.cache_weight else None
@@ -103,7 +127,11 @@ def main() -> None:
         }
         records.append(record)
         print(json.dumps(record))
-    output = args.output or ARTIFACTS_DIR / ("poison_policy_ppo_defender.pt" if args.defender_aware else "poison_policy_ppo.pt")
+    output = args.output or ARTIFACTS_DIR / (
+        "poison_policy_ppo_snapshot_v23.pt" if args.snapshot_containment
+        else "poison_policy_ppo_snapshot_v22.pt" if args.snapshot_detector is not None
+        else "poison_policy_ppo_defender.pt" if args.defender_aware
+        else "poison_policy_ppo.pt")
     output.parent.mkdir(parents=True, exist_ok=True)
     checkpoint = {
         "state_version": STATE_VERSION,
@@ -119,19 +147,24 @@ def main() -> None:
             "cache_weight": args.cache_weight,
             "conditional_heads": not args.ablate_head_conditioning,
             "defender_aware": args.defender_aware,
+            "detector_kind": detector_kind,
             "replace_existing": args.replace_existing,
             "reward_weights": vars(reward_weights),
-            "detector_sha256": hashlib.sha256(args.detector.read_bytes()).hexdigest() if detector else None,
+            "detector_sha256": detector_sha256,
             "detector_threshold": detector.threshold if detector else None,
         },
     }
     torch.save(checkpoint, output)
     RESULTS_DIR.mkdir(exist_ok=True)
     metrics_path = args.metrics_output or RESULTS_DIR / (
-        "ppo_train_defender.jsonl" if args.defender_aware else "ppo_train.jsonl"
-    )
+        "ppo_train_snapshot_v23.jsonl" if args.snapshot_containment
+        else "ppo_train_snapshot_v22.jsonl" if args.snapshot_detector is not None
+        else "ppo_train_defender.jsonl" if args.defender_aware
+        else "ppo_train.jsonl")
     metrics_path.parent.mkdir(parents=True, exist_ok=True)
     metrics_path.write_text("".join(json.dumps(row) + "\n" for row in records), encoding="utf-8")
+    if isinstance(detector, SnapshotIntegrityDetector):
+        detector.close()
     print(f"Saved {output} and {metrics_path}")
 
 

@@ -1,0 +1,47 @@
+{
+  "protocol": "v25-reference-adaptive-frozen-rule-v1",
+  "status": "frozen_before_nfcorpus_holdout_scoring",
+  "decision": "containment OR authenticated-known-ID-mismatch OR v3-risk>=0.75 OR (v24-fusion>=4.272025739459554 AND fusion-minus-reference>=0.5)",
+  "v3_threshold": 0.75,
+  "fusion_threshold": 4.272025739459554,
+  "reference_margin": 0.5,
+  "development": {
+    "poisonarena": {
+      "attack": [
+        525,
+        755
+      ],
+      "clean": [
+        8,
+        311
+      ]
+    },
+    "scifact": {
+      "attack": [
+        888,
+        900
+      ],
+      "clean": [
+        11,
+        600
+      ]
+    }
+  },
+  "input_sha256": {
+    "detect/product_v25.py": "9901811d92064881150dd251fef493024d3cc23391884c44a908e2e7c802db06",
+    "detect/product_v22.py": "25335beb37fd7696b09b1a9e3d7c0ca41b80d7c058dad368465643ea3d865147",
+    "artifacts/multifamily_v20/model.safetensors": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+    "artifacts/product_v24_calibration.joblib": "dec62f8d28b5279f5f5721ebeabbf3cf95efc0c46f51ea096906c3c05112fa40",
+    "artifacts/research_detector_v3_hashing_web.joblib": "fd93e4548d056aa4e5382ec3e79fe88d5dd50d164a662b356a4671167cd61df9",
+    "results/v25_poisonarena_dev_scores.jsonl": "6d9539463459d8ad3b47bbe8c039d083d8b7c1ba226bbb20470290357cd83ab8",
+    "results/v24_blind_scifact.cases.jsonl": "24c8036293a0f71b1e0d67a6cc847ef356e532c35ede624384ef5850f0efa212",
+    "data/v25_nfcorpus_holdout/manifest.json": "8a2bac6f20dfb83da7ca4f3816fa475487ff09584e8a2de115c2a741d477b8ec",
+    "data/v25_nfcorpus_holdout/cases.jsonl": "6b60fe4a1ec6d44d5df010755b61880367cf838a69e7c4497a98a98562d5c3f4"
+  },
+  "limits": [
+    "Both development sets were previously inspected when this rule was chosen.",
+    "NFCorpus case contents were generated and pinned, but no model scores were read before this freeze.",
+    "Synthetic source labels do not establish factual truth or RAG answer impact.",
+    "The reference requires external authentication; new document admission remains a separate policy."
+  ]
+}

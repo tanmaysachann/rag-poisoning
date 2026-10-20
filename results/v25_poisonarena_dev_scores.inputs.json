@@ -1,0 +1,12 @@
+{
+  "protocol": "v25-inspected-development-v3-risk-cache-v1",
+  "input_sha256": {
+    "data/multifamily_v20/evaluation.jsonl": "a111c7e5d06835892c48fde0df8d64b4af2e831186285c10b82f557c31b351a9",
+    "results/fusion_v21.cases.jsonl": "d400797bd8cf5dff7405e31a956ab93c96cf2a94d93e308e55b23657201a22b0",
+    "results/snapshot_containment_v23.cases.jsonl": "d97f3e6af7597709e8158f8989b46d43323c3d9670653d959aed03c2e29652bc",
+    "artifacts/research_detector_v3_hashing_web.joblib": "fd93e4548d056aa4e5382ec3e79fe88d5dd50d164a662b356a4671167cd61df9"
+  },
+  "rows_sha256": "6d9539463459d8ad3b47bbe8c039d083d8b7c1ba226bbb20470290357cd83ab8",
+  "rows": 1066,
+  "status": "previously_inspected_development_only"
+}

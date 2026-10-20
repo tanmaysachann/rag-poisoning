@@ -1,0 +1,24 @@
+{
+  "status": "cross-corpus stress test on saved PPO attacker rollouts",
+  "ppo_reports_sha256": {
+    "ppo_validation_defender_seed42.json": "f1753fa702926e65c697e7c1ac8142ae7b50f6d90129aeb60fe1ba2c6acea220",
+    "ppo_validation_defender_seed43.json": "e15d75846a6e8cdbc0c047f222214920250093a758ffba8d00ebbec37b53c85f",
+    "ppo_validation_defender_seed44.json": "4fd70a89bf07006a4f73d275e6d72c0e8240f76bff4c97d7b6d67bf08e45352d"
+  },
+  "attempts": 225,
+  "edited_attempts": 225,
+  "v21_learned_flags": 7,
+  "v3_detected": 11,
+  "attack_successes": 34,
+  "v21_flags_among_successes": 1,
+  "clean_reference_flags": 3,
+  "clean_reference_total": 75,
+  "case_rows_sha256": "53bf34def006c5b75b1f0fa859d7df86f2b35cb08e265daacaff1edc43250c9b",
+  "limits": [
+    "The PPO attacker was trained on MS MARCO against the older V3 defender.",
+    "V21 was trained on BEIR NQ and its clean calibration does not transfer automatically.",
+    "This scores saved final documents; no new answer replay or PPO retraining occurred.",
+    "A flag on a successful attack is not a measured prevented answer.",
+    "The supplied support passage is a benchmark reference, not independently authenticated."
+  ]
+}

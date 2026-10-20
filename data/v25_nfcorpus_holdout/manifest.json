@@ -1,0 +1,28 @@
+{
+  "protocol": "v25-nfcorpus-frozen-source-label-holdout-v1",
+  "source_url": "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip",
+  "archive_sha256": "efe5be03f8c5b86a5870102d0599d227c8c6e2484328e68c6522560385671b0b",
+  "archive_md5": "a89dba18a62ef92f7d323ec890a0d38d",
+  "builder_sha256": "bd556c87034bb8cf9624b525d9693c68ea9890408c4764e5dc07c38e0921b5f6",
+  "cases_sha256": "6b60fe4a1ec6d44d5df010755b61880367cf838a69e7c4497a98a98562d5c3f4",
+  "questions": 120,
+  "rows": 840,
+  "labels": {
+    "reference": 120,
+    "clean_other": 120,
+    "poison": 600
+  },
+  "families": [
+    "system_notice",
+    "forged_qa",
+    "buried_override",
+    "role_delimiter",
+    "editorial_key"
+  ],
+  "reference_meaning": "BEIR relevance qrel, not verified factual truth",
+  "label_meaning": "original NFCorpus text versus attacker-authored new insertion",
+  "question_nonoverlap": "exact normalized text versus prior NQ, PoisonArena, and SciFact cases",
+  "baseline_model_sha256": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+  "baseline_calibration_sha256": "dec62f8d28b5279f5f5721ebeabbf3cf95efc0c46f51ea096906c3c05112fa40",
+  "evaluation_rule": "Choose and hash the V25 rule using inspected development data before scoring these cases"
+}

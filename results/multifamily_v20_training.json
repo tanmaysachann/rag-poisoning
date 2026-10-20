@@ -1,0 +1,51 @@
+{
+  "model": "MiniLM reference-conditioned, V9 warm start, six-family fine-tune",
+  "training_manifest_sha256": "b3b73c8bf0afa305c1f89eade5015e6f7d03b1b9491f39b3e034e6b85047afec",
+  "v9_base_weights_sha256": "cc8854679126a2ebc6d629895ccfc5f6072fb88ff60170d7e6b49b0e7e008fe4",
+  "model_weights_sha256": "3fa4dc6258fb2439e8492766b319445d183e9a1d041bed84d50e2b6f701c10b6",
+  "seed": 20261020,
+  "device": "cuda",
+  "epochs": 2,
+  "batch_size": 8,
+  "train_questions": 51,
+  "calibration_questions": 20,
+  "train_rows": 1855,
+  "calibration_rows": 749,
+  "train_windows": 1932,
+  "calibration_windows": 775,
+  "train_label_counts": {
+    "reference": 51,
+    "clean_other": 494,
+    "poison": 1310
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.1013199987586526,
+      "window_macro_f1": 0.7197720884615647,
+      "window_poison_recall": 0.8102189781021898,
+      "window_counts": {
+        "reference": 20,
+        "clean_other": 207,
+        "poison": 548
+      }
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3381949602510811,
+      "window_macro_f1": 0.7543612412883113,
+      "window_poison_recall": 0.7937956204379562,
+      "window_counts": {
+        "reference": 20,
+        "clean_other": 207,
+        "poison": 548
+      }
+    }
+  ],
+  "seconds": 35.88,
+  "limitations": [
+    "These are source labels, not independently reviewed factual-contradiction labels.",
+    "All PoisonArena questions have previously been inspected in this project; evaluation is development-only.",
+    "BEIR qrels are benchmark-selected references, not authenticated live sources."
+  ]
+}

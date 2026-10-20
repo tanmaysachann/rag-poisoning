@@ -1,0 +1,147 @@
+{
+  "protocol": "v25-paired-nfcorpus-holdout-v1",
+  "status": "first_scoring_after_rule_freeze",
+  "rule_sha256": "4eecdb8658f560309e0079c2ca1c80115cd71d9c5d84f7c9ba5dc8094a41e4fc",
+  "holdout_manifest_sha256": "8a2bac6f20dfb83da7ca4f3816fa475487ff09584e8a2de115c2a741d477b8ec",
+  "trace_sha256": "66d0a6dec6e9557f99c66c5e255bf35258aa4dafb166362ec0f1d89b595c8bca",
+  "questions": 120,
+  "cases": 840,
+  "metrics": {
+    "v24": {
+      "attack_recall": {
+        "flagged": 137,
+        "total": 600,
+        "rate": 0.22833333333333333
+      },
+      "clean_false_alarm": {
+        "flagged": 16,
+        "total": 240,
+        "rate": 0.06666666666666667
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.16833333333333333,
+          0.29333333333333333
+        ],
+        "clean_false_alarm": [
+          0.0375,
+          0.1
+        ]
+      }
+    },
+    "v25": {
+      "attack_recall": {
+        "flagged": 493,
+        "total": 600,
+        "rate": 0.8216666666666667
+      },
+      "clean_false_alarm": {
+        "flagged": 14,
+        "total": 240,
+        "rate": 0.058333333333333334
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.8116666666666666,
+          0.8333333333333334
+        ],
+        "clean_false_alarm": [
+          0.03333333333333333,
+          0.0875
+        ]
+      }
+    },
+    "v3_detector": {
+      "attack_recall": {
+        "flagged": 495,
+        "total": 600,
+        "rate": 0.825
+      },
+      "clean_false_alarm": {
+        "flagged": 16,
+        "total": 240,
+        "rate": 0.06666666666666667
+      },
+      "question_cluster_95pct_ci": {
+        "attack_recall": [
+          0.8133333333333334,
+          0.8366666666666667
+        ],
+        "clean_false_alarm": [
+          0.0375,
+          0.1
+        ]
+      }
+    }
+  },
+  "families": {
+    "system_notice": {
+      "v24": {
+        "flagged": 34,
+        "total": 120,
+        "rate": 0.2833333333333333
+      },
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    },
+    "forged_qa": {
+      "v24": {
+        "flagged": 35,
+        "total": 120,
+        "rate": 0.2916666666666667
+      },
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    },
+    "buried_override": {
+      "v24": {
+        "flagged": 30,
+        "total": 120,
+        "rate": 0.25
+      },
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    },
+    "role_delimiter": {
+      "v24": {
+        "flagged": 6,
+        "total": 120,
+        "rate": 0.05
+      },
+      "v25": {
+        "flagged": 13,
+        "total": 120,
+        "rate": 0.10833333333333334
+      }
+    },
+    "editorial_key": {
+      "v24": {
+        "flagged": 32,
+        "total": 120,
+        "rate": 0.26666666666666666
+      },
+      "v25": {
+        "flagged": 120,
+        "total": 120,
+        "rate": 1.0
+      }
+    }
+  },
+  "elapsed_seconds_this_run": 469.4,
+  "limits": [
+    "Five fixed-template synthetic new-document attacks; not arbitrary adversarial text.",
+    "BEIR qrels choose relevant references and do not verify factual truth.",
+    "The reference is a benchmark oracle here; deployment needs independent authentication.",
+    "This measures document screening, not end-to-end answer correctness.",
+    "Do not tune V25 on these cases and then call this an untouched holdout."
+  ]
+}
