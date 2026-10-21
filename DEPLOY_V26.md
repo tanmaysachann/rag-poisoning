@@ -92,3 +92,26 @@ same text, then load and run the same-question clean control. Describe the
 120/120 versus 0/120 result as a targeted post-hoc known-pattern stress,
 not the first frozen FiQA score or general accuracy. PPO trained the attacker;
 the V26 defender uses a supervised role-boundary signal.
+
+## Full presentation-site audit (21 October 2026)
+
+Commit `db73cf0` was pushed to `origin/main`; production site deployment
+`dpl_GLPGm3krzDLZodYS8ptPeDsAYraj` reached `READY` and was aliased to
+`https://rag-poisoning.vercel.app/`. The navigation now leads with V26 and its
+architecture, labels the v3 workbench as a research archive and the five-case
+view as the original demo, and removes the unavailable signed-corpus Secure
+Query view. The older V24 answer replay is available behind an expandable
+section. Historical views load their data when opened, leaving the landing
+page focused on the V26 scanner.
+
+The audit found two public 409 errors caused by Git archive converting
+hash-pinned LF files to CRLF in the Windows-built site bundle. The bundle
+builder now overlays those exact-byte evidence files. Both the 75-case v1
+verifier and the 150-question v3 generalization verifier passed inside the
+staged bundle; the public `/api/test-summary` and
+`/api/generalization-summary` endpoints then returned verified results.
+
+Live checks also confirmed V26 availability, the pinned attack returning
+V25 `pass` and V26 `review`, its clean control returning V26 `pass`, an
+answering five-case request, a v3 research-workbench request, PDF links,
+and a rendered 1440-by-900 production landing page.
