@@ -19,3 +19,9 @@ results/v26_fiqa_answer_path.json -text whitespace=cr-at-eol
 results/v26_fiqa_answer_path.cases.jsonl -text whitespace=cr-at-eol
 results/v26_nfcorpus_development_replay.json -text whitespace=cr-at-eol
 results/v26_presentation_sample.json -text whitespace=cr-at-eol
+# These v3 evidence hashes were sealed with CRLF bytes; preserve them in Git deploys.
+data/benchmark_v3/manifest.json -text whitespace=cr-at-eol
+results/research_detector_v3_validation.json -text whitespace=cr-at-eol
+results/v3_generalization_validation.json -text whitespace=cr-at-eol
+results/v3_generalization_validation.manifest.json -text whitespace=cr-at-eol
+results/v3_generalization_test.json -text whitespace=cr-at-eol

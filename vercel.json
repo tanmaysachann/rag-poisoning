@@ -3,7 +3,7 @@
   "functions": {
     "app.py": {
       "includeFiles": "{frontend,data,artifacts,output,results,research_protocols}/**",
-      "excludeFiles": "{artifacts/models/**,artifacts/vendor/**,artifacts/*.pt,tests/**,tmp/**}",
+      "excludeFiles": "{artifacts/models/**,artifacts/vendor/**,artifacts/multifamily_v20/model.safetensors,artifacts/*.pt,tests/**,tmp/**}",
       "maxDuration": 60
     }
   }

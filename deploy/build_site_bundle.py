@@ -83,7 +83,7 @@ def build(output: Path) -> dict:
     output = output.resolve()
     if ROOT.resolve() not in output.parents or output.exists():
         raise ValueError("Output must be a new directory inside this workspace")
-    archive = subprocess.run(["git", "archive", "--format=zip", "HEAD"], cwd=ROOT,
+    archive = subprocess.run(["git", "-c", "core.autocrlf=false", "archive", "--format=zip", "HEAD"], cwd=ROOT,
                              capture_output=True, check=True).stdout
     with zipfile.ZipFile(io.BytesIO(archive)) as source:
         for item in source.infolist():

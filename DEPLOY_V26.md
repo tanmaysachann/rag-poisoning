@@ -115,3 +115,17 @@ Live checks also confirmed V26 availability, the pinned attack returning
 V25 `pass` and V26 `review`, its clean control returning V26 `pass`, an
 answering five-case request, a v3 research-workbench request, PDF links,
 and a rendered 1440-by-900 production landing page.
+
+### Automatic Git deployment follow-up
+
+A later documentation push triggered a Git-based production deployment and
+exposed a second line-ending difference: five v3 JSON files had been sealed
+with CRLF bytes but stored by Git with LF. Their `.gitattributes` entries now
+preserve the sealed bytes, and site archives explicitly disable automatic
+line-ending conversion. The root Vercel configuration also excludes the
+separately hosted neural checkpoint, matching the staged site release.
+
+The full local suite passed: 104 tests and 24 subtests. The API test import
+was renamed so pytest no longer collects an imported endpoint as an
+assertion-free test. Frozen model artifacts and benchmark outcomes were not
+retrained or changed by this deployment repair.
