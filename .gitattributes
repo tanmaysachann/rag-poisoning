@@ -18,3 +18,4 @@ results/v26_fiqa_role_stress.cases.jsonl -text whitespace=cr-at-eol
 results/v26_fiqa_answer_path.json -text whitespace=cr-at-eol
 results/v26_fiqa_answer_path.cases.jsonl -text whitespace=cr-at-eol
 results/v26_nfcorpus_development_replay.json -text whitespace=cr-at-eol
+results/v26_presentation_sample.json -text whitespace=cr-at-eol

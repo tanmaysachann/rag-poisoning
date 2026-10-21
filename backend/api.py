@@ -1,6 +1,7 @@
 """Local API and static web server for the Review-1 secure RAG demo."""
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -149,6 +150,22 @@ def v26_evidence() -> dict:
         return v26_service.evidence()
     except (OSError, KeyError, ValueError, json.JSONDecodeError) as error:
         raise HTTPException(status_code=503, detail="V26 evidence is unavailable") from error
+
+
+@app.get("/api/v26/sample")
+def v26_sample() -> dict:
+    """Return a pinned, previously scored role attack and its clean control."""
+    try:
+        sample = json.loads((ROOT / "results/v26_presentation_sample.json").read_text(encoding="utf-8"))
+        report = ROOT / "results/v26_fiqa_role_stress.json"
+        if (sample["protocol"] != "v26-pinned-presentation-sample-v1"
+                or sample["report_sha256"] != hashlib.sha256(report.read_bytes()).hexdigest()):
+            raise ValueError("V26 presentation sample differs from saved evidence")
+        return {key: sample[key] for key in (
+            "query_id", "family", "query", "reference", "attack", "clean",
+            "expected", "evidence_status", "note")}
+    except (OSError, KeyError, ValueError, json.JSONDecodeError) as error:
+        raise HTTPException(status_code=503, detail="V26 presentation sample is unavailable") from error
 
 
 @app.post("/api/v26/scan")

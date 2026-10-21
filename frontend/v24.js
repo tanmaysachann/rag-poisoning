@@ -3,6 +3,7 @@
   const el = id => document.getElementById(id);
   const percent = value => `${(100 * Number(value)).toFixed(1)}%`;
   const available = {v24: false, v25: false, v26: false};
+  let v26CleanControl = null;
 
   async function request(url, options) {
     const response = await fetch(url, options);
@@ -30,6 +31,11 @@
     const ready = Boolean(available[version]);
     el('v24-ready').textContent = ready ? `${version.toUpperCase()} model + snapshot ready` : `${version.toUpperCase()} assets unavailable`;
     el('v24-run').disabled = !ready;
+    if (ready && !el('v24-result').hidden) {
+      el('v24-result').hidden = true;
+      el('v24-status').dataset.state = 'ready';
+      el('v24-status').textContent = `${version.toUpperCase()} selected. Run the scan to see this version's decision.`;
+    }
     if (!ready) {
       el('v24-status').dataset.state = 'error';
       el('v24-status').textContent = `The selected ${version.toUpperCase()} scanner is unavailable.`;
@@ -40,34 +46,52 @@
     try {
       const data = await request('/api/v24/evidence');
       const combined = data.product.combined;
-      el('v24-hero-result').textContent = `${combined.poison_caught}/${combined.poison_total} attacks flagged; ${combined.clean_flags}/${combined.clean_total} clean passages flagged.`;
+      if (el('v24-hero-result')) el('v24-hero-result').textContent = `${combined.poison_caught}/${combined.poison_total} attacks flagged; ${combined.clean_flags}/${combined.clean_total} clean passages flagged.`;
       el('v24-recall').textContent = percent(combined.poison_recall);
       el('v24-recall-detail').textContent = `${combined.poison_caught} of ${combined.poison_total} published attack passages`;
       el('v24-clean').textContent = `${combined.clean_flags}/${combined.clean_total}`;
       const rounds = data.adaptive.rounds;
       el('v24-ppo').textContent = `Adaptive PPO: two 200-episode attacker runs on 350 MS MARCO training questions. On 75 validation questions, the first policy had ${rounds[0].frozen_policy_against_training_defender.defended_successes}/75 defended successes; replaying the same attacks against source containment gave ${rounds[0].same_policy_against_next_defender.defended_successes}/75. A new policy trained against containment had ${rounds[1].frozen_policy_against_training_defender.defended_successes}/75; the known-ID hash rule reduced that same-policy replay to ${rounds[1].same_policy_against_next_defender.defended_successes}/75. The hash rule applies only when the document's expected digest was pinned separately.`;
     } catch (error) {
-      el('v24-hero-result').textContent = 'Saved report unavailable';
+      if (el('v24-hero-result')) el('v24-hero-result').textContent = 'Saved report unavailable';
       el('v24-ppo').textContent = String(error.message);
     }
   }
 
   async function loadExample() {
-    // A sample is only a published benchmark record, never an authenticated source.
     const button = el('v24-example');
     button.disabled = true;
     try {
-      const row = await request('/api/v24/sample');
-      el('v24-query').value = row.query;
-      el('v24-reference').value = row.reference;
-      el('v24-candidate').value = row.candidate;
+      if (el('v26-clean-example')) {
+        const row = await request('/api/v26/sample');
+        v26CleanControl = row.clean;
+        el('v24-query').value = row.query;
+        el('v24-reference').value = row.reference;
+        el('v24-candidate').value = row.attack;
+        el('v26-clean-example').disabled = false;
+        el('v24-status').textContent = 'Loaded a pinned FiQA role-delimiter attack. Scan it with V26, then select V25 and scan the same text to compare. This is a post-hoc known-pattern example; the benchmark reference is not independently authenticated.';
+      } else {
+        const row = await request('/api/v24/sample');
+        el('v24-query').value = row.query;
+        el('v24-reference').value = row.reference;
+        el('v24-candidate').value = row.candidate;
+        el('v24-status').textContent = 'Loaded a published PoisonArena attack and its benchmark reference. The reference is a benchmark label, not an independently authenticated source.';
+      }
       el('v24-hash').value = '';
+      el('v24-result').hidden = true;
       el('v24-status').dataset.state = 'ready';
-      el('v24-status').textContent = 'Loaded a published PoisonArena attack and its benchmark reference. The reference is a benchmark label, not an independently authenticated source.';
     } catch (error) {
       el('v24-status').dataset.state = 'error';
       el('v24-status').textContent = String(error.message);
     } finally { button.disabled = false; }
+  }
+
+  function loadCleanControl() {
+    if (!v26CleanControl) return;
+    el('v24-candidate').value = v26CleanControl;
+    el('v24-result').hidden = true;
+    el('v24-status').dataset.state = 'ready';
+    el('v24-status').textContent = 'Loaded the original clean reference for the same FiQA question. Scan with V25 or V26; both passed this published control.';
   }
 
   async function loadResearchEvidence() {
@@ -116,8 +140,10 @@
       el('v26-answer-detail').textContent = `Retrieval found attacks for ${answer.questions_with_retrieved_attack}/${answer.questions} questions. Attack-sourced target answers: ${answer.undefended_attack_sourced_target_answers} without the gate, ${answer.versions.v26.attack_sourced_target_answers} with V26 and source admission. The clean extractor answered only ${answer.clean_preattack_answer_available}/${answer.questions}; the gated path abstained on ${answer.versions.v26.abstentions}/${answer.questions}. This replay does not show good answer utility.`;
       const stress = data.targeted_stress.results;
       el('v26-stress-detail').textContent = `Follow-up targeted role-delimiter stress on 120 other FiQA questions: V25 ${stress.role_delimiter.v25.flagged}/120, V26 ${stress.role_delimiter.v26.flagged}/120; quoted-markup clean flags V26 ${stress.quoted_markup.v26.flagged}/120. This pattern was known from NFCorpus and was selected after the first FiQA result.`;
+      if (el('v26-hero-result')) el('v26-hero-result').textContent = `${stress.role_delimiter.v26.flagged}/120 role attacks reviewed by V26; ${stress.role_delimiter.v25.flagged}/120 by V25.`;
     } catch (error) {
       el('v26-holdout-clean').textContent = `V26 report unavailable: ${error.message}`;
+      if (el('v26-hero-result')) el('v26-hero-result').textContent = 'Saved V26 evidence unavailable';
     }
   }
 
@@ -229,6 +255,7 @@
   }
 
   el('v24-example').addEventListener('click', loadExample);
+  if (el('v26-clean-example')) el('v26-clean-example').addEventListener('click', loadCleanControl);
   el('v24-model').addEventListener('change', updateVersionAvailability);
   el('v24-run').addEventListener('click', scan);
   if (el('v24-rag-run')) el('v24-rag-run').addEventListener('click', runRag);

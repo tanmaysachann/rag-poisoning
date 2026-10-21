@@ -32,6 +32,7 @@ OVERLAYS = (
     "results/v26_fiqa_role_stress_frozen.json",
     "results/v26_fiqa_role_stress.json",
     "results/v26_nfcorpus_development_replay.json",
+    "results/v26_presentation_sample.json",
     "data/multifamily_v20/manifest.json",
     "data/multifamily_v20/evaluation.jsonl",
     "results/adaptive_ppo_v24.json",
