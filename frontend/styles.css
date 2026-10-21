@@ -136,11 +136,17 @@ select:focus, textarea:focus { border-color: var(--blue); outline: 2px solid #d9
 .arch-node span, .signal-no { color: var(--blue); font-size: 11px; font-weight: 700; }
 .arch-node b { display: block; margin: 13px 0 5px; font-size: 12px; }
 .arch-node small { color: var(--muted); font-size: 11px; }
+.arch-formula { margin: 17px 0 0; padding: 12px 14px; border-left: 3px solid var(--blue); background: var(--soft); font-size: 12px; line-height: 1.6; }
 .signal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
 .signal-grid article { padding: 17px; }
 .signal-grid h3 { margin: 10px 0 6px; font-size: 14px; }
 .signal-grid p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.arch-data-grid article { min-width: 0; }
+.arch-data-grid strong { display: block; margin: 12px 0; font-size: clamp(18px, 1.8vw, 25px); line-height: 1.15; overflow-wrap: anywhere; }
 .prompt-card { margin: 12px 0 36px; }
+.prompt-card > p { color: var(--muted); font-size: 12px; line-height: 1.65; }
+.prompt-card .arch-sources { margin-bottom: 0; }
+.arch-sources a { color: var(--blue); }
 .prompt-card pre { margin: 0; padding: 15px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); white-space: pre-wrap; font: 12px/1.6 Consolas, 'Courier New', monospace; }
 .research-status { margin: 0 0 14px; color: var(--muted); font-size: 12px; }
 .research-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
@@ -192,6 +198,7 @@ footer { display: flex; justify-content: space-between; gap: 12px; padding: 18px
   .intro h1, .page-title h2 { font-size: 30px; }
   .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .signal-bars, .signal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .arch-data-grid { grid-template-columns: 1fr; }
   .compare-grid { grid-template-columns: 1fr; }
   .compare-grid > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
   .artifact-strip, footer { display: block; }
