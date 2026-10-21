@@ -43,6 +43,41 @@ OVERLAYS = (
     "results/v24_ppo_multiseed.json",
 )
 
+# git archive expands some pinned LF files to CRLF on Windows. The older v1
+# and v3 evidence verifiers hash their exact bytes, so restore those files
+# from the locally verified checkout after staging the committed archive.
+PINNED_EVIDENCE_OVERLAYS = (
+    "attack/baselines.py",
+    "attack/heldout_families.py",
+    "data/benchmark/test/corpus.jsonl",
+    "data/benchmark/test/queries.jsonl",
+    "data/benchmark_v3/nq_challenge.jsonl",
+    "data/benchmark_v3/test/corpus.jsonl",
+    "data/benchmark_v3/test/queries.jsonl",
+    "data/benchmark_v3/train/corpus.jsonl",
+    "data/benchmark_v3/train/queries.jsonl",
+    "data/benchmark_v3/validation/queries.jsonl",
+    "evaluation/evaluate_v3_generalization.py",
+    "evaluation/run_attack_baselines.py",
+    "evaluation/run_defense.py",
+    "evaluation/verify_v3_generalization.py",
+    "pipeline/secure_rag.py",
+    "research_protocols/v3_heldout_generalization.json",
+    "retrieval/hybrid_retriever.py",
+    "results/attack_baseline_test_greedy.jsonl",
+    "results/attack_baseline_test_stealth.jsonl",
+    "results/clean_answers_test_minilm_ranker_strict.cases.jsonl",
+    "results/defense_test_greedy_accepted_ingest_minilm_ranker.cases.jsonl",
+    "results/defense_test_stealth_accepted_ingest_minilm_ranker.cases.jsonl",
+    "results/v3_attack_train_random.jsonl",
+    "results/v3_attack_train_stealth.jsonl",
+    "results/v3_attack_validation_greedy.jsonl",
+    "results/v3_generalization_test.cases.jsonl",
+    "results/v3_generalization_test_clean.cases.jsonl",
+    "results/v3_generalization_validation.cases.jsonl",
+    "results/v3_generalization_validation_clean.cases.jsonl",
+)
+
 
 def build(output: Path) -> dict:
     output = output.resolve()
@@ -62,14 +97,14 @@ def build(output: Path) -> dict:
             else:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(source.read(item))
-    for name in OVERLAYS:
+    for name in (*OVERLAYS, *PINNED_EVIDENCE_OVERLAYS):
         target = output / name
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes((ROOT / name).read_bytes())
     total = sum(path.stat().st_size for path in output.rglob("*") if path.is_file())
     report = {"bundle": str(output), "source_bytes": total,
               "source": "HEAD plus explicit V24/V25/V26 serving and evidence overlays",
-              "overlays": list(OVERLAYS)}
+              "overlays": list((*OVERLAYS, *PINNED_EVIDENCE_OVERLAYS))}
     print(json.dumps(report, indent=2))
     return report
 

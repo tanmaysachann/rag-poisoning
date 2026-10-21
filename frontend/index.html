@@ -5,7 +5,7 @@
 <div class="shell">
   <header class="topbar">
     <div class="brand"><span class="mark">S</span><div><strong>Sentinel RAG</strong><small>Research project</small></div></div>
-    <nav aria-label="Console views"><button class="nav-btn" data-view="research">Research lab</button><button class="nav-btn active" data-view="v24">V26 scanner</button><button class="nav-btn" data-view="secure">Secure query</button><button class="nav-btn" data-view="analysis">Five-case demo</button><button class="nav-btn" data-view="architecture">Architecture</button></nav>
+    <nav aria-label="Console views"><button class="nav-btn active" data-view="v24">V26 scanner</button><button class="nav-btn" data-view="architecture">Architecture</button><button class="nav-btn" data-view="research">Research archive</button><button class="nav-btn" data-view="analysis">Original demo</button></nav>
     <div class="system"><i></i> Live profile <span>V26 scanner / research console</span></div>
   </header>
 
@@ -48,45 +48,9 @@
     <section class="comparison panel"><div class="panel-head"><span>Counterfactual comparison</span><span>Same retrieval and answer logic; filtering changes</span></div><div class="compare-grid"><div><span class="compare-label danger">Defense off / unfiltered</span><p id="off-answer">--</p><small id="off-source">All retrieved context reaches extraction.</small></div><div><span class="compare-label safe-text">Defense on / filtered</span><p id="on-answer">--</p><small id="on-source">High-risk passages are quarantined first.</small></div></div></section>
   </main>
 
-  <main id="view-secure" class="view research-view">
-    <section class="lab-hero">
-      <div><p class="lab-kicker">Strict serving path</p><h1>Secure query</h1><p class="lab-lede">Ask against an operator-reviewed corpus. The API checks signed integrity and source-origin records, corroborates the answer span across distinct sources, then applies the four-probe gate to the selected answer source.</p><div class="lab-chips"><span>Signed corpus snapshot</span><span>Independent-origin check</span><span>S1-S4 answer-source gate</span></div></div>
-      <aside class="lab-hero-aside"><span>Measured limitation</span><strong>The four-probe gate did not block extra attacks in paired validation.</strong><p>Its median inference latency was 0.85-0.89 seconds when probes ran. See the result, provenance, and probe decision for each request.</p><a href="/docs" target="_blank" rel="noopener noreferrer">Open API documentation</a></aside>
-    </section>
-    <section class="lab-section" aria-labelledby="secure-query-title">
-      <div class="lab-section-heading"><div><span>Operator-configured corpus</span><h2 id="secure-query-title">Run a trusted-source query</h2></div><p>Readiness checks do not load model weights. The first successful request initializes local models and can take longer.</p></div>
-      <div class="secure-layout">
-        <section class="lab-controls">
-          <div class="lab-control-top"><span>Query</span><span class="lab-live"><i></i> Local API</span></div>
-          <label for="secure-query-input">Question</label><textarea id="secure-query-input" rows="5" maxlength="2000" placeholder="Ask a question supported by your signed corpus"></textarea>
-          <label for="secure-top-k">Retrieved candidates</label><select id="secure-top-k"><option value="5">5 candidates</option><option value="10">10 candidates</option><option value="20">20 candidates</option></select>
-          <button id="secure-run" class="lab-run" type="button" disabled>Run secure query <span>&rarr;</span></button>
-          <p class="lab-small">The response omits full document text and undefended answers. It includes the final answer, evidence/provenance status, probe scores, and audit decisions.</p>
-        </section>
-        <section class="lab-output">
-          <div class="lab-output-top"><span>Serving readiness</span><button id="secure-refresh" class="secure-refresh" type="button">Refresh</button></div>
-          <div id="secure-readiness" class="lab-status" aria-live="polite">Checking operator configuration...</div>
-          <ul id="secure-checks" class="secure-checks"></ul>
-          <div id="secure-run-status" class="lab-status" aria-live="polite">No secure query run yet.</div>
-        </section>
-      </div>
-      <div id="secure-result" class="secure-result" hidden>
-        <article class="panel secure-answer"><div class="panel-head"><span>Defended answer</span><span id="secure-answer-state" class="status-pill">--</span></div><p id="secure-answer-text">--</p><small id="secure-answer-source">--</small></article>
-        <div class="secure-metrics">
-          <article class="panel"><span>Request latency</span><strong id="secure-latency">--</strong><small id="secure-init-time">--</small></article>
-          <article class="panel"><span>Source corroboration</span><strong id="secure-provenance">--</strong><small id="secure-provenance-reason">--</small></article>
-          <article class="panel"><span>Four-probe decision</span><strong id="secure-probe-decision">--</strong><small id="secure-probe-risk">--</small></article>
-        </div>
-        <article class="panel secure-probes"><div class="panel-head"><span>Probe ranks</span><span>Clean-reference calibrated</span></div><div id="secure-probe-list" class="secure-probe-grid"></div></article>
-        <article class="panel secure-documents"><div class="panel-head"><span>Retrieved document decisions</span><span id="secure-doc-count">--</span></div><div id="secure-doc-list" class="secure-doc-list"></div></article>
-        <details class="panel secure-audit"><summary>Inference audit</summary><pre id="secure-audit-data"></pre></details>
-      </div>
-    </section>
-  </main>
-
   <main id="view-research" class="view research-view">
     <section class="lab-hero">
-      <div><p class="lab-kicker">Research prototype · v3 detector + experimental source guard</p><h1>RAG poisoning research lab</h1><p class="lab-lede">Edit a passage on a v3 validation question and compare the frozen detector with a new pinned-snapshot answer guard. The v3 held-out results below do not evaluate this new guard.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Frozen v3 detector · threshold 0.651</span><span>Pinned source boundary</span></div></div>
+      <div><p class="lab-kicker">Earlier v3 research · separate from the V26 scanner</p><h1>Research archive and attack workbench</h1><p class="lab-lede">Edit a passage on a v3 validation question and compare the frozen detector with a pinned-snapshot answer guard. These historical experiments, including the defender-RL probe below, do not describe the deployed V26 decision rule.</p><div class="lab-chips"><span>BM25 + hashing + RRF</span><span>Frozen v3 detector · threshold 0.651</span><span>Pinned source boundary</span></div></div>
       <aside class="lab-hero-aside"><span>Held-out result</span><strong>Three withheld layouts show lower attack success, but many attacks still work.</strong><p>Across 150 test questions per layout, defended success remains 22%–43%. Clean exact-alias utility is 23% without filtering and 23% with the detector.</p><a href="https://github.com/tanmaysachann/rag-poisoning" target="_blank" rel="noopener noreferrer">View source code</a></aside>
     </section>
 
@@ -239,6 +203,7 @@
         </div>
       </div>
     </section>
+    <details id="v24-rag-archive" class="lab-archive"><summary>Open earlier V24 answer-path replay <span>+</span></summary>
     <section class="lab-section" aria-labelledby="v24-answer-title">
       <div class="lab-section-heading"><div><span>Separate V24 answer-path replay</span><h2 id="v24-answer-title">Screen retrieved passages before answering</h2></div><p>This older live replay uses V24. A pre-attack benchmark snapshot supplies the reference and known document hashes. The primary answerer sees scanner-passing, snapshot-admitted passages; a separate clean snapshot can recover an answer.</p></div>
       <div class="lab-workbench">
@@ -260,6 +225,7 @@
       </div>
       <p class="lab-small">This is an answer-path integration on previously inspected benchmark cases. The qrel-selected reference is an experimental oracle, and the extractor is not a hosted LLM.</p>
     </section>
+    </details>
     <section class="lab-section" aria-labelledby="v24-evidence-title">
       <div class="lab-section-heading"><div><span>Dataset and PPO evidence</span><h2 id="v24-evidence-title">What was trained and tested</h2></div><p>Saved reports from the local run. PPO trained the attacker to edit passages against frozen defenders; it is not the classifier's training algorithm.</p></div>
       <div class="v24-metrics"><article><span>MiniLM warm start</span><strong>14,504</strong><small>training rows from 2,072 NQ questions</small></article><article><span>Six-family fine-tune</span><strong>1,855</strong><small>labeled rows from 51 training questions</small></article><article><span>Development attack recall</span><strong id="v24-recall">—</strong><small id="v24-recall-detail">Loading report…</small></article><article><span>Development clean flags</span><strong id="v24-clean">—</strong><small>False alarms among 311 clean/reference passages</small></article></div>
@@ -293,7 +259,7 @@
     <section class="signal-grid arch-data-grid"><article class="panel"><span class="signal-no">BASE DETECTOR / NQ</span><h3>MiniLM foundation</h3><strong>14,504 + 1,855</strong><p>Warm-start rows from 2,072 NQ questions, then six-family fine-tuning rows from 51 training questions. V25 adds reference-relative checks around this base.</p></article><article class="panel"><span class="signal-no">V26 / NFCORPUS DEVELOPMENT</span><h3>Supervised role model</h3><strong>880 train / 440 calibrate</strong><p>Synthetic role and benign-markup rows grouped by 80 training and 40 calibration questions. No FiQA questions trained or calibrated this logistic model.</p></article><article class="panel"><span class="signal-no">RL / ATTACKER</span><h3>Adaptive PPO</h3><strong>2 &times; 200 episodes</strong><p>Two offline attacker runs, each using 350 training questions; policies were replayed on 75 inspected validation questions. PPO generates adversarial edits; it does not train V26's defender.</p></article><article class="panel"><span class="signal-no">SOURCE LOOKUP / NQ</span><h3>Pinned corpus snapshot</h3><strong>2,681,468 passages</strong><p>This index supports source containment and retrieval checks. These passages are not 2.68 million labeled training examples.</p></article></section>
     <section class="page-title"><p class="eyebrow">SAVED RESULTS</p><h2>Numbers you can defend in the viva</h2><p>Each result names its evaluation stage. A review is a detector flag, not proof that the answer is correct.</p></section>
     <section class="signal-grid arch-data-grid"><article class="panel"><span class="signal-no">NFCORPUS / CALIBRATION</span><h3>Role signal check</h3><strong>200/200</strong><p>Role edits flagged; 0/240 clean calibration rows flagged. These are development results used to choose the rule.</p></article><article class="panel"><span class="signal-no">FIQA / FIRST FROZEN SCORE</span><h3>V25 and V26 tied</h3><strong>600/600</strong><p>Attacks reviewed by each scanner across 120 new questions and 960 synthetic cases. Each also flagged 10/360 clean cases. V26 did not improve this first FiQA result.</p></article><article class="panel"><span class="signal-no">FIQA / TARGETED FOLLOW-UP</span><h3>Known role pattern</h3><strong>120/120 vs 0/120</strong><p>V26 versus V25 role attacks reviewed on 120 other questions. Designed after the first FiQA result, so this is post-hoc stress, not a blind holdout win.</p></article><article class="panel"><span class="signal-no">ANSWER PATH / ENGINEERING REPLAY</span><h3>Safety costs utility</h3><strong>0 attack-sourced</strong><p>Versus 113 undefended attack-sourced answers, but the gated extractor abstained on 119/120 questions. This is not strong end-to-end answer quality.</p></article></section>
-    <article class="panel prompt-card"><div class="panel-head"><span>INTERPRETATION AND SOURCE FILES</span><span>RESEARCH PROTOTYPE</span></div><p>A pass does not certify factual truth or downstream answer safety. FiQA attack labels are deterministic synthetic insertions, and references are relevance labels rather than independently verified facts. The older Secure Query, research lab, and five-case demo use separate serving paths.</p><p class="arch-sources">Inspect the <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/data/v26_fiqa_holdout/cases.jsonl" target="_blank" rel="noopener noreferrer">960 FiQA cases</a>, <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/results/v26_fiqa_holdout.json" target="_blank" rel="noopener noreferrer">first frozen score</a>, <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/results/v26_fiqa_role_stress.json" target="_blank" rel="noopener noreferrer">targeted follow-up</a>, and <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/results/adaptive_ppo_v24.json" target="_blank" rel="noopener noreferrer">PPO replay</a>.</p></article>
+    <article class="panel prompt-card"><div class="panel-head"><span>INTERPRETATION AND SOURCE FILES</span><span>RESEARCH PROTOTYPE</span></div><p>A pass does not certify factual truth or downstream answer safety. FiQA attack labels are deterministic synthetic insertions, and references are relevance labels rather than independently verified facts. The earlier research lab and five-case demo use separate serving paths. The signed-corpus Secure Query requires operator assets and is not available on this public site.</p><p class="arch-sources">Inspect the <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/data/v26_fiqa_holdout/cases.jsonl" target="_blank" rel="noopener noreferrer">960 FiQA cases</a>, <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/results/v26_fiqa_holdout.json" target="_blank" rel="noopener noreferrer">first frozen score</a>, <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/results/v26_fiqa_role_stress.json" target="_blank" rel="noopener noreferrer">targeted follow-up</a>, and <a href="https://github.com/tanmaysachann/rag-poisoning/blob/main/results/adaptive_ppo_v24.json" target="_blank" rel="noopener noreferrer">PPO replay</a>.</p></article>
   </main>
 
   <footer><span>Sentinel RAG · Academic research prototype</span><span>Live validation lab · Saved PPO and model experiments</span></footer>

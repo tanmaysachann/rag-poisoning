@@ -264,5 +264,14 @@
   if (el('v24-transfer-attack')) loadResearchEvidence();
   if (el('v25-holdout-attack')) loadV25Evidence();
   if (el('v26-holdout-attack')) loadV26Evidence();
-  if (el('v24-rag-case')) loadRagCases();
+  const ragArchive = el('v24-rag-archive');
+  if (ragArchive) {
+    let ragCasesLoaded = false;
+    ragArchive.addEventListener('toggle', () => {
+      if (ragArchive.open && !ragCasesLoaded) {
+        ragCasesLoaded = true;
+        loadRagCases();
+      }
+    });
+  } else if (el('v24-rag-case')) loadRagCases();
 })();

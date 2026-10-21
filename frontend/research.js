@@ -361,5 +361,11 @@
   el('lab-budget').addEventListener('change', syncBudget);
   el('lab-reset').addEventListener('click', resetPayload);
   el('lab-run').addEventListener('click', runLab);
-  loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization(); loadDefenderRl(); loadSnapshotSummary(); loadEvidenceSummary(); loadFullCorpus();
+  let archiveLoaded = false;
+  document.querySelector('[data-view="research"]').addEventListener('click', () => {
+    if (archiveLoaded) return;
+    archiveLoaded = true;
+    loadCases(); loadTest(); loadPpo(); loadV3(); loadGeneralization();
+    loadDefenderRl(); loadSnapshotSummary(); loadEvidenceSummary(); loadFullCorpus();
+  });
 })();
