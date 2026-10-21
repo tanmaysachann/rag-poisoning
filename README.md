@@ -2,6 +2,18 @@
 
 Sentinel RAG is a controlled, CPU-first research product for studying poisoned retrieval context. It includes a five-case demo, a live validation attack workbench, frozen benchmark evidence, and an offline PPO attack harness.
 
+## Presentation and live demo
+
+The final academic presentation contains 42 slides covering the theory, problem
+statement, datasets, implemented architecture, PPO attacker, and measured results.
+The live demonstration starts at slide 36.
+
+- [View the presentation PDF](output/pdf/Sentinel_RAG_Final_Presentation.pdf)
+- [Download the editable PowerPoint](output/presentations/Sentinel_RAG_Final_Presentation.pptx)
+- [Open the live scanner and hosted presentation downloads](https://rag-poisoning.vercel.app/)
+
+## Research results
+
 The [V25 scanner and frozen NFCorpus holdout](V25_RESEARCH_RELEASE.md) improve
 new-domain synthetic attack detection from V24's 137/600 to **493/600**
 flagged passages, with **14/240** original clean passages flagged. This

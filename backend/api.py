@@ -495,6 +495,24 @@ def index() -> FileResponse:
     return FileResponse(ROOT / "frontend" / "index.html")
 
 
+@app.get("/presentation/{file_format}", include_in_schema=False)
+def presentation_file(file_format: str) -> FileResponse:
+    files = {
+        "pdf": (ROOT / "output/pdf/Sentinel_RAG_Final_Presentation.pdf",
+                "application/pdf", "inline"),
+        "pptx": (ROOT / "output/presentations/Sentinel_RAG_Final_Presentation.pptx",
+                 "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                 "attachment"),
+    }
+    if file_format not in files:
+        raise HTTPException(status_code=404, detail="Presentation format not found")
+    path, media_type, disposition = files[file_format]
+    if not path.is_file():
+        raise HTTPException(status_code=404, detail="Presentation is unavailable")
+    return FileResponse(path, media_type=media_type, filename=path.name,
+                        content_disposition_type=disposition)
+
+
 @app.get("/{asset:path}", include_in_schema=False)
 def assets(asset: str) -> FileResponse:
     def contained(base: Path, relative: str) -> Path | None:
