@@ -70,3 +70,25 @@ through both hostnames. Main-site V24 and V25 status endpoints also returned
 selector and evidence loader. The JavaScript passed `node --check`, and the
 new scanner and answer-gate unit tests passed. A rendered browser screenshot
 was not available in this session.
+
+## Presentation site update (21 October 2026)
+
+Commit `a2383ec` made the V26 scanner the default page at
+`https://rag-poisoning.vercel.app/`. It added a pinned FiQA role-delimiter
+sample (question 7068) with its original clean control and a one-click switch
+between them. The sample API checks that its source report matches the saved
+V26 role-stress evidence. This was a site-only release; the frozen scanner and
+benchmark results did not change.
+
+Production deployment `dpl_HnWirfUTRAQ54uDDn1hQgQMuuV6e` reached `READY`.
+The public page and JavaScript served the new controls, `/api/v26/sample`
+returned the pinned case, and `/api/v26/status` reported `available: true`.
+Through the public site, that attack returned V25 `pass` and V26 `review`;
+the clean control returned V26 `pass`. A 1440-by-900 Chrome render showed the
+V26 landing page and controls without a layout fault.
+
+For the live demo, load the V26 role attack, run V26, select V25 and run the
+same text, then load and run the same-question clean control. Describe the
+120/120 versus 0/120 result as a targeted post-hoc known-pattern stress,
+not the first frozen FiQA score or general accuracy. PPO trained the attacker;
+the V26 defender uses a supervised role-boundary signal.
